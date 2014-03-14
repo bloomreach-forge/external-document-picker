@@ -22,7 +22,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
   <name>Hippo CMS External Document Picker Base for Field Picker</name>
   <description>Hippo CMS External Document Picker Base for Field Picker</description>
-  <artifactId>exdocpickerbase-fieldpicker</artifactId>
+  <artifactId>exdocpickerbase-field</artifactId>
 
   <dependencies>
 
