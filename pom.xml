@@ -232,7 +232,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <artifactId>maven-release-plugin</artifactId>
         <version>${plugin.release.version}</version>
         <configuration>
-          <tagBase>https://forge.onehippo.org/svn/hipporepojcrdav/hipporepojcrdav/tags/</tagBase>
+          <tagBase>https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/tags/</tagBase>
         </configuration>
       </plugin>
       <plugin>
