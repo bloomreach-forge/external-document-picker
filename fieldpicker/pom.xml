@@ -56,6 +56,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>net.sf.json-lib</groupId>
+      <artifactId>json-lib</artifactId>
+      <classifier>jdk15</classifier>
+    </dependency>
+
     <!-- TEST DEPENDENCIES -->
 
     <dependency>

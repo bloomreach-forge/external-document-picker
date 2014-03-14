@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+.exdocfield-docs-selector{
+    margin: 2px 0 12px 16px;
+}
+
+a.preview{
+    color:#0467B4;
+}
+
+.exdocfield-selector-link a:hover{
+    text-decoration: underline;
+}
+
+.exdocfield-selector-link a{
+    color:#0467B4;
+}

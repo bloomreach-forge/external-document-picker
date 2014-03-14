@@ -1,0 +1,47 @@
+<html xmlns:wicket="http://wicket.apache.org/">
+<wicket:extend>
+
+    <div class="exdocfield-browser-panel">
+
+        <div class="exdocfield-browser-search">
+            <input class="exdocfield-browser-search-input" wicket:id="search-input" type="text" value="" />
+            <button class="green-button" wicket:id="search-button" type="submit" value="Search">Search</button>
+        </div>
+
+        <div class="exdocfield-browser-refresh-wrapper">
+
+            <div class="exdocfield-browser-results-summary">
+                <p>
+                    <wicket:message key="results-summary-results"/>
+                    <span wicket:id="first-item-index">[firstItemIndex]</span>-<span wicket:id="last-item-index">[lastItemIndex]</span>
+                    <wicket:message key="results-summary-of"/>
+                    <strong wicket:id="total">[total]</strong>
+                    <wicket:message key="results-summary-for"/>
+                    <span wicket:id="search-term">[search term]</span>
+                </p>
+            </div>
+
+            <div class="exdocfield-browser-results">
+                <div class="exdocfield-browser-result" wicket:id="item">
+                    <div class="exdocfield-browser-result-image">
+                        <img wicket:id="image" src="" />
+                    </div>
+                    <div class="exdocfield-browser-result-content">
+                        <span class="title" wicket:id="title-label"></span>
+                        <span class="summary" wicket:id="summary-label"></span>
+                        <div><wicket:container wicket:id="paragraph-label"></wicket:container></div>
+                    </div>
+                    <div class="exdocfield-browser-result-select">
+                        <input wicket:id="select-button" type="checkbox"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exdocfield-browser-pager">
+                <span wicket:id="navigator">[dataview navigator]</span>
+            </div>
+
+        </div>
+    </div>
+</wicket:extend>
+</html>
