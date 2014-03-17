@@ -48,13 +48,15 @@ import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.util.value.IValueMap;
 import org.apache.wicket.util.value.ValueMap;
 import org.hippoecm.frontend.dialog.AbstractDialog;
+import org.hippoecm.frontend.model.JcrNodeModel;
 import org.hippoecm.frontend.plugin.IPluginContext;
 import org.hippoecm.frontend.plugin.config.IPluginConfig;
-import org.onehippo.forge.exdocpicker.api.ExternalDocumentSearchResult;
+import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
+import org.onehippo.forge.exdocpicker.api.ExternalDocumentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalDocumentFieldListModel> {
+public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalDocumentCollection<JSONObject>> {
 
     private static final long serialVersionUID = 1L;
 
@@ -64,6 +66,9 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
     private final IPluginConfig pluginConfig;
     private final IPluginContext pluginContext;
+    private final ExternalDocumentService<JSONObject> exdocService;
+    private final JcrNodeModel contextModel;
+
     private List<JSONObject> selectedExternalItems = new ArrayList<JSONObject>();
     private long pageIndex;
     private long total;
@@ -72,12 +77,14 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
     private int searchPageSize;
 
-    public ExternalDocumentFieldBrowserDialog(IPluginContext context, IPluginConfig config, IModel<ExternalDocumentFieldListModel> model) {
+    public ExternalDocumentFieldBrowserDialog(IPluginContext context, IPluginConfig config, final ExternalDocumentService<JSONObject> exdocService, final JcrNodeModel contextModel, IModel<ExternalDocumentCollection<JSONObject>> model) {
         super(model);
         setOutputMarkupId(true);
 
         pluginConfig = config;
         pluginContext = context;
+        this.exdocService = exdocService;
+        this.contextModel = contextModel;
 
         searchPageSize = getPluginConfig().getInt("page.size", 10);
 
@@ -136,18 +143,18 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
             private static final long serialVersionUID = 1L;
 
-            private List<JSONObject> searchDocumentList = new ArrayList<JSONObject>();
+            private List<JSONObject> exdocList = new ArrayList<JSONObject>();
 
-            public Iterator<? extends JSONObject> iterator(long first, long count) {
+            public Iterator<JSONObject> iterator(long first, long count) {
                 pageIndex = ((int) first) / ((int) searchPageSize) + 1;
-                searchDocumentList.clear();
-                CollectionUtils.addAll(searchDocumentList, searchDocuments(searchTerm, pageIndex).documentIterator());
-                return searchDocumentList.iterator();
+                exdocList.clear();
+                CollectionUtils.addAll(exdocList, searchExternalDocuments(searchTerm, pageIndex).iterator());
+                return exdocList.iterator();
             }
 
             public long size() {
-                ExternalDocumentSearchResult searchResult = searchDocuments(searchTerm, 1);
-                return Math.max(searchResult.getTotalSize(), searchResult.getSize());
+                ExternalDocumentCollection<JSONObject> docs = searchExternalDocuments(searchTerm, 1);
+                return Math.max(docs.getTotalSize(), docs.size());
             }
 
             public IModel<JSONObject> model(JSONObject model) {
@@ -164,7 +171,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
             @Override
             protected void populateItem(final Item<JSONObject> listItem) {
-                final JSONObject searchDocument = listItem.getModelObject();
+                final JSONObject doc = listItem.getModelObject();
                 listItem.setOutputMarkupId(true);
 
                 AjaxCheckBox selectCheckbox = new AjaxCheckBox("select-button", new Model<Boolean>()) {
@@ -173,29 +180,29 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                     @Override
                     protected void onUpdate(AjaxRequestTarget ajaxRequestTarget) {
                         if (getModelObject()) {
-                            addSelectedExternalItem(searchDocument);
+                            addSelectedExternalItem(doc);
 
                             if (isSingleSelectionModel()) {
                                 ExternalDocumentFieldBrowserDialog.this.handleSubmit();
                             }
                         } else {
-                            removeSelectedExternalItem(searchDocument);
+                            removeSelectedExternalItem(doc);
                         }
                     }
                 };
 
-                if (selectedExternalItems.contains(searchDocument)) {
+                if (selectedExternalItems.contains(doc)) {
                     selectCheckbox.getModel().setObject(true);
                 }
 
-                final String thumbNailLink = searchDocument.getString("thumbnail");
-                final SearchDocumentThumbnailImage thumbnailImage = new SearchDocumentThumbnailImage("image", thumbNailLink);
+                final String thumbNailLink = (doc.has("thumbnail") ? doc.getString("thumbnail") : "");
+                final ExternalDocumentThumbnailImage thumbnailImage = new ExternalDocumentThumbnailImage("image", thumbNailLink);
                 listItem.add(thumbnailImage);
                 listItem.add(selectCheckbox);
-                listItem.add(new Label("title-label", String.valueOf(searchDocument.getString("title"))));
-                listItem.add(new Label("summary-label", String.valueOf(searchDocument.getString("summary"))));
+                listItem.add(new Label("title-label", (doc.has("title") ? doc.getString("title") : "")));
+                listItem.add(new Label("summary-label", (doc.has("summary") ? doc.getString("summary") : "")));
 
-                final String description = searchDocument.getString("description");
+                final String description = (doc.has("description") ? doc.getString("description") : "");
 
                 WebMarkupContainer frame = new WebMarkupContainer("paragraph-label") {
                     private static final long serialVersionUID = 1L;
@@ -240,7 +247,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
 
     public IModel<String> getTitle() {
-        return new StringResourceModel("search-browser-title", this, null);
+        return new StringResourceModel("exdocfield-browser-title", this, null);
     }
 
 
@@ -249,8 +256,8 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
         return CUSTOM_DIALOG_CONSTANTS;
     }
 
-    protected ExternalDocumentSearchResult searchDocuments(String searchTerm, long pageIndex) {
-        return null;
+    protected ExternalDocumentCollection<JSONObject> searchExternalDocuments(String searchTerm, long pageIndex) {
+        return exdocService.searchDocuments(contextModel, searchTerm, pageIndex);
     }
 
     protected IPluginConfig getPluginConfig() {
@@ -265,16 +272,16 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
         return StringUtils.equalsIgnoreCase("single", getPluginConfig().getString("selection.mode"));
     }
 
-    public static class SearchDocumentThumbnailImage extends Image {
+    public static class ExternalDocumentThumbnailImage extends Image {
 
         private static final ResourceReference NO_THUMB = new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class, "no-thumb.jpg");
 
         private static final long serialVersionUID = 1L;
 
-        public SearchDocumentThumbnailImage(String id, String imageUrl) {
+        public ExternalDocumentThumbnailImage(String id, String imageUrl) {
             super(id);
 
-            if ((imageUrl == null || imageUrl.isEmpty())) {
+            if (StringUtils.isBlank(imageUrl)) {
                 this.setImageResourceReference(NO_THUMB, null);
             } else {
                 add(new AttributeModifier("src", true, new Model(imageUrl)));

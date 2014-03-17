@@ -15,16 +15,31 @@
  */
 package org.onehippo.forge.exdocpicker.api;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.Iterator;
 
-import net.sf.json.JSONObject;
+/**
+ * 
+ */
+public interface ExternalDocumentCollection<T extends Serializable> extends Serializable {
 
-public interface ExternalDocumentSearchResult {
+    public Iterator<? extends T> iterator();
+
+    public Iterator<? extends T> iterator(long first, final long count);
+
+    public boolean add(T doc);
+
+    public boolean addAll(Collection<T> docs);
+
+    public boolean remove(T doc);
+
+    public void clear();
+
+    public int size();
 
     public long getTotalSize();
 
-    public long getSize();
-
-    public Iterator<JSONObject> documentIterator();
+    public T[] toArray(T[] a);
 
 }

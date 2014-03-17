@@ -15,15 +15,19 @@
  */
 package org.onehippo.forge.exdocpicker.api;
 
+import java.io.Serializable;
+
 import org.hippoecm.frontend.model.JcrNodeModel;
 
 
-public interface ExternalDocumentSearchService {
+public interface ExternalDocumentService<T extends Serializable> extends Serializable {
 
-    public ExternalDocumentSearchResult searchDocuments(JcrNodeModel contextModel, String queryString);
+    public ExternalDocumentCollection<T> getCurrentDocuments(JcrNodeModel contextModel);
 
-    public ExternalDocumentSearchResult searchDocuments(JcrNodeModel contextModel, String queryString, long startIndex);
+    public ExternalDocumentCollection<T> searchDocuments(JcrNodeModel contextModel, String queryString);
 
-    public ExternalDocumentSearchResult searchDocuments(JcrNodeModel contextModel, String queryString, long startIndex, long maxItemCount);
+    public ExternalDocumentCollection<T> searchDocuments(JcrNodeModel contextModel, String queryString, long startIndex);
+
+    public ExternalDocumentCollection<T> searchDocuments(JcrNodeModel contextModel, String queryString, long startIndex, long maxItemCount);
 
 }
