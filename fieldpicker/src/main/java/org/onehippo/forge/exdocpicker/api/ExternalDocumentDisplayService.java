@@ -16,18 +16,15 @@
 package org.onehippo.forge.exdocpicker.api;
 
 import java.io.Serializable;
+import java.util.Locale;
 
-import org.hippoecm.frontend.model.JcrNodeModel;
 
+public interface ExternalDocumentDisplayService<T extends Serializable> extends ExternalDocumentSearchService<T> {
 
-public interface ExternalDocumentService<T extends Serializable> extends Serializable {
+    public String getDocumentTitle(final T doc, final Locale preferredLocale);
 
-    public ExternalDocumentCollection<T> getCurrentDocuments(JcrNodeModel contextModel);
+    public String getDocumentDescription(final T doc, final Locale preferredLocale);
 
-    public ExternalDocumentCollection<T> searchDocuments(JcrNodeModel contextModel, String queryString);
-
-    public ExternalDocumentCollection<T> searchDocuments(JcrNodeModel contextModel, String queryString, long startIndex);
-
-    public ExternalDocumentCollection<T> searchDocuments(JcrNodeModel contextModel, String queryString, long startIndex, long maxItemCount);
+    public String getDocumentIconLink(final T doc, final Locale preferredLocale);
 
 }

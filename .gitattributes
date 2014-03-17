@@ -1,7 +1,10 @@
 * text=auto !eol
 fieldpicker/pom.xml -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/api/ExternalDocumentCollection.java -text
-fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/api/ExternalDocumentService.java -text
+fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/api/ExternalDocumentDisplayService.java -text
+fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/api/ExternalDocumentFieldService.java -text
+fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/api/ExternalDocumentSearchService.java -text
+fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/SimpleExternalDocumentCollection.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/SimpleExternalDocumentCollectionDataProvider.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.java -text

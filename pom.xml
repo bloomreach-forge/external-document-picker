@@ -31,8 +31,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <hippo.repository.version>2.25.05-iteration-12</hippo.repository.version>
     <hippo.cms.version>2.25.04-iteration-12</hippo.cms.version>
 
-    <lib.json-lib.version>2.4</lib.json-lib.version>
+    <commons-collections.version>3.2.1</commons-collections.version>
 
+    <lib.json-lib.version>2.4</lib.json-lib.version>
     <lib.junit.version>4.8.2</lib.junit.version>
     <lib.easymock.version>3.0</lib.easymock.version>
     <lib.slf4j.version>1.6.1</lib.slf4j.version>
@@ -149,13 +150,19 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       </dependency>
 
       <dependency>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>${commons-collections.version}</version>
+      </dependency>
+
+      <!-- TEST DEPENDENCIES -->
+
+      <dependency>
         <groupId>net.sf.json-lib</groupId>
         <artifactId>json-lib</artifactId>
         <version>${lib.json-lib.version}</version>
         <classifier>jdk15</classifier>
       </dependency>
-
-      <!-- TEST DEPENDENCIES -->
 
       <dependency>
         <groupId>org.slf4j</groupId>

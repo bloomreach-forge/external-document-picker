@@ -15,12 +15,11 @@
  */
 package org.onehippo.forge.exdocpicker.impl.field;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.jcr.Node;
-
-import net.sf.json.JSONObject;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -47,7 +46,7 @@ import org.hippoecm.frontend.plugins.standards.diff.LCS.ChangeType;
 import org.hippoecm.frontend.service.IEditor;
 import org.hippoecm.frontend.service.render.RenderPlugin;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
-import org.onehippo.forge.exdocpicker.api.ExternalDocumentService;
+import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
 import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollectionDataProvider;
 import org.slf4j.Logger;
@@ -60,14 +59,15 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
     private static final Logger log = LoggerFactory.getLogger(ExternalDocumentFieldSelectorPlugin.class);
 
     private JcrNodeModel documentModel;
-    private ExternalDocumentService<JSONObject> exdocService;
+    private ExternalDocumentServiceFacade<Serializable> exdocService;
+    private ExternalDocumentCollection<Serializable> curDocCollection;
 
     public ExternalDocumentFieldSelectorPlugin(final IPluginContext context, IPluginConfig config) {
         super(context, config);
 
         documentModel = (JcrNodeModel) getModel();
 
-        exdocService = getExternalDocumentService();
+        exdocService = (ExternalDocumentServiceFacade<Serializable>) getExternalDocumentService();
 
         add(new Label("exdocfield-relateddocs-caption", getCaptionModel()));
 
@@ -82,13 +82,13 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
             }, IObserver.class.getName());
         }
 
+        curDocCollection = exdocService.getFieldExternalDocuments(documentModel);
+
         if (!isCompareMode()) {
-            ExternalDocumentCollection<JSONObject> docCollection = exdocService.getCurrentDocuments(documentModel);
-            add(createRefreshingView(docCollection));
+            add(createRefreshingView(curDocCollection));
         } else {
-            ExternalDocumentCollection<JSONObject> docCollection = exdocService.getCurrentDocuments(documentModel);
-            ExternalDocumentCollection<JSONObject> baseDocCollection = new SimpleExternalDocumentCollection<JSONObject>();
-            add(createCompareView(docCollection, baseDocCollection));
+            ExternalDocumentCollection<Serializable> baseDocCollection = new SimpleExternalDocumentCollection<Serializable>();
+            add(createCompareView(curDocCollection, baseDocCollection));
         }
 
         IDialogFactory dialogFactory = createDialogFactory();
@@ -116,14 +116,14 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         return IEditor.Mode.COMPARE.equals(IEditor.Mode.fromString(getPluginConfig().getString("mode", "view")));
     }
 
-    protected ExternalDocumentService<JSONObject> getExternalDocumentService() {
-        ExternalDocumentService<JSONObject> service = null;
+    protected ExternalDocumentServiceFacade<? extends Serializable> getExternalDocumentService() {
+        ExternalDocumentServiceFacade<? extends Serializable> service = null;
         String serviceClassName = null;
 
         try {
-            serviceClassName = getPluginConfig().getString("external.document.service.class");
-            Class<? extends ExternalDocumentService> serviceClass = 
-                    (Class<? extends ExternalDocumentService>) Class.forName(serviceClassName);
+            serviceClassName = getPluginConfig().getString("external.document.service.facade");
+            Class<? extends ExternalDocumentServiceFacade> serviceClass = 
+                    (Class<? extends ExternalDocumentServiceFacade>) Class.forName(serviceClassName);
             service = serviceClass.newInstance();
         } catch (Exception e) {
             log.error("Failed to create external document service from class name, '{}'.", serviceClassName, e);
@@ -139,25 +139,25 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         return new StringResourceModel(captionKey, this, null, caption);
     }
 
-    protected RefreshingView<JSONObject> createRefreshingView(final ExternalDocumentCollection<JSONObject> docCollection) {
+    protected RefreshingView<? extends Serializable> createRefreshingView(final ExternalDocumentCollection<Serializable> docCollection) {
 
-        return new RefreshingView<JSONObject>("view") {
+        return new RefreshingView<Serializable>("view") {
 
             private static final long serialVersionUID = 1L;
 
-            private IDataProvider<JSONObject> dataProvider = new SimpleExternalDocumentCollectionDataProvider<JSONObject>(docCollection);
+            private IDataProvider<Serializable> dataProvider = new SimpleExternalDocumentCollectionDataProvider(docCollection);
 
             @Override
             protected Iterator getItemModels() {
 
-                final Iterator<? extends JSONObject> baseIt = dataProvider.iterator(0, 0);
+                final Iterator<? extends Serializable> baseIt = dataProvider.iterator(0, docCollection.size());
 
-                return new Iterator<IModel<JSONObject>>() {
+                return new Iterator<IModel<? extends Serializable>>() {
                     public boolean hasNext() {
                         return baseIt.hasNext();
                     }
 
-                    public IModel<JSONObject> next() {
+                    public IModel<? extends Serializable> next() {
                         return dataProvider.model(baseIt.next());
                     }
 
@@ -169,9 +169,15 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
             @Override
             protected void populateItem(Item item) {
-                final JSONObject doc = (JSONObject) item.getModelObject();
+                final Serializable doc = (Serializable) item.getModelObject();
 
-                item.add(new Label("link-text", new PropertyModel(doc, "title")));
+                item.add(new Label("link-text", new Model<String>() {
+                    private static final long serialVersionUID = 1L;
+                    @Override
+                    public String getObject() {
+                        return exdocService.getDocumentTitle(doc, getRequest().getLocale());
+                    }
+                }));
 
                 if (item.getIndex() == docCollection.size() - 1) {
                     item.add(new AttributeAppender("class", new Model("last"), " "));
@@ -196,17 +202,17 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         };
     }
 
-    private RefreshingView createCompareView(final ExternalDocumentCollection<JSONObject> docCollection, final ExternalDocumentCollection<JSONObject> baseDocCollection) {
+    private RefreshingView createCompareView(final ExternalDocumentCollection<Serializable> docCollection, final ExternalDocumentCollection<Serializable> baseDocCollection) {
 
         return new RefreshingView("view") {
 
             @Override
             protected Iterator getItemModels() {
-                JSONObject [] baseDocs = baseDocCollection.toArray(new JSONObject[baseDocCollection.size()]);
-                JSONObject [] currentDocs = docCollection.toArray(new JSONObject[docCollection.size()]);
+                Serializable [] baseDocs = baseDocCollection.toArray(new Serializable[baseDocCollection.size()]);
+                Serializable [] currentDocs = docCollection.toArray(new Serializable[docCollection.size()]);
 
-                List<Change<JSONObject>> changeSet = LCS.getChangeSet(baseDocs, currentDocs);
-                final Iterator<Change<JSONObject>> upstream = changeSet.iterator();
+                List<Change<Serializable>> changeSet = LCS.getChangeSet(baseDocs, currentDocs);
+                final Iterator<Change<Serializable>> upstream = changeSet.iterator();
                 return new Iterator<IModel<?>>() {
 
                     public boolean hasNext() {
@@ -214,7 +220,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                     }
 
                     public IModel<?> next() {
-                        final Change<JSONObject> change = upstream.next();
+                        final Change<? extends Serializable> change = upstream.next();
                         return new IModel() {
                             private static final long serialVersionUID = 1L;
 
@@ -240,8 +246,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
             @Override
             protected void populateItem(Item item) {
-                Change<JSONObject> change = (Change<JSONObject>) item.getModelObject();
-                final JSONObject searchDoc = change.getValue();
+                Change<? extends Serializable> change = (Change<? extends Serializable>) item.getModelObject();
+                final Serializable searchDoc = change.getValue();
 
                 Label label = new Label("link-text", new PropertyModel(searchDoc, "title"));
 
@@ -272,9 +278,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         return new IDialogFactory() {
             private static final long serialVersionUID = 1L;
 
-            public AbstractDialog<ExternalDocumentCollection<JSONObject>> createDialog() {
-                ExternalDocumentCollection<JSONObject> docCollection = null;
-                return new ExternalDocumentFieldBrowserDialog(getPluginContext(), getPluginConfig(), exdocService, documentModel, new Model(docCollection));
+            public AbstractDialog<ExternalDocumentCollection<Serializable>> createDialog() {
+                return new ExternalDocumentFieldBrowserDialog(getCaptionModel(), getPluginContext(), getPluginConfig(), exdocService, documentModel, new Model(curDocCollection));
             }
         };
     }

@@ -15,11 +15,11 @@
  */
 package org.onehippo.forge.exdocpicker.impl.field;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import net.sf.json.JSONObject;
+import java.util.Locale;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -52,11 +52,11 @@ import org.hippoecm.frontend.model.JcrNodeModel;
 import org.hippoecm.frontend.plugin.IPluginContext;
 import org.hippoecm.frontend.plugin.config.IPluginConfig;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
-import org.onehippo.forge.exdocpicker.api.ExternalDocumentService;
+import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalDocumentCollection<JSONObject>> {
+public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalDocumentCollection<Serializable>> {
 
     private static final long serialVersionUID = 1L;
 
@@ -64,12 +64,13 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
     private String searchTerm = "";
 
+    private final IModel<String> titleModel;
     private final IPluginConfig pluginConfig;
     private final IPluginContext pluginContext;
-    private final ExternalDocumentService<JSONObject> exdocService;
+    private final ExternalDocumentServiceFacade<Serializable> exdocService;
     private final JcrNodeModel contextModel;
 
-    private List<JSONObject> selectedExternalItems = new ArrayList<JSONObject>();
+    private List<Serializable> selectedExternalItems = new ArrayList<Serializable>();
     private long pageIndex;
     private long total;
 
@@ -77,16 +78,17 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
     private int searchPageSize;
 
-    public ExternalDocumentFieldBrowserDialog(IPluginContext context, IPluginConfig config, final ExternalDocumentService<JSONObject> exdocService, final JcrNodeModel contextModel, IModel<ExternalDocumentCollection<JSONObject>> model) {
+    public ExternalDocumentFieldBrowserDialog(IModel<String> titleModel, IPluginContext context, IPluginConfig config, final ExternalDocumentServiceFacade<Serializable> exdocService, final JcrNodeModel contextModel, IModel<ExternalDocumentCollection<Serializable>> model) {
         super(model);
         setOutputMarkupId(true);
 
-        pluginConfig = config;
-        pluginContext = context;
+        this.titleModel = titleModel;
+        this.pluginConfig = config;
+        this.pluginContext = context;
         this.exdocService = exdocService;
         this.contextModel = contextModel;
 
-        searchPageSize = getPluginConfig().getInt("page.size", 10);
+        searchPageSize = getPluginConfig().getInt("page.size", 5);
 
         //initialize already selected external docs
         //this.selectedExternalItems.addAll(model.getObject());
@@ -139,13 +141,13 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
             setOkEnabled(false);
         }
 
-        IDataProvider<JSONObject> provider = new IDataProvider<JSONObject>() {
+        IDataProvider<Serializable> provider = new IDataProvider<Serializable>() {
 
             private static final long serialVersionUID = 1L;
 
-            private List<JSONObject> exdocList = new ArrayList<JSONObject>();
+            private List<Serializable> exdocList = new ArrayList<Serializable>();
 
-            public Iterator<JSONObject> iterator(long first, long count) {
+            public Iterator<Serializable> iterator(long first, long count) {
                 pageIndex = ((int) first) / ((int) searchPageSize) + 1;
                 exdocList.clear();
                 CollectionUtils.addAll(exdocList, searchExternalDocuments(searchTerm, pageIndex).iterator());
@@ -153,12 +155,12 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
             }
 
             public long size() {
-                ExternalDocumentCollection<JSONObject> docs = searchExternalDocuments(searchTerm, 1);
+                ExternalDocumentCollection<Serializable> docs = searchExternalDocuments(searchTerm, 1);
                 return Math.max(docs.getTotalSize(), docs.size());
             }
 
-            public IModel<JSONObject> model(JSONObject model) {
-                return new Model<JSONObject>(model);
+            public IModel<Serializable> model(Serializable model) {
+                return new Model<Serializable>(model);
             }
 
             public void detach() {
@@ -166,12 +168,12 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
         };
 
-        DataView<JSONObject> resultsDataView = new DataView<JSONObject>("item", provider, searchPageSize) {
+        DataView<Serializable> resultsDataView = new DataView<Serializable>("item", provider, searchPageSize) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void populateItem(final Item<JSONObject> listItem) {
-                final JSONObject doc = listItem.getModelObject();
+            protected void populateItem(final Item<Serializable> listItem) {
+                final Serializable doc = listItem.getModelObject();
                 listItem.setOutputMarkupId(true);
 
                 AjaxCheckBox selectCheckbox = new AjaxCheckBox("select-button", new Model<Boolean>()) {
@@ -195,14 +197,13 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                     selectCheckbox.getModel().setObject(true);
                 }
 
-                final String thumbNailLink = (doc.has("thumbnail") ? doc.getString("thumbnail") : "");
-                final ExternalDocumentThumbnailImage thumbnailImage = new ExternalDocumentThumbnailImage("image", thumbNailLink);
-                listItem.add(thumbnailImage);
+                final Locale preferredLocale = getRequest().getLocale();
+                final String iconLink = exdocService.getDocumentIconLink(doc, preferredLocale);
+                final ExternalDocumentIconImage iconImage = new ExternalDocumentIconImage("image", iconLink);
+                listItem.add(iconImage);
                 listItem.add(selectCheckbox);
-                listItem.add(new Label("title-label", (doc.has("title") ? doc.getString("title") : "")));
-                listItem.add(new Label("summary-label", (doc.has("summary") ? doc.getString("summary") : "")));
-
-                final String description = (doc.has("description") ? doc.getString("description") : "");
+                listItem.add(new Label("title-label", exdocService.getDocumentTitle(doc, preferredLocale)));
+                final String description = exdocService.getDocumentDescription(doc, preferredLocale);
 
                 WebMarkupContainer frame = new WebMarkupContainer("paragraph-label") {
                     private static final long serialVersionUID = 1L;
@@ -230,34 +231,32 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     }
 
 
-    public void addSelectedExternalItem(JSONObject selectedExternalItem) {
+    public void addSelectedExternalItem(Serializable selectedExternalItem) {
         this.selectedExternalItems.add(selectedExternalItem);
     }
 
-    public void removeSelectedExternalItem(JSONObject selectedExternalItem) {
+    public void removeSelectedExternalItem(Serializable selectedExternalItem) {
         this.selectedExternalItems.remove(selectedExternalItem);
     }
 
     @Override
     protected void onOk() {
         if (selectedExternalItems != null) {
-            getModel().getObject().addAll(selectedExternalItems);
+            getModelObject().addAll(selectedExternalItems);
         }
     }
 
-
     public IModel<String> getTitle() {
-        return new StringResourceModel("exdocfield-browser-title", this, null);
+        return titleModel;
     }
-
 
     @Override
     public IValueMap getProperties() {
         return CUSTOM_DIALOG_CONSTANTS;
     }
 
-    protected ExternalDocumentCollection<JSONObject> searchExternalDocuments(String searchTerm, long pageIndex) {
-        return exdocService.searchDocuments(contextModel, searchTerm, pageIndex);
+    protected ExternalDocumentCollection<Serializable> searchExternalDocuments(String searchTerm, long pageIndex) {
+        return exdocService.searchExternalDocuments(contextModel, searchTerm, pageIndex);
     }
 
     protected IPluginConfig getPluginConfig() {
@@ -272,13 +271,13 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
         return StringUtils.equalsIgnoreCase("single", getPluginConfig().getString("selection.mode"));
     }
 
-    public static class ExternalDocumentThumbnailImage extends Image {
+    public static class ExternalDocumentIconImage extends Image {
 
         private static final ResourceReference NO_THUMB = new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class, "no-thumb.jpg");
 
         private static final long serialVersionUID = 1L;
 
-        public ExternalDocumentThumbnailImage(String id, String imageUrl) {
+        public ExternalDocumentIconImage(String id, String imageUrl) {
             super(id);
 
             if (StringUtils.isBlank(imageUrl)) {
