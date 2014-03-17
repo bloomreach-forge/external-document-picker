@@ -18,6 +18,7 @@ package org.onehippo.forge.exdocpicker.impl.field;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.jcr.Node;
 
@@ -64,6 +65,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
     public ExternalDocumentFieldSelectorPlugin(final IPluginContext context, IPluginConfig config) {
         super(context, config);
+
+        setOutputMarkupId(true);
 
         documentModel = (JcrNodeModel) getModel();
 
@@ -139,7 +142,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         return new StringResourceModel(captionKey, this, null, caption);
     }
 
-    protected RefreshingView<? extends Serializable> createRefreshingView(final ExternalDocumentCollection<Serializable> docCollection) {
+    private RefreshingView<? extends Serializable> createRefreshingView(final ExternalDocumentCollection<Serializable> docCollection) {
 
         return new RefreshingView<Serializable>("view") {
 
@@ -189,7 +192,11 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        docCollection.remove(doc);
+                        boolean removed = docCollection.remove(doc);
+                        if (removed) {
+                            exdocService.setFieldExternalDocuments(documentModel, docCollection);
+                            target.add(ExternalDocumentFieldSelectorPlugin.this);
+                        }
                     }
                 };
 
@@ -212,35 +219,30 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                 Serializable [] currentDocs = docCollection.toArray(new Serializable[docCollection.size()]);
 
                 List<Change<Serializable>> changeSet = LCS.getChangeSet(baseDocs, currentDocs);
-                final Iterator<Change<Serializable>> upstream = changeSet.iterator();
-                return new Iterator<IModel<?>>() {
+                final Change<Serializable> [] changes = changeSet.toArray(new Change[changeSet.size()]);
+
+                return new Iterator<IModel<Change<? extends Serializable>>>() {
+
+                    private int changeSetIndex = 0;
 
                     public boolean hasNext() {
-                        return upstream.hasNext();
+                        return changeSetIndex < changes.length;
                     }
 
-                    public IModel<?> next() {
-                        final Change<? extends Serializable> change = upstream.next();
-                        return new IModel() {
-                            private static final long serialVersionUID = 1L;
+                    public IModel<Change<? extends Serializable>> next() {
 
-                            public Object getObject() {
-                                return change;
-                            }
+                        if (changeSetIndex >= changes.length) {
+                            throw new NoSuchElementException();
+                        }
 
-                            public void setObject(Object object) {
-                                throw new UnsupportedOperationException();
-                            }
+                        final Change<? extends Serializable> change = changes[changeSetIndex++];
 
-                            public void detach() {
-                            }
-                        };
+                        return new Model<Change<? extends Serializable>>(change);
                     }
 
                     public void remove() {
                         throw new UnsupportedOperationException();
                     }
-
                 };
             }
 

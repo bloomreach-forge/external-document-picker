@@ -19,6 +19,6 @@ import java.io.Serializable;
 
 
 public interface ExternalDocumentServiceFacade<T extends Serializable>
-    extends ExternalDocumentSearchService<T>, ExternalDocumentFieldService<T>, ExternalDocumentDisplayService<T> {
+    extends ExternalDocumentSearchService<T>, ExternalDocumentFieldService<T>, ExternalDocumentDisplayService<T>, Serializable {
 
 }

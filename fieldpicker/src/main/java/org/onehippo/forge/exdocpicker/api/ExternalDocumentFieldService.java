@@ -20,7 +20,7 @@ import java.io.Serializable;
 import org.hippoecm.frontend.model.JcrNodeModel;
 
 
-public interface ExternalDocumentFieldService<T extends Serializable> extends ExternalDocumentSearchService<T> {
+public interface ExternalDocumentFieldService<T extends Serializable> {
 
     public ExternalDocumentCollection<T> getFieldExternalDocuments(JcrNodeModel contextModel);
 

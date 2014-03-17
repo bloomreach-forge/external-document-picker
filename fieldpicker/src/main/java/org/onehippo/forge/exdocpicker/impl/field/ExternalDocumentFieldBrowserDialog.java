@@ -19,7 +19,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -197,13 +196,12 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                     selectCheckbox.getModel().setObject(true);
                 }
 
-                final Locale preferredLocale = getRequest().getLocale();
-                final String iconLink = exdocService.getDocumentIconLink(doc, preferredLocale);
+                final String iconLink = exdocService.getDocumentIconLink(doc, getRequest().getLocale());
                 final ExternalDocumentIconImage iconImage = new ExternalDocumentIconImage("image", iconLink);
                 listItem.add(iconImage);
                 listItem.add(selectCheckbox);
-                listItem.add(new Label("title-label", exdocService.getDocumentTitle(doc, preferredLocale)));
-                final String description = exdocService.getDocumentDescription(doc, preferredLocale);
+                listItem.add(new Label("title-label", exdocService.getDocumentTitle(doc, getRequest().getLocale())));
+                final String description = exdocService.getDocumentDescription(doc, getRequest().getLocale());
 
                 WebMarkupContainer frame = new WebMarkupContainer("paragraph-label") {
                     private static final long serialVersionUID = 1L;

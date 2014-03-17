@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.Locale;
 
 
-public interface ExternalDocumentDisplayService<T extends Serializable> extends ExternalDocumentSearchService<T> {
+public interface ExternalDocumentDisplayService<T extends Serializable> {
 
     public String getDocumentTitle(final T doc, final Locale preferredLocale);
 
