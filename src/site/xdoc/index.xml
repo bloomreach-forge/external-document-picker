@@ -26,6 +26,14 @@
       <p>
         This project provides base external document picker plugins for Hippo CMS 7 with simple example implementations for developer's references.
       </p>
+      <p>
+        This plugin module allows developers to define their own domain specific models to search/select external document(s).
+        Developers can simply use this forge module plugin class and configurations
+        with injecting their own <code>org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</code> implementation class.
+      </p>
+      <p>
+        For detail, please see <a href="architecture.html">Architecture</a> and <a href="dev-howto.html">Developers How-to</a> pages.
+      </p>
     </section>
     <section name="Demo Application">
       <p>You can check out, build and run demo application, which contains all the examples explained in this site documentation.</p>

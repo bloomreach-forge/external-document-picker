@@ -77,6 +77,8 @@ src/site/resources/sh/styles/shThemeMDUltra.css -text
 src/site/resources/sh/styles/shThemeMidnight.css -text
 src/site/resources/sh/styles/shThemeRDark.css -text
 src/site/site.xml -text
+src/site/xdoc/architecture.xml -text
+src/site/xdoc/dev-howto.xml -text
 src/site/xdoc/index.xml -text
 src/site/xdoc/install.xml -text
 src/site/xdoc/release-notes.xml -text
