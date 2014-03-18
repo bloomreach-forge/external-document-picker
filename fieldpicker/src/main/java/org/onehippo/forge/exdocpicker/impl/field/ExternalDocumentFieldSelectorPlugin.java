@@ -24,10 +24,12 @@ import javax.jcr.Node;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RefreshingView;
@@ -119,18 +121,17 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         IDialogFactory dialogFactory = createDialogFactory();
         final DialogAction action = new DialogAction(dialogFactory, getDialogService());
 
-        AjaxLink<String> dialogLink = new AjaxLink<String>("browser-select") {
+        // Browse button
+        AjaxButton browseButton = new AjaxButton("browse-button", new StringResourceModel("picker.browse", this, null)) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            protected void onSubmit(AjaxRequestTarget ajaxRequestTarget, Form<?> form) {
                 action.execute();
             }
         };
-
-        dialogLink.add(new Label("link-text", new StringResourceModel("picker.browse", this, null)));
-        dialogLink.setVisible(isEditMode());
-        add(dialogLink);
+        browseButton.setVisible(isEditMode());
+        add(browseButton);
     }
 
     @Override
