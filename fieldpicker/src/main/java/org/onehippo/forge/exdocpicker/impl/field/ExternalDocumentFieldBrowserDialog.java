@@ -31,6 +31,8 @@ import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -225,6 +227,12 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
         add(resultsDataView);
         add(new ExternalDocumentFieldBrowserPageNavigator("navigator", resultsDataView));
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        response.render(CssHeaderItem.forReference(new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class, ExternalDocumentFieldBrowserDialog.class.getSimpleName() + ".css")));
     }
 
     @Override
