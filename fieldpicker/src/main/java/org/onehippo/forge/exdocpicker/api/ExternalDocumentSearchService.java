@@ -24,8 +24,4 @@ public interface ExternalDocumentSearchService<T extends Serializable> {
 
     public ExternalDocumentCollection<T> searchExternalDocuments(JcrNodeModel contextModel, String queryString);
 
-    public ExternalDocumentCollection<T> searchExternalDocuments(JcrNodeModel contextModel, String queryString, long startIndex);
-
-    public ExternalDocumentCollection<T> searchExternalDocuments(JcrNodeModel contextModel, String queryString, long startIndex, long maxItemCount);
-
 }

@@ -16,13 +16,10 @@
 package org.onehippo.forge.exdocpicker.impl.field;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -56,6 +53,9 @@ import org.hippoecm.frontend.plugin.IPluginContext;
 import org.hippoecm.frontend.plugin.config.IPluginConfig;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
+import org.onehippo.forge.exdocpicker.api.PluginConstants;
+import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollection;
+import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollectionDataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +65,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
     private static Logger log = LoggerFactory.getLogger(ExternalDocumentFieldBrowserDialog.class);
 
-    private String searchTerm = "";
+    private String searchQuery;
 
     private final IModel<String> titleModel;
     private final IPluginConfig pluginConfig;
@@ -73,13 +73,17 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     private final ExternalDocumentServiceFacade<Serializable> exdocService;
     private final JcrNodeModel contextModel;
 
-    private Set<Serializable> selectedExtDocs = new LinkedHashSet<Serializable>();
+    private final List<Serializable> selectedExtDocs = new LinkedList<Serializable>();
+
+    private ExternalDocumentCollection<Serializable> currentDocSelection;
+    private ExternalDocumentCollection<Serializable> searchedDocCollection = new SimpleExternalDocumentCollection<Serializable>();
+
     private long pageIndex;
-    private long total;
+    private int pageSize;
 
-    private final static IValueMap CUSTOM_DIALOG_CONSTANTS = new ValueMap("width=835,height=650").makeImmutable();
+    private final IValueMap dialogSize;
 
-    private int searchPageSize;
+    private final boolean initialSearchEnabled;
 
     public ExternalDocumentFieldBrowserDialog(IModel<String> titleModel, IPluginContext context, IPluginConfig config, final ExternalDocumentServiceFacade<Serializable> exdocService, final JcrNodeModel contextModel, IModel<ExternalDocumentCollection<Serializable>> model) {
         super(model);
@@ -91,39 +95,20 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
         this.exdocService = exdocService;
         this.contextModel = contextModel;
 
-        searchPageSize = getPluginConfig().getInt("page.size", 5);
+        initialSearchEnabled = getPluginConfig().getAsBoolean(PluginConstants.PARAM_INITIAL_SEARCH_ENABLED, PluginConstants.DEFAULT_INITIAL_SEARCH_ENABLED);
 
-        //Search input
-        searchTerm = "*";
-        final TextField<String> searchText = new TextField<String>("search-input", new PropertyModel<String>(this, "searchTerm"));
+        searchQuery = getPluginConfig().getString(PluginConstants.PARAM_INITIAL_SEARCH_QUERY, "");
+
+        final String dialogSizeParam = getPluginConfig().getString(PluginConstants.PARAM_DIALOG_SIZE, PluginConstants.DEFAULT_DIALOG_SIZE);
+        dialogSize = new ValueMap(dialogSizeParam).makeImmutable();
+
+        pageSize = getPluginConfig().getInt(PluginConstants.PARAM_PAGE_SIZE, PluginConstants.DEFAULT_PAGE_SIZE);
+
+        currentDocSelection = getModelObject();
+
+        final TextField<String> searchText = new TextField<String>("search-input", new PropertyModel<String>(this, "searchQuery"));
         searchText.setOutputMarkupId(true);
         add(setFocus(searchText));
-
-        //Paging information
-        Label firstItemIndexLabel = new Label("first-item-index", new AbstractReadOnlyModel<Long>() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public Long getObject() {
-                return ((pageIndex - 1) * searchPageSize) + 1;
-            }
-        });
-        Label lastItemIndexLabel = new Label("last-item-index", new AbstractReadOnlyModel<Long>() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public Long getObject() {
-                long lastItemIndex = (pageIndex - 1) * searchPageSize + searchPageSize;
-                return total < lastItemIndex ? total : lastItemIndex;
-            }
-        });
-        Label countLabel = new Label("total", new PropertyModel(this, "total"));
-        Label searchTermLabel = new Label("search-term", new PropertyModel(this, "searchTerm"));
-
-        add(firstItemIndexLabel);
-        add(lastItemIndexLabel);
-        add(countLabel);
-        add(searchTermLabel);
 
         //Search button
         AjaxButton searchButton = new AjaxButton("search-button", new StringResourceModel("search-label", this, null)) {
@@ -131,6 +116,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
             @Override
             protected void onSubmit(AjaxRequestTarget ajaxRequestTarget, Form<?> form) {
+                searchExternalDocumentsBySearchQuery();
                 ajaxRequestTarget.add(ExternalDocumentFieldBrowserDialog.this);
             }
         };
@@ -141,34 +127,14 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
             setOkEnabled(false);
         }
 
-        IDataProvider<Serializable> provider = new IDataProvider<Serializable>() {
+        // initially search all
+        if (initialSearchEnabled) {
+            searchExternalDocumentsBySearchQuery();
+        }
 
-            private static final long serialVersionUID = 1L;
+        IDataProvider<Serializable> provider = new SimpleExternalDocumentCollectionDataProvider<Serializable>(searchedDocCollection);
 
-            private List<Serializable> exdocList = new ArrayList<Serializable>();
-
-            public Iterator<Serializable> iterator(long first, long count) {
-                pageIndex = ((int) first) / ((int) searchPageSize) + 1;
-                exdocList.clear();
-                CollectionUtils.addAll(exdocList, searchExternalDocuments(searchTerm, pageIndex).iterator());
-                return exdocList.iterator();
-            }
-
-            public long size() {
-                ExternalDocumentCollection<Serializable> docs = searchExternalDocuments(searchTerm, 1);
-                return Math.max(docs.getTotalSize(), docs.size());
-            }
-
-            public IModel<Serializable> model(Serializable model) {
-                return new Model<Serializable>(model);
-            }
-
-            public void detach() {
-            }
-
-        };
-
-        DataView<Serializable> resultsDataView = new DataView<Serializable>("item", provider, searchPageSize) {
+        DataView<Serializable> resultsDataView = new DataView<Serializable>("item", provider, pageSize) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -184,7 +150,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                         if (getModelObject()) {
                             selectedExtDocs.add(doc);
 
-                            if (isSingleSelectionModel()) {
+                            if (isSingleSelectionMode()) {
                                 ExternalDocumentFieldBrowserDialog.this.handleSubmit();
                             }
                         } else {
@@ -193,7 +159,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                     }
                 };
 
-                if (selectedExtDocs.contains(doc)) {
+                if (currentDocSelection.contains(doc)) {
                     selectCheckbox.getModel().setObject(true);
                 }
 
@@ -238,18 +204,25 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     @Override
     protected void onOk() {
         if (selectedExtDocs != null) {
-            ExternalDocumentCollection<Serializable> curDocCollection = getModelObject();
-            boolean added = false;
-
-            for (Serializable doc : selectedExtDocs) {
-                if (!curDocCollection.contains(doc)) {
-                    curDocCollection.add(doc);
-                    added = true;
+            if (isSingleSelectionMode()) {
+                if (!selectedExtDocs.isEmpty()) {
+                    currentDocSelection.clear();
+                    currentDocSelection.add(selectedExtDocs.iterator().next());
+                    exdocService.setFieldExternalDocuments(contextModel, currentDocSelection);
                 }
-            }
+            } else {
+                boolean added = false;
 
-            if (added) {
-                exdocService.setFieldExternalDocuments(contextModel, curDocCollection);
+                for (Serializable doc : selectedExtDocs) {
+                    if (!currentDocSelection.contains(doc)) {
+                        currentDocSelection.add(doc);
+                        added = true;
+                    }
+                }
+
+                if (added) {
+                    exdocService.setFieldExternalDocuments(contextModel, currentDocSelection);
+                }
             }
         }
     }
@@ -261,11 +234,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
     @Override
     public IValueMap getProperties() {
-        return CUSTOM_DIALOG_CONSTANTS;
-    }
-
-    protected ExternalDocumentCollection<Serializable> searchExternalDocuments(String searchTerm, long pageIndex) {
-        return exdocService.searchExternalDocuments(contextModel, searchTerm, pageIndex);
+        return dialogSize;
     }
 
     protected IPluginConfig getPluginConfig() {
@@ -276,13 +245,39 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
         return pluginContext;
     }
 
-    protected boolean isSingleSelectionModel() {
-        return StringUtils.equalsIgnoreCase("single", getPluginConfig().getString("selection.mode"));
+    protected boolean isSingleSelectionMode() {
+        return StringUtils.equalsIgnoreCase(PluginConstants.SELECTION_MODE_SINGLE, getPluginConfig().getString(PluginConstants.PARAM_SELECTION_MODE, PluginConstants.SELECTION_MODE_MULTIPLE));
+    }
+
+    public String getSearchQuery() {
+        return searchQuery;
+    }
+
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
+    }
+
+    protected void searchExternalDocumentsBySearchQuery() {
+        try {
+            ExternalDocumentCollection<? extends Serializable> searchedDocs = exdocService.searchExternalDocuments(contextModel, getSearchQuery());
+
+            searchedDocCollection.clear();
+
+            if (searchedDocs == null || searchedDocs.getSize() == 0) {
+                return;
+            }
+
+            for (Iterator<? extends Serializable> it = searchedDocs.iterator(); it.hasNext(); ) {
+                searchedDocCollection.add(it.next());
+            }
+        } catch (Exception e) {
+            log.error("Failed to execute search external documents by the search query, '" + getSearchQuery() + "'.", e);
+        }
     }
 
     public static class ExternalDocumentIconImage extends Image {
 
-        private static final ResourceReference NO_THUMB = new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class, "no-thumb.jpg");
+        private static final ResourceReference NO_ICON = new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class, "no-icon.jpg");
 
         private static final long serialVersionUID = 1L;
 
@@ -290,7 +285,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
             super(id);
 
             if (StringUtils.isBlank(imageUrl)) {
-                this.setImageResourceReference(NO_THUMB, null);
+                this.setImageResourceReference(NO_ICON, null);
             } else {
                 add(new AttributeModifier("src", true, new Model(imageUrl)));
             }

@@ -38,9 +38,7 @@ public interface ExternalDocumentCollection<T extends Serializable> extends Seri
 
     public void clear();
 
-    public int size();
-
-    public long getTotalSize();
+    public int getSize();
 
     public T[] toArray(T[] a);
 

@@ -32,7 +32,6 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
     private static final long serialVersionUID = 1L;
 
     private List<T> list = new LinkedList<T>();
-    private long totalSize = -1L;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -62,19 +61,6 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
     }
 
     @Override
-    public long getTotalSize() {
-        return totalSize;
-    }
-
-    public void setTotalSize(long totalSize) {
-        if (totalSize < -1L) {
-            throw new IllegalArgumentException("Invalid total size: " + totalSize);
-        }
-
-        this.totalSize = totalSize;
-    }
-
-    @Override
     public boolean contains(T doc) {
         return list.contains(doc);
     }
@@ -100,7 +86,7 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
     }
 
     @Override
-    public int size() {
+    public int getSize() {
         return list.size();
     }
 

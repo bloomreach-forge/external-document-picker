@@ -28,6 +28,7 @@ import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RefreshingView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -36,6 +37,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.PackageResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 import org.hippoecm.frontend.dialog.AbstractDialog;
 import org.hippoecm.frontend.dialog.DialogAction;
 import org.hippoecm.frontend.dialog.IDialogFactory;
@@ -52,6 +54,7 @@ import org.hippoecm.frontend.service.IEditor;
 import org.hippoecm.frontend.service.render.RenderPlugin;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
+import org.onehippo.forge.exdocpicker.api.PluginConstants;
 import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollectionDataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +64,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
     private static final long serialVersionUID = 1L;
 
     private static final Logger log = LoggerFactory.getLogger(ExternalDocumentFieldSelectorPlugin.class);
+
+    private static final ResourceReference DELETE_ICON_REF = new PackageResourceReference(ExternalDocumentFieldSelectorPlugin.class, "delete-small-16.png");
 
     private JcrNodeModel documentModel;
     private ExternalDocumentServiceFacade<Serializable> exdocService;
@@ -147,7 +152,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         String serviceFacadeClassName = null;
 
         try {
-            serviceFacadeClassName = getPluginConfig().getString("external.document.service.facade");
+            serviceFacadeClassName = getPluginConfig().getString(PluginConstants.PARAM_EXTERNAL_DOCUMENT_SERVICE_FACADE);
             Class<? extends ExternalDocumentServiceFacade> serviceClass = 
                     (Class<? extends ExternalDocumentServiceFacade>) Class.forName(serviceFacadeClassName);
             service = serviceClass.newInstance();
@@ -159,7 +164,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
     }
 
     protected IModel<String> getCaptionModel() {
-        final String defaultCaption = new StringResourceModel("exdocfield.caption", this, null, "Related external documents").getString();
+        final String defaultCaption = new StringResourceModel("exdocfield.caption", this, null, PluginConstants.DEFAULT_FIELD_CAPTION).getString();
         String caption = getPluginConfig().getString("caption", defaultCaption);
         String captionKey = caption;
         return new StringResourceModel(captionKey, this, null, caption);
@@ -176,7 +181,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
             @Override
             protected Iterator getItemModels() {
 
-                final Iterator<? extends Serializable> baseIt = dataProvider.iterator(0, docCollection.size());
+                final Iterator<? extends Serializable> baseIt = dataProvider.iterator(0, docCollection.getSize());
 
                 return new Iterator<IModel<? extends Serializable>>() {
                     public boolean hasNext() {
@@ -205,7 +210,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                     }
                 }));
 
-                if (item.getIndex() == docCollection.size() - 1) {
+                if (item.getIndex() == docCollection.getSize() - 1) {
                     item.add(new AttributeAppender("class", new Model("last"), " "));
                 }
 
@@ -224,6 +229,12 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                     }
                 };
 
+                final Image deleteImage = new Image("delete-image") {
+                    private static final long serialVersionUID = 1L;
+                };
+                deleteImage.setImageResourceReference(DELETE_ICON_REF, null);
+                deleteLink.add(deleteImage);
+
                 if (!isEditMode()) {
                     deleteLink.setVisible(false);
                 }
@@ -239,8 +250,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
             @Override
             protected Iterator getItemModels() {
-                Serializable [] baseDocs = baseDocCollection.toArray(new Serializable[baseDocCollection.size()]);
-                Serializable [] currentDocs = docCollection.toArray(new Serializable[docCollection.size()]);
+                Serializable [] baseDocs = baseDocCollection.toArray(new Serializable[baseDocCollection.getSize()]);
+                Serializable [] currentDocs = docCollection.toArray(new Serializable[docCollection.getSize()]);
 
                 List<Change<Serializable>> changeSet = LCS.getChangeSet(baseDocs, currentDocs);
                 final Change<Serializable> [] changes = changeSet.toArray(new Change[changeSet.size()]);

@@ -47,7 +47,7 @@ public class SimpleExternalDocumentCollectionDataProvider<T extends Serializable
 
     @Override
     public long size() {
-        return docCollection.size();
+        return docCollection.getSize();
     }
 
     @Override

@@ -15,3 +15,11 @@ a.preview{
 .exdocfield-doc-selector-link a{
     color:#0467B4;
 }
+
+ul.exdocfield-docitems li {
+    margin: 10px;
+}
+
+ul.exdocfield-docitems img {
+    vertical-align: middle;
+}

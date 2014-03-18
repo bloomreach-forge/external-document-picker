@@ -18,7 +18,6 @@ package org.onehippo.forge.exdocpicker.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -46,44 +45,22 @@ public class SimpleExternalDocumentCollectionTest {
 
     @Test
     public void testSize() throws Exception {
-        assertEquals(-1, docCollection.getTotalSize());
-
-        try {
-            docCollection.setTotalSize(-3);
-            fail("Must get an IllegalArgumentException for an integer less than -1.");
-        } catch (IllegalArgumentException e) {
-            // as expected
-        }
-
-        assertEquals(-1, docCollection.getTotalSize());
-
-        docCollection.setTotalSize(20);
-        assertEquals(20, docCollection.getTotalSize());
-        assertEquals(10, docCollection.size());
+        assertEquals(10, docCollection.getSize());
 
         docCollection.remove(docCollection.iterator().next());
-        assertEquals(20, docCollection.getTotalSize());
-        assertEquals(9, docCollection.size());
+        assertEquals(9, docCollection.getSize());
 
         docCollection.add(createDoc(11, "Document 11"));
-        assertEquals(20, docCollection.getTotalSize());
-        assertEquals(10, docCollection.size());
+        assertEquals(10, docCollection.getSize());
 
         docCollection.add(createDoc(12, "Document 12"));
-        assertEquals(20, docCollection.getTotalSize());
-        assertEquals(11, docCollection.size());
+        assertEquals(11, docCollection.getSize());
 
         docCollection.addAll(Arrays.asList(createDoc(13, "Document 13"), createDoc(14, "Document 14"), createDoc(15, "Document 15")));
-        assertEquals(20, docCollection.getTotalSize());
-        assertEquals(14, docCollection.size());
+        assertEquals(14, docCollection.getSize());
 
         docCollection.clear();
-        assertEquals(20, docCollection.getTotalSize());
-        assertEquals(0, docCollection.size());
-
-        docCollection.setTotalSize(0);
-        assertEquals(0, docCollection.getTotalSize());
-        assertEquals(0, docCollection.size());
+        assertEquals(0, docCollection.getSize());
     }
 
     @Test
@@ -110,7 +87,7 @@ public class SimpleExternalDocumentCollectionTest {
 
         assertFalse(it.hasNext());
 
-        JSONObject [] array = docCollection.toArray(new JSONObject[docCollection.size()]);
+        JSONObject [] array = docCollection.toArray(new JSONObject[docCollection.getSize()]);
         assertEquals(10, array.length);
 
         for (int i = 1; i <= 10; i++) {
