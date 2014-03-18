@@ -15,11 +15,20 @@
  */
 package org.onehippo.forge.exdocpicker.api;
 
-import java.io.Serializable;
+import org.apache.wicket.util.io.IClusterable;
+import org.hippoecm.frontend.model.JcrNodeModel;
+import org.hippoecm.frontend.plugin.IPluginContext;
+import org.hippoecm.frontend.plugin.config.IPluginConfig;
 
+/**
+ * 
+ */
+public interface ExternalDocumentServiceContext extends IClusterable {
 
-public interface ExternalDocumentSearchService<T extends Serializable> {
+    public IPluginConfig getPluginConfig();
 
-    public ExternalDocumentCollection<T> searchExternalDocuments(ExternalDocumentServiceContext context, String queryString);
+    public IPluginContext getPluginContext();
+
+    public JcrNodeModel getContextModel();
 
 }

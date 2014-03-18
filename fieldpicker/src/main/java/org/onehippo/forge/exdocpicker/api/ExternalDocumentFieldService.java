@@ -17,13 +17,11 @@ package org.onehippo.forge.exdocpicker.api;
 
 import java.io.Serializable;
 
-import org.hippoecm.frontend.model.JcrNodeModel;
-
 
 public interface ExternalDocumentFieldService<T extends Serializable> {
 
-    public ExternalDocumentCollection<T> getFieldExternalDocuments(JcrNodeModel contextModel);
+    public ExternalDocumentCollection<T> getFieldExternalDocuments(ExternalDocumentServiceContext context);
 
-    public void setFieldExternalDocuments(JcrNodeModel contextModel, ExternalDocumentCollection<T> exdocs);
+    public void setFieldExternalDocuments(ExternalDocumentServiceContext context, ExternalDocumentCollection<T> exdocs);
 
 }

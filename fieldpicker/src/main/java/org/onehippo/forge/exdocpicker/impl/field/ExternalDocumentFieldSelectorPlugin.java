@@ -55,9 +55,11 @@ import org.hippoecm.frontend.plugins.standards.diff.LCS.ChangeType;
 import org.hippoecm.frontend.service.IEditor;
 import org.hippoecm.frontend.service.render.RenderPlugin;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
+import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceContext;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
 import org.onehippo.forge.exdocpicker.api.PluginConstants;
 import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollectionDataProvider;
+import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentServiceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,6 +75,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
     private ExternalDocumentServiceFacade<Serializable> exdocService;
     private ExternalDocumentCollection<Serializable> curDocCollection;
 
+    private final ExternalDocumentServiceContext extDocServiceContext;
+
     public ExternalDocumentFieldSelectorPlugin(final IPluginContext context, IPluginConfig config) {
         super(context, config);
 
@@ -81,6 +85,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         documentModel = (JcrNodeModel) getModel();
 
         exdocService = (ExternalDocumentServiceFacade<Serializable>) getExternalDocumentService();
+
+        extDocServiceContext = new SimpleExternalDocumentServiceContext(config, context, documentModel);
 
         add(new Label("exdocfield-relateddocs-caption", getCaptionModel()));
 
@@ -95,7 +101,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
             }, IObserver.class.getName());
         }
 
-        curDocCollection = exdocService.getFieldExternalDocuments(documentModel);
+        curDocCollection = exdocService.getFieldExternalDocuments(extDocServiceContext);
 
         if (!isCompareMode()) {
             add(createRefreshingView(curDocCollection));
@@ -112,7 +118,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                     compareBaseDocumentModel = new JcrNodeModel(new StringBuilder()
                             .append(((JcrNodeModel) compareBaseRef.getModel()).getItemModel().getPath())
                             .toString());
-                    ExternalDocumentCollection<Serializable> baseDocCollection = exdocService.getFieldExternalDocuments(compareBaseDocumentModel);
+                    ExternalDocumentServiceContext comparingContext = new SimpleExternalDocumentServiceContext(getPluginConfig(), getPluginContext(), compareBaseDocumentModel);
+                    ExternalDocumentCollection<Serializable> baseDocCollection = exdocService.getFieldExternalDocuments(comparingContext);
                     add(createCompareView(curDocCollection, baseDocCollection));
                 }
             }
@@ -207,7 +214,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                     private static final long serialVersionUID = 1L;
                     @Override
                     public String getObject() {
-                        return exdocService.getDocumentTitle(doc, getRequest().getLocale());
+                        return exdocService.getDocumentTitle(extDocServiceContext, doc, getRequest().getLocale());
                     }
                 }));
 
@@ -224,7 +231,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                         boolean removed = docCollection.remove(doc);
 
                         if (removed) {
-                            exdocService.setFieldExternalDocuments(documentModel, docCollection);
+                            exdocService.setFieldExternalDocuments(extDocServiceContext, docCollection);
                             target.add(ExternalDocumentFieldSelectorPlugin.this);
                         }
                     }
@@ -317,7 +324,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
             private static final long serialVersionUID = 1L;
 
             public AbstractDialog<ExternalDocumentCollection<Serializable>> createDialog() {
-                return new ExternalDocumentFieldBrowserDialog(getCaptionModel(), getPluginContext(), getPluginConfig(), exdocService, documentModel, new Model(curDocCollection));
+                return new ExternalDocumentFieldBrowserDialog(getCaptionModel(), extDocServiceContext, exdocService, new Model(curDocCollection));
             }
         };
     }

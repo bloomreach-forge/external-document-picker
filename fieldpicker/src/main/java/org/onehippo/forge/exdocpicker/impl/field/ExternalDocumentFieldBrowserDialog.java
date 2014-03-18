@@ -48,10 +48,10 @@ import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.util.value.IValueMap;
 import org.apache.wicket.util.value.ValueMap;
 import org.hippoecm.frontend.dialog.AbstractDialog;
-import org.hippoecm.frontend.model.JcrNodeModel;
 import org.hippoecm.frontend.plugin.IPluginContext;
 import org.hippoecm.frontend.plugin.config.IPluginConfig;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
+import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceContext;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
 import org.onehippo.forge.exdocpicker.api.PluginConstants;
 import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollection;
@@ -68,32 +68,28 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     private String searchQuery;
 
     private final IModel<String> titleModel;
-    private final IPluginConfig pluginConfig;
-    private final IPluginContext pluginContext;
     private final ExternalDocumentServiceFacade<Serializable> exdocService;
-    private final JcrNodeModel contextModel;
 
     private final List<Serializable> selectedExtDocs = new LinkedList<Serializable>();
 
     private ExternalDocumentCollection<Serializable> currentDocSelection;
     private ExternalDocumentCollection<Serializable> searchedDocCollection = new SimpleExternalDocumentCollection<Serializable>();
 
-    private long pageIndex;
     private int pageSize;
 
     private final IValueMap dialogSize;
 
     private final boolean initialSearchEnabled;
 
-    public ExternalDocumentFieldBrowserDialog(IModel<String> titleModel, IPluginContext context, IPluginConfig config, final ExternalDocumentServiceFacade<Serializable> exdocService, final JcrNodeModel contextModel, IModel<ExternalDocumentCollection<Serializable>> model) {
+    private final ExternalDocumentServiceContext extDocServiceContext;
+
+    public ExternalDocumentFieldBrowserDialog(IModel<String> titleModel, final ExternalDocumentServiceContext extDocServiceContext, final ExternalDocumentServiceFacade<Serializable> exdocService, IModel<ExternalDocumentCollection<Serializable>> model) {
         super(model);
         setOutputMarkupId(true);
 
         this.titleModel = titleModel;
-        this.pluginConfig = config;
-        this.pluginContext = context;
+        this.extDocServiceContext = extDocServiceContext;
         this.exdocService = exdocService;
-        this.contextModel = contextModel;
 
         initialSearchEnabled = getPluginConfig().getAsBoolean(PluginConstants.PARAM_INITIAL_SEARCH_ENABLED, PluginConstants.DEFAULT_INITIAL_SEARCH_ENABLED);
 
@@ -163,12 +159,12 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                     selectCheckbox.getModel().setObject(true);
                 }
 
-                final String iconLink = exdocService.getDocumentIconLink(doc, getRequest().getLocale());
+                final String iconLink = exdocService.getDocumentIconLink(extDocServiceContext, doc, getRequest().getLocale());
                 final ExternalDocumentIconImage iconImage = new ExternalDocumentIconImage("image", iconLink);
                 listItem.add(iconImage);
                 listItem.add(selectCheckbox);
-                listItem.add(new Label("title-label", exdocService.getDocumentTitle(doc, getRequest().getLocale())));
-                final String description = exdocService.getDocumentDescription(doc, getRequest().getLocale());
+                listItem.add(new Label("title-label", exdocService.getDocumentTitle(extDocServiceContext, doc, getRequest().getLocale())));
+                final String description = exdocService.getDocumentDescription(extDocServiceContext, doc, getRequest().getLocale());
 
                 WebMarkupContainer frame = new WebMarkupContainer("paragraph-label") {
                     private static final long serialVersionUID = 1L;
@@ -208,7 +204,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                 if (!selectedExtDocs.isEmpty()) {
                     currentDocSelection.clear();
                     currentDocSelection.add(selectedExtDocs.iterator().next());
-                    exdocService.setFieldExternalDocuments(contextModel, currentDocSelection);
+                    exdocService.setFieldExternalDocuments(extDocServiceContext, currentDocSelection);
                 }
             } else {
                 boolean added = false;
@@ -221,7 +217,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                 }
 
                 if (added) {
-                    exdocService.setFieldExternalDocuments(contextModel, currentDocSelection);
+                    exdocService.setFieldExternalDocuments(extDocServiceContext, currentDocSelection);
                 }
             }
         }
@@ -238,11 +234,11 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     }
 
     protected IPluginConfig getPluginConfig() {
-        return pluginConfig;
+        return extDocServiceContext.getPluginConfig();
     }
 
     protected IPluginContext getPluginContext() {
-        return pluginContext;
+        return extDocServiceContext.getPluginContext();
     }
 
     protected boolean isSingleSelectionMode() {
@@ -259,7 +255,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
     protected void searchExternalDocumentsBySearchQuery() {
         try {
-            ExternalDocumentCollection<? extends Serializable> searchedDocs = exdocService.searchExternalDocuments(contextModel, getSearchQuery());
+            ExternalDocumentCollection<? extends Serializable> searchedDocs = exdocService.searchExternalDocuments(extDocServiceContext, getSearchQuery());
 
             searchedDocCollection.clear();
 

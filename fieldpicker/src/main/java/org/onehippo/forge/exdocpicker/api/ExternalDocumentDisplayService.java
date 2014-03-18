@@ -21,10 +21,10 @@ import java.util.Locale;
 
 public interface ExternalDocumentDisplayService<T extends Serializable> {
 
-    public String getDocumentTitle(final T doc, final Locale preferredLocale);
+    public String getDocumentTitle(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
 
-    public String getDocumentDescription(final T doc, final Locale preferredLocale);
+    public String getDocumentDescription(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
 
-    public String getDocumentIconLink(final T doc, final Locale preferredLocale);
+    public String getDocumentIconLink(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
 
 }

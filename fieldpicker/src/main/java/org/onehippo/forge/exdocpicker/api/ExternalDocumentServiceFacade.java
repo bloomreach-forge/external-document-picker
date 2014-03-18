@@ -17,8 +17,10 @@ package org.onehippo.forge.exdocpicker.api;
 
 import java.io.Serializable;
 
+import org.apache.wicket.util.io.IClusterable;
+
 
 public interface ExternalDocumentServiceFacade<T extends Serializable>
-    extends ExternalDocumentSearchService<T>, ExternalDocumentFieldService<T>, ExternalDocumentDisplayService<T>, Serializable {
+    extends ExternalDocumentSearchService<T>, ExternalDocumentFieldService<T>, ExternalDocumentDisplayService<T>, IClusterable {
 
 }
