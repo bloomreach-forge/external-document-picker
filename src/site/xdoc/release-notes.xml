@@ -23,6 +23,18 @@
     <subtitle>Release Notes</subtitle>
   </properties>
   <body>
+    <section name="Compatibility">
+      <table>
+        <tr>
+          <th>Plugin version</th>
+          <th>Hippo CMS Release version</th>
+        </tr>
+        <tr>
+          <td>2.0.xx</td>
+          <td>7.9.x</td>
+        </tr>
+      </table>
+    </section>
     <section name="Release Notes">
       <subsection name="2.0">
         <p>Initial Support</p>

@@ -23,23 +23,12 @@
   </properties>
   <body>
     <section name="Installation">
-      <subsection name="Add Dependencies in Repository Web Application">
+      <subsection name="Add Dependencies">
         <p>
-          Add the following dependencies into your Hippo CMS Web Application project.
+          Make sure you have the forge Maven2 repository reference and dependency definition in the root pom.xml of your project.
         </p>
-        <div>
+        <div class="brush: xml">
           <source><![CDATA[
-
-    <properties>
-
-      <!-- SNIP -->
-
-      <forge.exdocpickerbase.version>0.01.00</forge.exdocpickerbase.version>
-
-      <!-- SNIP -->
-
-    </properties>
-
     <repositories>
 
       <!-- SNIP -->
@@ -54,6 +43,37 @@
 
     </repositories>
 
+    <!-- SNIP -->
+
+    <dependencyManagement>
+
+      <!-- SNIP -->
+
+      <dependencies>
+
+        <!-- SNIP -->
+
+        <!-- NOTE: You should set a property named 'forge.exdocpickerbase.version' to a version of this plugin! -->
+        <dependency>
+          <groupId>org.onehippo.forge.exdocpickerbase</groupId>
+          <artifactId>exdocpickerbase-fieldpicker</artifactId>
+          <version>${forge.exdocpickerbase.version}</version>
+        </dependency>
+
+        <!-- SNIP -->
+
+      </dependencies>
+
+      <!-- SNIP -->
+
+    </dependencyManagement>
+    ]]></source>
+        </div>
+        <p>
+          And add the following dependency reference into your Hippo CMS Web Application module subproject.
+        </p>
+        <div class="brush: xml">
+          <source><![CDATA[
     <dependencies>
 
       <!-- SNIP -->
@@ -61,7 +81,6 @@
       <dependency>
         <groupId>org.onehippo.forge.exdocpickerbase</groupId>
         <artifactId>exdocpickerbase-fieldpicker</artifactId>
-        <version>${forge.exdocpickerbase.version}</version>
       </dependency>
 
       <!-- SNIP -->
@@ -69,6 +88,9 @@
     </dependencies>
     ]]></source>
         </div>
+        <p>
+          Now, you're ready to use the plugin!
+        </p>
       </subsection>
     </section>
   </body>
