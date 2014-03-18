@@ -21,14 +21,26 @@ import org.hippoecm.frontend.plugin.IPluginContext;
 import org.hippoecm.frontend.plugin.config.IPluginConfig;
 
 /**
- * 
+ * The service invocation context which is supposed to be used by the service implementations.
  */
 public interface ExternalDocumentServiceContext extends IClusterable {
 
+    /**
+     * Returns the plugin config instance.
+     * @return
+     */
     public IPluginConfig getPluginConfig();
 
+    /**
+     * Returns the plugin context instance.
+     * @return
+     */
     public IPluginContext getPluginContext();
 
+    /**
+     * Returns the context document object which is being used by the user when the invocation is made.
+     * @return
+     */
     public JcrNodeModel getContextModel();
 
 }

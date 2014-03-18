@@ -241,7 +241,19 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <version>${plugin.javadoc.version}</version>
         <configuration>
           <encoding>${project.build.sourceEncoding}</encoding>
+          <aggregate>true</aggregate>
+          <destDir>userapidocs</destDir>
+          <sourcepath>${basedir}/fieldpicker/src/main/java</sourcepath>
         </configuration>
+        <reportSets>
+          <reportSet>
+            <id>default</id>
+            <reports>
+              <report>javadoc</report>
+              <report>test-javadoc</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

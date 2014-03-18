@@ -18,13 +18,41 @@ package org.onehippo.forge.exdocpicker.api;
 import java.io.Serializable;
 import java.util.Locale;
 
-
+/**
+ * The implementation of this interface is responsible for reading title, description and icon link from the domain specific external document object.
+ * 
+ * @param <T>
+ */
 public interface ExternalDocumentDisplayService<T extends Serializable> {
 
+    /**
+     * Reads the title from the domain specific external document object by the <code>preferredLocale</code>.
+     * 
+     * @param context
+     * @param doc
+     * @param preferredLocale
+     * @return
+     */
     public String getDocumentTitle(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
 
+    /**
+     * Reads the description from the domain specific external document object by the <code>preferredLocale</code>.
+     * 
+     * @param context
+     * @param doc
+     * @param preferredLocale
+     * @return
+     */
     public String getDocumentDescription(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
 
+    /**
+     * Reads the icon link URL from the domain specific external document object by the <code>preferredLocale</code>.
+     * 
+     * @param context
+     * @param doc
+     * @param preferredLocale
+     * @return
+     */
     public String getDocumentIconLink(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
 
 }

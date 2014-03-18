@@ -19,7 +19,15 @@ import java.io.Serializable;
 
 import org.apache.wicket.util.io.IClusterable;
 
-
+/**
+ * Facade interface which combines {@link ExternalDocumentSearchService}, {@link ExternalDocumentFieldService} and {@link ExternalDocumentDisplayService}.
+ * 
+ * <P>
+ * The CMS plugin UI expects a plugin parameter of an implementation class name of this interface to invoke those service APIs through this facade.
+ * </P>
+ * 
+ * @param <T>
+ */
 public interface ExternalDocumentServiceFacade<T extends Serializable>
     extends ExternalDocumentSearchService<T>, ExternalDocumentFieldService<T>, ExternalDocumentDisplayService<T>, IClusterable {
 

@@ -17,9 +17,19 @@ package org.onehippo.forge.exdocpicker.api;
 
 import java.io.Serializable;
 
-
+/**
+ * The implementation of this interface is responsible for searching external documents and returning the searched result in {@link ExternalDocumentCollection}.
+ * 
+ * @param <T>
+ */
 public interface ExternalDocumentSearchService<T extends Serializable> {
 
+    /**
+     * Searches external documents by the <code>queryString</code> and returns the result in {@link ExternalDocumentCollection}.
+     * @param context
+     * @param queryString
+     * @return
+     */
     public ExternalDocumentCollection<T> searchExternalDocuments(ExternalDocumentServiceContext context, String queryString);
 
 }

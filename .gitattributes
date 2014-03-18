@@ -7,6 +7,7 @@ fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/api/ExternalDocumentSea
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceContext.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/api/PluginConstants.java -text
+fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/api/package-info.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/ServiceDelegatingExternalDocumentServiceFacade.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/SimpleExternalDocumentCollection.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/SimpleExternalDocumentCollectionDataProvider.java -text
@@ -14,6 +15,8 @@ fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/SimpleExternalDocu
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserPageNavigator.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldSelectorPlugin.java -text
+fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/field/package-info.java -text
+fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/package-info.java -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.css -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.html -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserPageNavigator.html -text
