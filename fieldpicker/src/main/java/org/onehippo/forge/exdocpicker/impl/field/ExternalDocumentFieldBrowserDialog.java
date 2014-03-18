@@ -18,7 +18,9 @@ package org.onehippo.forge.exdocpicker.impl.field;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -69,7 +71,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     private final ExternalDocumentServiceFacade<Serializable> exdocService;
     private final JcrNodeModel contextModel;
 
-    private List<Serializable> selectedExternalItems = new ArrayList<Serializable>();
+    private Set<Serializable> selectedExtDocs = new LinkedHashSet<Serializable>();
     private long pageIndex;
     private long total;
 
@@ -88,9 +90,6 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
         this.contextModel = contextModel;
 
         searchPageSize = getPluginConfig().getInt("page.size", 5);
-
-        //initialize already selected external docs
-        //this.selectedExternalItems.addAll(model.getObject());
 
         //Search input
         searchTerm = "*";
@@ -181,18 +180,18 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                     @Override
                     protected void onUpdate(AjaxRequestTarget ajaxRequestTarget) {
                         if (getModelObject()) {
-                            addSelectedExternalItem(doc);
+                            selectedExtDocs.add(doc);
 
                             if (isSingleSelectionModel()) {
                                 ExternalDocumentFieldBrowserDialog.this.handleSubmit();
                             }
                         } else {
-                            removeSelectedExternalItem(doc);
+                            selectedExtDocs.remove(doc);
                         }
                     }
                 };
 
-                if (selectedExternalItems.contains(doc)) {
+                if (selectedExtDocs.contains(doc)) {
                     selectCheckbox.getModel().setObject(true);
                 }
 
@@ -228,22 +227,20 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
         add(new ExternalDocumentFieldBrowserPageNavigator("navigator", resultsDataView));
     }
 
-
-    public void addSelectedExternalItem(Serializable selectedExternalItem) {
-        this.selectedExternalItems.add(selectedExternalItem);
-    }
-
-    public void removeSelectedExternalItem(Serializable selectedExternalItem) {
-        this.selectedExternalItems.remove(selectedExternalItem);
-    }
-
     @Override
     protected void onOk() {
-        if (selectedExternalItems != null) {
-            getModelObject().addAll(selectedExternalItems);
+        if (selectedExtDocs != null) {
+            ExternalDocumentCollection<Serializable> curDocCollection = getModelObject();
+
+            for (Serializable doc : selectedExtDocs) {
+                if (!curDocCollection.contains(doc)) {
+                    curDocCollection.add(doc);
+                }
+            }
         }
     }
 
+    @Override
     public IModel<String> getTitle() {
         return titleModel;
     }

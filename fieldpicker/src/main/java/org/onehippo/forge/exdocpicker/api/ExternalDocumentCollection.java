@@ -28,6 +28,8 @@ public interface ExternalDocumentCollection<T extends Serializable> extends Seri
 
     public Iterator<? extends T> iterator(long first, final long count);
 
+    public boolean contains(T docs);
+
     public boolean add(T doc);
 
     public boolean addAll(Collection<T> docs);

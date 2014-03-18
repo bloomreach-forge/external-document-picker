@@ -121,22 +121,22 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
     protected ExternalDocumentServiceFacade<? extends Serializable> getExternalDocumentService() {
         ExternalDocumentServiceFacade<? extends Serializable> service = null;
-        String serviceClassName = null;
+        String serviceFacadeClassName = null;
 
         try {
-            serviceClassName = getPluginConfig().getString("external.document.service.facade");
+            serviceFacadeClassName = getPluginConfig().getString("external.document.service.facade");
             Class<? extends ExternalDocumentServiceFacade> serviceClass = 
-                    (Class<? extends ExternalDocumentServiceFacade>) Class.forName(serviceClassName);
+                    (Class<? extends ExternalDocumentServiceFacade>) Class.forName(serviceFacadeClassName);
             service = serviceClass.newInstance();
         } catch (Exception e) {
-            log.error("Failed to create external document service from class name, '{}'.", serviceClassName, e);
+            log.error("Failed to create external document service facade from class name, '{}'.", serviceFacadeClassName, e);
         }
 
         return service;
     }
 
     protected IModel<String> getCaptionModel() {
-        final String defaultCaption = new StringResourceModel("exdocfield-docs", this, null, "Related external documents").getString();
+        final String defaultCaption = new StringResourceModel("exdocfield.caption", this, null, "Related external documents").getString();
         String caption = getPluginConfig().getString("caption", defaultCaption);
         String captionKey = caption;
         return new StringResourceModel(captionKey, this, null, caption);

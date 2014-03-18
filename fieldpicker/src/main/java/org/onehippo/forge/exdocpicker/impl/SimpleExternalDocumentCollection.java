@@ -75,6 +75,11 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
     }
 
     @Override
+    public boolean contains(T doc) {
+        return list.contains(doc);
+    }
+
+    @Override
     public boolean add(T doc) {
         return list.add(doc);
     }
