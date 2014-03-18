@@ -231,11 +231,17 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     protected void onOk() {
         if (selectedExtDocs != null) {
             ExternalDocumentCollection<Serializable> curDocCollection = getModelObject();
+            boolean added = false;
 
             for (Serializable doc : selectedExtDocs) {
                 if (!curDocCollection.contains(doc)) {
                     curDocCollection.add(doc);
+                    added = true;
                 }
+            }
+
+            if (added) {
+                exdocService.setFieldExternalDocuments(contextModel, curDocCollection);
             }
         }
     }

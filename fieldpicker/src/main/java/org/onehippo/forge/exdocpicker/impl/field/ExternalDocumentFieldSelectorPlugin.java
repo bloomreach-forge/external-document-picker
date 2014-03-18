@@ -36,6 +36,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.hippoecm.frontend.dialog.AbstractDialog;
 import org.hippoecm.frontend.dialog.DialogAction;
 import org.hippoecm.frontend.dialog.IDialogFactory;
+import org.hippoecm.frontend.model.IModelReference;
 import org.hippoecm.frontend.model.JcrNodeModel;
 import org.hippoecm.frontend.model.event.IObservable;
 import org.hippoecm.frontend.model.event.IObserver;
@@ -48,7 +49,6 @@ import org.hippoecm.frontend.service.IEditor;
 import org.hippoecm.frontend.service.render.RenderPlugin;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
-import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollectionDataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,8 +90,22 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         if (!isCompareMode()) {
             add(createRefreshingView(curDocCollection));
         } else {
-            ExternalDocumentCollection<Serializable> baseDocCollection = new SimpleExternalDocumentCollection<Serializable>();
-            add(createCompareView(curDocCollection, baseDocCollection));
+            if (!getPluginConfig().containsKey("model.compareTo")) {
+                log.warn("no base model service configured");
+            } else {
+                JcrNodeModel compareBaseDocumentModel = null;
+                IModelReference compareBaseRef = getPluginContext().getService(getPluginConfig().getString("model.compareTo"), IModelReference.class);
+
+                if (compareBaseRef == null) {
+                    log.warn("no base model service available");
+                } else {
+                    compareBaseDocumentModel = new JcrNodeModel(new StringBuilder()
+                            .append(((JcrNodeModel) compareBaseRef.getModel()).getItemModel().getPath())
+                            .toString());
+                    ExternalDocumentCollection<Serializable> baseDocCollection = exdocService.getFieldExternalDocuments(compareBaseDocumentModel);
+                    add(createCompareView(curDocCollection, baseDocCollection));
+                }
+            }
         }
 
         IDialogFactory dialogFactory = createDialogFactory();
@@ -193,6 +207,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                     @Override
                     public void onClick(AjaxRequestTarget target) {
                         boolean removed = docCollection.remove(doc);
+
                         if (removed) {
                             exdocService.setFieldExternalDocuments(documentModel, docCollection);
                             target.add(ExternalDocumentFieldSelectorPlugin.this);
