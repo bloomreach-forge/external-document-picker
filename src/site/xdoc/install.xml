@@ -31,29 +31,41 @@
           <source><![CDATA[
 
     <properties>
+
       <!-- SNIP -->
+
       <forge.exdocpickerbase.version>0.01.00</forge.exdocpickerbase.version>
+
       <!-- SNIP -->
+
     </properties>
 
     <repositories>
+
       <!-- SNIP -->
+
       <repository>
         <id>hipporepojcrdav-maven-repo</id>
         <name>Hippo CMS External Document Picker Base Maven 2 Repository</name>
         <url>http://forge.onehippo.org/svn/exdocpickerbase/maven2/</url>
       </repository>
+
       <!-- SNIP -->
+
     </repositories>
 
     <dependencies>
+
       <!-- SNIP -->
+
       <dependency>
         <groupId>org.onehippo.forge.exdocpickerbase</groupId>
         <artifactId>exdocpickerbase-fieldpicker</artifactId>
         <version>${forge.exdocpickerbase.version}</version>
       </dependency>
+
       <!-- SNIP -->
+
     </dependencies>
     ]]></source>
         </div>
