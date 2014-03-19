@@ -123,6 +123,9 @@
         <p>
           Put your own implementation class in your CMS module project.
         </p>
+        <p>
+          See <a href="apidocs/index.html">Javadocs</a> for detail about the <code>ExternalSearchServiceFacade</code>.
+        </p>
       </subsection>
 
       <subsection name="Plugin Parameters">

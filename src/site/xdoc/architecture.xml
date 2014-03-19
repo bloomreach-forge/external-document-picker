@@ -57,6 +57,9 @@
           </li>
         </ul>
         <img src="images/exdocpickerbase-archview.png" alt="Architectural View" />
+        <p>
+          See <a href="apidocs/index.html">Javadocs</a> for detail about the <code>ExternalSearchServiceFacade</code>.
+        </p>
       </subsection>
     </section>
   </body>
