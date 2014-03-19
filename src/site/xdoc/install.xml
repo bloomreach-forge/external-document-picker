@@ -56,7 +56,7 @@
         <!-- NOTE: You should set a property named 'forge.exdocpickerbase.version' to a version of this plugin! -->
         <dependency>
           <groupId>org.onehippo.forge.exdocpickerbase</groupId>
-          <artifactId>exdocpickerbase-fieldpicker</artifactId>
+          <artifactId>exdocpickerbase-field</artifactId>
           <version>${forge.exdocpickerbase.version}</version>
         </dependency>
 
