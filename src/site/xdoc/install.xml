@@ -80,7 +80,7 @@
 
       <dependency>
         <groupId>org.onehippo.forge.exdocpickerbase</groupId>
-        <artifactId>exdocpickerbase-fieldpicker</artifactId>
+        <artifactId>exdocpickerbase-field</artifactId>
       </dependency>
 
       <!-- SNIP -->
