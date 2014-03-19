@@ -23,10 +23,177 @@
   </properties>
   <body>
     <section name="Developer's How-to">
-      <subsection name="Overview">
+
+      <subsection name="Configuring Field in Document Template (a.k.a 'namespace')">
         <p>
+          In a namespace bootstrap XML file, you should add a custom field like the following example:
+        </p>
+        <div class="brush: xml">
+          <source><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="newsdocument" xmlns:sv="http://www.jcp.org/jcr/sv/1.0">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>hipposysedit:templatetype</sv:value>
+  </sv:property>
+
+  <!-- SNIP -->
+
+  <sv:node sv:name="editor:templates">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>editor:templateset</sv:value>
+    </sv:property>
+    <sv:node sv:name="_default_">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>frontend:plugincluster</sv:value>
+      </sv:property>
+
+      <!-- SNIP -->
+
+      <!--
+        You should add something like the following for each External Document Picker field.
+        Most part will be used without modification except of the plugin parameters.
+      -->
+
+      <sv:node sv:name="relatedextdocselector">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>frontend:plugin</sv:value>
+        </sv:property>
+        <sv:property sv:name="caption" sv:type="String">
+          <sv:value>Related External Documents</sv:value>
+        </sv:property>
+        <sv:property sv:name="engine" sv:type="String">
+          <sv:value>${engine}</sv:value>
+        </sv:property>
+        <sv:property sv:name="mode" sv:type="String">
+          <sv:value>${mode}</sv:value>
+        </sv:property>
+        <sv:property sv:name="plugin.class" sv:type="String">
+          <sv:value>org.onehippo.forge.exdocpicker.impl.field.ExternalDocumentFieldSelectorPlugin</sv:value>
+        </sv:property>
+        <sv:property sv:name="wicket.id" sv:type="String">
+          <sv:value>${cluster.id}.field</sv:value>
+        </sv:property>
+        <sv:property sv:name="wicket.model" sv:type="String">
+          <sv:value>${wicket.model}</sv:value>
+        </sv:property>
+
+        <!-- Item selection mode plugin parameter -->
+        <sv:property sv:name="selection.mode" sv:type="String">
+          <sv:value>multiple</sv:value>
+        </sv:property>
+        <!-- ExternalDocumentServiceFacade class FQN plugin parameter -->
+        <sv:property sv:name="external.document.service.facade" sv:type="String">
+          <sv:value>org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade</sv:value>
+        </sv:property>
+        <!-- Physical document node property name to store the external document IDs. This is used by the implementation (ExampleExternalDocumentServiceFacade) -->
+        <sv:property sv:name="example.external.docs.field.name" sv:type="String">
+          <sv:value>exdocpickerbasedemo:relatedexdocids</sv:value>
+        </sv:property>
+
+        <sv:node sv:name="cluster.options">
+          <sv:property sv:name="jcr:primaryType" sv:type="Name">
+            <sv:value>frontend:pluginconfig</sv:value>
+          </sv:property>
+        </sv:node>
+      </sv:node>
+
+      <!-- SNIP -->
+
+    </sv:node>
+  </sv:node>
+</sv:node>
+          ]]></source>
+        </div>
+        <p>
+          See the following for a full example in the demo project:
+          <a href="http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/bootstrap/configuration/src/main/resources/namespaces/exdocpickerbase-demo/newsdocument.xml">
+            http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/bootstrap/configuration/src/main/resources/namespaces/exdocpickerbase-demo/newsdocument.xml
+          </a>
+        </p>
+        
+      </subsection>
+
+      <subsection name="Implementing your ExternalDocumentServiceFacade class">
+        <p>
+          See an example <code>ExternalDocumentServiceFacade</code> implementation code here:
+          <a href="http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/cms/src/main/java/org/onehippo/forge/exdocpicker/demo/field/ExampleExternalDocumentServiceFacade.java">
+            http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/cms/src/main/java/org/onehippo/forge/exdocpicker/demo/field/ExampleExternalDocumentServiceFacade.java
+          </a>
+        </p>
+        <p>
+          Put your own implementation class in your CMS module project.
         </p>
       </subsection>
+
+      <subsection name="Plugin Parameters">
+        <p>
+          You may configure the following plugin parameters in the field definition of your document template definition (a.k.a 'namespace').
+        </p>
+        <table>
+          <tr>
+            <th>Parameter name</th>
+            <th>Description</th>
+            <th>Example value(s)</th>
+            <th>Default value(s)</th>
+          </tr>
+          <tr>
+            <td>caption</td>
+            <td>Field caption, used as field label and dialog title.</td>
+            <td>"Introductory Blog Article"</td>
+            <td>"Related external documents"</td>
+          </tr>
+          <tr>
+            <td>external.document.service.facade</td>
+            <td><code>org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</code> implementation class FQN.</td>
+            <td>"org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade"</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>selection.mode</td>
+            <td>
+              External document selection mode. Either 'single' or 'multiple'.
+              If this is 'single', then users can select only one external document item in the UI.
+              Otherwise, users can select multiple external document items.
+            </td>
+            <td>
+              "single" or
+              <br/>
+              "multiple"
+            </td>
+            <td>"multiple"</td>
+          </tr>
+          <tr>
+            <td>dialog.size</td>
+            <td>The size of the picker popup dialog.</td>
+            <td>"width=600,height=400"</td>
+            <td>"width=835,height=650"</td>
+          </tr>
+          <tr>
+            <td>initial.search.enabled</td>
+            <td>Flag whether the popup dialog box will search external documents initially when opening up.</td>
+            <td>true</td>
+            <td>false</td>
+          </tr>
+          <tr>
+            <td>initial.search.query</td>
+            <td>
+              Search query string or search term when the initial search is made in the dialog box when opening up
+              if <code>initial.search.enabled</code> is set to true.
+              <br/><br/>
+              <em>Note: it's up to the <code>ExternalDocumentServiceFacade</code> implementation to determine how to deal with the search query argument.</em>
+            </td>
+            <td>"*"</td>
+            <td>""</td>
+          </tr>
+          <tr>
+            <td>page.size</td>
+            <td>The page size (item count per page) in the popup dialog.</td>
+            <td>10</td>
+            <td>5</td>
+          </tr>
+        </table>
+      </subsection>
+
     </section>
   </body>
 </document>
