@@ -104,10 +104,6 @@
       <id>exdocpickerbase-maven-repo</id>
       <url>svn:https://forge.onehippo.org/svn/exdocpickerbase/maven2/</url>
     </repository>
-    <site>
-      <id>exdocpickerbase.forge.onehippo.org</id>
-      <url>http://exdocpickerbase.forge.onehippo.org/</url>
-    </site>
   </distributionManagement>
 
   <repositories>
