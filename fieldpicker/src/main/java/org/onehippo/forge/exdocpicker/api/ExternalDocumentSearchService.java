@@ -20,7 +20,7 @@ import java.io.Serializable;
 /**
  * The implementation of this interface is responsible for searching external documents and returning the searched result in {@link ExternalDocumentCollection}.
  * 
- * @param <T>
+ * @param <T> Domain specific external document POJO type which must be serializable.
  */
 public interface ExternalDocumentSearchService<T extends Serializable> {
 

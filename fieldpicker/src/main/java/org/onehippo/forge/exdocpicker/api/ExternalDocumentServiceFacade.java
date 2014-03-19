@@ -26,7 +26,7 @@ import org.apache.wicket.util.io.IClusterable;
  * The CMS plugin UI expects a plugin parameter of an implementation class name of this interface to invoke those service APIs through this facade.
  * </P>
  * 
- * @param <T>
+ * @param <T> Domain specific external document POJO type which must be serializable.
  */
 public interface ExternalDocumentServiceFacade<T extends Serializable>
     extends ExternalDocumentSearchService<T>, ExternalDocumentFieldService<T>, ExternalDocumentDisplayService<T>, IClusterable {

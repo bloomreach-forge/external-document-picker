@@ -27,6 +27,8 @@ import java.util.Iterator;
  * Because it is used in a CMS/Wicket application, each item must be serializable and
  * this collection itself must be serializable, too.
  * </P>
+ * 
+ * @param <T> Domain specific external document POJO type which must be serializable.
  */
 public interface ExternalDocumentCollection<T extends Serializable> extends Serializable {
 

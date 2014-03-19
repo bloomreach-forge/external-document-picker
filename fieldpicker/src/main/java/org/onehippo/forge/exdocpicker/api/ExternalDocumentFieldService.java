@@ -21,7 +21,7 @@ import java.io.Serializable;
  * The implementation of this interface is responsible for getting currently-selected external documents from the context document node
  * and setting new external documents into the context document node.
  * 
- * @param <T>
+ * @param <T> Domain specific external document POJO type which must be serializable.
  */
 public interface ExternalDocumentFieldService<T extends Serializable> {
 

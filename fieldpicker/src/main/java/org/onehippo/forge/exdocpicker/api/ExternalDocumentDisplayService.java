@@ -21,7 +21,7 @@ import java.util.Locale;
 /**
  * The implementation of this interface is responsible for reading title, description and icon link from the domain specific external document object.
  * 
- * @param <T>
+ * @param <T> Domain specific external document POJO type which must be serializable.
  */
 public interface ExternalDocumentDisplayService<T extends Serializable> {
 
