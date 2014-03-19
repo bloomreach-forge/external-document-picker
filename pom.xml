@@ -105,6 +105,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <id>exdocpickerbase-maven-repo</id>
       <url>svn:https://forge.onehippo.org/svn/exdocpickerbase/maven2/</url>
     </repository>
+    <site>
+      <id>exdocpickerbase.forge.onehippo.org</id>
+      <url>http://exdocpickerbase.forge.onehippo.org/</url>
+    </site>
   </distributionManagement>
 
   <repositories>
