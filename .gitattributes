@@ -298,7 +298,8 @@ richtext-ckeditor/src/test/resources/ckeditor/skins/moono/images/lock.png -text
 richtext-ckeditor/src/test/resources/ckeditor/skins/moono/images/refresh.png -text
 richtext-ckeditor/src/test/resources/ckeditor/skins/moono/readme.md -text
 richtext-ckeditor/src/test/resources/ckeditor/styles.js -text
-richtext-ckeditor/src/test/resources/test.html -text
+richtext-ckeditor/src/test/resources/generic-picker.html -text
+richtext-ckeditor/src/test/resources/index.html -text
 src/site/resources/highlight-source-elements.js -text
 src/site/resources/images/exdocpickerbase-archview.png -text
 src/site/resources/images/exdocpickerbase-screenshot-01.png -text
