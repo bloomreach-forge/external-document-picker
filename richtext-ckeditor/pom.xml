@@ -23,4 +23,22 @@
   <description>Hippo CMS External Document Picker Base for RichText Field in CKEditor</description>
   <artifactId>exdocpickerbase-richtext-ckeditor</artifactId>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.1.3.v20140225</version>
+          <configuration>
+            <webApp>
+              <contextPath>/</contextPath>
+              <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+                <resourcesAsCSV>src/main/resources,src/test/resources</resourcesAsCSV>
+              </baseResource>
+            </webApp>
+          </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
