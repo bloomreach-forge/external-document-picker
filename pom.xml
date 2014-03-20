@@ -265,6 +265,7 @@
 
   <modules>
     <module>fieldpicker</module>
+    <module>richtext-ckeditor</module>
   </modules>
 
   <build>
