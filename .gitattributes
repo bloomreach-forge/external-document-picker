@@ -28,6 +28,7 @@ fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/no-icon
 fieldpicker/src/test/java/org/onehippo/forge/exdocpicker/impl/SimpleExternalDocumentCollectionTest.java -text
 /pom.xml -text
 richtext-ckeditor/pom.xml -text
+richtext-ckeditor/src/main/resources/ckeditor/plugins/exdocpickerbase/dialogs/exdocbrowserdialog.js -text
 richtext-ckeditor/src/main/resources/ckeditor/plugins/exdocpickerbase/icons/exdocpickerbase.png -text
 richtext-ckeditor/src/main/resources/ckeditor/plugins/exdocpickerbase/plugin.js -text
 richtext-ckeditor/src/test/resources/ckeditor/CHANGES.md -text
