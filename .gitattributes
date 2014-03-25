@@ -165,6 +165,7 @@ richtext-ckeditor/src/test/resources/ckeditor/plugins/a11yhelp/dialogs/lang/zh.j
 richtext-ckeditor/src/test/resources/ckeditor/plugins/about/dialogs/about.js -text
 richtext-ckeditor/src/test/resources/ckeditor/plugins/about/dialogs/hidpi/logo_ckeditor.png -text
 richtext-ckeditor/src/test/resources/ckeditor/plugins/about/dialogs/logo_ckeditor.png -text
+richtext-ckeditor/src/test/resources/ckeditor/plugins/ajax/plugin.js -text
 richtext-ckeditor/src/test/resources/ckeditor/plugins/clipboard/dialogs/paste.js -text
 richtext-ckeditor/src/test/resources/ckeditor/plugins/dialog/dialogDefinition.js -text
 richtext-ckeditor/src/test/resources/ckeditor/plugins/fakeobjects/images/spacer.gif -text
@@ -240,6 +241,7 @@ richtext-ckeditor/src/test/resources/ckeditor/plugins/wsc/dialogs/tmpFrameset.ht
 richtext-ckeditor/src/test/resources/ckeditor/plugins/wsc/dialogs/wsc.css -text
 richtext-ckeditor/src/test/resources/ckeditor/plugins/wsc/dialogs/wsc.js -text
 richtext-ckeditor/src/test/resources/ckeditor/plugins/wsc/dialogs/wsc_ie.js -text
+richtext-ckeditor/src/test/resources/ckeditor/plugins/xml/plugin.js -text
 richtext-ckeditor/src/test/resources/ckeditor/samples/ajax.html -text
 richtext-ckeditor/src/test/resources/ckeditor/samples/api.html -text
 richtext-ckeditor/src/test/resources/ckeditor/samples/appendto.html -text
@@ -302,6 +304,7 @@ richtext-ckeditor/src/test/resources/ckeditor/skins/moono/images/lock.png -text
 richtext-ckeditor/src/test/resources/ckeditor/skins/moono/images/refresh.png -text
 richtext-ckeditor/src/test/resources/ckeditor/skins/moono/readme.md -text
 richtext-ckeditor/src/test/resources/ckeditor/styles.js -text
+richtext-ckeditor/src/test/resources/exdocs.txt -text
 richtext-ckeditor/src/test/resources/generic-picker.html -text
 richtext-ckeditor/src/test/resources/index.html -text
 src/site/resources/highlight-source-elements.js -text
