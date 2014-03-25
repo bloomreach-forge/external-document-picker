@@ -8,6 +8,7 @@ CKEDITOR.plugins.add( 'exdocpickerbase', {
 
     editor.ui.addButton( 'LinkToExternalDocument', {
       label: 'Link to External Document',
+      icon: this.path + 'icons/exdocpickerbase.png',
       command: 'linkToExternalDocument',
       toolbar: 'links'
     });
