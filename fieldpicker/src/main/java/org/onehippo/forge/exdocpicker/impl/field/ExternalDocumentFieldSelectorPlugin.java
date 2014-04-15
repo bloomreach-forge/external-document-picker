@@ -22,12 +22,13 @@ import java.util.NoSuchElementException;
 
 import javax.jcr.Node;
 
+import org.apache.wicket.ResourceReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.behavior.AttributeAppender;
-import org.apache.wicket.markup.head.CssHeaderItem;
-import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.html.CSSPackageResource;
+import org.apache.wicket.markup.html.PackageResourceReference;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
@@ -38,8 +39,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.request.resource.PackageResourceReference;
-import org.apache.wicket.request.resource.ResourceReference;
 import org.hippoecm.frontend.dialog.AbstractDialog;
 import org.hippoecm.frontend.dialog.DialogAction;
 import org.hippoecm.frontend.dialog.IDialogFactory;
@@ -87,6 +86,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         exdocService = (ExternalDocumentServiceFacade<Serializable>) getExternalDocumentService();
 
         extDocServiceContext = new SimpleExternalDocumentServiceContext(config, context, documentModel);
+
+        add(CSSPackageResource.getHeaderContribution(ExternalDocumentFieldSelectorPlugin.class, ExternalDocumentFieldSelectorPlugin.class.getSimpleName() + ".css"));
 
         add(new Label("exdocfield-relateddocs-caption", getCaptionModel()));
 
@@ -139,12 +140,6 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         };
         browseButton.setVisible(isEditMode());
         add(browseButton);
-    }
-
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-        response.render(CssHeaderItem.forReference(new PackageResourceReference(ExternalDocumentFieldSelectorPlugin.class, ExternalDocumentFieldSelectorPlugin.class.getSimpleName() + ".css")));
     }
 
     protected boolean isEditMode() {
@@ -232,7 +227,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
                         if (removed) {
                             exdocService.setFieldExternalDocuments(extDocServiceContext, docCollection);
-                            target.add(ExternalDocumentFieldSelectorPlugin.this);
+                            target.addComponent(ExternalDocumentFieldSelectorPlugin.this);
                         }
                     }
                 };

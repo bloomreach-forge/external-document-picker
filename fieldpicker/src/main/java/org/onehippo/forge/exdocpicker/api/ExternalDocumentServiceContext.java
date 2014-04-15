@@ -15,7 +15,7 @@
  */
 package org.onehippo.forge.exdocpicker.api;
 
-import org.apache.wicket.util.io.IClusterable;
+import org.apache.wicket.IClusterable;
 import org.hippoecm.frontend.model.JcrNodeModel;
 import org.hippoecm.frontend.plugin.IPluginContext;
 import org.hippoecm.frontend.plugin.config.IPluginConfig;

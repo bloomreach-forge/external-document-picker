@@ -22,19 +22,21 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.ResourceReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
-import org.apache.wicket.markup.head.CssHeaderItem;
-import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.html.PackageResourceReference;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -43,8 +45,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.request.resource.PackageResourceReference;
-import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.util.value.IValueMap;
 import org.apache.wicket.util.value.ValueMap;
 import org.hippoecm.frontend.dialog.AbstractDialog;
@@ -64,6 +64,8 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     private static final long serialVersionUID = 1L;
 
     private static Logger log = LoggerFactory.getLogger(ExternalDocumentFieldBrowserDialog.class);
+
+    private static final ResourceReference CSS_RESOURCE = new CompressedResourceReference(ExternalDocumentFieldBrowserDialog.class, ExternalDocumentFieldBrowserDialog.class.getSimpleName() + ".css");
 
     private String searchQuery;
 
@@ -113,7 +115,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
             @Override
             protected void onSubmit(AjaxRequestTarget ajaxRequestTarget, Form<?> form) {
                 searchExternalDocumentsBySearchQuery();
-                ajaxRequestTarget.add(ExternalDocumentFieldBrowserDialog.this);
+                ajaxRequestTarget.addComponent(ExternalDocumentFieldBrowserDialog.this);
             }
         };
         add(searchButton);
@@ -194,7 +196,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        response.render(CssHeaderItem.forReference(new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class, ExternalDocumentFieldBrowserDialog.class.getSimpleName() + ".css")));
+        response.renderCSSReference(CSS_RESOURCE);
     }
 
     @Override

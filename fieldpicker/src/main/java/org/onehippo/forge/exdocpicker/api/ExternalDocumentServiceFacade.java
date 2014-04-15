@@ -17,7 +17,7 @@ package org.onehippo.forge.exdocpicker.api;
 
 import java.io.Serializable;
 
-import org.apache.wicket.util.io.IClusterable;
+import org.apache.wicket.IClusterable;
 
 /**
  * Facade interface which combines {@link ExternalDocumentSearchService}, {@link ExternalDocumentFieldService} and {@link ExternalDocumentDisplayService}.

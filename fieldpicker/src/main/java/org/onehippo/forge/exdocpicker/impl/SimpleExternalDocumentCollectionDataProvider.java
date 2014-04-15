@@ -41,12 +41,12 @@ public class SimpleExternalDocumentCollectionDataProvider<T extends Serializable
     }
 
     @Override
-    public Iterator<? extends T> iterator(long first, long count) {
+    public Iterator<? extends T> iterator(int first, int count) {
         return docCollection.iterator(first, count);
     }
 
     @Override
-    public long size() {
+    public int size() {
         return docCollection.getSize();
     }
 
