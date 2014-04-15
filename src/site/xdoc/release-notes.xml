@@ -33,11 +33,18 @@
           <td>2.0.xx</td>
           <td>7.9.x</td>
         </tr>
+        <tr>
+          <td>1.0.xx</td>
+          <td>7.8.x</td>
+        </tr>
       </table>
     </section>
     <section name="Release Notes">
       <subsection name="2.0.0">
-        <p>Initial Support</p>
+        <p>Initial Release for 7.9.x</p>
+      </subsection>
+      <subsection name="1.0.0">
+        <p>Initial Release for 7.8.x</p>
       </subsection>
     </section>
   </body>
