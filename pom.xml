@@ -81,9 +81,9 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/trunk</connection>
-    <developerConnection>scm:svn:https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/trunk</developerConnection>
-    <url>https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/trunk</url>
+    <connection>scm:svn:https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/branches/exdocpickerbase-1.0.x</connection>
+    <developerConnection>scm:svn:https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/branches/exdocpickerbase-1.0.x</developerConnection>
+    <url>https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/branches/exdocpickerbase-1.0.x</url>
   </scm>
 
   <issueManagement>
