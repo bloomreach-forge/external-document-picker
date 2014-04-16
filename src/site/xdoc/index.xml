@@ -36,19 +36,36 @@
       </p>
     </section>
     <section name="Demo Application">
-      <p>You can check out, build and run demo application, which contains all the examples explained in this site documentation.</p>
-      <p>Here are example commands to check out, build and run demo application:</p>
-      <div class="brush: bash">
-        <source><![CDATA[
-$ svn checkout https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk exdocpickerbase-demo-TRUNK
-$ cd exdocpickerbase-demo-TRUNK
-$ mvn clean install
-$ mvn -P cargo.run
-        ]]></source>
-      </div>
-      <p>
-        Visit http://localhost:8080/cms/.
-      </p>
+      <subsection name="Demo Application with Hippo CMS 7.9.x">
+        <p>You can check out, build and run demo application, which contains all the examples explained in this site documentation.</p>
+        <p>Here are example commands to check out, build and run demo application:</p>
+        <div class="brush: bash">
+          <source><![CDATA[
+  $ svn checkout https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk exdocpickerbase-demo-TRUNK
+  $ cd exdocpickerbase-demo-TRUNK
+  $ mvn clean install
+  $ mvn -P cargo.run
+          ]]></source>
+        </div>
+        <p>
+          Visit http://localhost:8080/cms/.
+        </p>
+      </subsection>
+      <subsection name="Demo Application with Hippo CMS 7.8.x">
+        <p>You can check out, build and run demo application, which contains all the examples explained in this site documentation.</p>
+        <p>Here are example commands to check out, build and run demo application:</p>
+        <div class="brush: bash">
+          <source><![CDATA[
+  $ svn checkout https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/branches/exdocpickerbase-demo-1.0.x exdocpickerbase-demo-1.0.x
+  $ cd exdocpickerbase-demo-1.0.x
+  $ mvn clean install
+  $ mvn -P cargo.run
+          ]]></source>
+        </div>
+        <p>
+          Visit http://localhost:8080/cms/.
+        </p>
+      </subsection>
     </section>
     <section name="Testing with Demo Application">
       <p>
