@@ -40,6 +40,9 @@
       </table>
     </section>
     <section name="Release Notes">
+      <subsection name="2.0.1">
+        <p>Dependency correction to use 7.9.0</p>
+      </subsection>
       <subsection name="2.0.0">
         <p>Initial Release for 7.9.x</p>
       </subsection>
