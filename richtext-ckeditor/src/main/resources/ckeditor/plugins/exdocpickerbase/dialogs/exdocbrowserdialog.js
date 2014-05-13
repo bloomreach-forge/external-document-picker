@@ -1,11 +1,13 @@
 
 CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
 
+  var pickerConfig = editor.config.exdocpickerbase || {};
+
   return {
 
-    title : 'External Document Browser',
-    minWidth : 640,
-    minHeight : 480,
+    title : pickerConfig.dialogTitle || 'External Document Browser',
+    minWidth : pickerConfig.dialogMinWidth || 640,
+    minHeight : pickerConfig.dialogMinHeight || 480,
 
     searchedDocs: [],
 
@@ -28,13 +30,13 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
                 label : 'Search',
                 onClick: function() {
                   var dialog = this.getDialog();
-
-                  var data = CKEDITOR.ajax.load( 'exdocs.txt', function( data ) {
-                    alert( data );
-                    var docList = dialog.getContentElement( 'tab-searchdocs', 'docsList' );
-                    var listView = dialog.getElement().findOne( '.listView' );
-                    alert(listView);
-                  } );
+                  if( pickerConfig.searchURL ) {
+                    var data = CKEDITOR.ajax.load( pickerConfig.searchURL, function( data ) {
+                      alert( data );
+                      var docList = dialog.getContentElement( 'tab-searchdocs', 'docsList' );
+                      var listView = dialog.getElement().findOne( '.listView' );
+                    } );
+                  }
                 }
               },
             ]
