@@ -3,13 +3,13 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
 
   var pickerConfig = editor.config.exdocpickerbase || {};
 
+  var searchedDocs = [];
+
   return {
 
     title : pickerConfig.dialogTitle || 'External Document Browser',
     minWidth : pickerConfig.dialogMinWidth || 640,
     minHeight : pickerConfig.dialogMinHeight || 480,
-
-    searchedDocs: [],
 
     contents : [
       {
@@ -30,11 +30,37 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
                 label : 'Search',
                 onClick: function() {
                   var dialog = this.getDialog();
+                  var i;
+                  var html;
                   if( pickerConfig.searchURL ) {
                     var data = CKEDITOR.ajax.load( pickerConfig.searchURL, function( data ) {
-                      alert( data );
+                      searchedDocs = JSON.parse(data);
                       var docList = dialog.getContentElement( 'tab-searchdocs', 'docsList' );
                       var listView = dialog.getElement().findOne( '.listView' );
+                      while( listView.getChildCount() !== 0 ) {
+                        listView.getLast().remove();
+                      }
+                      if( !searchedDocs || searchedDocs.length === 0 ) {
+                        listView.appendHtml( '<p>No search result.</p>' );
+                      } else {
+                        html = '<table>';
+                        for( i = 0; i < searchedDocs.length; i += 1 ) {
+                          html += '<tr>';
+                          html += '<td style="padding: 10px; vertical-align: middle">';
+                          html += '<input type="radio" name="selectedDocument" value="' + i + '" />';
+                          html += '</td>';
+                          html += '<td style="padding: 10px; vertical-align: middle">';
+                          html += '<img src="' + searchedDocs[i].icon + '"/> ';
+                          html += '</td>';
+                          html += '<td style="padding: 10px; vertical-align: middle">';
+                          html += '<h3>' + searchedDocs[i].title + '</h3>';
+                          html += '<p>' + searchedDocs[i].description + '</p>';
+                          html += '</td>'
+                          html += '</tr>';
+                        }
+                        html += "</table>";
+                        listView.appendHtml( html );
+                      }
                     } );
                   }
                 }
@@ -48,7 +74,7 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
             children: [
               {
                 type: 'html',
-                html: '<div class="listView">No search result.</div>'
+                html: '<form><div class="listView" style="HEIGHT: 400px; OVERFLOW: auto"><p>No search result.</p></div></form>'
               },
             ]
           }
@@ -76,21 +102,32 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
 
     onOk : function() {
       var dialog = this;
-      var attributes = {
-        href: 'http://www.onehippo.org'
-      };
+      var selectedDocItem = dialog.getElement().findOne( '.listView input[name=selectedDocument]:checked' );
+      var selectedDoc;
 
-      var sel = editor.getSelection();
-      var range = sel && sel.getRanges()[ 0 ];
+      if (selectedDocItem) {
+        selectedDoc = searchedDocs[ parseInt( selectedDocItem.getAttribute( 'value' ) ) ] || {};
 
-      if ( range.collapsed ) {
-        var link = editor.document.createElement( 'a', { attributes: attributes } );
-        link.setText('Test External Document')
-        range.insertNode( link );
-      } else {
-        var style = new CKEDITOR.style( { element: 'a', attributes: attributes } );
-        style.type = CKEDITOR.STYLE_INLINE;
-        editor.applyStyle( style );
+        var attrs = {};
+        if( selectedDoc.href ) {
+          attrs[ 'href' ] = selectedDoc.href;
+        }
+        if( selectedDoc.name ) {
+          attrs[ 'name' ] = selectedDoc.name;
+        }
+
+        var sel = editor.getSelection();
+        var range = sel && sel.getRanges()[ 0 ];
+
+        if ( range.collapsed ) {
+          var link = editor.document.createElement( 'a', { attributes: attrs } );
+          link.setText( selectedDoc.title )
+          range.insertNode( link );
+        } else {
+          var style = new CKEDITOR.style( { element: 'a', attributes: attrs } );
+          style.type = CKEDITOR.STYLE_INLINE;
+          editor.applyStyle( style );
+        }
       }
     },
 
