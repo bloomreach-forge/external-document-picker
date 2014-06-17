@@ -23,3 +23,13 @@ ul.exdocfield-docitems li {
 ul.exdocfield-docitems img {
     vertical-align: middle;
 }
+
+span.exdocpickerlinkspan a{
+    background-color: #f2f2f2;
+    border: 1px solid black;
+    margin:3px;
+    padding: 3px;
+    float:left;
+    clear:right;
+    display:block;
+}
