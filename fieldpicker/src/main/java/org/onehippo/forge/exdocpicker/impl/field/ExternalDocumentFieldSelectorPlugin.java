@@ -24,12 +24,10 @@ import javax.jcr.Node;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RefreshingView;
@@ -41,7 +39,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.hippoecm.frontend.dialog.AbstractDialog;
-import org.hippoecm.frontend.dialog.DialogAction;
+import org.hippoecm.frontend.dialog.DialogLink;
 import org.hippoecm.frontend.dialog.IDialogFactory;
 import org.hippoecm.frontend.model.IModelReference;
 import org.hippoecm.frontend.model.JcrNodeModel;
@@ -125,18 +123,10 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
             }
         }
 
-        IDialogFactory dialogFactory = createDialogFactory();
-        final DialogAction action = new DialogAction(dialogFactory, getDialogService());
-
         // Browse button
-        AjaxButton browseButton = new AjaxButton("browse-button", new StringResourceModel("picker.browse", this, null)) {
-            private static final long serialVersionUID = 1L;
+        DialogLink browseButton = new DialogLink("browse-button", new StringResourceModel("picker.browse", this, null),
+                createDialogFactory(), getDialogService());
 
-            @Override
-            protected void onSubmit(AjaxRequestTarget ajaxRequestTarget, Form<?> form) {
-                action.execute();
-            }
-        };
         browseButton.setVisible(isEditMode());
         add(browseButton);
     }
