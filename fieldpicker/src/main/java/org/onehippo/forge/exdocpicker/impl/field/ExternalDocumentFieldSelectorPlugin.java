@@ -126,9 +126,6 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
             }
         }
 
-        IDialogFactory dialogFactory = createDialogFactory();
-        final DialogAction action = new DialogAction(dialogFactory, getDialogService());
-
         // Browse button
         DialogLink browseButton = new DialogLink("browse-button", new StringResourceModel("picker.browse", this, null),
                 createDialogFactory(), getDialogService());
