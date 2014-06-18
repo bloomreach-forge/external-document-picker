@@ -30,13 +30,16 @@
           <th>Hippo CMS Release version</th>
         </tr>
         <tr>
-          <td>2.0.xx</td>
-          <td>7.9.x</td>
+          <td>1.0.xx</td>
+          <td>7.8.x</td>
         </tr>
       </table>
     </section>
     <section name="Release Notes">
-      <subsection name="2.0.0">
+      <subsection name="1.0.1">
+        <p>Fix for an issue that was making it impossible to create new documents after picking external documents</p>
+      </subsection>
+      <subsection name="1.0.0">
         <p>Initial Support</p>
       </subsection>
     </section>
