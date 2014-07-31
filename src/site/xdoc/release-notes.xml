@@ -30,21 +30,33 @@
           <th>Hippo CMS Release version</th>
         </tr>
         <tr>
-          <td>2.0.xx</td>
+          <td>2.x.x</td>
           <td>7.9.x</td>
         </tr>
         <tr>
-          <td>1.0.xx</td>
+          <td>1.x.x</td>
           <td>7.8.x</td>
         </tr>
       </table>
     </section>
-    <section name="Release Notes">
+    <section name="Release Notes (2.x.x)">
+      <subsection name="2.0.2">
+        <ul>
+          <li><a href="https://issues.onehippo.com/browse/HIPPLUG-869">HIPPLUG-869: ExDocPicker: Html of edit field exdocpicker seems wrong</a></li>
+        </ul>
+      </subsection>
       <subsection name="2.0.1">
         <p>Dependency correction to use 7.9.0</p>
       </subsection>
       <subsection name="2.0.0">
         <p>Initial Release for 7.9.x</p>
+      </subsection>
+    </section>
+    <section name="Release Notes (1.x.x)">
+      <subsection name="1.0.2">
+        <ul>
+          <li><a href="https://issues.onehippo.com/browse/HIPPLUG-869">HIPPLUG-869: ExDocPicker: Html of edit field exdocpicker seems wrong</a></li>
+        </ul>
       </subsection>
       <subsection name="1.0.1">
         <p>Fix for an issue that was making it impossible to create new documents after picking external documents</p>
