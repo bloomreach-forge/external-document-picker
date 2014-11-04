@@ -24,19 +24,19 @@
   <properties>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.build.javaVersion>1.6</project.build.javaVersion>
+    <project.build.javaVersion>1.7</project.build.javaVersion>
 
     <jcr.version>2.0</jcr.version>
-    <hippo.repository.version>2.26.00</hippo.repository.version>
-    <hippo.cms.version>2.26.00</hippo.cms.version>
+    <hippo.repository.version>2.26.05</hippo.repository.version>
+    <hippo.cms.version>2.26.07</hippo.cms.version>
 
     <commons-collections.version>3.2.1</commons-collections.version>
 
     <lib.json-lib.version>2.4</lib.json-lib.version>
     <lib.junit.version>4.8.2</lib.junit.version>
     <lib.easymock.version>3.0</lib.easymock.version>
-    <lib.slf4j.version>1.6.1</lib.slf4j.version>
-    <lib.log4j.version>1.2.16</lib.log4j.version>
+    <lib.slf4j.version>1.7.6</lib.slf4j.version>
+    <lib.log4j.version>1.2.17</lib.log4j.version>
 
     <plugin.compiler.version>3.1</plugin.compiler.version>
     <plugin.clean.version>2.5</plugin.clean.version>
