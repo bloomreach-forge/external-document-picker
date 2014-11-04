@@ -45,6 +45,19 @@ CKEDITOR.editorConfig = function( config ) {
     'dialogTitle' : 'Hippo Blog Article Browser',
     'dialogMinWidth' : 640,
     'dialogMinHeight' : 480,
-    'searchURL' : '/hippoblogarticles.jsp'
+
+    'getSearchURL' : function(data) {
+      var url = '/hippoblogarticles.jsp';
+      if( data.query ) {
+        url += '?q=' + encodeURI(data.query);
+      }
+      return url;
+    },
+
+    'getLinkAttributes' : function( selectedDoc ) {
+      var attrs = {};
+      attrs[ 'href' ] = selectedDoc.href;
+      return attrs;
+    }
   };
 };

@@ -22,7 +22,7 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
             children: [
               {
                 type : 'text',
-                id : 'searchLabel',
+                id : 'searchText',
               },
               {
                 type : 'button',
@@ -32,9 +32,11 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
                   var dialog = this.getDialog();
                   var i;
                   var html;
-                  if( pickerConfig.searchURL ) {
-                    var data = CKEDITOR.ajax.load( pickerConfig.searchURL, function( data ) {
-                      searchedDocs = JSON.parse(data);
+                  if( pickerConfig.getSearchURL ) {
+                    var query = dialog.getValueOf( 'tab-searchdocs', 'searchText' );
+                    var searchURL = pickerConfig.getSearchURL( { 'query': query } );
+                    var data = CKEDITOR.ajax.load( searchURL, function( data ) {
+                      searchedDocs = JSON.parse( data );
                       var docList = dialog.getContentElement( 'tab-searchdocs', 'docsList' );
                       var listView = dialog.getElement().findOne( '.listView' );
                       while( listView.getChildCount() !== 0 ) {
@@ -108,25 +110,25 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
       if (selectedDocItem) {
         selectedDoc = searchedDocs[ parseInt( selectedDocItem.getAttribute( 'value' ) ) ] || {};
 
-        var attrs = {};
-        if( selectedDoc.href ) {
-          attrs[ 'href' ] = selectedDoc.href;
-        }
-        if( selectedDoc.name ) {
-          attrs[ 'name' ] = selectedDoc.name;
-        }
+        if( pickerConfig.getLinkAttributes ) {
+          var sel = editor.getSelection();
+          var range = sel && sel.getRanges()[ 0 ];
+          var attrs = pickerConfig.getLinkAttributes( selectedDoc ) || {};
 
-        var sel = editor.getSelection();
-        var range = sel && sel.getRanges()[ 0 ];
+          var target = dialog.getValueOf( 'tab-linktarget', 'target' );
+          if( target ) {
+            attrs[ 'target' ] = target;
+          }
 
-        if ( range.collapsed ) {
-          var link = editor.document.createElement( 'a', { attributes: attrs } );
-          link.setText( selectedDoc.title )
-          range.insertNode( link );
-        } else {
-          var style = new CKEDITOR.style( { element: 'a', attributes: attrs } );
-          style.type = CKEDITOR.STYLE_INLINE;
-          editor.applyStyle( style );
+          if( range.collapsed ) {
+            var link = editor.document.createElement( 'a', { attributes: attrs } );
+            link.setText( selectedDoc.title )
+            range.insertNode( link );
+          } else {
+            var style = new CKEDITOR.style( { element: 'a', attributes: attrs } );
+            style.type = CKEDITOR.STYLE_INLINE;
+            editor.applyStyle( style );
+          }
         }
       }
     },
