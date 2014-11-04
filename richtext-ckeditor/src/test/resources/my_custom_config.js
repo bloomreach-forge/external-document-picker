@@ -36,15 +36,15 @@ CKEDITOR.editorConfig = function( config ) {
 	// Make dialogs simpler.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
-	/**
-	/* My Custom Configurations
-	 */
-	config.exdocpickerbase = {
-	  'buttonLabel' : 'Link to Hippo Blog Articles',
-	  'buttonIcon' : '/hippoblogpicker.png',
-	  'dialogTitle' : 'Hippo Blog Article Browser',
-	  'dialogMinWidth' : 640,
-	  'dialogMinHeight' : 480,
-	  'searchURL' : '/exdocsearch.jsp'
-	};
+  /**
+  /* My Custom Configurations
+   */
+  config.exdocpickerbase = {
+    'buttonLabel' : 'Link to Hippo Blog Articles',
+    'buttonIcon' : '/hippoblogpicker.png',
+    'dialogTitle' : 'Hippo Blog Article Browser',
+    'dialogMinWidth' : 640,
+    'dialogMinHeight' : 480,
+    'searchURL' : '/hippoblogarticles.jsp'
+  };
 };

@@ -304,8 +304,8 @@ richtext-ckeditor/src/test/resources/ckeditor/skins/moono/images/lock.png -text
 richtext-ckeditor/src/test/resources/ckeditor/skins/moono/images/refresh.png -text
 richtext-ckeditor/src/test/resources/ckeditor/skins/moono/readme.md -text
 richtext-ckeditor/src/test/resources/ckeditor/styles.js -text
-richtext-ckeditor/src/test/resources/exdocsearch.jsp -text
 richtext-ckeditor/src/test/resources/generic-picker.html -text
+richtext-ckeditor/src/test/resources/hippoblogarticles.jsp -text
 richtext-ckeditor/src/test/resources/hippoblogpicker.png -text
 richtext-ckeditor/src/test/resources/index.html -text
 richtext-ckeditor/src/test/resources/my_custom_config.js -text
