@@ -57,7 +57,7 @@ CKEDITOR.editorConfig = function( config ) {
     'getLinkAttributes' : function( selectedDoc ) {
       var attrs = {};
       attrs[ 'href' ] = selectedDoc.href;
-      attrs[ 'data-custom1' ] = selectedDoc['data-custom1'];
+      attrs[ 'data-custom1' ] = selectedDoc[ 'data-custom1' ];
       return attrs;
     }
   };
