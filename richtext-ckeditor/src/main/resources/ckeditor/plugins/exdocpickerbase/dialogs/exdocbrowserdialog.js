@@ -49,14 +49,14 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
                         for( i = 0; i < searchedDocs.length; i += 1 ) {
                           html += '<tr>';
                           html += '<td style="padding: 10px; vertical-align: middle">';
-                          html += '<input type="radio" name="selectedDocument" value="' + i + '" />';
+                          html += '<input type="radio" name="selectedDocument" value="' + i + '" id="selectedDocument' + i + '" />';
                           html += '</td>';
                           html += '<td style="padding: 10px; vertical-align: middle">';
-                          html += '<img src="' + searchedDocs[i].icon + '"/> ';
+                          html += '<label for="selectedDocument' + i + '"><img src="' + searchedDocs[i].icon + '"/></label> ';
                           html += '</td>';
                           html += '<td style="padding: 10px; vertical-align: middle">';
-                          html += '<h3>' + searchedDocs[i].title + '</h3>';
-                          html += '<p>' + searchedDocs[i].description + '</p>';
+                          html += '<label for="selectedDocument' + i + '"><h3>' + searchedDocs[i].title + '</h3></label>';
+                          html += '<label for="selectedDocument' + i + '"><p>' + searchedDocs[i].description + '</p></label>';
                           html += '</td>'
                           html += '</tr>';
                         }
