@@ -16,10 +16,17 @@
 
   <script type="text/javascript">
     CKEDITOR.replace('editor1', {
-      customConfig : '/my_custom_config.js',
+
       extraPlugins : 'xml,ajax,exdocpickerbase',
-      init: function( editor ) {
-        //
+
+      exdocpickerbase : {
+        "buttonLabel" : "Link to Hippo Blog Articles",
+        "buttonIcon" : "/hippoblogpicker.png",
+        "dialogTitle" : "Hippo Blog Article Browser",
+        "dialogMinWidth" : 640,
+        "dialogMinHeight" : 480,
+        "getSearchURL" : "return '/hippoblogarticles.jsp?q=' + encodeURI(data.query);",
+        "getLinkAttributes" : "var attrs = {}; attrs['href'] = item.href; attrs['data-custom1'] = item['data-custom1']; return attrs;"
       }
     });
   </script>
