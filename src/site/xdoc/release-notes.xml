@@ -40,6 +40,11 @@
       </table>
     </section>
     <section name="Release Notes (2.x.x)">
+      <subsection name="2.0.3">
+        <ul>
+          <li>Initial Support for <a href="richtext-ckeditor/architecture.html">External Link Picker Button in the RichText Editor</a></li>
+        </ul>
+      </subsection>
       <subsection name="2.0.2">
         <ul>
           <li><a href="https://issues.onehippo.com/browse/HIPPLUG-869">HIPPLUG-869: ExDocPicker: Html of edit field exdocpicker seems wrong</a></li>

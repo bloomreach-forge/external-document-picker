@@ -19,10 +19,10 @@
 -->
 <document>
   <properties>
-    <title>Installation</title>
+    <title>Installing External Document Field Picker</title>
   </properties>
   <body>
-    <section name="Installation">
+    <section name="Installing External Document Field Picker">
       <subsection name="Add Dependencies">
         <p>
           Make sure you have the forge Maven2 repository reference and dependency definition in the root pom.xml of your project.

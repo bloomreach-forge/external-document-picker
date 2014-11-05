@@ -19,10 +19,10 @@
 -->
 <document>
   <properties>
-    <title>Developer's How-to</title>
+    <title>Developer's How-to (External Document Field Picker)</title>
   </properties>
   <body>
-    <section name="Developer's How-to">
+    <section name="Developer's How-to (External Document Field Picker)">
 
       <subsection name="Configuring Field in Document Template (a.k.a 'namespace')">
         <p>
@@ -124,7 +124,7 @@
           Put your own implementation class in your CMS module project.
         </p>
         <p>
-          See <a href="apidocs/index.html">Javadocs</a> for detail about the <code>ExternalSearchServiceFacade</code>.
+          See <a href="../apidocs/index.html">Javadocs</a> for detail about the <code>ExternalSearchServiceFacade</code>.
         </p>
       </subsection>
 

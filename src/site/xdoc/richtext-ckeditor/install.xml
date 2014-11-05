@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC
+  "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<!--
+    Copyright 2014 Hippo
+
+    Licensed under the Apache License, Version 2.0 (the  "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS"
+    BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+  <properties>
+    <title>Installing External Link Picker Button in the RichText Editor</title>
+  </properties>
+  <body>
+    <section name="Installing External Link Picker Button in the RichText Editor">
+      <subsection name="Add Dependencies">
+        <p>
+          Make sure you have the forge Maven2 repository reference and dependency definition in the root pom.xml of your project.
+        </p>
+        <div class="brush: xml">
+          <source><![CDATA[
+    <repositories>
+
+      <!-- SNIP -->
+
+      <repository>
+        <id>hipporepojcrdav-maven-repo</id>
+        <name>Hippo CMS External Document Picker Base Maven 2 Repository</name>
+        <url>http://forge.onehippo.org/svn/exdocpickerbase/maven2/</url>
+      </repository>
+
+      <!-- SNIP -->
+
+    </repositories>
+
+    <!-- SNIP -->
+
+    <dependencyManagement>
+
+      <!-- SNIP -->
+
+      <dependencies>
+
+        <!-- SNIP -->
+
+        <!-- NOTE: You should set a property named 'forge.exdocpickerbase.version' to a version of this plugin! -->
+        <dependency>
+          <groupId>org.onehippo.forge.exdocpickerbase</groupId>
+          <artifactId>exdocpickerbase-richtext-ckeditor</artifactId>
+          <version>${forge.exdocpickerbase.version}</version>
+        </dependency>
+
+        <!-- SNIP -->
+
+      </dependencies>
+
+      <!-- SNIP -->
+
+    </dependencyManagement>
+    ]]></source>
+        </div>
+        <p>
+          And add the following dependency reference into your Hippo CMS Web Application module subproject.
+        </p>
+        <div class="brush: xml">
+          <source><![CDATA[
+    <dependencies>
+
+      <!-- SNIP -->
+
+      <dependency>
+        <groupId>org.onehippo.forge.exdocpickerbase</groupId>
+        <artifactId>exdocpickerbase-richtext-ckeditor</artifactId>
+      </dependency>
+
+      <!-- SNIP -->
+
+    </dependencies>
+    ]]></source>
+        </div>
+      </subsection>
+      <subsection name="Add Bootstrap Configuration">
+        <p>
+          In order to enable the <strong>exdocpickerbase</strong> CKEditor plugin,
+          you should customize CKEditor configuration for a RichText editor.
+        </p>
+        <p>
+         In a nutshell, you should add 'exdocpickerbase' as extra CKEditor plugin in the <strong>ckeditor.config.overlayed.json</strong> property like the following example:
+         (See <a href="http://www.onehippo.org/library/concepts/document-types/html-fields/ckeditor-configuration-properties.html">CKEditor configuration properties</a> for details on those properties.)
+        </p>
+        <div class="brush: javascript">
+        <source><![CDATA[{
+  extraPlugins: 'exdocpickerbase';
+}]]></source>
+        </div>
+        <p>
+          And, you should add configurations for 'exdocpickerbase' CKEditor plugin additionally in the <strong>ckeditor.config.appended.json</strong> like the following example:
+        </p>
+        <div class="brush: javascript">
+        <source><![CDATA[{
+  "exdocpickerbase" : {
+    "buttonLabel" : "Link to Hippo Blog Articles",
+    "buttonIcon" : "/cms/images/hippoblogpicker.png",
+    "dialogTitle" : "Hippo Blog Article Browser",
+    "dialogMinWidth" : 640,
+    "dialogMinHeight" : 480,
+    "getSearchURL" : "return '/cms/examples/hippoblogarticles.jsp?q=' + encodeURI(data.query);",
+    "getLinkAttributes" : "var attrs = {}; attrs['href'] = item.href; attrs['data-custom1'] = item['data-custom1']; return attrs;
+  }
+}]]></source>
+        </div>
+        <p>
+          Here's a full example as in bootstrap XML configuration format:
+        </p>
+        <div class="brush: xml">
+        <source><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<sv:node xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:h="http://www.onehippo.org/jcr/xmlimport" sv:name="html" h:merge="combine">
+  <sv:node sv:name="editor:templates" h:merge="combine">
+    <sv:node sv:name="_default_" h:merge="combine">
+      <sv:property sv:name="ckeditor.config.overlayed.json" sv:type="String" h:merge="override">
+        <sv:value>{&#13;
+  extraPlugins: 'exdocpickerbase'&#13;
+}</sv:value>
+      </sv:property>
+      <sv:property sv:name="ckeditor.config.appended.json" sv:type="String" h:merge="override">
+        <sv:value>{&#13;
+  "exdocpickerbase" : {&#13;
+    "buttonLabel" : "Link to Hippo Blog Articles",&#13;
+    "buttonIcon" : "/cms/images/hippoblogpicker.png",&#13;
+    "dialogTitle" : "Hippo Blog Article Browser",&#13;
+    "dialogMinWidth" : 640,&#13;
+    "dialogMinHeight" : 480,&#13;
+    "getSearchURL" : "return '/cms/examples/hippoblogarticles.jsp?q=' + encodeURI(data.query);",&#13;
+    "getLinkAttributes" : "var attrs = {}; attrs['href'] = item.href; attrs['data-custom1'] = item['data-custom1']; return attrs;"&#13;
+  }&#13;
+}</sv:value>
+      </sv:property>
+    </sv:node>
+  </sv:node>
+</sv:node>
+        ]]></source>
+        </div>
+        <p>
+          For example, the configuration change shown above can be made for <em>/hippo:namespaces/hippostd/html</em> node
+          in order to apply the <strong>exdocpickerbase</strong> CKEditor plugin globally to all RichText fields.
+        </p>
+        <p>
+          You can download an example configuration from the demo project:
+          <a href="http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/bootstrap/configuration/src/main/resources/namespaces/hippostd/html.xml" target="_blank">http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/bootstrap/configuration/src/main/resources/namespaces/hippostd/html.xml</a>
+        </p>
+        <p>
+          The following <em>hippo:initializeitem</em> item can be added in <em>hippoecm-extension.xml</em>
+          to load the configuration shown above.
+        </p>
+        <div class="brush: xml">
+        <source><![CDATA[
+  <sv:node sv:name="exdocpickerbase-demo-hippo-namespaces-hippostd-html">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>hippo:initializeitem</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:sequence" sv:type="Double">
+      <sv:value>30000.3</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:contentresource" sv:type="String">
+      <sv:value>namespaces/hippostd/html.xml</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:contentroot" sv:type="String">
+      <sv:value>/hippo:namespaces/hippostd</sv:value>
+    </sv:property>
+  </sv:node>
+        ]]></source>
+        </div>
+        <p>
+          Now, you're ready to use the plugin!
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

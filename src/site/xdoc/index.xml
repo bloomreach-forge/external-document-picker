@@ -27,13 +27,33 @@
         This project provides base external document picker plugins for Hippo CMS 7 with simple example implementations for developer's references.
       </p>
       <p>
-        This plugin module allows developers to define their own domain specific models to search/select external document(s).
-        Developers can simply use this forge module plugin class and configurations
-        with injecting their own <code>org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</code> implementation class.
+        This project consists of two different external document pickers: 
+        one for <a href="field/architecture.html">External Document Field Picker</a> 
+        and the other for <a href="richtext-ckeditor/architecture.html">External Link Picker Button in the RichText Editor</a>.
       </p>
-      <p>
-        For detail, please see <a href="architecture.html">Architecture</a> and <a href="dev-howto.html">Developers How-to</a> pages.
-      </p>
+      <subsection name="External Document Field Picker">
+        <p>
+          External Document Field Picker allows developers to define their own domain specific models to search/select external document(s)
+          for a field of a CMS document.
+          Developers can simply use this forge module plugin class and configurations
+          with injecting their own 
+          <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
+          implementation class.
+        </p>
+        <p>
+          For detail, please see <a href="field/architecture.html">Architecture</a> and <a href="field/dev-howto.html">Developers How-to</a> pages.
+        </p>
+      </subsection>
+      <subsection name="External Link Picker Button in RichText Editor">
+        <p>
+          This plugin module allows developers to define their own domain specific models to search/select external document(s)
+          in RichText Editor (CKEditor) fields through your own REST Services.
+          Developers can simply add this forge module dependency and add extra CKEditor module configurations for RichText editor configuration(s).
+        </p>
+        <p>
+          For detail, please see <a href="richtext-ckeditor/architecture.html">Architecture</a> and <a href="richtext-ckeditor/dev-howto.html">Developers How-to</a> pages.
+        </p>
+      </subsection>
     </section>
     <section name="Demo Application">
       <subsection name="Demo Application with Hippo CMS 7.9.x">
@@ -67,7 +87,7 @@
         </p>
       </subsection>
     </section>
-    <section name="Testing with Demo Application">
+    <section name="Testing External Document Field Picker with Demo Application">
       <p>
         Log on to the CMS application and open a news article document.
         You will see two fields referring to some external documents below. ('Introductory External Document' field and 'Related External Documents' field)
@@ -79,6 +99,18 @@
         If you select external document(s) and click on the OK button, then the field will be set to those selected external documents.
       </p>
       <img src="images/exdocpickerbase-screenshot-02.png" alt="Search and Browse External Documents" />
+    </section>
+    <section name="Testing External Link Picker Button in the RichText Editor with Demo Application">
+      <p>
+        Log on to the CMS application and open a news article document to edit the "Body" RichText field.
+        If you select a text and click on the "Link to Hippo Blog Articles" (next to "Anchor" button),
+        then you will see the following popup dialog to search external documents.
+      </p>
+      <img src="images/exdocpickerbase-richtext-screenshot-01.png" alt="Popup Link to Hippo Blog Articles" />
+      <p>
+        If you select an item and click on OK button, then you will see the text linked with the external document information.
+      </p>
+      <img src="images/exdocpickerbase-richtext-screenshot-02.png" alt="Link created to a Hippo Blog Article" />
     </section>
   </body>
 </document>

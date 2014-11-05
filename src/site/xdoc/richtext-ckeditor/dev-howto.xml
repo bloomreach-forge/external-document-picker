@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC
+  "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<!--
+    Copyright 2014 Hippo
+
+    Licensed under the Apache License, Version 2.0 (the  "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS"
+    BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+  <properties>
+    <title>Developer's How-to (External Link Picker Button in the RichText Editor)</title>
+  </properties>
+  <body>
+    <section name="Developer's How-to (External Link Picker Button in the RichText Editor)">
+
+      <subsection name="Configurations">
+        <p>
+          As explained in the <a href="install.html">Installation</a> page,
+          all the configurations for the <strong>exdocpickerbase</strong> CKEditor plugin are set
+          in the <strong>ckeditor.config.appended.json</strong> property
+          (please see <a href="http://www.onehippo.org/library/concepts/document-types/html-fields/ckeditor-configuration-properties.html" target="_blank">CKEditor configuration properties</a> for the detail on <strong>ckeditor.config.appended.json</strong> property.)
+          like the following example:
+        </p>
+        <div class="brush: javascript">
+        <source><![CDATA[
+{
+  "exdocpickerbase" : {
+    "buttonLabel" : "Link to Hippo Blog Articles",
+    "buttonIcon" : "/cms/images/hippoblogpicker.png",
+    "dialogTitle" : "Hippo Blog Article Browser",
+    "dialogMinWidth" : 640,
+    "dialogMinHeight" : 480,
+    "getSearchURL" : "return '/cms/examples/hippoblogarticles.jsp?q=' + encodeURI(data.query);",
+    "getLinkAttributes" : "var attrs = {}; attrs['href'] = item.href; attrs['data-custom1'] = item['data-custom1']; return attrs;"
+  }
+}
+        ]]></source>
+        </div>
+        <p>
+          Here's the detail on each configuration:
+        </p>
+        <table>
+          <tr>
+            <th>Property name</th>
+            <th>Description</th>
+            <th>Example value(s)</th>
+            <th>Default value(s)</th>
+          </tr>
+          <tr>
+            <td>buttonLabel</td>
+            <td>The label for the link button shown in the CKEditor.</td>
+            <td>"Link to Hippo Blog Articles"</td>
+            <td>"Link to External Document"</td>
+          </tr>
+          <tr>
+            <td>buttonIcon</td>
+            <td>The icon image URI for the link button shown in the CKEditor.</td>
+            <td>"/cms/images/hippoblogpicker.png"</td>
+            <td>exdocpickerbase.png</td>
+          </tr>
+          <tr>
+            <td>dialogTitle</td>
+            <td>The title of the external document searching popup dialog which is to show when user clicks on the link button.</td>
+            <td>"Hippo Blog Article Browser"</td>
+            <td>"External Document Browser"</td>
+          </tr>
+          <tr>
+            <td>dialogMinWidth</td>
+            <td>The minimum width of the external document searching popup dialog.</td>
+            <td>640</td>
+            <td>640</td>
+          </tr>
+          <tr>
+            <td>dialogMinHeight</td>
+            <td>The minimum height of the external document searching popup dialog.</td>
+            <td>480</td>
+            <td>480</td>
+          </tr>
+          <tr>
+            <td>getSearchURL</td>
+            <td>
+              <p>
+                The function body string which is to be invoked by the plugin when user clicks on 'Search' button in the popup dialog.
+              </p>
+              <p>
+                This function body is responsible for returning a valid REST Service URL based on the search query term entered by the user.
+                See the example implementation as shown above.
+              </p>
+              <p>
+                <strong>Note: </strong>
+                The function body can expect 'data' object argument.
+                An example 'data' object argument looks like '{ "query" : "a_search_term" }'.
+                In other words, you can use 'data.query' in the function body to get the string input value in the search text box.
+              </p>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>getLinkAttributes</td>
+            <td>
+              <p>
+                The function body string which is to be invoked by the plugin when user selects an external document item after a search
+                and clicks on OK button in order to set attributes of the (new) link element.
+              </p>
+              <p>
+                This function body is responsible for extracting attributes from a search result item and sets required/optional attributes in the generated link element (&lt;a ... &gt;).
+                See the example implementation as shown above, which sets the "data-custom1" attribute as well as the normal "href" attribute.
+              </p>
+              <p>
+                <strong>Note: </strong>
+                The function body can expect 'item' object argument.
+                An example 'item' object argument is exactly the same as the selected item of the result list from your own REST service.
+                So, you can use 'item.href' in the function body, for instance, to get the href attribute value from the search result item.
+                <br/>
+                Please take a look at an example REST service output in the demo project here:
+                <a href="http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/cms/src/main/webapp/examples/hippoblogarticles.jsp">http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/cms/src/main/webapp/examples/hippoblogarticles.jsp</a>
+              </p>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Wait! Why function body string configurations instead of JavaScript function itself?">
+        <p>
+          Good question! :) Yeah, it is a bit ugly with function body strings. :(
+        </p>
+        <p>
+          However, unfortunately, that's how we can handle it for <strong>getSearchURL</strong> and <strong>getLinkAttributes</strong>
+          properties for now (at least until 7.9).
+        </p>
+        <p>
+          The reason is that the internal Hippo CMS7 CKEditor Plugin parses the custom CKEditor configurations to
+          <code>org.json.JSONObject</code> objects first and merge them with other default properties in the Java code.
+          So, it cannot handle JavaScript function object properly.
+        </p>
+        <p>
+          Therefore, a workaround solution came out to solve this problem:
+          If you provide function body as string instead, then this CKEditor plugin creates JavaScript functions by using
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a> constructor.
+          That's why those function body string properties were born for this plugin.
+        </p>
+      </subsection>
+
+      <subsection name="Implementing your own REST Service for External Document Searches">
+        <p>
+          You should provide a valid REST service URL in the <strong>getSearchURL</strong> function body property as shown above.
+        </p>
+        <p>
+          Please take a look at a very simple REST service implementation JSP page (residing in the demo project):
+          <a href="http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/cms/src/main/webapp/examples/hippoblogarticles.jsp">http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/cms/src/main/webapp/examples/hippoblogarticles.jsp</a>
+        </p>
+        <p>
+          Basically, your REST service implementation should return a JavaScript array, each item of which can be in any forms
+          because it's totally up to you to extract attributes from each result item and set link attributes in the generated link
+          in <strong>getLinkAttributes</strong> function body property.
+        </p>
+        <p>
+          Note: Because the REST service is invoked by client-side CKEditor plugin, the REST Service URL must be from the same origin
+          in order to avoid security problems.
+        </p>
+      </subsection>
+
+      <subsection name="Handling Custom Links in Delivery Tier">
+        <p>
+          Maybe you're also interested in having a custom behavior handling the links generated by this plugin.
+          In that case, you might want to implement a custom <code>org.hippoecm.hst.content.rewriter.ContentRewriter</code>
+          for that.
+          Please refer to <a href="http://www.onehippo.org/library/concepts/rewriting-rich-text-field-runtime/hst-2-rewriting-rich-text-field-runtime.html">HST-2 Rewriting rich text field runtime</a> page
+          and its child pages for examples.
+        </p>
+      </subsection>
+
+    </section>
+  </body>
+</document>

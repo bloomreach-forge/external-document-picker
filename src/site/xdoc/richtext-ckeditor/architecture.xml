@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC
+  "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<!--
+    Copyright 2014 Hippo
+
+    Licensed under the Apache License, Version 2.0 (the  "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS"
+    BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+  <properties>
+    <title>Architecture (External Link Picker Button in the RichText Editor)</title>
+  </properties>
+  <body>
+    <section name="Architecture (External Link Picker Button in the RichText Editor)">
+      <subsection name="Overview">
+        <p>
+          In Hippo CMS UI, the <strong>External Document Picker Base for RichText Field in CKEditor</strong> plugin is installed.
+          Then you can configure a RichText (HTML) field(s) in bootstrap XML files (a.k.a Hippo CMS 'namespace').
+          So, when you are editing a document in CMS UI, you will see a button handled by this CKEditor plugin
+          to select an external document in the RichText (HTML) editor field.
+        </p>
+        <p>Here's how it works:</p>
+        <ol>
+         <li>Hippo CMS7 CKEditor plugin opens up for editing a RichText (HTML) field.</li>
+         <li>
+           Hippo CMS7 CKEditor plugin adds the <strong>exdocpickerbase</strong> CKEditor plugin
+           as configured in the custom CKEditor configuration.
+         </li>
+         <li>
+           The <strong>exdocpickerbase</strong> CKEditor plugin initializes a button in the 'links' toolbar group.
+         </li>
+         <li>
+           When a user clicks on the button, the <strong>exdocpickerbase</strong> CKEditor plugin opens a dialog
+           with which the user can search external documents by a search term.
+         </li>
+         <li>
+           When a user selects an item from the search result and clicks on OK button,
+           the <strong>exdocpickerbase</strong> CKEditor plugin adds a link with the external document information
+           in the CKEditor pane.
+         </li>
+        </ol>
+        <img src="../images/exdocpickerbase-ckeditor-archview.png" alt="Architectural View" />
+        <p>
+          Therefore, in most cases, you don't have to care of the <strong>exdocpickerbase</strong> CKEditor plugin.
+          You can simply add and configure it in your project and provide your own domain-specific REST service URL
+          in the <strong>exdocpickerbase</strong> configuration in the custom CKEditor configuration.
+          Then the <strong>exdocpickerbase</strong> CKEditor plugin will invoke your own domain-specific REST service URL
+          to search your external documents.
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>
