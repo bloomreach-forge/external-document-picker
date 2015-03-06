@@ -30,35 +30,35 @@
           So, when you are editing a document in CMS UI, you will see those configured fields displayed by this plugin.
         </p>
         <p>
-          Each field must be configured with a custom domain-specific <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> implementation class name.
+          Each field must be configured with a custom domain-specific <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> implementation class name.
         </p>
         <p>
           This plugin component instantiates your <code>ExternalSearchServiceFacade</code> class and invokes it in the following cases:
         </p>
         <ul>
           <li>
-            First of all, an <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance is in the same lifecycle of this plugin.
+            First of all, an <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance is in the same lifecycle of this plugin.
             When a document is opened or edited, this plugin will be instantiated, and this plugin will instantiate an
             <code>ExternalSearchServiceFacade</code> instance.
-            When the document is closed, this plugin and the <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance will be destroyed.
+            When the document is closed, this plugin and the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance will be destroyed.
           </li>
           <li>
-            When this plugin is instantiated, the plugin invokes the <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance to retrieve
+            When this plugin is instantiated, the plugin invokes the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance to retrieve
             the currently-selected domain-specific external documents from the currently-viewed/edited CMS document in the context.
           </li>
           <li>
             When the plugin needs to display the linked external documents (e.g, title),
-            it invokes the <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> with the current document context.
-            The <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> should give a proper title string for your domain-specific document object to the plugin.
+            it invokes the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> with the current document context.
+            The <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> should give a proper title string for your domain-specific document object to the plugin.
           </li>
           <li>
-            The <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance is invoked from the External Document Field Browser Dialog in order to
+            The <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance is invoked from the External Document Field Browser Dialog in order to
             search domain-specific external documents and display document information such as title, description and icon in the dialog.
           </li>
         </ul>
         <img src="../images/exdocpickerbase-archview.png" alt="Architectural View" />
         <p>
-          See <a href="../apidocs/index.html">Javadocs</a> for detail about the <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a>.
+          See <a href="../apidocs/index.html">Javadocs</a> for detail about the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a>.
         </p>
       </subsection>
     </section>
