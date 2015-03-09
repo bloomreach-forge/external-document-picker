@@ -34,7 +34,7 @@
       <!-- SNIP -->
 
       <repository>
-        <id>hipporepojcrdav-maven-repo</id>
+        <id>exdocpickerbase-maven-repo</id>
         <name>Hippo CMS External Document Picker Base Maven 2 Repository</name>
         <url>http://forge.onehippo.org/svn/exdocpickerbase/maven2/</url>
       </repository>
