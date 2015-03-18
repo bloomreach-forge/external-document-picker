@@ -48,6 +48,7 @@
         <item name="Architecture" href="field/architecture.html" />
         <item name="Installation" href="field/install.html" />
         <item name="Developer's How-to" href="field/dev-howto.html" />
+        <item name="Example: JPA Picker" href="field/dev-example-jpql.html" />
         <item name="Javadoc (latest)" href="apidocs/index.html" />
       </item>
       <item name="External Link Picker in RichText Editor" href="richtext-ckeditor/architecture.html">

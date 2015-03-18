@@ -26,7 +26,8 @@
 
       <subsection name="Configuring Field in Document Template (a.k.a 'namespace')">
         <p>
-          In a namespace bootstrap XML file, you should add a custom field like the following example:
+          In a namespace bootstrap XML file, you should add a custom field like the following example
+          (an example with ExampleExternalDocumentServiceFacade having embedded external JSON data in a classpath resource):
         </p>
         <div class="brush: xml">
           <source><![CDATA[
@@ -193,6 +194,27 @@
             <td>The page size (item count per page) in the popup dialog.</td>
             <td>10</td>
             <td>5</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Plugin Specific Parameters of ExampleExternalDocumentServiceFacade">
+        <p>
+          The following parameters are set for the <code>ExampleExternalDocumentServiceFacade</code> implementation
+          additionally.
+        </p>
+        <table>
+          <tr>
+            <th>Parameter name</th>
+            <th>Description</th>
+            <th>Example value(s)</th>
+            <th>Default value(s)</th>
+          </tr>
+          <tr>
+            <td>example.external.docs.field.name</td>
+            <td>The physical node property name to read from or store to when selection an external document.</td>
+            <td>exdocpickerbasedemo:relatedexdocids</td>
+            <td></td>
           </tr>
         </table>
       </subsection>

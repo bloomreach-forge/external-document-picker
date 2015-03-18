@@ -364,6 +364,7 @@ src/site/resources/sh/styles/shThemeMidnight.css -text
 src/site/resources/sh/styles/shThemeRDark.css -text
 src/site/site.xml -text
 src/site/xdoc/field/architecture.xml -text
+src/site/xdoc/field/dev-example-jpql.xml -text
 src/site/xdoc/field/dev-howto.xml -text
 src/site/xdoc/field/install.xml -text
 src/site/xdoc/index.xml -text

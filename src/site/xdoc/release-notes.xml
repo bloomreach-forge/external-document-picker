@@ -40,6 +40,12 @@
       </table>
     </section>
     <section name="Release Notes (2.x.x)">
+      <subsection name="2.0.4">
+        <ul>
+          <li>Fix a bug caused by a hard-coded 'title' property retrieval from the domain POJO in document view.</li>
+          <li>Add JPQL (of JPA) based simple external document picker example in the demo project.</li>
+        </ul>
+      </subsection>
       <subsection name="2.0.3">
         <ul>
           <li>Initial Support for <a href="richtext-ckeditor/architecture.html">External Link Picker Button in the RichText Editor</a></li>
