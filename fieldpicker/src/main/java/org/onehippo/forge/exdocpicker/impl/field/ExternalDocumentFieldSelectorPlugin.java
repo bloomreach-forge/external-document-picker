@@ -34,7 +34,6 @@ import org.apache.wicket.markup.repeater.RefreshingView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
@@ -284,7 +283,13 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                 Change<? extends Serializable> change = (Change<? extends Serializable>) item.getModelObject();
                 final Serializable searchDoc = change.getValue();
 
-                Label label = new Label("link-text", new PropertyModel(searchDoc, "title"));
+                Label label = new Label("link-text", new Model<String>() {
+                    private static final long serialVersionUID = 1L;
+                    @Override
+                    public String getObject() {
+                        return exdocService.getDocumentTitle(extDocServiceContext, searchDoc, getRequest().getLocale());
+                    }
+                });
 
                 if (change.getType() == ChangeType.ADDED) {
                     label.add(new AttributeAppender("class", new Model("hippo-diff-added"), " "));
