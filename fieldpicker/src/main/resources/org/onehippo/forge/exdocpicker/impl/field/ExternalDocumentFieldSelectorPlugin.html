@@ -4,21 +4,23 @@
       <h3 class="hippo-editor-field-title">
         <span wicket:id="exdocfield-relateddocs-caption">Related External Documents</span>
       </h3>
-      <div class="hippo-editor-field-subfield">
-        <div class="hippo-editor-field-textarea">
-          <div class="hippo-editor-field-search-related-docs">
-            <ul class="exdocfield-docitems">
-              <li wicket:id="view">
-                <span wicket:id="link-text">[ title of search doc ]</span>
-                &nbsp;
-                <a wicket:id="delete" class="delete">
-                  <img wicket:id="delete-image" src="" />
-                </a>
-              </li>
-            </ul>
+      <wicket:container wicket:id="exdocs-container">
+        <div class="hippo-editor-field-subfield">
+          <div class="hippo-editor-field-textarea">
+            <div class="hippo-editor-field-search-related-docs">
+              <ul class="exdocfield-docitems">
+                <li wicket:id="view">
+                  <span wicket:id="link-text">[ title of search doc ]</span>
+                  &nbsp;
+                  <a wicket:id="delete" class="delete">
+                    <img wicket:id="delete-image" src="" />
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      </wicket:container>
       <div class="exdocfield-field-subfield-buttons">
         <span class="exdocpickerlinkspan" wicket:id="browse-button">Browse...</span>
       </div>

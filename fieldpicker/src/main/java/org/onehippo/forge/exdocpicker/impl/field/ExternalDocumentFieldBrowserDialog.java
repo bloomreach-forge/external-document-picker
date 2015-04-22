@@ -23,7 +23,6 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.ComponentTag;
@@ -32,8 +31,6 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
@@ -41,8 +38,6 @@ import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.util.value.IValueMap;
@@ -101,22 +96,6 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
         pageSize = getPluginConfig().getInt(PluginConstants.PARAM_PAGE_SIZE, PluginConstants.DEFAULT_PAGE_SIZE);
 
         currentDocSelection = getModelObject();
-
-        final TextField<String> searchText = new TextField<String>("search-input", new PropertyModel<String>(this, "searchQuery"));
-        searchText.setOutputMarkupId(true);
-        add(setFocus(searchText));
-
-        //Search button
-        AjaxButton searchButton = new AjaxButton("search-button", new StringResourceModel("search-label", this, null)) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            protected void onSubmit(AjaxRequestTarget ajaxRequestTarget, Form<?> form) {
-                searchExternalDocumentsBySearchQuery();
-                ajaxRequestTarget.add(ExternalDocumentFieldBrowserDialog.this);
-            }
-        };
-        add(searchButton);
 
         if (getModel().getObject() == null) {
             setOkVisible(false);

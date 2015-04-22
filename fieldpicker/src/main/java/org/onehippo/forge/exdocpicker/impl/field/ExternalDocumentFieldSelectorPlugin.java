@@ -22,11 +22,13 @@ import java.util.NoSuchElementException;
 
 import javax.jcr.Node;
 
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.repeater.Item;
@@ -100,8 +102,10 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
         curDocCollection = exdocService.getFieldExternalDocuments(extDocServiceContext);
 
+        MarkupContainer exdocsContainer = new WebMarkupContainer("exdocs-container");
+
         if (!isCompareMode()) {
-            add(createRefreshingView(curDocCollection));
+            exdocsContainer.add(createRefreshingView(curDocCollection));
         } else {
             if (!getPluginConfig().containsKey("model.compareTo")) {
                 log.warn("no base model service configured");
@@ -117,10 +121,12 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                             .toString());
                     ExternalDocumentServiceContext comparingContext = new SimpleExternalDocumentServiceContext(getPluginConfig(), getPluginContext(), compareBaseDocumentModel);
                     ExternalDocumentCollection<Serializable> baseDocCollection = exdocService.getFieldExternalDocuments(comparingContext);
-                    add(createCompareView(curDocCollection, baseDocCollection));
+                    exdocsContainer.add(createCompareView(curDocCollection, baseDocCollection));
                 }
             }
         }
+
+        add(exdocsContainer);
 
         // Browse button
         DialogLink browseButton = new DialogLink("browse-button", new StringResourceModel("picker.browse", this, null),
@@ -314,12 +320,16 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         };
     }
 
+    protected AbstractDialog<ExternalDocumentCollection<Serializable>> createDialogInstance() {
+        return new TextSearchExternalDocumentFieldBrowserDialog(getCaptionModel(), extDocServiceContext, exdocService, new Model(curDocCollection));
+    }
+
     protected IDialogFactory createDialogFactory() {
         return new IDialogFactory() {
             private static final long serialVersionUID = 1L;
 
             public AbstractDialog<ExternalDocumentCollection<Serializable>> createDialog() {
-                return new ExternalDocumentFieldBrowserDialog(getCaptionModel(), extDocServiceContext, exdocService, new Model(curDocCollection));
+                return createDialogInstance();
             }
         };
     }

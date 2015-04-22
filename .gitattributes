@@ -15,6 +15,7 @@ fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/SimpleExternalDocu
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserPageNavigator.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldSelectorPlugin.java -text
+fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/field/TextSearchExternalDocumentFieldBrowserDialog.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/field/package-info.java -text
 fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/package-info.java -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.css -text
@@ -23,6 +24,7 @@ fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/Externa
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldSelectorPlugin.css -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldSelectorPlugin.html -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldSelectorPlugin.properties -text
+fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/TextSearchExternalDocumentFieldBrowserDialog.html -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/delete-small-16.png -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/no-icon.jpg -text
 fieldpicker/src/test/java/org/onehippo/forge/exdocpicker/impl/SimpleExternalDocumentCollectionTest.java -text
