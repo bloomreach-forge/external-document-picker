@@ -320,8 +320,24 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         };
     }
 
+    protected ExternalDocumentServiceFacade<Serializable> getExternalDocumentServiceFacade() {
+        return exdocService;
+    }
+
+    protected ExternalDocumentCollection<Serializable> getCurrentExternalDocumentCollection() {
+        return curDocCollection;
+    }
+
+    protected ExternalDocumentServiceContext getExternalDocumentServiceContext() {
+        return extDocServiceContext;
+    }
+
     protected AbstractDialog<ExternalDocumentCollection<Serializable>> createDialogInstance() {
-        return new TextSearchExternalDocumentFieldBrowserDialog(getCaptionModel(), extDocServiceContext, exdocService, new Model(curDocCollection));
+        return new TextSearchExternalDocumentFieldBrowserDialog(
+                                                                getCaptionModel(),
+                                                                getExternalDocumentServiceContext(),
+                                                                getExternalDocumentServiceFacade(),
+                                                                new Model(getCurrentExternalDocumentCollection()));
     }
 
     protected IDialogFactory createDialogFactory() {

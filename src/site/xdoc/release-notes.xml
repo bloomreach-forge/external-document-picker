@@ -40,6 +40,21 @@
       </table>
     </section>
     <section name="Release Notes (2.x.x)">
+      <subsection name="2.0.5">
+        <ul>
+          <li>
+            Usability improvements:
+              a) Item checkboxes were moved leftmost position,
+              b) Item can be selected by clicking on any column in the row.
+          </li>
+          <li>
+            Extensibility improvements:
+              a) Dialog component can be extended for UI by using Wicket extension mechanism,
+              b) Plugin component can be extended to customize UI and create an extended Dialog component
+          </li>
+          <li>Add JPQL (of JPA) based simple external document picker example in the demo project.</li>
+        </ul>
+      </subsection>
       <subsection name="2.0.4">
         <ul>
           <li>Fix a bug caused by a hard-coded 'title' property retrieval from the domain POJO in document view.</li>
