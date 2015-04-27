@@ -17,6 +17,7 @@ package org.onehippo.forge.exdocpicker.api;
 
 import org.apache.wicket.util.io.IClusterable;
 import org.hippoecm.frontend.model.JcrNodeModel;
+import org.hippoecm.frontend.plugin.IPlugin;
 import org.hippoecm.frontend.plugin.IPluginContext;
 import org.hippoecm.frontend.plugin.config.IPluginConfig;
 
@@ -24,6 +25,12 @@ import org.hippoecm.frontend.plugin.config.IPluginConfig;
  * The service invocation context which is supposed to be used by the service implementations.
  */
 public interface ExternalDocumentServiceContext extends IClusterable {
+
+    /**
+     * Returns the plugin instance.
+     * @return
+     */
+    public IPlugin getPlugin();
 
     /**
      * Returns the plugin config instance.

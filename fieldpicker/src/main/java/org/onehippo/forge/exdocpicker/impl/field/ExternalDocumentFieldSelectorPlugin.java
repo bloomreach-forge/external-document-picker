@@ -85,7 +85,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
         exdocService = (ExternalDocumentServiceFacade<Serializable>) getExternalDocumentService();
 
-        extDocServiceContext = new SimpleExternalDocumentServiceContext(config, context, documentModel);
+        extDocServiceContext = new SimpleExternalDocumentServiceContext(this, config, context, documentModel);
 
         add(new Label("exdocfield-relateddocs-caption", getCaptionModel()));
 
@@ -119,7 +119,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                     compareBaseDocumentModel = new JcrNodeModel(new StringBuilder()
                             .append(((JcrNodeModel) compareBaseRef.getModel()).getItemModel().getPath())
                             .toString());
-                    ExternalDocumentServiceContext comparingContext = new SimpleExternalDocumentServiceContext(getPluginConfig(), getPluginContext(), compareBaseDocumentModel);
+                    ExternalDocumentServiceContext comparingContext =
+                        new SimpleExternalDocumentServiceContext(this, getPluginConfig(), getPluginContext(), compareBaseDocumentModel);
                     ExternalDocumentCollection<Serializable> baseDocCollection = exdocService.getFieldExternalDocuments(comparingContext);
                     exdocsContainer.add(createCompareView(curDocCollection, baseDocCollection));
                 }

@@ -16,6 +16,7 @@
 package org.onehippo.forge.exdocpicker.impl;
 
 import org.hippoecm.frontend.model.JcrNodeModel;
+import org.hippoecm.frontend.plugin.IPlugin;
 import org.hippoecm.frontend.plugin.IPluginContext;
 import org.hippoecm.frontend.plugin.config.IPluginConfig;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceContext;
@@ -27,14 +28,21 @@ public class SimpleExternalDocumentServiceContext implements ExternalDocumentSer
 
     private static final long serialVersionUID = 1L;
 
+    private final IPlugin plugin;
     private final IPluginConfig config;
     private final IPluginContext context;
     private final JcrNodeModel contextModel;
 
-    public SimpleExternalDocumentServiceContext(final IPluginConfig config, final IPluginContext context, final JcrNodeModel contextModel) {
+    public SimpleExternalDocumentServiceContext(final IPlugin plugin, final IPluginConfig config, final IPluginContext context, final JcrNodeModel contextModel) {
+        this.plugin = plugin;
         this.config = config;
         this.context = context;
         this.contextModel = contextModel;
+    }
+
+    @Override
+    public IPlugin getPlugin() {
+        return plugin;
     }
 
     @Override
