@@ -71,10 +71,10 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
     private static final ResourceReference DELETE_ICON_REF = new PackageResourceReference(ExternalDocumentFieldSelectorPlugin.class, "delete-small-16.png");
 
     private JcrNodeModel documentModel;
+
     private ExternalDocumentServiceFacade<Serializable> exdocService;
     private ExternalDocumentCollection<Serializable> curDocCollection;
-
-    private final ExternalDocumentServiceContext extDocServiceContext;
+    private ExternalDocumentServiceContext extDocServiceContext;
 
     public ExternalDocumentFieldSelectorPlugin(final IPluginContext context, IPluginConfig config) {
         super(context, config);
@@ -83,9 +83,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
         documentModel = (JcrNodeModel) getModel();
 
-        exdocService = (ExternalDocumentServiceFacade<Serializable>) getExternalDocumentService();
-
-        extDocServiceContext = new SimpleExternalDocumentServiceContext(this, config, context, documentModel);
+        setExternalDocumentServiceFacade((ExternalDocumentServiceFacade<Serializable>) createExternalDocumentService());
+        setExternalDocumentServiceContext(new SimpleExternalDocumentServiceContext(this, config, context, documentModel));
 
         add(new Label("exdocfield-relateddocs-caption", getCaptionModel()));
 
@@ -100,12 +99,12 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
             }, IObserver.class.getName());
         }
 
-        curDocCollection = exdocService.getFieldExternalDocuments(extDocServiceContext);
+        setCurrentExternalDocumentCollection(getExternalDocumentServiceFacade().getFieldExternalDocuments(getExternalDocumentServiceContext()));
 
         MarkupContainer exdocsContainer = new WebMarkupContainer("exdocs-container");
 
         if (!isCompareMode()) {
-            exdocsContainer.add(createRefreshingView(curDocCollection));
+            exdocsContainer.add(createRefreshingView(getCurrentExternalDocumentCollection()));
         } else {
             if (!getPluginConfig().containsKey("model.compareTo")) {
                 log.warn("no base model service configured");
@@ -121,8 +120,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                             .toString());
                     ExternalDocumentServiceContext comparingContext =
                         new SimpleExternalDocumentServiceContext(this, getPluginConfig(), getPluginContext(), compareBaseDocumentModel);
-                    ExternalDocumentCollection<Serializable> baseDocCollection = exdocService.getFieldExternalDocuments(comparingContext);
-                    exdocsContainer.add(createCompareView(curDocCollection, baseDocCollection));
+                    ExternalDocumentCollection<Serializable> baseDocCollection = getExternalDocumentServiceFacade().getFieldExternalDocuments(comparingContext);
+                    exdocsContainer.add(createCompareView(getCurrentExternalDocumentCollection(), baseDocCollection));
                 }
             }
         }
@@ -151,7 +150,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         return IEditor.Mode.COMPARE.equals(IEditor.Mode.fromString(getPluginConfig().getString("mode", "view")));
     }
 
-    protected ExternalDocumentServiceFacade<? extends Serializable> getExternalDocumentService() {
+    protected ExternalDocumentServiceFacade<? extends Serializable> createExternalDocumentService() {
         ExternalDocumentServiceFacade<? extends Serializable> service = null;
         String serviceFacadeClassName = null;
 
@@ -210,7 +209,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                     private static final long serialVersionUID = 1L;
                     @Override
                     public String getObject() {
-                        return exdocService.getDocumentTitle(extDocServiceContext, doc, getRequest().getLocale());
+                        return getExternalDocumentServiceFacade().getDocumentTitle(getExternalDocumentServiceContext(), doc, getRequest().getLocale());
                     }
                 }));
 
@@ -227,7 +226,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                         boolean removed = docCollection.remove(doc);
 
                         if (removed) {
-                            exdocService.setFieldExternalDocuments(extDocServiceContext, docCollection);
+                            getExternalDocumentServiceFacade().setFieldExternalDocuments(getExternalDocumentServiceContext(), docCollection);
                             target.add(ExternalDocumentFieldSelectorPlugin.this);
                         }
                     }
@@ -294,7 +293,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                     private static final long serialVersionUID = 1L;
                     @Override
                     public String getObject() {
-                        return exdocService.getDocumentTitle(extDocServiceContext, searchDoc, getRequest().getLocale());
+                        return getExternalDocumentServiceFacade().getDocumentTitle(getExternalDocumentServiceContext(), searchDoc, getRequest().getLocale());
                     }
                 });
 
@@ -325,12 +324,24 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         return exdocService;
     }
 
+    protected void setExternalDocumentServiceFacade(ExternalDocumentServiceFacade<Serializable> exdocService) {
+        this.exdocService = exdocService;
+    }
+
     protected ExternalDocumentCollection<Serializable> getCurrentExternalDocumentCollection() {
         return curDocCollection;
     }
 
+    protected void setCurrentExternalDocumentCollection(ExternalDocumentCollection<Serializable> curDocCollection) {
+        this.curDocCollection = curDocCollection;
+    }
+
     protected ExternalDocumentServiceContext getExternalDocumentServiceContext() {
         return extDocServiceContext;
+    }
+
+    protected void setExternalDocumentServiceContext(ExternalDocumentServiceContext extDocServiceContext) {
+        this.extDocServiceContext = extDocServiceContext;
     }
 
     protected AbstractDialog<ExternalDocumentCollection<Serializable>> createDialogInstance() {
