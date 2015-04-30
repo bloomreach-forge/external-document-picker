@@ -40,6 +40,13 @@
       </table>
     </section>
     <section name="Release Notes (2.x.x)">
+      <subsection name="2.0.7">
+        <ul>
+          <li>
+            More extensibility from derived plugin class: e.g, refreshing the selected documents model.
+          </li>
+        </ul>
+      </subsection>
       <subsection name="2.0.6">
         <ul>
           <li>
