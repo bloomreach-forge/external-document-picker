@@ -40,6 +40,17 @@
       </table>
     </section>
     <section name="Release Notes (2.x.x)">
+      <subsection name="2.0.8">
+        <ul>
+          <li>
+            Supporting abstract base plugin class (org.onehippo.forge.exdocpicker.impl.field.AbstractHiddenExternalDocumentFieldPlugin)
+            which can be used to add a hidden field plugin to update some other properties under the hood.
+            Please see org.onehippo.forge.exdocpicker.demo.field.DateUpdatingHiddenFieldPlugin class and its configuration
+            in the news document namespace in the demo project for detail. That example simply updates the date field
+            whenever editing the news document.
+          </li>
+        </ul>
+      </subsection>
       <subsection name="2.0.7">
         <ul>
           <li>
