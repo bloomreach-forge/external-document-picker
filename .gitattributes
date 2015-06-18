@@ -22,6 +22,7 @@ fieldpicker/src/main/java/org/onehippo/forge/exdocpicker/impl/package-info.java 
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/AbstractHiddenExternalDocumentFieldPlugin.html -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.css -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.html -text
+fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.properties -text svneol=unset#text/plain
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserPageNavigator.html -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldSelectorPlugin.css -text
 fieldpicker/src/main/resources/org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldSelectorPlugin.html -text

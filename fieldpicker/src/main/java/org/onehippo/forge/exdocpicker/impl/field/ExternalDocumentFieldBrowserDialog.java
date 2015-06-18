@@ -17,12 +17,13 @@ package org.onehippo.forge.exdocpicker.impl.field;
 
 import java.io.Serializable;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.ComponentTag;
@@ -31,6 +32,7 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
@@ -65,7 +67,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     private final IModel<String> titleModel;
     private final ExternalDocumentServiceFacade<Serializable> exdocService;
 
-    private final List<Serializable> selectedExtDocs = new LinkedList<Serializable>();
+    private final Set<Serializable> selectedExtDocs = new LinkedHashSet<Serializable>();
 
     private ExternalDocumentCollection<Serializable> currentDocSelection;
     private ExternalDocumentCollection<Serializable> searchedDocCollection = new SimpleExternalDocumentCollection<Serializable>();
@@ -77,6 +79,9 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     private final boolean initialSearchEnabled;
 
     private final ExternalDocumentServiceContext extDocServiceContext;
+
+    private final AjaxButton selectAllButton;
+    private final AjaxButton clearAllButton;
 
     public ExternalDocumentFieldBrowserDialog(IModel<String> titleModel, final ExternalDocumentServiceContext extDocServiceContext, final ExternalDocumentServiceFacade<Serializable> exdocService, IModel<ExternalDocumentCollection<Serializable>> model) {
         super(model);
@@ -97,19 +102,48 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
         currentDocSelection = getModelObject();
 
+        selectedExtDocs.clear();
+
+        for (Iterator<? extends Serializable> it = currentDocSelection.iterator(); it.hasNext(); ) {
+            selectedExtDocs.add(it.next());
+        }
+
         if (getModel().getObject() == null) {
             setOkVisible(false);
             setOkEnabled(false);
         }
+
+        selectAllButton = new AjaxButton("select-all-button") {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                selectedExtDocs.clear();
+                for (Iterator<? extends Serializable> it = searchedDocCollection.iterator(); it.hasNext(); ) {
+                    selectedExtDocs.add(it.next());
+                }
+                target.add(ExternalDocumentFieldBrowserDialog.this);
+            }
+        };
+        selectAllButton.setEnabled(false);
+        add(selectAllButton);
+
+        clearAllButton = new AjaxButton("clear-all-button") {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                selectedExtDocs.clear();
+                target.add(ExternalDocumentFieldBrowserDialog.this);
+            }
+        };
+        clearAllButton.setEnabled(false);
+        add(clearAllButton);
 
         // initially search all
         if (initialSearchEnabled) {
             searchExternalDocumentsBySearchQuery();
         }
 
-        IDataProvider<Serializable> provider = new SimpleExternalDocumentCollectionDataProvider<Serializable>(searchedDocCollection);
+        final IDataProvider<Serializable> provider = new SimpleExternalDocumentCollectionDataProvider<Serializable>(searchedDocCollection);
 
-        DataView<Serializable> resultsDataView = new DataView<Serializable>("item", provider, pageSize) {
+        final DataView<Serializable> resultsDataView = new DataView<Serializable>("item", provider, pageSize) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -134,9 +168,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                     }
                 };
 
-                if (currentDocSelection.contains(doc)) {
-                    selectCheckbox.getModel().setObject(true);
-                }
+                selectCheckbox.getModel().setObject(selectedExtDocs.contains(doc));
 
                 final String iconLink = exdocService.getDocumentIconLink(extDocServiceContext, doc, getRequest().getLocale());
                 final ExternalDocumentIconImage iconImage = new ExternalDocumentIconImage("image", iconLink);
@@ -165,9 +197,11 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                 }, " "));
             }
         };
+        resultsDataView.setOutputMarkupId(true);
 
         add(resultsDataView);
         add(new ExternalDocumentFieldBrowserPageNavigator("navigator", resultsDataView));
+
     }
 
     @Override
@@ -238,12 +272,16 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
             searchedDocCollection.clear();
 
-            if (searchedDocs == null || searchedDocs.getSize() == 0) {
-                return;
-            }
+            if (searchedDocs != null && searchedDocs.getSize() > 0) {
+                for (Iterator<? extends Serializable> it = searchedDocs.iterator(); it.hasNext(); ) {
+                    searchedDocCollection.add(it.next());
+                }
 
-            for (Iterator<? extends Serializable> it = searchedDocs.iterator(); it.hasNext(); ) {
-                searchedDocCollection.add(it.next());
+                selectAllButton.setEnabled(true);
+                clearAllButton.setEnabled(true);
+            } else {
+                selectAllButton.setEnabled(false);
+                clearAllButton.setEnabled(false);
             }
         } catch (Exception e) {
             log.error("Failed to execute search external documents by the search query, '" + getSearchQuery() + "'.", e);
