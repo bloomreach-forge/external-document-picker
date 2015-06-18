@@ -30,7 +30,7 @@ import java.util.Iterator;
  * 
  * @param <T> Domain specific external document POJO type which must be serializable.
  */
-public interface ExternalDocumentCollection<T extends Serializable> extends Serializable {
+public interface ExternalDocumentCollection<T extends Serializable> extends Serializable, Cloneable {
 
     /**
      * Returns an iterator of all the items.
@@ -91,5 +91,11 @@ public interface ExternalDocumentCollection<T extends Serializable> extends Seri
      * @return
      */
     public T[] toArray(T[] a);
+
+    /**
+     * Creates and returns a copy of this object.
+     * @return
+     */
+    public Object clone();
 
 }

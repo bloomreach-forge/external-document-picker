@@ -15,6 +15,11 @@
  */
 package org.onehippo.forge.exdocpicker.impl;
 
+import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
 import org.hippoecm.frontend.model.JcrNodeModel;
 import org.hippoecm.frontend.plugin.IPlugin;
 import org.hippoecm.frontend.plugin.IPluginContext;
@@ -22,7 +27,7 @@ import org.hippoecm.frontend.plugin.config.IPluginConfig;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceContext;
 
 /**
- * 
+ * Simple {@link ExternalDocumentServiceContext} impl.
  */
 public class SimpleExternalDocumentServiceContext implements ExternalDocumentServiceContext {
 
@@ -32,6 +37,7 @@ public class SimpleExternalDocumentServiceContext implements ExternalDocumentSer
     private final IPluginConfig config;
     private final IPluginContext context;
     private final JcrNodeModel contextModel;
+    protected Map<String, Serializable> attributes = new LinkedHashMap<String, Serializable>();
 
     public SimpleExternalDocumentServiceContext(final IPlugin plugin, final IPluginConfig config, final IPluginContext context, final JcrNodeModel contextModel) {
         this.plugin = plugin;
@@ -58,6 +64,34 @@ public class SimpleExternalDocumentServiceContext implements ExternalDocumentSer
     @Override
     public JcrNodeModel getContextModel() {
         return contextModel;
+    }
+
+    @Override
+    public void setAttribute(String name, Serializable value) {
+        if (name == null) {
+            throw new IllegalArgumentException("attribute name cannot be null.");
+        }
+
+        if (value == null) {
+            removeAttribute(name);
+        }
+
+        attributes.put(name, value);
+    }
+
+    @Override
+    public Serializable getAttribute(String name) {
+        return attributes.get(name);
+    }
+
+    @Override
+    public void removeAttribute(String name) {
+        attributes.remove(name);
+    }
+
+    @Override
+    public Set<String> getAttributeNames() {
+        return attributes.keySet();
     }
 
 }

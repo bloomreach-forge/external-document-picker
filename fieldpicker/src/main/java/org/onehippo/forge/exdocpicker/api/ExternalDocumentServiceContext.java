@@ -15,6 +15,9 @@
  */
 package org.onehippo.forge.exdocpicker.api;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import org.apache.wicket.util.io.IClusterable;
 import org.hippoecm.frontend.model.JcrNodeModel;
 import org.hippoecm.frontend.plugin.IPlugin;
@@ -49,5 +52,28 @@ public interface ExternalDocumentServiceContext extends IClusterable {
      * @return
      */
     public JcrNodeModel getContextModel();
+
+    /**
+     * Set an attribute.
+     * 
+     * @param name attribute name
+     * @param serializable object attribute value
+     */
+    void setAttribute(String name, Serializable value);
+
+    /**
+     * Retrieve the attribute value by the attribute name.
+     */
+    Serializable getAttribute(String name);
+
+    /**
+     * Removes the attribute by the attribute name.
+     */
+    void removeAttribute(String name);
+
+    /**
+     * Enumerates the attribute names
+     */
+    Set<String> getAttributeNames();
 
 }

@@ -33,6 +33,16 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
 
     private List<T> list = new LinkedList<T>();
 
+    public SimpleExternalDocumentCollection() {
+        this(null);
+    }
+
+    public SimpleExternalDocumentCollection(List<T> source) {
+        if (source != null) {
+            list.addAll(source);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public Iterator<? extends T> iterator(long first, final long count) {
@@ -93,6 +103,11 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
     @Override
     public T[] toArray(T[] a) {
         return list.toArray(a);
+    }
+
+    @Override
+    public Object clone() {
+        return new SimpleExternalDocumentCollection(list);
     }
 
 }
