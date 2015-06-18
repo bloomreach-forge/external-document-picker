@@ -36,7 +36,10 @@ public class TextSearchExternalDocumentFieldBrowserDialog extends ExternalDocume
 
     private static Logger log = LoggerFactory.getLogger(TextSearchExternalDocumentFieldBrowserDialog.class);
 
-    public TextSearchExternalDocumentFieldBrowserDialog(IModel<String> titleModel, final ExternalDocumentServiceContext extDocServiceContext, final ExternalDocumentServiceFacade<Serializable> exdocService, IModel<ExternalDocumentCollection<Serializable>> model) {
+    public TextSearchExternalDocumentFieldBrowserDialog(IModel<String> titleModel,
+                                                        final ExternalDocumentServiceContext extDocServiceContext,
+                                                        final ExternalDocumentServiceFacade<Serializable> exdocService,
+                                                        IModel<ExternalDocumentCollection<Serializable>> model) {
         super(titleModel, extDocServiceContext, exdocService, model);
 
         final TextField<String> searchText = new TextField<String>("search-input", new PropertyModel<String>(this, "searchQuery"));

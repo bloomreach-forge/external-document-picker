@@ -83,7 +83,10 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     private final AjaxButton selectAllButton;
     private final AjaxButton clearAllButton;
 
-    public ExternalDocumentFieldBrowserDialog(IModel<String> titleModel, final ExternalDocumentServiceContext extDocServiceContext, final ExternalDocumentServiceFacade<Serializable> exdocService, IModel<ExternalDocumentCollection<Serializable>> model) {
+    public ExternalDocumentFieldBrowserDialog(IModel<String> titleModel,
+                                              final ExternalDocumentServiceContext extDocServiceContext,
+                                              final ExternalDocumentServiceFacade<Serializable> exdocService,
+                                              IModel<ExternalDocumentCollection<Serializable>> model) {
         super(model);
         setOutputMarkupId(true);
 
