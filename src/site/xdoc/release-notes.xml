@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-    Copyright 2014 Hippo
+    Copyright 2015 Hippo
 
     Licensed to the Apache Software Foundation (ASF) under one or more
     contributor license agreements.  See the NOTICE file distributed with
@@ -40,6 +40,21 @@
       </table>
     </section>
     <section name="Release Notes (2.x.x)">
+      <subsection name="2.0.9">
+        <ul>
+          <li>
+            Supporting [Select All] and [Clear All] buttons in the picker dialog.
+          </li>
+          <li>
+            More flexibility for custom plugins by:
+            (a) allowing to set/get/remove attributes in ExternalDocumentServiceContext for custom plugins to be able to store ad hoc data,
+            and (b) supporting Cloneable for ExternalDocumentCollection to allow custom plugins to be able to clone
+            the current external document selection before passing it to dialog (which can modify the selection).
+          </li>
+          <li>
+          </li>
+        </ul>
+      </subsection>
       <subsection name="2.0.8">
         <ul>
           <li>
