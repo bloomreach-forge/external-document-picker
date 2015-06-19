@@ -51,8 +51,6 @@
             and (b) supporting Cloneable for ExternalDocumentCollection to allow custom plugins to be able to clone
             the current external document selection before passing it to dialog (which can modify the selection).
           </li>
-          <li>
-          </li>
         </ul>
       </subsection>
       <subsection name="2.0.8">
