@@ -40,6 +40,18 @@
       </table>
     </section>
     <section name="Release Notes (2.x.x)">
+      <subsection name="2.0.10">
+        <ul>
+          <li>
+            Bug fix: in single selection mode,
+            <code>ExternalDocumentFieldService.setFieldExternalDocuments(ExternalDocumentServiceContext, ExternalDocumentCollection&lt;Serializable&gt;)</code>
+            with the last selected item.
+          </li>
+          <li>
+            Hide [Select All] and [Clear All] buttons in single selection mode.
+          </li>
+        </ul>
+      </subsection>
       <subsection name="2.0.9">
         <ul>
           <li>
