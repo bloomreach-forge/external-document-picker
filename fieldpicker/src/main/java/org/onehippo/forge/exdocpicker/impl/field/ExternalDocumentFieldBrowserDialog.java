@@ -139,6 +139,11 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
         clearAllButton.setEnabled(false);
         add(clearAllButton);
 
+        if (isSingleSelectionMode()) {
+            selectAllButton.setVisible(false);
+            clearAllButton.setVisible(false);
+        }
+
         // initially search all
         if (initialSearchEnabled) {
             searchExternalDocumentsBySearchQuery();
@@ -217,11 +222,16 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
     protected void onOk() {
         if (selectedExtDocs != null) {
             if (isSingleSelectionMode()) {
-                if (!selectedExtDocs.isEmpty()) {
-                    currentDocSelection.clear();
-                    currentDocSelection.add(selectedExtDocs.iterator().next());
-                    exdocService.setFieldExternalDocuments(extDocServiceContext, currentDocSelection);
+                currentDocSelection.clear();
+                Serializable curDoc = null;
+                // when single selection mode, let's add the last added item only.
+                for (Iterator<Serializable> it = selectedExtDocs.iterator(); it.hasNext(); ) {
+                    curDoc = it.next();
                 }
+                if (curDoc != null) {
+                    currentDocSelection.add(curDoc);
+                }
+                exdocService.setFieldExternalDocuments(extDocServiceContext, currentDocSelection);
             } else {
                 boolean added = false;
 
