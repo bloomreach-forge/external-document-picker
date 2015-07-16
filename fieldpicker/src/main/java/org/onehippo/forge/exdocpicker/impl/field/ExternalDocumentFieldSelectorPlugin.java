@@ -68,7 +68,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
     private static final Logger log = LoggerFactory.getLogger(ExternalDocumentFieldSelectorPlugin.class);
 
-    private static final ResourceReference DELETE_ICON_REF = new PackageResourceReference(ExternalDocumentFieldSelectorPlugin.class, "delete-small-16.png");
+    private static final ResourceReference DELETE_ICON_REF =
+        new PackageResourceReference(ExternalDocumentFieldSelectorPlugin.class, "delete-small-16.png");
 
     private JcrNodeModel documentModel;
 
@@ -81,10 +82,11 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
         setOutputMarkupId(true);
 
-        documentModel = (JcrNodeModel) getModel();
+        documentModel = (JcrNodeModel)getModel();
 
         setExternalDocumentServiceFacade((ExternalDocumentServiceFacade<Serializable>) createExternalDocumentService());
-        setExternalDocumentServiceContext(new SimpleExternalDocumentServiceContext(this, config, context, documentModel));
+        setExternalDocumentServiceContext(new SimpleExternalDocumentServiceContext(this, config, context,
+                                                                                   documentModel));
 
         add(new Label("exdocfield-relateddocs-caption", getCaptionModel()));
 
@@ -93,53 +95,71 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                 public IObservable getObservable() {
                     return documentModel;
                 }
+
                 public void onEvent(Iterator events) {
                     redraw();
                 }
             }, IObserver.class.getName());
         }
 
-        setCurrentExternalDocumentCollection(getExternalDocumentServiceFacade().getFieldExternalDocuments(getExternalDocumentServiceContext()));
-
         MarkupContainer exdocsContainer = new WebMarkupContainer("exdocs-container");
 
-        if (!isCompareMode()) {
-            exdocsContainer.add(createRefreshingView(getCurrentExternalDocumentCollection()));
-        } else {
-            if (!getPluginConfig().containsKey("model.compareTo")) {
-                log.warn("no base model service configured");
-            } else {
-                JcrNodeModel compareBaseDocumentModel = null;
-                IModelReference compareBaseRef = getPluginContext().getService(getPluginConfig().getString("model.compareTo"), IModelReference.class);
+        boolean exdocsContainerVisible = getPluginConfig()
+            .getAsBoolean(PluginConstants.PARAM_EXTERNAL_DOCUMENTS_CONTAINER_VISIBLE, true);
 
-                if (compareBaseRef == null) {
-                    log.warn("no base model service available");
+        exdocsContainer.setVisible(exdocsContainerVisible);
+
+        if (exdocsContainerVisible) {
+            if (!isCompareMode()) {
+                exdocsContainer.add(createRefreshingView(getCurrentExternalDocumentCollection()));
+            } else {
+                if (!getPluginConfig().containsKey("model.compareTo")) {
+                    log.warn("no base model service configured");
                 } else {
-                    compareBaseDocumentModel = new JcrNodeModel(new StringBuilder()
-                            .append(((JcrNodeModel) compareBaseRef.getModel()).getItemModel().getPath())
+                    JcrNodeModel compareBaseDocumentModel = null;
+                    IModelReference compareBaseRef = getPluginContext()
+                        .getService(getPluginConfig().getString("model.compareTo"), IModelReference.class);
+
+                    if (compareBaseRef == null) {
+                        log.warn("no base model service available");
+                    } else {
+                        compareBaseDocumentModel = new JcrNodeModel(new StringBuilder()
+                            .append(((JcrNodeModel)compareBaseRef.getModel()).getItemModel().getPath())
                             .toString());
-                    ExternalDocumentServiceContext comparingContext =
-                        new SimpleExternalDocumentServiceContext(this, getPluginConfig(), getPluginContext(), compareBaseDocumentModel);
-                    ExternalDocumentCollection<Serializable> baseDocCollection = getExternalDocumentServiceFacade().getFieldExternalDocuments(comparingContext);
-                    exdocsContainer.add(createCompareView(getCurrentExternalDocumentCollection(), baseDocCollection));
+                        ExternalDocumentServiceContext comparingContext =
+                            new SimpleExternalDocumentServiceContext(this,
+                                                                     getPluginConfig(),
+                                                                     getPluginContext(),
+                                                                     compareBaseDocumentModel);
+                        ExternalDocumentCollection<Serializable> baseDocCollection = getExternalDocumentServiceFacade()
+                            .getFieldExternalDocuments(comparingContext);
+                        exdocsContainer.add(createCompareView(getCurrentExternalDocumentCollection(),
+                                                              baseDocCollection));
+                    }
                 }
             }
         }
 
         add(exdocsContainer);
 
+        WebMarkupContainer actionButtonsContainer = new WebMarkupContainer("action-buttons");
         // Browse button
-        DialogLink browseButton = new DialogLink("browse-button", new StringResourceModel("picker.browse", this, null),
-                createDialogFactory(), getDialogService());
+        DialogLink browseButton = new DialogLink("browse-button", new StringResourceModel("picker.browse",
+                                                                                          this, null),
+                                                 createDialogFactory(), getDialogService());
+        actionButtonsContainer.add(browseButton);
 
-        browseButton.setVisible(isEditMode());
-        add(browseButton);
+        actionButtonsContainer.setVisible(isEditMode());
+        add(actionButtonsContainer);
     }
 
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        response.render(CssHeaderItem.forReference(new PackageResourceReference(ExternalDocumentFieldSelectorPlugin.class, ExternalDocumentFieldSelectorPlugin.class.getSimpleName() + ".css")));
+        response.render(CssHeaderItem
+            .forReference(new PackageResourceReference(ExternalDocumentFieldSelectorPlugin.class,
+                                                       ExternalDocumentFieldSelectorPlugin.class
+                                                           .getSimpleName() + ".css")));
     }
 
     protected boolean isEditMode() {
@@ -147,7 +167,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
     }
 
     protected boolean isCompareMode() {
-        return IEditor.Mode.COMPARE.equals(IEditor.Mode.fromString(getPluginConfig().getString("mode", "view")));
+        return IEditor.Mode.COMPARE.equals(IEditor.Mode.fromString(getPluginConfig()
+            .getString("mode", "view")));
     }
 
     protected ExternalDocumentServiceFacade<? extends Serializable> createExternalDocumentService() {
@@ -155,19 +176,23 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         String serviceFacadeClassName = null;
 
         try {
-            serviceFacadeClassName = getPluginConfig().getString(PluginConstants.PARAM_EXTERNAL_DOCUMENT_SERVICE_FACADE);
-            Class<? extends ExternalDocumentServiceFacade> serviceClass = 
-                    (Class<? extends ExternalDocumentServiceFacade>) Class.forName(serviceFacadeClassName);
+            serviceFacadeClassName = getPluginConfig()
+                .getString(PluginConstants.PARAM_EXTERNAL_DOCUMENT_SERVICE_FACADE);
+            Class<? extends ExternalDocumentServiceFacade> serviceClass = (Class<? extends ExternalDocumentServiceFacade>)Class
+                .forName(serviceFacadeClassName);
             service = serviceClass.newInstance();
         } catch (Exception e) {
-            log.error("Failed to create external document service facade from class name, '{}'.", serviceFacadeClassName, e);
+            log.error("Failed to create external document service facade from class name, '{}'.",
+                      serviceFacadeClassName, e);
         }
 
         return service;
     }
 
     protected IModel<String> getCaptionModel() {
-        final String defaultCaption = new StringResourceModel("exdocfield.caption", this, null, PluginConstants.DEFAULT_FIELD_CAPTION).getString();
+        final String defaultCaption = new StringResourceModel("exdocfield.caption", this, null,
+                                                              PluginConstants.DEFAULT_FIELD_CAPTION)
+            .getString();
         String caption = getPluginConfig().getString("caption", defaultCaption);
         String captionKey = caption;
         return new StringResourceModel(captionKey, this, null, caption);
@@ -179,12 +204,14 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
             private static final long serialVersionUID = 1L;
 
-            private IDataProvider<Serializable> dataProvider = new SimpleExternalDocumentCollectionDataProvider(docCollection);
+            private IDataProvider<Serializable> dataProvider =
+                new SimpleExternalDocumentCollectionDataProvider(docCollection);
 
             @Override
             protected Iterator getItemModels() {
 
-                final Iterator<? extends Serializable> baseIt = dataProvider.iterator(0, docCollection.getSize());
+                final Iterator<? extends Serializable> baseIt = dataProvider
+                    .iterator(0, docCollection.getSize());
 
                 return new Iterator<IModel<? extends Serializable>>() {
                     public boolean hasNext() {
@@ -203,13 +230,16 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
             @Override
             protected void populateItem(Item item) {
-                final Serializable doc = (Serializable) item.getModelObject();
+                final Serializable doc = (Serializable)item.getModelObject();
 
                 item.add(new Label("link-text", new Model<String>() {
                     private static final long serialVersionUID = 1L;
+
                     @Override
                     public String getObject() {
-                        return getExternalDocumentServiceFacade().getDocumentTitle(getExternalDocumentServiceContext(), doc, getRequest().getLocale());
+                        return getExternalDocumentServiceFacade()
+                            .getDocumentTitle(getExternalDocumentServiceContext(), doc,
+                                              getRequest().getLocale());
                     }
                 }));
 
@@ -226,7 +256,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                         boolean removed = docCollection.remove(doc);
 
                         if (removed) {
-                            getExternalDocumentServiceFacade().setFieldExternalDocuments(getExternalDocumentServiceContext(), docCollection);
+                            getExternalDocumentServiceFacade()
+                                .setFieldExternalDocuments(getExternalDocumentServiceContext(), docCollection);
                             target.add(ExternalDocumentFieldSelectorPlugin.this);
                         }
                     }
@@ -247,17 +278,19 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         };
     }
 
-    private RefreshingView createCompareView(final ExternalDocumentCollection<Serializable> docCollection, final ExternalDocumentCollection<Serializable> baseDocCollection) {
+    private RefreshingView createCompareView(final ExternalDocumentCollection<Serializable> docCollection,
+                                             final ExternalDocumentCollection<Serializable> baseDocCollection) {
 
         return new RefreshingView("view") {
 
             @Override
             protected Iterator getItemModels() {
-                Serializable [] baseDocs = baseDocCollection.toArray(new Serializable[baseDocCollection.getSize()]);
-                Serializable [] currentDocs = docCollection.toArray(new Serializable[docCollection.getSize()]);
+                Serializable[] baseDocs = baseDocCollection.toArray(new Serializable[baseDocCollection
+                    .getSize()]);
+                Serializable[] currentDocs = docCollection.toArray(new Serializable[docCollection.getSize()]);
 
                 List<Change<Serializable>> changeSet = LCS.getChangeSet(baseDocs, currentDocs);
-                final Change<Serializable> [] changes = changeSet.toArray(new Change[changeSet.size()]);
+                final Change<Serializable>[] changes = changeSet.toArray(new Change[changeSet.size()]);
 
                 return new Iterator<IModel<Change<? extends Serializable>>>() {
 
@@ -286,14 +319,17 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
             @Override
             protected void populateItem(Item item) {
-                Change<? extends Serializable> change = (Change<? extends Serializable>) item.getModelObject();
+                Change<? extends Serializable> change = (Change<? extends Serializable>)item.getModelObject();
                 final Serializable searchDoc = change.getValue();
 
                 Label label = new Label("link-text", new Model<String>() {
                     private static final long serialVersionUID = 1L;
+
                     @Override
                     public String getObject() {
-                        return getExternalDocumentServiceFacade().getDocumentTitle(getExternalDocumentServiceContext(), searchDoc, getRequest().getLocale());
+                        return getExternalDocumentServiceFacade()
+                            .getDocumentTitle(getExternalDocumentServiceContext(), searchDoc,
+                                              getRequest().getLocale());
                     }
                 });
 
@@ -329,6 +365,11 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
     }
 
     protected ExternalDocumentCollection<Serializable> getCurrentExternalDocumentCollection() {
+        if (curDocCollection == null) {
+            curDocCollection = getExternalDocumentServiceFacade()
+                .getFieldExternalDocuments(getExternalDocumentServiceContext());
+        }
+
         return curDocCollection;
     }
 
@@ -349,7 +390,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                                                                 getCaptionModel(),
                                                                 getExternalDocumentServiceContext(),
                                                                 getExternalDocumentServiceFacade(),
-                                                                new Model(getCurrentExternalDocumentCollection()));
+                                                                new Model(
+                                                                          getCurrentExternalDocumentCollection()));
     }
 
     protected IDialogFactory createDialogFactory() {
@@ -363,4 +405,3 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
     }
 
 }
-

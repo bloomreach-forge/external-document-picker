@@ -52,6 +52,15 @@ public class PluginConstants {
     public static final String PARAM_PAGE_SIZE = "page.size";
 
     /**
+     * Plugin parameter for whether or not the selected external documents should be visible or not.
+     * <p>
+     * Note: In some use cases, it is expected to not display the selected document data in the plugin view itself.
+     *       For example, the facade implementation creates other compound or link fields in the same document.
+     * </p>
+     */
+    public static final String PARAM_EXTERNAL_DOCUMENTS_CONTAINER_VISIBLE = "external.documents.container.visible";
+
+    /**
      * Plugin parameter value for multiple items selection mode in the picker dialog.
      */
     public static final String SELECTION_MODE_MULTIPLE = "multiple";
