@@ -153,6 +153,17 @@
             <td></td>
           </tr>
           <tr>
+            <td>external.documents.container.visible</td>
+            <td>
+              Whether or not to show the currently selected external document items in the plugin.
+              <br/>
+              Note: In some use cases, the facade implementation may choose to creates other compound or link fields
+              in the document, without having to show the selected items by itself.
+            </td>
+            <td>false</td>
+            <td>true</td>
+          </tr>
+          <tr>
             <td>selection.mode</td>
             <td>
               External document selection mode. Either 'single' or 'multiple'.

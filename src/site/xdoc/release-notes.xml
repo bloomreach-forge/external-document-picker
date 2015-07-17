@@ -40,6 +40,17 @@
       </table>
     </section>
     <section name="Release Notes (2.x.x)">
+      <subsection name="2.0.11">
+        <ul>
+          <li>
+            Introducing 'external.documents.container.visible' plugin parameter.
+            If it is set to false (true by default), it doesn't show the currently selected external document items in the plugin.
+            <br/>
+            Note: In some use cases, the facade implementation may choose to creates other compound or link fields
+            in the document, without having to show the selected items by itself.
+          </li>
+        </ul>
+      </subsection>
       <subsection name="2.0.10">
         <ul>
           <li>
