@@ -34,43 +34,43 @@ public interface ExternalDocumentCollection<T extends Serializable> extends Seri
 
     /**
      * Returns an iterator of all the items.
-     * @return
+     * @return an iterator of all the items
      */
     public Iterator<? extends T> iterator();
 
     /**
      * Returns an iterator of items starting from <code>first</code> index up to <code>count</code> items.
-     * @param first
-     * @param count
-     * @return
+     * @param first first index
+     * @param count iterating count
+     * @return an iterator of items starting from <code>first</code> index up to <code>count</code> items
      */
     public Iterator<? extends T> iterator(long first, final long count);
 
     /**
      * Returns true if this collection contains the <code>doc</code>.
-     * @param docs
-     * @return
+     * @param doc document
+     * @return true if this collection contains the <code>doc</code>
      */
     public boolean contains(T doc);
 
     /**
      * Adds the <code>doc</code> to this collection.
-     * @param doc
-     * @return
+     * @param doc document
+     * @return the <code>doc</code> to this collection
      */
     public boolean add(T doc);
 
     /**
      * Adds all the <code>docs</code> to this collection.
-     * @param docs
-     * @return
+     * @param docs documents
+     * @return all the <code>docs</code> to this collection
      */
     public boolean addAll(Collection<T> docs);
 
     /**
      * Removes the <code>doc</code> from this collection.
-     * @param doc
-     * @return
+     * @param doc document
+     * @return the <code>doc</code> from this collection
      */
     public boolean remove(T doc);
 
@@ -81,20 +81,20 @@ public interface ExternalDocumentCollection<T extends Serializable> extends Seri
 
     /**
      * Returns the size of this collection.
-     * @return
+     * @return the size of this collection
      */
     public int getSize();
 
     /**
      * Copy all the items into an array and returns the array.
-     * @param a
-     * @return
+     * @param a array
+     * @return all the items into an array and returns the array
      */
     public T[] toArray(T[] a);
 
     /**
      * Creates and returns a copy of this object.
-     * @return
+     * @return a copy of this object
      */
     public Object clone();
 

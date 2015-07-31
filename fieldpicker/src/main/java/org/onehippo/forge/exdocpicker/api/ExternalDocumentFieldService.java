@@ -27,15 +27,15 @@ public interface ExternalDocumentFieldService<T extends Serializable> {
 
     /**
      * Gets the currently-selected external documents from the context CMS document node and returns them in {@link ExternalDocumentCollection}.
-     * @param context
-     * @return
+     * @param context ExternalDocumentServiceContext instance
+     * @return document collection
      */
     public ExternalDocumentCollection<T> getFieldExternalDocuments(ExternalDocumentServiceContext context);
 
     /**
      * Sets the new external documents (<code>exdocs</code>) into the context CMS document.
-     * @param context
-     * @param exdocs
+     * @param context ExternalDocumentServiceContext instance
+     * @param exdocs document collection
      */
     public void setFieldExternalDocuments(ExternalDocumentServiceContext context, ExternalDocumentCollection<T> exdocs);
 

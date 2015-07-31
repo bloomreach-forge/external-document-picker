@@ -31,25 +31,25 @@ public interface ExternalDocumentServiceContext extends IClusterable {
 
     /**
      * Returns the plugin instance.
-     * @return
+     * @return IPlugin instance
      */
     public IPlugin getPlugin();
 
     /**
      * Returns the plugin config instance.
-     * @return
+     * @return IPluginConfig instance
      */
     public IPluginConfig getPluginConfig();
 
     /**
      * Returns the plugin context instance.
-     * @return
+     * @return IPluginContext instance
      */
     public IPluginContext getPluginContext();
 
     /**
      * Returns the context document object which is being used by the user when the invocation is made.
-     * @return
+     * @return context model
      */
     public JcrNodeModel getContextModel();
 
@@ -57,22 +57,26 @@ public interface ExternalDocumentServiceContext extends IClusterable {
      * Set an attribute.
      * 
      * @param name attribute name
-     * @param serializable object attribute value
+     * @param value serializable attribute value
      */
     void setAttribute(String name, Serializable value);
 
     /**
      * Retrieve the attribute value by the attribute name.
+     * @param name attribute name
+     * @return attribute value
      */
     Serializable getAttribute(String name);
 
     /**
      * Removes the attribute by the attribute name.
+     * @param name attribute name
      */
     void removeAttribute(String name);
 
     /**
      * Enumerates the attribute names
+     * @return attribute names set
      */
     Set<String> getAttributeNames();
 

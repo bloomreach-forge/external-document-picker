@@ -26,9 +26,9 @@ public interface ExternalDocumentSearchService<T extends Serializable> {
 
     /**
      * Searches external documents by the <code>queryString</code> and returns the result in {@link ExternalDocumentCollection}.
-     * @param context
-     * @param queryString
-     * @return
+     * @param context ExternalDocumentServiceContext instance
+     * @param queryString any implementation specific query string
+     * @return document collection
      */
     public ExternalDocumentCollection<T> searchExternalDocuments(ExternalDocumentServiceContext context, String queryString);
 

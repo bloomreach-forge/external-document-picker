@@ -30,6 +30,7 @@
     <hippo.repository.version>2.26.05</hippo.repository.version>
     <hippo.cms.version>2.26.07</hippo.cms.version>
 
+    <commons-lang.version>2.6</commons-lang.version>
     <commons-collections.version>3.2.1</commons-collections.version>
 
     <lib.json-lib.version>2.4</lib.json-lib.version>
@@ -147,6 +148,13 @@
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>${lib.slf4j.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>${commons-lang.version}</version>
         <scope>provided</scope>
       </dependency>
 

@@ -66,7 +66,7 @@ public abstract class AbstractHiddenExternalDocumentFieldPlugin extends RenderPl
 
     /**
      * Returns the current context document model.
-     * @return
+     * @return document model
      */
     protected JcrNodeModel getDocumentModel() {
         return documentModel;
