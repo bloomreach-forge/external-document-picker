@@ -56,14 +56,29 @@
       </subsection>
     </section>
     <section name="Demo Application">
-      <subsection name="Demo Application with Hippo CMS 7.9.x">
+      <subsection name="Demo Application with Hippo CMS 10">
         <p>You can check out, build and run demo application, which contains all the examples explained in this site documentation.</p>
         <p>Here are example commands to check out, build and run demo application:</p>
         <div class="brush: bash">
           <source><![CDATA[
   $ svn checkout https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk exdocpickerbase-demo-TRUNK
   $ cd exdocpickerbase-demo-TRUNK
-  $ mvn clean install
+  $ mvn clean verify
+  $ mvn -P cargo.run
+          ]]></source>
+        </div>
+        <p>
+          Visit http://localhost:8080/cms/.
+        </p>
+      </subsection>
+      <subsection name="Demo Application with Hippo CMS 7.9.x">
+        <p>You can check out, build and run demo application, which contains all the examples explained in this site documentation.</p>
+        <p>Here are example commands to check out, build and run demo application:</p>
+        <div class="brush: bash">
+          <source><![CDATA[
+  $ svn checkout https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/branches/exdocpickerbase-demo-2.0.x exdocpickerbase-demo-2.0.x
+  $ cd exdocpickerbase-demo-2.0.x
+  $ mvn clean verify
   $ mvn -P cargo.run
           ]]></source>
         </div>
@@ -102,7 +117,7 @@
     </section>
     <section name="Testing External Link Picker Button in the RichText Editor with Demo Application">
       <p>
-        Log on to the CMS application and open a news article document to edit the "Body" RichText field.
+        Log on to the CMS application and open a news article document to edit the "Content" RichText field.
         If you select a text and click on the "Link to Hippo Blog Articles" (next to "Anchor" button),
         then you will see the following popup dialog to search external documents.
       </p>
