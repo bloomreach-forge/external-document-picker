@@ -17,7 +17,7 @@
   <description>Hippo CMS External Document Picker Base</description>
   <groupId>org.onehippo.forge.exdocpickerbase</groupId>
   <artifactId>exdocpickerbase</artifactId>
-  <version>2.0.12-SNAPSHOT</version>
+  <version>3.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>http://exdocpickerbase.forge.onehippo.org/</url>
 
