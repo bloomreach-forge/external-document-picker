@@ -24,7 +24,7 @@
   <body>
     <section name="Hippo CMS External Document Picker Base">
       <p>
-        This project provides base external document picker plugins for Hippo CMS 7 with simple example implementations for developer's references.
+        This project provides base external document picker plugins for Hippo CMS with simple example implementations for developer's references.
       </p>
       <p>
         This project consists of two different external document pickers: 
