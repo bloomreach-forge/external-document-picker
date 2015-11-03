@@ -17,7 +17,7 @@
   <description>Hippo CMS External Document Picker Base</description>
   <groupId>org.onehippo.forge.exdocpickerbase</groupId>
   <artifactId>exdocpickerbase</artifactId>
-  <version>3.1.0</version>
+  <version>3.1.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>http://exdocpickerbase.forge.onehippo.org/</url>
 
@@ -82,9 +82,9 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/tags/exdocpickerbase-3.1.0</connection>
-    <developerConnection>scm:svn:https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/tags/exdocpickerbase-3.1.0</developerConnection>
-    <url>https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/tags/exdocpickerbase-3.1.0</url>
+    <connection>scm:svn:https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/trunk</connection>
+    <developerConnection>scm:svn:https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/trunk</developerConnection>
+    <url>https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/trunk</url>
   </scm>
 
   <issueManagement>
