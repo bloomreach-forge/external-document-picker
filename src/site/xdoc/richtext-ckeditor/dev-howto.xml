@@ -169,8 +169,13 @@
           in <strong>getLinkAttributes</strong> function body property.
         </p>
         <p>
-          Note: Because the REST service is invoked by client-side CKEditor plugin, the REST Service URL must be from the same origin
+          Note 1: Because the REST service is invoked by client-side CKEditor plugin, the REST Service URL must be from the same origin
           in order to avoid security problems.
+        </p>
+        <p>
+          Note 2: If you want to secure your REST service which is not based on Apache Wicket components and/or
+          if you want to get access to the same Wicket Session and JCR Session for the currently authenticated CMS user,
+          then please refer to <a href="http://iframeprspectiv.forge.onehippo.org/non-wicket-comp-pages.html" target="_blank">How to build secure non-Wicket-component based pages?</a>.
         </p>
       </subsection>
 
