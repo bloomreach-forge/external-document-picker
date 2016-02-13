@@ -58,6 +58,10 @@
         </ul>
         <img src="../images/exdocpickerbase-archview.png" alt="Architectural View" />
         <p>
+          Here's a sequence diagram showing the interactions:
+        </p>
+        <img src="../images/exdocpickerbase-field-sequence.png" alt="Sequence Diagram" />
+        <p>
           See <a href="../apidocs/index.html">Javadocs</a> for detail about the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a>.
         </p>
       </subsection>

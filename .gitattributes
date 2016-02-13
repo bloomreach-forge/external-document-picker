@@ -314,8 +314,10 @@ richtext-ckeditor/src/test/resources/hippoblogarticles.jsp -text
 richtext-ckeditor/src/test/resources/hippoblogpicker.png -text
 richtext-ckeditor/src/test/resources/index.html -text
 richtext-ckeditor/src/test/resources/jquery-1.11.1.min.js -text
+src/site/argouml/exdocpickerbase.zargo -text
 src/site/resources/images/exdocpickerbase-archview.png -text
 src/site/resources/images/exdocpickerbase-ckeditor-archview.png -text
+src/site/resources/images/exdocpickerbase-field-sequence.png -text
 src/site/resources/images/exdocpickerbase-richtext-screenshot-01.png -text
 src/site/resources/images/exdocpickerbase-richtext-screenshot-02.png -text
 src/site/resources/images/exdocpickerbase-screenshot-01.png -text
