@@ -46,17 +46,23 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
                         listView.appendHtml( '<p>No search result.</p>' );
                       } else {
                         html = '<table>';
+                        var docIcon;
+                        var docTitle;
+                        var docDesc;
                         for( i = 0; i < searchedDocs.length; i += 1 ) {
+                          docIcon = searchedDocs[i].icon || pickerConfig.defaultDocumentIcon || '';
+                          docTitle = searchedDocs[i].title || '';
+                          docDesc = searchedDocs[i].description || '';
                           html += '<tr>';
                           html += '<td style="padding: 10px; vertical-align: middle">';
                           html += '<input type="radio" name="selectedDocument" value="' + i + '" id="selectedDocument' + i + '" />';
                           html += '</td>';
                           html += '<td style="padding: 10px; vertical-align: middle">';
-                          html += '<label for="selectedDocument' + i + '"><img src="' + searchedDocs[i].icon + '"/></label> ';
+                          html += '<label for="selectedDocument' + i + '"><img src="' + docIcon + '"/></label> ';
                           html += '</td>';
                           html += '<td style="padding: 10px; vertical-align: middle">';
-                          html += '<label for="selectedDocument' + i + '"><h3>' + searchedDocs[i].title + '</h3></label>';
-                          html += '<label for="selectedDocument' + i + '"><p>' + searchedDocs[i].description + '</p></label>';
+                          html += '<label for="selectedDocument' + i + '"><h3>' + docTitle + '</h3></label>';
+                          html += '<label for="selectedDocument' + i + '"><p>' + docDesc + '</p></label>';
                           html += '</td>'
                           html += '</tr>';
                         }

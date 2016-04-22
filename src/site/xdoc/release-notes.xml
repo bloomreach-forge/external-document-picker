@@ -44,6 +44,12 @@
       </table>
     </section>
     <section name="Release Notes (3.x.x)">
+      <subsection name="3.1.1">
+        <ul>
+          <li>[<a href='https://issues.onehippo.com/browse/HIPPLUG-1288'>HIPPLUG-1288</a>] -         Please update documentation Hippo CMS External Document Picker 
+          </li>
+        </ul>
+      </subsection>
       <subsection name="3.1.0">
         <ul>
           <li>
