@@ -34,9 +34,9 @@
       <!-- SNIP -->
 
       <repository>
-        <id>exdocpickerbase-maven-repo</id>
-        <name>Hippo CMS External Document Picker Base Maven 2 Repository</name>
-        <url>http://forge.onehippo.org/svn/exdocpickerbase/maven2/</url>
+        <id>hippo-maven2-forge</id>
+        <name>Hippo Maven 2 Forge Repository</name>
+        <url>http://maven.onehippo.com/maven2-forge/</url>
       </repository>
 
       <!-- SNIP -->
@@ -158,7 +158,7 @@
         </p>
         <p>
           You can download an example configuration from the demo project:
-          <a href="http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/bootstrap/configuration/src/main/resources/namespaces/hippostd/html.xml" target="_blank">http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/bootstrap/configuration/src/main/resources/namespaces/hippostd/html.xml</a>
+          <a href="https://github.com/onehippo-forge/external-document-picker/tree/master/demo/bootstrap/configuration/src/main/resources/namespaces/hippostd/html.xml" target="_blank">https://github.com/onehippo-forge/external-document-picker/tree/master/demo/bootstrap/configuration/src/main/resources/namespaces/hippostd/html.xml</a>
         </p>
         <p>
           The following <em>hippo:initializeitem</em> item can be added in <em>hippoecm-extension.xml</em>

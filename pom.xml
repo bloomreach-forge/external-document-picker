@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2014 Hippo
+  Copyright 2014-2017 Hippo
 
   Licensed under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with the
@@ -19,7 +19,7 @@
   <artifactId>exdocpickerbase</artifactId>
   <version>3.1.2-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <url>http://exdocpickerbase.forge.onehippo.org/</url>
+  <url>https://github.com/onehippo-forge/external-document-picker/</url>
 
   <properties>
 
@@ -71,7 +71,7 @@
     <developer>
       <name>Woonsan Ko</name>
       <id>wko</id>
-      <email>w.ko @ onehippo . com</email>
+      <email>woonsan.ko @ bloomreach . com</email>
       <organization>Hippo</organization>
       <roles>
         <role>Project Lead</role>
@@ -82,27 +82,29 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/trunk</connection>
-    <developerConnection>scm:svn:https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/trunk</developerConnection>
-    <url>https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/trunk</url>
+    <connection>scm:git:git@github.com:onehippo-forge/external-document-picker.git</connection>
+    <developerConnection>scm:git:git@github.com:onehippo-forge/external-document-picker.git</developerConnection>
+    <url>https://github.com/onehippo-forge/external-document-picker.git</url>
+    <tag>HEAD</tag>
   </scm>
-
-  <issueManagement>
-    <url>http://forge.onehippo.org/projects/exdocpickerbase</url>
-  </issueManagement>
-
-  <ciManagement>
-    <system>Hudson</system>
-    <url>http://hudson.onehippo.org/job/Hippo%20CMS%20External%2FDocument%20Picker%20Base%20Trunk/</url>
-  </ciManagement>
 
   <distributionManagement>
     <repository>
+      <name>Hippo Maven 2 Forge Repository</name>
+      <id>hippo-maven2-forge</id>
+      <url>https://maven.onehippo.com/content/repositories/forge-releases/</url>
       <uniqueVersion>false</uniqueVersion>
-      <id>exdocpickerbase-maven-repo</id>
-      <url>svn:https://forge.onehippo.org/svn/exdocpickerbase/maven2/</url>
     </repository>
   </distributionManagement>
+
+  <issueManagement>
+    <url>https://issues.onehippo.com/projects/HIPFORGE</url>
+  </issueManagement>
+
+  <ciManagement>
+    <system>Travic CI</system>
+    <url>https://travis-ci.org/onehippo-forge/external-document-picker</url>
+  </ciManagement>
 
   <repositories>
     <repository>
@@ -330,14 +332,14 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <version>${plugin.site.version}</version>
+        <configuration>
+          <outputDirectory>docs</outputDirectory>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
         <version>${plugin.release.version}</version>
-        <configuration>
-          <tagBase>https://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase/tags/</tagBase>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

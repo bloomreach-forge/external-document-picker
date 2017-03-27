@@ -134,7 +134,7 @@
                 So, you can use 'item.href' in the function body, for instance, to get the href attribute value from the search result item.
                 <br/>
                 Please take a look at an example REST service output in the demo project here:
-                <a href="http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/cms/src/main/webapp/examples/hippoblogarticles.jsp">http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/cms/src/main/webapp/examples/hippoblogarticles.jsp</a>
+                <a href="https://github.com/onehippo-forge/external-document-picker/tree/master/demo/cms/src/main/webapp/examples/hippoblogarticles.jsp">https://github.com/onehippo-forge/external-document-picker/tree/master/demo/cms/src/main/webapp/examples/hippoblogarticles.jsp</a>
               </p>
             </td>
             <td></td>
@@ -170,7 +170,7 @@
         </p>
         <p>
           Please take a look at a very simple REST service implementation JSP page (residing in the demo project):
-          <a href="http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/cms/src/main/webapp/examples/hippoblogarticles.jsp">http://forge.onehippo.org/svn/exdocpickerbase/exdocpickerbase-demo/trunk/cms/src/main/webapp/examples/hippoblogarticles.jsp</a>
+          <a href="https://github.com/onehippo-forge/external-document-picker/tree/master/demo/cms/src/main/webapp/examples/hippoblogarticles.jsp">https://github.com/onehippo-forge/external-document-picker/tree/master/demo/cms/src/main/webapp/examples/hippoblogarticles.jsp</a>
         </p>
         <p>
           Basically, your REST service implementation should return a JavaScript array, each item of which can be in any forms
@@ -184,7 +184,7 @@
         <p>
           Note 2: If you want to secure your REST service which is not based on Apache Wicket components and/or
           if you want to get access to the same Wicket Session and JCR Session for the currently authenticated CMS user,
-          then please refer to <a href="http://iframeprspectiv.forge.onehippo.org/non-wicket-comp-pages.html" target="_blank">How to build secure non-Wicket-component based pages?</a>.
+          then please refer to <a href="https://onehippo-forge.github.io/iframe-perspective/non-wicket-comp-pages.html" target="_blank">How to build secure non-Wicket-component based pages?</a>.
         </p>
       </subsection>
 
