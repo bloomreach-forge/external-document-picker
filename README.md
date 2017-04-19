@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/onehippo-forge/external-document-picker.svg?branch=develop)](https://travis-ci.org/onehippo-forge/external-document-picker)
 
 # Hippo External Document Picker 
 
