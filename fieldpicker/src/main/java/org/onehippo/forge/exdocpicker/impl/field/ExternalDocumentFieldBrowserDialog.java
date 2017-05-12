@@ -17,8 +17,6 @@ package org.onehippo.forge.exdocpicker.impl.field;
 
 import java.io.Serializable;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.AttributeModifier;
@@ -42,21 +40,15 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
-import org.apache.wicket.util.value.IValueMap;
-import org.apache.wicket.util.value.ValueMap;
-import org.hippoecm.frontend.dialog.AbstractDialog;
-import org.hippoecm.frontend.plugin.IPluginContext;
-import org.hippoecm.frontend.plugin.config.IPluginConfig;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceContext;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
 import org.onehippo.forge.exdocpicker.api.PluginConstants;
-import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollectionDataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalDocumentCollection<Serializable>> {
+public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocumentFieldBrowserDialog {
 
     private static final long serialVersionUID = 1L;
 
@@ -64,21 +56,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
 
     private String searchQuery;
 
-    private final IModel<String> titleModel;
-    private final ExternalDocumentServiceFacade<Serializable> exdocService;
-
-    private final Set<Serializable> selectedExtDocs = new LinkedHashSet<Serializable>();
-
-    private ExternalDocumentCollection<Serializable> currentDocSelection;
-    private ExternalDocumentCollection<Serializable> searchedDocCollection = new SimpleExternalDocumentCollection<Serializable>();
-
-    private int pageSize;
-
-    private final IValueMap dialogSize;
-
     private final boolean initialSearchEnabled;
-
-    private final ExternalDocumentServiceContext extDocServiceContext;
 
     private final AjaxButton selectAllButton;
     private final AjaxButton clearAllButton;
@@ -87,34 +65,11 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                                               final ExternalDocumentServiceContext extDocServiceContext,
                                               final ExternalDocumentServiceFacade<Serializable> exdocService,
                                               IModel<ExternalDocumentCollection<Serializable>> model) {
-        super(model);
-        setOutputMarkupId(true);
-
-        this.titleModel = titleModel;
-        this.extDocServiceContext = extDocServiceContext;
-        this.exdocService = exdocService;
+        super(titleModel, extDocServiceContext, exdocService, model);
 
         initialSearchEnabled = getPluginConfig().getAsBoolean(PluginConstants.PARAM_INITIAL_SEARCH_ENABLED, PluginConstants.DEFAULT_INITIAL_SEARCH_ENABLED);
 
         searchQuery = getPluginConfig().getString(PluginConstants.PARAM_INITIAL_SEARCH_QUERY, "");
-
-        final String dialogSizeParam = getPluginConfig().getString(PluginConstants.PARAM_DIALOG_SIZE, PluginConstants.DEFAULT_DIALOG_SIZE);
-        dialogSize = new ValueMap(dialogSizeParam).makeImmutable();
-
-        pageSize = getPluginConfig().getInt(PluginConstants.PARAM_PAGE_SIZE, PluginConstants.DEFAULT_PAGE_SIZE);
-
-        currentDocSelection = getModelObject();
-
-        selectedExtDocs.clear();
-
-        for (Iterator<? extends Serializable> it = currentDocSelection.iterator(); it.hasNext(); ) {
-            selectedExtDocs.add(it.next());
-        }
-
-        if (getModel().getObject() == null) {
-            setOkVisible(false);
-            setOkEnabled(false);
-        }
 
         selectAllButton = new AjaxButton("select-all-button") {
             @Override
@@ -148,8 +103,26 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
         if (initialSearchEnabled) {
             searchExternalDocumentsBySearchQuery();
         }
+    }
 
-        final IDataProvider<Serializable> provider = new SimpleExternalDocumentCollectionDataProvider<Serializable>(searchedDocCollection);
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        response.render(CssHeaderItem.forReference(new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class, ExternalDocumentFieldBrowserDialog.class.getSimpleName() + ".css")));
+    }
+
+    public String getSearchQuery() {
+        return searchQuery;
+    }
+
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
+    }
+
+    @Override
+    protected void initDataListViewUI() {
+        final IDataProvider<Serializable> provider =
+                new SimpleExternalDocumentCollectionDataProvider<Serializable>(searchedDocCollection);
 
         final DataView<Serializable> resultsDataView = new DataView<Serializable>("item", provider, pageSize) {
             private static final long serialVersionUID = 1L;
@@ -205,78 +178,11 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalD
                 }, " "));
             }
         };
+
         resultsDataView.setOutputMarkupId(true);
 
         add(resultsDataView);
         add(new ExternalDocumentFieldBrowserPageNavigator("navigator", resultsDataView));
-
-    }
-
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-        response.render(CssHeaderItem.forReference(new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class, ExternalDocumentFieldBrowserDialog.class.getSimpleName() + ".css")));
-    }
-
-    @Override
-    protected void onOk() {
-        if (selectedExtDocs != null) {
-            if (isSingleSelectionMode()) {
-                currentDocSelection.clear();
-                Serializable curDoc = null;
-                // when single selection mode, let's add the last added item only.
-                for (Iterator<Serializable> it = selectedExtDocs.iterator(); it.hasNext(); ) {
-                    curDoc = it.next();
-                }
-                if (curDoc != null) {
-                    currentDocSelection.add(curDoc);
-                }
-                exdocService.setFieldExternalDocuments(extDocServiceContext, currentDocSelection);
-            } else {
-                boolean added = false;
-
-                for (Serializable doc : selectedExtDocs) {
-                    if (!currentDocSelection.contains(doc)) {
-                        currentDocSelection.add(doc);
-                        added = true;
-                    }
-                }
-
-                if (added) {
-                    exdocService.setFieldExternalDocuments(extDocServiceContext, currentDocSelection);
-                }
-            }
-        }
-    }
-
-    @Override
-    public IModel<String> getTitle() {
-        return titleModel;
-    }
-
-    @Override
-    public IValueMap getProperties() {
-        return dialogSize;
-    }
-
-    protected IPluginConfig getPluginConfig() {
-        return extDocServiceContext.getPluginConfig();
-    }
-
-    protected IPluginContext getPluginContext() {
-        return extDocServiceContext.getPluginContext();
-    }
-
-    protected boolean isSingleSelectionMode() {
-        return StringUtils.equalsIgnoreCase(PluginConstants.SELECTION_MODE_SINGLE, getPluginConfig().getString(PluginConstants.PARAM_SELECTION_MODE, PluginConstants.SELECTION_MODE_MULTIPLE));
-    }
-
-    public String getSearchQuery() {
-        return searchQuery;
-    }
-
-    public void setSearchQuery(String searchQuery) {
-        this.searchQuery = searchQuery;
     }
 
     protected void searchExternalDocumentsBySearchQuery() {

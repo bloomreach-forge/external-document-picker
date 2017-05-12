@@ -25,10 +25,6 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Value;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
@@ -37,6 +33,10 @@ import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
 import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 
 /**
  * Example trivial implementation of <code>ExternalDocumentServiceFacade</code> for developer's reference.
@@ -71,7 +71,8 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
         InputStream input = null;
 
         try {
-            input = getClass().getResourceAsStream(ExampleExternalDocumentServiceFacade.class.getSimpleName() + ".json");
+            input = ExampleExternalDocumentServiceFacade.class
+                    .getResourceAsStream(ExampleExternalDocumentServiceFacade.class.getSimpleName() + ".json");
             docArray = (JSONArray) JSONSerializer.toJSON(IOUtils.toString(input));
         } catch (Exception e) {
             log.error("Failed to load JSON data.", e);
@@ -81,7 +82,8 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
     }
 
     @Override
-    public ExternalDocumentCollection<JSONObject> searchExternalDocuments(ExternalDocumentServiceContext context, String queryString) {
+    public ExternalDocumentCollection<JSONObject> searchExternalDocuments(ExternalDocumentServiceContext context,
+            String queryString) {
         ExternalDocumentCollection<JSONObject> docCollection = new SimpleExternalDocumentCollection<JSONObject>();
         int size = docArray.size();
 
@@ -107,7 +109,8 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
         final String fieldName = context.getPluginConfig().getString(PARAM_EXTERNAL_DOCS_FIELD_NAME);
 
         if (StringUtils.isBlank(fieldName)) {
-            throw new IllegalArgumentException("Invalid plugin configuration parameter for '" + PARAM_EXTERNAL_DOCS_FIELD_NAME + "': " + fieldName);
+            throw new IllegalArgumentException("Invalid plugin configuration parameter for '"
+                    + PARAM_EXTERNAL_DOCS_FIELD_NAME + "': " + fieldName);
         }
 
         ExternalDocumentCollection<JSONObject> docCollection = new SimpleExternalDocumentCollection<JSONObject>();
@@ -116,7 +119,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
             final Node contextNode = context.getContextModel().getNode();
 
             if (contextNode.hasProperty(fieldName)) {
-                Value [] values = contextNode.getProperty(fieldName).getValues();
+                Value[] values = contextNode.getProperty(fieldName).getValues();
 
                 for (Value value : values) {
                     String id = value.getString();
@@ -135,18 +138,20 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
     }
 
     @Override
-    public void setFieldExternalDocuments(ExternalDocumentServiceContext context, ExternalDocumentCollection<JSONObject> exdocs) {
+    public void setFieldExternalDocuments(ExternalDocumentServiceContext context,
+            ExternalDocumentCollection<JSONObject> exdocs) {
         final String fieldName = context.getPluginConfig().getString(PARAM_EXTERNAL_DOCS_FIELD_NAME);
 
         if (StringUtils.isBlank(fieldName)) {
-            throw new IllegalArgumentException("Invalid plugin configuration parameter for '" + PARAM_EXTERNAL_DOCS_FIELD_NAME + "': " + fieldName);
+            throw new IllegalArgumentException("Invalid plugin configuration parameter for '"
+                    + PARAM_EXTERNAL_DOCS_FIELD_NAME + "': " + fieldName);
         }
 
         try {
             final Node contextNode = context.getContextModel().getNode();
             final List<String> docIds = new ArrayList<String>();
 
-            for (Iterator<? extends JSONObject> it = exdocs.iterator(); it.hasNext(); ) {
+            for (Iterator<? extends JSONObject> it = exdocs.iterator(); it.hasNext();) {
                 JSONObject doc = it.next();
                 docIds.add(doc.getString("id"));
             }
@@ -167,7 +172,8 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
     }
 
     @Override
-    public String getDocumentDescription(ExternalDocumentServiceContext context, JSONObject doc, Locale preferredLocale) {
+    public String getDocumentDescription(ExternalDocumentServiceContext context, JSONObject doc,
+            Locale preferredLocale) {
         if (doc != null && doc.has("description")) {
             return doc.getString("description");
         }

@@ -17,21 +17,21 @@
   <description>Hippo CMS External Document Picker Base</description>
   <groupId>org.onehippo.forge.exdocpickerbase</groupId>
   <artifactId>exdocpickerbase</artifactId>
-  <version>3.1.2-SNAPSHOT</version>
+  <version>4.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>https://github.com/onehippo-forge/external-document-picker/</url>
 
   <properties>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.build.javaVersion>1.7</project.build.javaVersion>
+    <project.build.javaVersion>1.8</project.build.javaVersion>
 
     <jcr.version>2.0</jcr.version>
-    <hippo.repository.version>3.1.0</hippo.repository.version>
-    <hippo.cms.version>3.1.1</hippo.cms.version>
+    <hippo.repository.version>4.0.0</hippo.repository.version>
+    <hippo.cms.version>4.0.0</hippo.cms.version>
 
     <commons-lang.version>2.6</commons-lang.version>
-    <commons-collections.version>3.2.1</commons-collections.version>
+    <commons-collections.version>3.2.2</commons-collections.version>
 
     <lib.json-lib.version>2.4</lib.json-lib.version>
     <lib.junit.version>4.8.2</lib.junit.version>
