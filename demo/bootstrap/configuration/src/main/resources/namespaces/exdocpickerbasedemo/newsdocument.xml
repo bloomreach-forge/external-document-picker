@@ -1023,11 +1023,11 @@
         <sv:property sv:name="engine" sv:type="String">
           <sv:value>${engine}</sv:value>
         </sv:property>
-        <sv:property sv:name="example.external.docs.field.name" sv:type="String">
+        <sv:property sv:name="example.external.cats.field.name" sv:type="String">
           <sv:value>exdocpickerbasedemo:excategories</sv:value>
         </sv:property>
         <sv:property sv:name="external.document.service.facade" sv:type="String">
-          <sv:value>org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalTreeItemServiceFacade</sv:value>
+          <sv:value>org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalSubjectCategoryServiceFacade</sv:value>
         </sv:property>
         <sv:property sv:name="mode" sv:type="String">
           <sv:value>${mode}</sv:value>
