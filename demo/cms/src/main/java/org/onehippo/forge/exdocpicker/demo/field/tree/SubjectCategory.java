@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class SubjectCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -78,5 +80,29 @@ public class SubjectCategory implements Serializable {
 
         children.add(child);
         child.parent = this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof SubjectCategory)) {
+            return false;
+        }
+
+        SubjectCategory that = (SubjectCategory) o;
+        return (id != null && id.equals(that.id));
+    }
+
+    @Override
+    public int hashCode() {
+        if (id != null) {
+            return id.hashCode();
+        }
+
+        return 31;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append("id", id).append("title", title).toString();
     }
 }
