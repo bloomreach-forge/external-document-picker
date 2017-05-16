@@ -47,7 +47,7 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog
 
     protected final Set<Serializable> selectedExtDocs = new LinkedHashSet<Serializable>();
 
-    private ExternalDocumentCollection<Serializable> currentDocSelection;
+    protected ExternalDocumentCollection<Serializable> currentDocSelection;
     protected ExternalDocumentCollection<Serializable> searchedDocCollection = new SimpleExternalDocumentCollection<Serializable>();
 
     protected int pageSize;

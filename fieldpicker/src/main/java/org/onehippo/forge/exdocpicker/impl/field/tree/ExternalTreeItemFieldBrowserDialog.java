@@ -58,6 +58,8 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
 
     private static Logger log = LoggerFactory.getLogger(ExternalTreeItemFieldBrowserDialog.class);
 
+    private ExternalTreeItemDataProvider treeDataProvider;
+
     private Behavior theme;
 
     public ExternalTreeItemFieldBrowserDialog(IModel<String> titleModel,
@@ -94,8 +96,8 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         TreeItemExpansion expansion = new TreeItemExpansion();
         expansion.expandAll();
 
-        ExternalTreeItemDataProvider provider = new ExternalTreeItemDataProvider(searchedDocCollection, exdocService);
-        AbstractTree<Serializable> treeDataView = createTree(provider, new Model(expansion));
+        treeDataProvider = new ExternalTreeItemDataProvider(searchedDocCollection, exdocService);
+        AbstractTree<Serializable> treeDataView = createTree(new Model(expansion));
         treeDataView.setOutputMarkupId(true);
 
         treeDataView.add(new Behavior() {
@@ -132,64 +134,19 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         }
     }
 
-    protected AbstractTree<Serializable> createTree(ExternalTreeItemDataProvider provider,
-            IModel<Set<Serializable>> state) {
+    protected AbstractTree<Serializable> createTree(IModel<Set<Serializable>> state) {
         List<IColumn<Serializable, String>> columns = createColumns();
 
-        final TableTree<Serializable, String> tree = new TableTree<Serializable, String>("tree", columns, provider,
-                Integer.MAX_VALUE, state) {
+        final TableTree<Serializable, String> tree = new TableTree<Serializable, String>("tree", columns,
+                treeDataProvider, Integer.MAX_VALUE, state) {
             private static final long serialVersionUID = 1L;
 
             @Override
             protected Component newContentComponent(String id, IModel<Serializable> model) {
-                CheckedFolder<Serializable> checkedFolder = new CheckedFolder<Serializable>(id, this, model) {
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    protected IModel<?> newLabelModel(IModel<Serializable> model) {
-                        return Model.of(exdocService.getDocumentTitle(extDocServiceContext, model.getObject(),
-                                getRequest().getLocale()));
-                    }
-
-                    @Override
-                    protected IModel<Boolean> newCheckBoxModel(final IModel<Serializable> model) {
-                        // FIXME
-                        return Model.of(Boolean.FALSE);
-                    }
-
-                    @Override
-                    protected boolean isClickable() {
-                        Serializable item = getModelObject();
-                        return getProvider().hasChildren(item);
-                    }
-
-                    @Override
-                    protected void onClick(AjaxRequestTarget target) {
-                        Serializable item = getModelObject();
-
-                        if (getState(item) == State.EXPANDED) {
-                            collapse(item);
-                        } else {
-                            expand(item);
-                        }
-                    }
-
-                    @Override
-                    protected void onUpdate(AjaxRequestTarget target) {
-                        Serializable foo = getModelObject();
-                        Serializable parent = provider.getParent(foo);
-                        while (parent != null) {
-                            foo = parent;
-                            parent = provider.getParent(parent);
-                        }
-                        updateBranch(foo, target);
-                    }
-                };
-
-                checkedFolder.add(new AttributeModifier("title", exdocService
-                        .getDocumentDescription(extDocServiceContext, model.getObject(), getRequest().getLocale())));
-
-                return checkedFolder;
+                CheckableTreeNode treeNode = new CheckableTreeNode(id, this, model);
+                treeNode.add(new AttributeModifier("title", exdocService.getDocumentDescription(extDocServiceContext,
+                        model.getObject(), getRequest().getLocale())));
+                return treeNode;
             }
 
             @Override
@@ -207,6 +164,64 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         List<IColumn<Serializable, String>> columns = new ArrayList<>();
         columns.add(new TreeColumn<>(Model.of("Tree")));
         return columns;
+    }
+
+    private class CheckableTreeNode extends CheckedFolder<Serializable> {
+
+        private static final long serialVersionUID = 1L;
+
+        private AbstractTree<Serializable> tree;
+
+        private boolean checked;
+
+        public CheckableTreeNode(String id, AbstractTree<Serializable> tree, IModel<Serializable> model) {
+            super(id, tree, model);
+            this.tree = tree;
+        }
+
+        @Override
+        protected IModel<?> newLabelModel(IModel<Serializable> model) {
+            return Model.of(
+                    exdocService.getDocumentTitle(extDocServiceContext, model.getObject(), getRequest().getLocale()));
+        }
+
+        @Override
+        protected IModel<Boolean> newCheckBoxModel(final IModel<Serializable> model) {
+            return new IModel<Boolean>() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public Boolean getObject() {
+                    return selectedExtDocs.contains(model.getObject());
+                }
+
+                @Override
+                public void setObject(Boolean object) {
+                    if (Boolean.TRUE.equals(object)) {
+                        selectedExtDocs.add(model.getObject());
+                    } else {
+                        selectedExtDocs.remove(model.getObject());
+                    }
+                }
+
+                @Override
+                public void detach() {
+                }
+            };
+        }
+
+        @Override
+        protected void onUpdate(AjaxRequestTarget target) {
+            Serializable foo = getModelObject();
+            Serializable parent = treeDataProvider.getParent(foo);
+
+            while (parent != null) {
+                foo = parent;
+                parent = treeDataProvider.getParent(parent);
+            }
+
+            tree.updateBranch(foo, target);
+        }
     }
 
     private class TreeItemExpansion implements Set<Serializable>, Serializable {
