@@ -56,7 +56,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
 
     private String searchQuery;
 
-    private final boolean initialSearchEnabled;
+    private boolean initialSearchEnabled;
 
     private final AjaxButton selectAllButton;
     private final AjaxButton clearAllButton;
@@ -66,10 +66,6 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
                                               final ExternalDocumentServiceFacade<Serializable> exdocService,
                                               IModel<ExternalDocumentCollection<Serializable>> model) {
         super(titleModel, extDocServiceContext, exdocService, model);
-
-        initialSearchEnabled = getPluginConfig().getAsBoolean(PluginConstants.PARAM_INITIAL_SEARCH_ENABLED, PluginConstants.DEFAULT_INITIAL_SEARCH_ENABLED);
-
-        searchQuery = getPluginConfig().getString(PluginConstants.PARAM_INITIAL_SEARCH_QUERY, "");
 
         selectAllButton = new AjaxButton("select-all-button") {
             @Override
@@ -98,11 +94,6 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
             selectAllButton.setVisible(false);
             clearAllButton.setVisible(false);
         }
-
-        // initially search all
-        if (initialSearchEnabled) {
-            searchExternalDocumentsBySearchQuery();
-        }
     }
 
     @Override
@@ -117,6 +108,17 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
 
     public void setSearchQuery(String searchQuery) {
         this.searchQuery = searchQuery;
+    }
+
+    @Override
+    protected void doInitialSearchOnExternalDocuments() {
+        initialSearchEnabled = getPluginConfig().getAsBoolean(PluginConstants.PARAM_INITIAL_SEARCH_ENABLED, PluginConstants.DEFAULT_INITIAL_SEARCH_ENABLED);
+        searchQuery = getPluginConfig().getString(PluginConstants.PARAM_INITIAL_SEARCH_QUERY, "");
+
+        // initially search all
+        if (initialSearchEnabled) {
+            searchExternalDocumentsBySearchQuery();
+        }
     }
 
     @Override

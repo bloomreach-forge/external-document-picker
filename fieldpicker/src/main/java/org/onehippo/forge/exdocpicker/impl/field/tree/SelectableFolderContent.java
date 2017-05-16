@@ -1,9 +1,10 @@
 package org.onehippo.forge.exdocpicker.impl.field.tree;
 
+import java.io.Serializable;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.markup.html.repeater.tree.AbstractTree;
-import org.apache.wicket.extensions.markup.html.repeater.tree.ITreeProvider;
 import org.apache.wicket.extensions.markup.html.repeater.tree.content.Folder;
 import org.apache.wicket.model.IModel;
 
@@ -12,11 +13,11 @@ public class SelectableFolderContent extends Content
 
     private static final long serialVersionUID = 1L;
 
-    private ITreeProvider<Foo> provider;
+    protected ExternalTreeItemDataProvider provider;
 
-    private IModel<Foo> selected;
+    private IModel<Serializable> selected;
 
-    public SelectableFolderContent(ITreeProvider<Foo> provider)
+    public SelectableFolderContent(ExternalTreeItemDataProvider provider)
     {
         this.provider = provider;
     }
@@ -30,9 +31,9 @@ public class SelectableFolderContent extends Content
         }
     }
 
-    protected boolean isSelected(Foo foo)
+    protected boolean isSelected(Serializable foo)
     {
-        IModel<Foo> model = provider.model(foo);
+        IModel<Serializable> model = provider.model(foo);
 
         try
         {
@@ -44,7 +45,7 @@ public class SelectableFolderContent extends Content
         }
     }
 
-    protected void select(Foo foo, final AbstractTree<Foo> tree, final AjaxRequestTarget target)
+    protected void select(Serializable foo, final AbstractTree<Serializable> tree, final AjaxRequestTarget target)
     {
         if (selected != null)
         {
@@ -64,9 +65,9 @@ public class SelectableFolderContent extends Content
     }
 
     @Override
-    public Component newContentComponent(String id, final AbstractTree<Foo> tree, IModel<Foo> model)
+    public Component newContentComponent(String id, final AbstractTree<Serializable> tree, IModel<Serializable> model)
     {
-        return new Folder<Foo>(id, tree, model)
+        return new Folder<Serializable>(id, tree, model)
         {
             private static final long serialVersionUID = 1L;
 

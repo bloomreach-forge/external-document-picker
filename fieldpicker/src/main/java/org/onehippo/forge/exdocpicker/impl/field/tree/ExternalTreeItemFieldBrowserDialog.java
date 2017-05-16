@@ -22,19 +22,15 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.HeadersToolbar;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.NoRecordsToolbar;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.tree.AbstractTree;
 import org.apache.wicket.extensions.markup.html.repeater.tree.TableTree;
-import org.apache.wicket.extensions.markup.html.repeater.tree.table.NodeModel;
 import org.apache.wicket.extensions.markup.html.repeater.tree.table.TreeColumn;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.OddEvenItem;
 import org.apache.wicket.model.IModel;
@@ -44,7 +40,6 @@ import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceContext;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
 import org.onehippo.forge.exdocpicker.impl.field.AbstractExternalDocumentFieldBrowserDialog;
-import org.onehippo.forge.exdocpicker.impl.field.ExternalDocumentFieldBrowserDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,23 +54,27 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
             final ExternalDocumentServiceFacade<Serializable> exdocService,
             IModel<ExternalDocumentCollection<Serializable>> model) {
         super(titleModel, extDocServiceContext, exdocService, model);
-        searchExternalTreeItems();
     }
 
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
         response.render(
-                CssHeaderItem.forReference(new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class,
-                        ExternalDocumentFieldBrowserDialog.class.getSimpleName() + ".css")));
+                CssHeaderItem.forReference(new PackageResourceReference(ExternalTreeItemFieldBrowserDialog.class,
+                        ExternalTreeItemFieldBrowserDialog.class.getSimpleName() + ".css")));
+    }
+
+    @Override
+    protected void doInitialSearchOnExternalDocuments() {
+        searchExternalTreeItems();
     }
 
     @Override
     protected void initDataListViewUI() {
-        FooProvider provider = new FooProvider();
-        AbstractTree<Foo> treeDataView = createTree(provider, new FooExpansionModel());
+        ExternalTreeItemDataProvider provider = new ExternalTreeItemDataProvider(searchedDocCollection, exdocService);
+        ExternalTreeItemExpansion expansion = new ExternalTreeItemExpansion();
+        AbstractTree<Serializable> treeDataView = createTree(provider, new Model(expansion));
         treeDataView.setOutputMarkupId(true);
-
         add(treeDataView);
     }
 
@@ -95,21 +94,21 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         }
     }
 
-    protected AbstractTree<Foo> createTree(FooProvider provider, IModel<Set<Foo>> state) {
+    protected AbstractTree<Serializable> createTree(ExternalTreeItemDataProvider provider, IModel<Set<Serializable>> state) {
         final CheckedSelectableFolderContent content = new CheckedSelectableFolderContent(provider);
-        List<IColumn<Foo, String>> columns = createColumns();
+        List<IColumn<Serializable, String>> columns = createColumns();
 
-        final TableTree<Foo, String> tree = new TableTree<Foo, String>("tree", columns, provider, Integer.MAX_VALUE,
+        final TableTree<Serializable, String> tree = new TableTree<Serializable, String>("tree", columns, provider, Integer.MAX_VALUE,
                 state) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected Component newContentComponent(String id, IModel<Foo> model) {
+            protected Component newContentComponent(String id, IModel<Serializable> model) {
                 return content.newContentComponent(id, this, model);
             }
 
             @Override
-            protected Item<Foo> newRowItem(String id, int index, IModel<Foo> model) {
+            protected Item<Serializable> newRowItem(String id, int index, IModel<Serializable> model) {
                 return new OddEvenItem<>(id, index, model);
             }
         };
@@ -120,47 +119,12 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         return tree;
     }
 
-    private List<IColumn<Foo, String>> createColumns() {
-        List<IColumn<Foo, String>> columns = new ArrayList<>();
-
-        columns.add(new PropertyColumn<>(Model.of("ID"), "id"));
+    private List<IColumn<Serializable, String>> createColumns() {
+        List<IColumn<Serializable, String>> columns = new ArrayList<>();
 
         columns.add(new TreeColumn<>(Model.of("Tree")));
-
-        columns.add(new AbstractColumn<Foo, String>(Model.of("Depth")) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void populateItem(Item<ICellPopulator<Foo>> cellItem, String componentId, IModel<Foo> rowModel) {
-                NodeModel<Foo> nodeModel = (NodeModel<Foo>) rowModel;
-
-                cellItem.add(new Label(componentId, "" + nodeModel.getDepth()));
-            }
-
-            @Override
-            public String getCssClass() {
-                return "number";
-            }
-        });
-
-        columns.add(new PropertyColumn<>(Model.of("Bar"), "bar"));
-        columns.add(new PropertyColumn<>(Model.of("Baz"), "baz"));
+        columns.add(new PropertyColumn<>(Model.of("Title"), "title"));
 
         return columns;
-    }
-
-    private class FooExpansionModel implements IModel<Set<Foo>> {
-        @Override
-        public Set<Foo> getObject() {
-            return FooExpansion.get();
-        }
-
-        @Override
-        public void detach() {
-        }
-
-        @Override
-        public void setObject(Set<Foo> object) {
-        }
     }
 }

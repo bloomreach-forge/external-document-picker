@@ -1,48 +1,40 @@
 package org.onehippo.forge.exdocpicker.impl.field.tree;
 
-import java.util.Optional;
+import java.io.Serializable;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.markup.html.repeater.tree.AbstractTree;
-import org.apache.wicket.extensions.markup.html.repeater.tree.ITreeProvider;
 import org.apache.wicket.extensions.markup.html.repeater.tree.content.CheckedFolder;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.Model;
 
-public class CheckedSelectableFolderContent extends SelectableFolderContent
-{
+public class CheckedSelectableFolderContent extends SelectableFolderContent {
     private static final long serialVersionUID = 1L;
 
-    public CheckedSelectableFolderContent(ITreeProvider<Foo> provider)
-    {
+    public CheckedSelectableFolderContent(ExternalTreeItemDataProvider provider) {
         super(provider);
     }
 
     @Override
-    public Component newContentComponent(String id, final AbstractTree<Foo> tree, IModel<Foo> model)
-    {
-        return new CheckedFolder<Foo>(id, tree, model)
-        {
+    public Component newContentComponent(String id, final AbstractTree<Serializable> tree, IModel<Serializable> model) {
+        return new CheckedFolder<Serializable>(id, tree, model) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected IModel<Boolean> newCheckBoxModel(final IModel<Foo> model)
-            {
-                return new PropertyModel<>(model, "quux");
+            protected IModel<Boolean> newCheckBoxModel(final IModel<Serializable> model) {
+                // FIXME
+                return Model.of(Boolean.FALSE);
             }
 
             @Override
-            protected void onUpdate(AjaxRequestTarget target)
-            {
-                Foo foo = getModelObject();
-
-                // search first ancestor with quux not set
-                while (!foo.getQuux() && foo.getParent() != null)
-                {
-                    foo = foo.getParent();
+            protected void onUpdate(AjaxRequestTarget target) {
+                Serializable foo = getModelObject();
+                Serializable parent = provider.getParent(foo);
+                while (parent != null) {
+                    foo = parent;
+                    parent = provider.getParent(parent);
                 }
-
                 tree.updateBranch(foo, target);
             }
 
@@ -50,20 +42,17 @@ public class CheckedSelectableFolderContent extends SelectableFolderContent
              * Always clickable.
              */
             @Override
-            protected boolean isClickable()
-            {
+            protected boolean isClickable() {
                 return true;
             }
 
             @Override
-            protected void onClick(AjaxRequestTarget target)
-            {
+            protected void onClick(AjaxRequestTarget target) {
                 CheckedSelectableFolderContent.this.select(getModelObject(), tree, target);
             }
 
             @Override
-            protected boolean isSelected()
-            {
+            protected boolean isSelected() {
                 return CheckedSelectableFolderContent.this.isSelected(getModelObject());
             }
         };

@@ -84,6 +84,7 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog extends Abstrac
             setOkEnabled(false);
         }
 
+        doInitialSearchOnExternalDocuments();
         initDataListViewUI();
     }
 
@@ -139,6 +140,8 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog extends Abstrac
     protected boolean isSingleSelectionMode() {
         return StringUtils.equalsIgnoreCase(PluginConstants.SELECTION_MODE_SINGLE, getPluginConfig().getString(PluginConstants.PARAM_SELECTION_MODE, PluginConstants.SELECTION_MODE_MULTIPLE));
     }
+
+    abstract protected void doInitialSearchOnExternalDocuments();
 
     abstract protected void initDataListViewUI();
 }

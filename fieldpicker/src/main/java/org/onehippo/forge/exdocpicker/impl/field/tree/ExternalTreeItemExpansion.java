@@ -9,11 +9,11 @@ import java.util.Set;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.Session;
 
-public class FooExpansion implements Set<Foo>, Serializable
+public class ExternalTreeItemExpansion implements Set<Serializable>, Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    private static MetaDataKey<FooExpansion> KEY = new MetaDataKey<FooExpansion>()
+    private static MetaDataKey<ExternalTreeItemExpansion> KEY = new MetaDataKey<ExternalTreeItemExpansion>()
     {
         private static final long serialVersionUID = 1L;
     };
@@ -37,46 +37,52 @@ public class FooExpansion implements Set<Foo>, Serializable
     }
 
     @Override
-    public boolean add(Foo foo)
+    public boolean add(Serializable foo)
     {
-        if (inverse)
-        {
-            return ids.remove(foo.getId());
-        }
-        else
-        {
-            return ids.add(foo.getId());
-        }
+        // FIXME
+        return false;
+//        if (inverse)
+//        {
+//            return ids.remove(foo.getId());
+//        }
+//        else
+//        {
+//            return ids.add(foo.getId());
+//        }
     }
 
     @Override
     public boolean remove(Object o)
     {
-        Foo foo = (Foo)o;
-
-        if (inverse)
-        {
-            return ids.add(foo.getId());
-        }
-        else
-        {
-            return ids.remove(foo.getId());
-        }
+        // FIXME
+        return false;
+//        Foo foo = (Foo)o;
+//
+//        if (inverse)
+//        {
+//            return ids.add(foo.getId());
+//        }
+//        else
+//        {
+//            return ids.remove(foo.getId());
+//        }
     }
 
     @Override
     public boolean contains(Object o)
     {
-        Foo foo = (Foo)o;
-
-        if (inverse)
-        {
-            return !ids.contains(foo.getId());
-        }
-        else
-        {
-            return ids.contains(foo.getId());
-        }
+        // FIXME
+        return false;
+//        Foo foo = (Foo)o;
+//
+//        if (inverse)
+//        {
+//            return !ids.contains(foo.getId());
+//        }
+//        else
+//        {
+//            return ids.contains(foo.getId());
+//        }
     }
 
     @Override
@@ -104,7 +110,7 @@ public class FooExpansion implements Set<Foo>, Serializable
     }
 
     @Override
-    public Iterator<Foo> iterator()
+    public Iterator<Serializable> iterator()
     {
         throw new UnsupportedOperationException();
     }
@@ -122,7 +128,7 @@ public class FooExpansion implements Set<Foo>, Serializable
     }
 
     @Override
-    public boolean addAll(Collection<? extends Foo> c)
+    public boolean addAll(Collection<? extends Serializable> c)
     {
         throw new UnsupportedOperationException();
     }
@@ -144,12 +150,12 @@ public class FooExpansion implements Set<Foo>, Serializable
      * 
      * @return expansion
      */
-    public static FooExpansion get()
+    public static ExternalTreeItemExpansion get()
     {
-        FooExpansion expansion = Session.get().getMetaData(KEY);
+        ExternalTreeItemExpansion expansion = Session.get().getMetaData(KEY);
         if (expansion == null)
         {
-            expansion = new FooExpansion();
+            expansion = new ExternalTreeItemExpansion();
 
             Session.get().setMetaData(KEY, expansion);
         }
