@@ -166,23 +166,28 @@ public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocu
     @Override
     public String getDocumentDescription(ExternalDocumentServiceContext context, SubjectCategory cat,
             Locale preferredLocale) {
-        StringBuilder sb = new StringBuilder(200);
-
-        for (SubjectCategory cur = cat; cur != null; cur = cur.getParent()) {
-            if (sb.length() > 0) {
-                sb.insert(0, cur.getTitle() + " / ");
-            } else {
-                sb.append(cur.getTitle());
-            }
-        }
-
-        return sb.toString();
+        return cat.getPath();
     }
 
     @Override
     public String getDocumentIconLink(ExternalDocumentServiceContext context, SubjectCategory cat,
             Locale preferredLocale) {
         return null;
+    }
+
+    @Override
+    public boolean hasChildren(SubjectCategory cat) {
+        return cat.hasChildren();
+    }
+
+    @Override
+    public Iterator<SubjectCategory> getChildren(SubjectCategory cat) {
+        return cat.getChildren().iterator();
+    }
+
+    @Override
+    public SubjectCategory getParent(SubjectCategory cat) {
+        return cat.getParent();
     }
 
     private SubjectCategory convertSubjectElementToSubjectCategory(Element elem) {

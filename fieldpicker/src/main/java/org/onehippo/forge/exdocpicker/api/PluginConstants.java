@@ -100,6 +100,10 @@ public class PluginConstants {
      */
     public static final int DEFAULT_PAGE_SIZE = 5;
 
+    public static final String PARAM_EXTERNAL_TREE_VIEW_THEME = "external.tree.view.theme";
+
+    public static final String DEFAULT_EXTERNAL_TREE_VIEW_THEME = "human";
+
     private PluginConstants() {
     }
 

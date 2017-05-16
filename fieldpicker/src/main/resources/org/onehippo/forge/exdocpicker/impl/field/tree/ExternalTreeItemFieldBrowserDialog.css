@@ -3,170 +3,33 @@
     padding: 0px 15px;
 }
 
-.exdocfield-browser-search {
-    padding-top: 10px;
-    padding-bottom: 5px;
-}
-
-.exdocfield-browser-search-input {
-    width: 550px;
-    height:30px;
-}
-
 .exdocfield-browser-results-summary {
     padding: 5px 2px;
     margin-bottom: 8px;
 }
 
-.exdocfield-browser-pager {
-    padding: 0;
-    text-align: center;
-}
-
-.exdocfield-browser-pager span span em span {
-    font-weight: bold;
-}
-
 .exdocfield-browser-results {
     background-color: #f7f7f7;
-    padding: 0;
-    height: 440px;
+    border: 1px solid lightgrey;
+    height: 560px;
+    margin: 10px 0;
     overflow-x: hidden;
     overflow-y: auto;
-    margin: 10px 0;
+    padding: 4px;
 }
 
-.exdocfield-browser-result {
-    margin: 10px auto;
-    padding: 5px 8px;
-    clear: left;
-    overflow: auto;
-    width: 768px;
-    max-height: 145px;
-    overflow: hidden;
+.exdocfield-browser-results table {
+    width: 100%;
 }
 
-.exdocfield-browser-result odd {
-    background: #fbffe3;
+.exdocfield-browser-results tr.even {
+    background-color: #ffffff;
 }
 
-.exdocfield-browser-result.selected-result, .exdocfield-browser-result:hover {
-    background: #ffffcc;
-    -moz-box-shadow: 0 0 5px #888;
-    -webkit-box-shadow: 0 0 5px #888;
-    box-shadow: 0 0 5px #888;
+.exdocfield-browser-results tr.even td {
+    padding: 4px
 }
 
-.exdocfield-browser-result-content {
-    float: left;
-    margin-left:20px;
-    width: 520px;
-}
-
-.exdocfield-browser-result-image {
-    width: 150px;
-    float: left;
-}
-
-.exdocfield-browser-result-image img{
- width:60!importat;
-}
-
-
-.exdocfield-browser-result-content .title {
-    display: block;
-    margin-bottom: 2px;
-    font-size:14px;
-}
-
-.exdocfield-browser-result-content .summary {
-    display: block;
-    clear: left;
-    /*TODO Will summary have <p> or not?*/
-    color: #656565;
-    margin-bottom: 2px;
-}
-
-.exdocfield-browser-result-content p {
-    color: #656565;
-    margin-top: 10px;
-}
-
-.exdocfield-browser-result-select {
-    float: left;
-    width: 45px;
-}
-
-.exdocfield-browser-result-select input[type='checkbox'] {
-    margin-top: 8px;
-}
-
-/*
-    BUTTONS
-*/
-.exdocfield-browser-search button.green-button {
-    -moz-box-shadow: inset 0px 1px 0px 0px #a4e271;
-    -webkit-box-shadow: inset 0px 1px 0px 0px #a4e271;
-    box-shadow: inset 0px 1px 0px 0px #a4e271;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #89c403), color-stop(1, #77a809));
-    background: -moz-linear-gradient(center top, #89c403 5%, #77a809 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#89c403', endColorstr = '#77a809');
-    background-color: #89c403;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-    border: 1px solid #74b807;
-    display: inline-block;
-    line-height: 10px;
-    padding: 3px 20px;
-    text-decoration: none;
-    font-weight: bold;
-    cursor: pointer;
-    height:30px;
-}
-
-.exdocfield-browser-search button.green-button:hover {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77a809), color-stop(1, #89c403));
-    background: -moz-linear-gradient(center top, #77a809 5%, #89c403 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#77a809', endColorstr = '#89c403');
-    background-color: #77a809;
-}
-
-.green-button:active {
-    position: relative;
-    top: 1px;
-}
-
-/* PAGINATION */
-.exdocfield-browser-pagination {
-    text-align: center;
-    padding: 0.3em;
-    cursor: default;
-}
-
-.exdocfield-browser-pagination a, .picker-browser-pagination span {
-    padding: 0.2em 0.2em;
-}
-
-.exdocfield-browser-pagination .disabled {
-    color: #aaaaaa;
-}
-
-.exdocfield-browser-pagination .current {
-    font-style: normal;
-    font-weight: bold;
-    color: #ff0084;
-}
-
-.exdocfield-browser-pagination a {
-    color: #0063dc;
-    text-decoration: none;
-}
-
-.exdocfield-browser-pagination a:hover, .exdocfield-browser-pagination a:focus {
-    color: #656565;
-}
-
-.exdocfield-browser-pagination .previous-page, .exdocfield-browser-pagination .next-page {
-    margin: 0 0.2em;
+.exdocfield-browser-results tr.odd td {
+    padding: 4px
 }

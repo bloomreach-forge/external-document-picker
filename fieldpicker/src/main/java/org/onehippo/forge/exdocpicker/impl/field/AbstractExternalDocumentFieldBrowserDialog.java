@@ -35,7 +35,8 @@ import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractExternalDocumentFieldBrowserDialog extends AbstractDialog<ExternalDocumentCollection<Serializable>> {
+public abstract class AbstractExternalDocumentFieldBrowserDialog
+        extends AbstractDialog<ExternalDocumentCollection<Serializable>> {
 
     private static final long serialVersionUID = 1L;
 
@@ -56,9 +57,9 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog extends Abstrac
     protected final ExternalDocumentServiceContext extDocServiceContext;
 
     public AbstractExternalDocumentFieldBrowserDialog(IModel<String> titleModel,
-                                              final ExternalDocumentServiceContext extDocServiceContext,
-                                              final ExternalDocumentServiceFacade<Serializable> exdocService,
-                                              IModel<ExternalDocumentCollection<Serializable>> model) {
+            final ExternalDocumentServiceContext extDocServiceContext,
+            final ExternalDocumentServiceFacade<Serializable> exdocService,
+            IModel<ExternalDocumentCollection<Serializable>> model) {
         super(model);
         setOutputMarkupId(true);
 
@@ -66,7 +67,8 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog extends Abstrac
         this.extDocServiceContext = extDocServiceContext;
         this.exdocService = exdocService;
 
-        final String dialogSizeParam = getPluginConfig().getString(PluginConstants.PARAM_DIALOG_SIZE, PluginConstants.DEFAULT_DIALOG_SIZE);
+        final String dialogSizeParam = getPluginConfig().getString(PluginConstants.PARAM_DIALOG_SIZE,
+                PluginConstants.DEFAULT_DIALOG_SIZE);
         dialogSize = new ValueMap(dialogSizeParam).makeImmutable();
 
         pageSize = getPluginConfig().getInt(PluginConstants.PARAM_PAGE_SIZE, PluginConstants.DEFAULT_PAGE_SIZE);
@@ -75,7 +77,7 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog extends Abstrac
 
         selectedExtDocs.clear();
 
-        for (Iterator<? extends Serializable> it = currentDocSelection.iterator(); it.hasNext(); ) {
+        for (Iterator<? extends Serializable> it = currentDocSelection.iterator(); it.hasNext();) {
             selectedExtDocs.add(it.next());
         }
 
@@ -95,7 +97,7 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog extends Abstrac
                 currentDocSelection.clear();
                 Serializable curDoc = null;
                 // when single selection mode, let's add the last added item only.
-                for (Iterator<Serializable> it = selectedExtDocs.iterator(); it.hasNext(); ) {
+                for (Iterator<Serializable> it = selectedExtDocs.iterator(); it.hasNext();) {
                     curDoc = it.next();
                 }
                 if (curDoc != null) {
@@ -138,11 +140,12 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog extends Abstrac
     }
 
     protected boolean isSingleSelectionMode() {
-        return StringUtils.equalsIgnoreCase(PluginConstants.SELECTION_MODE_SINGLE, getPluginConfig().getString(PluginConstants.PARAM_SELECTION_MODE, PluginConstants.SELECTION_MODE_MULTIPLE));
+        return StringUtils.equalsIgnoreCase(PluginConstants.SELECTION_MODE_SINGLE, getPluginConfig()
+                .getString(PluginConstants.PARAM_SELECTION_MODE, PluginConstants.SELECTION_MODE_MULTIPLE));
     }
 
     abstract protected void doInitialSearchOnExternalDocuments();
 
     abstract protected void initDataListViewUI();
-}
 
+}

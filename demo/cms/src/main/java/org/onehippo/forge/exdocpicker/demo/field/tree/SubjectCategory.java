@@ -49,8 +49,22 @@ public class SubjectCategory implements Serializable {
         this.title = title;
     }
 
+    public String getPath() {
+        String parentPath = (parent != null) ? parent.getPath() : null;
+
+        if (parentPath != null) {
+            return parentPath + "/" + getTitle();
+        } else {
+            return getTitle();
+        }
+    }
+
     public SubjectCategory getParent() {
         return parent;
+    }
+
+    public boolean hasChildren() {
+        return !getChildren().isEmpty();
     }
 
     public List<SubjectCategory> getChildren() {
