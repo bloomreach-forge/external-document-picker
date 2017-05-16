@@ -64,6 +64,18 @@
     </sv:property>
   </sv:node>
 
+  <sv:node sv:name="exdocpickerbasedemo-translations">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>hippo:initializeitem</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:sequence" sv:type="Double">
+      <sv:value>30000.2</sv:value>
+    </sv:property>
+    <sv:property sv:name="hippo:resourcebundles" sv:type="String">
+      <sv:value>translations.json</sv:value>
+    </sv:property>
+  </sv:node>
+
   <!-- hst configuration nodes -->
   <sv:node sv:name="exdocpickerbasedemo-hst-hosts">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">

@@ -17,10 +17,12 @@ package org.onehippo.forge.exdocpicker.demo.field.tree;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -52,13 +54,15 @@ public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocu
 
     private static Logger log = LoggerFactory.getLogger(ExampleExternalSubjectCategoryServiceFacade.class);
 
-    private List<SubjectCategory> subjectCategories;
+    private List<SubjectCategory> rootSubjectCategories;
+    private Map<String, SubjectCategory> subjectCategoriesMap;
 
     public ExampleExternalSubjectCategoryServiceFacade() {
         InputStream input = null;
 
         try {
-            subjectCategories = new LinkedList<>();
+            rootSubjectCategories = new LinkedList<>();
+            subjectCategoriesMap = new HashMap<>();
 
             input = ExampleExternalSubjectCategoryServiceFacade.class.getResourceAsStream("msc.xml");
 
@@ -73,9 +77,9 @@ public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocu
 
             for (int i = 0; i < length; i++) {
                 node = nodeList.item(i);
-                if (node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE && "subject".equals(node.getNodeName())) {
+                if (isSubjectNode(node)) {
                     subjectCategory = convertSubjectElementToSubjectCategory((Element) node);
-                    subjectCategories.add(subjectCategory);
+                    rootSubjectCategories.add(subjectCategory);
                 }
             }
         } catch (Exception e) {
@@ -89,10 +93,10 @@ public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocu
     public ExternalDocumentCollection<SubjectCategory> searchExternalDocuments(ExternalDocumentServiceContext context,
             String queryString) {
         ExternalDocumentCollection<SubjectCategory> catCollection = new SimpleExternalDocumentCollection<SubjectCategory>();
-        int size = subjectCategories.size();
+        int size = rootSubjectCategories.size();
 
         for (int i = 0; i < size; i++) {
-            catCollection.add(subjectCategories.get(i));
+            catCollection.add(rootSubjectCategories.get(i));
         }
 
         return catCollection;
@@ -118,7 +122,7 @@ public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocu
 
                 for (Value value : values) {
                     String id = value.getString();
-                    SubjectCategory cat = findSubjectCategoryById(id);
+                    SubjectCategory cat = subjectCategoriesMap.get(id);
 
                     if (cat != null) {
                         catCollection.add(cat);
@@ -195,13 +199,15 @@ public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocu
         category.setId(elem.getAttribute("id"));
         category.setTitle(elem.getAttribute("name"));
 
+        subjectCategoriesMap.put(category.getId(), category);
+
         NodeList nodeList = elem.getChildNodes();
         int length = nodeList.getLength();
         org.w3c.dom.Node node;
 
         for (int i = 0; i < length; i++) {
             node = nodeList.item(i);
-            if (node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE && "subject".equals(node.getNodeName())) {
+            if (isSubjectNode(node)) {
                 category.addChild(convertSubjectElementToSubjectCategory((Element) node));
             }
         }
@@ -209,17 +215,7 @@ public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocu
         return category;
     }
 
-    private SubjectCategory findSubjectCategoryById(String id) {
-        if (subjectCategories == null) {
-            return null;
-        }
-
-        for (SubjectCategory cat : subjectCategories) {
-            if (StringUtils.equals(id, cat.getId())) {
-                return cat;
-            }
-        }
-
-        return null;
+    private boolean isSubjectNode(org.w3c.dom.Node node) {
+        return (node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE && "subject".equals(node.getNodeName()));
     }
 }

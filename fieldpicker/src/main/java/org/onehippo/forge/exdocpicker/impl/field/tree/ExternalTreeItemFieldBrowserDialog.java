@@ -71,7 +71,7 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         final String themeName = extDocServiceContext.getPluginConfig().getString(
                 PluginConstants.PARAM_EXTERNAL_TREE_VIEW_THEME, PluginConstants.DEFAULT_EXTERNAL_TREE_VIEW_THEME);
 
-        if (StringUtils.startsWithIgnoreCase(themeName, "windows")) {
+        if (StringUtils.startsWithIgnoreCase(themeName, "window")) {
             theme = new WindowsTheme();
         } else {
             theme = new HumanTheme();
