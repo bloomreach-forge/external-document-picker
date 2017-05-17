@@ -100,8 +100,14 @@ public class PluginConstants {
      */
     public static final int DEFAULT_PAGE_SIZE = 5;
 
+    /**
+     * Plugin parameter for theme name to be used when rendering a tree list view. e.g, 'human' or 'windows'.
+     */
     public static final String PARAM_EXTERNAL_TREE_VIEW_THEME = "external.tree.view.theme";
 
+    /**
+     * Default theme name to be used when rendering a tree list view.
+     */
     public static final String DEFAULT_EXTERNAL_TREE_VIEW_THEME = "human";
 
     private PluginConstants() {

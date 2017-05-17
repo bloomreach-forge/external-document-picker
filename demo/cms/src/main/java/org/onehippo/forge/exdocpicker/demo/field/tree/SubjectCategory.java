@@ -22,6 +22,14 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * Subject category representation for a Mathematics Subject Classification.
+ * <P>
+ * This POJO bean is supposed to capture basic information of a Mathematics Subject Classification published
+ * by American Mathematical Society. For full reference and examples,
+ * see <a href="http://www.ams.org/mathscinet/msc/msc2010.html">http://www.ams.org/mathscinet/msc/msc2010.html</a>.
+ * </p>
+ */
 public class SubjectCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;

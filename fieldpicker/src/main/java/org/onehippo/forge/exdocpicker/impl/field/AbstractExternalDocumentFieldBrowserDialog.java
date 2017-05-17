@@ -1,5 +1,5 @@
 /**
- * Copyright 2014 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2014-2017 Hippo B.V. (http://www.onehippo.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +35,9 @@ import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Abstract external document(s) picker dialog class.
+ */
 public abstract class AbstractExternalDocumentFieldBrowserDialog
         extends AbstractDialog<ExternalDocumentCollection<Serializable>> {
 
@@ -42,20 +45,53 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog
 
     private static Logger log = LoggerFactory.getLogger(AbstractExternalDocumentFieldBrowserDialog.class);
 
+    /**
+     * Dialog title model.
+     */
     private final IModel<String> titleModel;
-    protected final ExternalDocumentServiceFacade<Serializable> exdocService;
 
-    protected final Set<Serializable> selectedExtDocs = new LinkedHashSet<Serializable>();
+    /**
+     * {@link ExternalDocumentServiceFacade} instance.
+     */
+    private final ExternalDocumentServiceFacade<Serializable> exdocService;
 
-    protected ExternalDocumentCollection<Serializable> currentDocSelection;
-    protected ExternalDocumentCollection<Serializable> searchedDocCollection = new SimpleExternalDocumentCollection<Serializable>();
+    /**
+     * Currently picked external documents in the list view UI by end user.
+     */
+    private final Set<Serializable> pickedExtDocsInUI = new LinkedHashSet<Serializable>();
 
-    protected int pageSize;
+    /**
+     * Currently selected external documents in the document variant node data.
+     */
+    private ExternalDocumentCollection<Serializable> selectedExtDocsInVariantNode;
 
+    /**
+     * Searched external documents to show in the list view UI.
+     */
+    private ExternalDocumentCollection<Serializable> searchedExtDocs = new SimpleExternalDocumentCollection<Serializable>();
+
+    /**
+     * Page size.
+     */
+    private int pageSize;
+
+    /**
+     * Dialog size.
+     */
     private final IValueMap dialogSize;
 
-    protected final ExternalDocumentServiceContext extDocServiceContext;
+    /**
+     * {@link ExternalDocumentServiceContext} instance.
+     */
+    private final ExternalDocumentServiceContext extDocServiceContext;
 
+    /**
+     * Constructs external document(s) picker dialog.
+     * @param titleModel title model
+     * @param extDocServiceContext {@link ExternalDocumentServiceContext} instance
+     * @param exdocService {@link ExternalDocumentServiceFacade} instance
+     * @param model the model containing the currently selected external documents in the document node data
+     */
     public AbstractExternalDocumentFieldBrowserDialog(IModel<String> titleModel,
             final ExternalDocumentServiceContext extDocServiceContext,
             final ExternalDocumentServiceFacade<Serializable> exdocService,
@@ -73,12 +109,12 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog
 
         pageSize = getPluginConfig().getInt(PluginConstants.PARAM_PAGE_SIZE, PluginConstants.DEFAULT_PAGE_SIZE);
 
-        currentDocSelection = getModelObject();
+        selectedExtDocsInVariantNode = getModelObject();
 
-        selectedExtDocs.clear();
+        pickedExtDocsInUI.clear();
 
-        for (Iterator<? extends Serializable> it = currentDocSelection.iterator(); it.hasNext();) {
-            selectedExtDocs.add(it.next());
+        for (Iterator<? extends Serializable> it = selectedExtDocsInVariantNode.iterator(); it.hasNext();) {
+            pickedExtDocsInUI.add(it.next());
         }
 
         if (getModel().getObject() == null) {
@@ -86,66 +122,151 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog
             setOkEnabled(false);
         }
 
-        doInitialSearchOnExternalDocuments();
-        initDataListViewUI();
+        initializeSearchedExternalDocuments();
+        initializeDataListView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onOk() {
-        if (selectedExtDocs != null) {
+        if (pickedExtDocsInUI != null) {
             if (isSingleSelectionMode()) {
-                currentDocSelection.clear();
+                selectedExtDocsInVariantNode.clear();
                 Serializable curDoc = null;
                 // when single selection mode, let's add the last added item only.
-                for (Iterator<Serializable> it = selectedExtDocs.iterator(); it.hasNext();) {
+                for (Iterator<Serializable> it = pickedExtDocsInUI.iterator(); it.hasNext();) {
                     curDoc = it.next();
                 }
                 if (curDoc != null) {
-                    currentDocSelection.add(curDoc);
+                    selectedExtDocsInVariantNode.add(curDoc);
                 }
-                exdocService.setFieldExternalDocuments(extDocServiceContext, currentDocSelection);
+                exdocService.setFieldExternalDocuments(extDocServiceContext, selectedExtDocsInVariantNode);
             } else {
                 boolean added = false;
 
-                for (Serializable doc : selectedExtDocs) {
-                    if (!currentDocSelection.contains(doc)) {
-                        currentDocSelection.add(doc);
+                for (Serializable doc : pickedExtDocsInUI) {
+                    if (!selectedExtDocsInVariantNode.contains(doc)) {
+                        selectedExtDocsInVariantNode.add(doc);
                         added = true;
                     }
                 }
 
                 if (added) {
-                    exdocService.setFieldExternalDocuments(extDocServiceContext, currentDocSelection);
+                    exdocService.setFieldExternalDocuments(extDocServiceContext, selectedExtDocsInVariantNode);
                 }
             }
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IModel<String> getTitle() {
         return titleModel;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IValueMap getProperties() {
         return dialogSize;
     }
 
+    /**
+     * Returns the plugin config.
+     * @return the plugin config
+     */
     protected IPluginConfig getPluginConfig() {
         return extDocServiceContext.getPluginConfig();
     }
 
+    /**
+     * Returns the plugin context.
+     * @return the plugin context
+     */
     protected IPluginContext getPluginContext() {
         return extDocServiceContext.getPluginContext();
     }
 
+    /**
+     * Returns {@link ExternalDocumentServiceFacade} instance.
+     * @return {@link ExternalDocumentServiceFacade} instance
+     */
+    protected ExternalDocumentServiceFacade<Serializable> getExternalDocumentServiceFacade() {
+        return exdocService;
+    }
+
+    /**
+     * Returns {@link ExternalDocumentServiceContext} instance.
+     * @return {@link ExternalDocumentServiceContext} instance
+     */
+    protected ExternalDocumentServiceContext getExternalDocumentServiceContext() {
+        return extDocServiceContext;
+    }
+
+    /**
+     * Returns currently picked external documents in the list view UI.
+     * @return currently picked external documents in the list view UI
+     */
+    protected Set<Serializable> getPickedExternalDocuments() {
+        return pickedExtDocsInUI;
+    }
+
+    /**
+     * Returns currently selected external documents in the document variant data node.
+     * @return currently selected external documents in the document variant data node
+     */
+    protected ExternalDocumentCollection<Serializable> getSelectedExternalDocuments() {
+        return selectedExtDocsInVariantNode;
+    }
+
+    /**
+     * Returns searched external documents to show in the list view UI.
+     * @return searched external documents to show in the list view UI
+     */
+    protected ExternalDocumentCollection<Serializable> getSearchedExternalDocuments() {
+        return searchedExtDocs;
+    }
+
+    /**
+     * Returns the flag whether the selection mode in UI is 'single' or 'multiple'. 'multiple' by default.
+     * @return
+     */
     protected boolean isSingleSelectionMode() {
         return StringUtils.equalsIgnoreCase(PluginConstants.SELECTION_MODE_SINGLE, getPluginConfig()
                 .getString(PluginConstants.PARAM_SELECTION_MODE, PluginConstants.SELECTION_MODE_MULTIPLE));
     }
 
-    abstract protected void doInitialSearchOnExternalDocuments();
+    /**
+     * Returns the page size.
+     * @return the page size
+     */
+    protected int getPageSize() {
+        return pageSize;
+    }
 
-    abstract protected void initDataListViewUI();
+    /**
+     * Returns the dialog size.
+     * @return the dialog size
+     */
+    protected IValueMap getDialogSize() {
+        return dialogSize;
+    }
+
+    /**
+     * Initializes the {@link #searchedExtDocs} on construction.
+     * Invoked during the construction of this dialog instance.
+     */
+    abstract protected void initializeSearchedExternalDocuments();
+
+    /**
+     * Initializes the data list view UI.
+     * Invoked during the construction of this dialog instance.
+     */
+    abstract protected void initializeDataListView();
 
 }

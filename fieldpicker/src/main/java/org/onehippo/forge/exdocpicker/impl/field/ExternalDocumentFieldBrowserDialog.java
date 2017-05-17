@@ -1,5 +1,5 @@
 /**
- * Copyright 2014 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2014-2017 Hippo B.V. (http://www.onehippo.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,6 +48,10 @@ import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollectionDataP
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * External document field picker dialog implementation with the default flat list view UI, providing a basic search
+ * capability and select-all / clear-all buttons.
+ */
 public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocumentFieldBrowserDialog {
 
     private static final long serialVersionUID = 1L;
@@ -61,6 +65,13 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
     private final AjaxButton selectAllButton;
     private final AjaxButton clearAllButton;
 
+    /**
+     * Constructs external document(s) picker dialog.
+     * @param titleModel title model
+     * @param extDocServiceContext {@link ExternalDocumentServiceContext} instance
+     * @param exdocService {@link ExternalDocumentServiceFacade} instance
+     * @param model the model containing the currently selected external documents in the document node data
+     */
     public ExternalDocumentFieldBrowserDialog(IModel<String> titleModel,
                                               final ExternalDocumentServiceContext extDocServiceContext,
                                               final ExternalDocumentServiceFacade<Serializable> exdocService,
@@ -70,9 +81,9 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
         selectAllButton = new AjaxButton("select-all-button") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                selectedExtDocs.clear();
-                for (Iterator<? extends Serializable> it = searchedDocCollection.iterator(); it.hasNext(); ) {
-                    selectedExtDocs.add(it.next());
+                getPickedExternalDocuments().clear();
+                for (Iterator<? extends Serializable> it = getSearchedExternalDocuments().iterator(); it.hasNext(); ) {
+                    getPickedExternalDocuments().add(it.next());
                 }
                 target.add(ExternalDocumentFieldBrowserDialog.this);
             }
@@ -83,7 +94,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
         clearAllButton = new AjaxButton("clear-all-button") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                selectedExtDocs.clear();
+                getPickedExternalDocuments().clear();
                 target.add(ExternalDocumentFieldBrowserDialog.this);
             }
         };
@@ -94,25 +105,50 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
             selectAllButton.setVisible(false);
             clearAllButton.setVisible(false);
         }
+
+        if (getSearchedExternalDocuments().getSize() > 0) {
+            selectAllButton.setEnabled(true);
+            clearAllButton.setEnabled(true);
+        } else {
+            selectAllButton.setEnabled(false);
+            clearAllButton.setEnabled(false);
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        response.render(CssHeaderItem.forReference(new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class, ExternalDocumentFieldBrowserDialog.class.getSimpleName() + ".css")));
+        response.render(
+                CssHeaderItem.forReference(new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class,
+                        ExternalDocumentFieldBrowserDialog.class.getSimpleName() + ".css")));
     }
 
+    /**
+     * Returns the search term.
+     * @return the search term
+     */
     public String getSearchQuery() {
         return searchQuery;
     }
 
+    /**
+     * Sets the search term.
+     * @param searchQuery the search term
+     */
     public void setSearchQuery(String searchQuery) {
         this.searchQuery = searchQuery;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected void doInitialSearchOnExternalDocuments() {
-        initialSearchEnabled = getPluginConfig().getAsBoolean(PluginConstants.PARAM_INITIAL_SEARCH_ENABLED, PluginConstants.DEFAULT_INITIAL_SEARCH_ENABLED);
+    protected void initializeSearchedExternalDocuments() {
+        initialSearchEnabled = getPluginConfig().getAsBoolean(PluginConstants.PARAM_INITIAL_SEARCH_ENABLED,
+                PluginConstants.DEFAULT_INITIAL_SEARCH_ENABLED);
         searchQuery = getPluginConfig().getString(PluginConstants.PARAM_INITIAL_SEARCH_QUERY, "");
 
         // initially search all
@@ -121,12 +157,15 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected void initDataListViewUI() {
+    protected void initializeDataListView() {
         final IDataProvider<Serializable> provider =
-                new SimpleExternalDocumentCollectionDataProvider<Serializable>(searchedDocCollection);
+                new SimpleExternalDocumentCollectionDataProvider<Serializable>(getSearchedExternalDocuments());
 
-        final DataView<Serializable> resultsDataView = new DataView<Serializable>("item", provider, pageSize) {
+        final DataView<Serializable> resultsDataView = new DataView<Serializable>("item", provider, getPageSize()) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -140,25 +179,28 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
                     @Override
                     protected void onUpdate(AjaxRequestTarget ajaxRequestTarget) {
                         if (getModelObject()) {
-                            selectedExtDocs.add(doc);
+                            getPickedExternalDocuments().add(doc);
 
                             if (isSingleSelectionMode()) {
                                 ExternalDocumentFieldBrowserDialog.this.handleSubmit();
                             }
                         } else {
-                            selectedExtDocs.remove(doc);
+                            getPickedExternalDocuments().remove(doc);
                         }
                     }
                 };
 
-                selectCheckbox.getModel().setObject(selectedExtDocs.contains(doc));
+                selectCheckbox.getModel().setObject(getPickedExternalDocuments().contains(doc));
 
-                final String iconLink = exdocService.getDocumentIconLink(extDocServiceContext, doc, getRequest().getLocale());
+                final String iconLink = getExternalDocumentServiceFacade().getDocumentIconLink(getExternalDocumentServiceContext(),
+                        doc, getRequest().getLocale());
                 final ExternalDocumentIconImage iconImage = new ExternalDocumentIconImage("image", iconLink);
                 listItem.add(iconImage);
                 listItem.add(selectCheckbox);
-                listItem.add(new Label("title-label", exdocService.getDocumentTitle(extDocServiceContext, doc, getRequest().getLocale())));
-                final String description = exdocService.getDocumentDescription(extDocServiceContext, doc, getRequest().getLocale());
+                listItem.add(new Label("title-label", getExternalDocumentServiceFacade()
+                        .getDocumentTitle(getExternalDocumentServiceContext(), doc, getRequest().getLocale())));
+                final String description = getExternalDocumentServiceFacade()
+                        .getDocumentDescription(getExternalDocumentServiceContext(), doc, getRequest().getLocale());
 
                 WebMarkupContainer frame = new WebMarkupContainer("paragraph-label") {
                     private static final long serialVersionUID = 1L;
@@ -187,31 +229,33 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
         add(new ExternalDocumentFieldBrowserPageNavigator("navigator", resultsDataView));
     }
 
+    /**
+     * Search external documents by the search term.
+     */
     protected void searchExternalDocumentsBySearchQuery() {
         try {
-            ExternalDocumentCollection<? extends Serializable> searchedDocs = exdocService.searchExternalDocuments(extDocServiceContext, getSearchQuery());
+            ExternalDocumentCollection<? extends Serializable> searchedDocs = getExternalDocumentServiceFacade()
+                    .searchExternalDocuments(getExternalDocumentServiceContext(), getSearchQuery());
 
-            searchedDocCollection.clear();
+            getSearchedExternalDocuments().clear();
 
             if (searchedDocs != null && searchedDocs.getSize() > 0) {
                 for (Iterator<? extends Serializable> it = searchedDocs.iterator(); it.hasNext(); ) {
-                    searchedDocCollection.add(it.next());
+                    getSearchedExternalDocuments().add(it.next());
                 }
-
-                selectAllButton.setEnabled(true);
-                clearAllButton.setEnabled(true);
-            } else {
-                selectAllButton.setEnabled(false);
-                clearAllButton.setEnabled(false);
             }
         } catch (Exception e) {
             log.error("Failed to execute search external documents by the search query, '" + getSearchQuery() + "'.", e);
         }
     }
 
+    /**
+     * Icon image for an external document.
+     */
     public static class ExternalDocumentIconImage extends Image {
 
-        private static final ResourceReference NO_ICON = new PackageResourceReference(ExternalDocumentFieldBrowserDialog.class, "no-icon.jpg");
+        private static final ResourceReference NO_ICON = new PackageResourceReference(
+                ExternalDocumentFieldBrowserDialog.class, "no-icon.jpg");
 
         private static final long serialVersionUID = 1L;
 

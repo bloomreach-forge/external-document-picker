@@ -35,6 +35,8 @@ import org.apache.commons.lang.StringUtils;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceContext;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
+import org.onehippo.forge.exdocpicker.api.ExternalDocumentTreeService;
+import org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade;
 import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +45,30 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+/**
+ * Another example trivial implementation of <code>ExternalDocumentServiceFacade</code> to show how to implement
+ * a service for tree list view picker dialog UI for developer's reference.
+ * 
+ * <P>
+ * This example simply reads all the document data in an XML resource file containing multiple hierarhical subject
+ * category infos from <code>classpath:org/onehippo/forge/exdocpicker/demo/field/tree/msc.xml</code>.
+ * The XML file is an excerpt from the Mathematics Subject Classification published by American Mathematical Society.
+ * For full reference, see <a href="http://www.ams.org/mathscinet/msc/msc2010.html">http://www.ams.org/mathscinet/msc/msc2010.html</a>.
+ * </p>
+ * <p>
+ * This example simply searches external documents from the loaded XML document.
+ * </p>
+ * <p>
+ * And, this example reads/sets JCR document node field to string array of the selected external subject category IDs.
+ * The field name can be configured in the plugin configuration; this example reads 'example.external.cats.field.name' plugin parameter
+ * to get the physical field name of the document node.
+ * </p>
+ * <p>
+ * This implementation is as simple as {@link ExampleExternalDocumentServiceFacade}, but this implements a few more
+ * operations defined in {@link ExternalDocumentTreeService} to provide on parent-child hierarchical relationship
+ * resolutions which is necessary when rendering the tree list view in the picker dialog.
+ * </p>
+ */
 public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocumentServiceFacade<SubjectCategory> {
 
     /**

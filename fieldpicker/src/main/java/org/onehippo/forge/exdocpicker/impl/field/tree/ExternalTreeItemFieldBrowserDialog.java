@@ -1,5 +1,5 @@
 /**
- * Copyright 2014 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2017 Hippo B.V. (http://www.onehippo.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,6 @@ package org.onehippo.forge.exdocpicker.impl.field.tree;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -54,20 +52,41 @@ import org.onehippo.forge.exdocpicker.impl.field.AbstractExternalDocumentFieldBr
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * External document field picker dialog implementation with the default tree list view UI, providing a basic tree
+ * navigation capability and expand-all / collapse-all buttons.
+ */
 public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocumentFieldBrowserDialog {
 
     private static final long serialVersionUID = 1L;
 
     private static Logger log = LoggerFactory.getLogger(ExternalTreeItemFieldBrowserDialog.class);
 
-    private ExternalTreeItemDataProvider treeDataProvider;
-    private TreeItemExpansion treeExpansion;
+    /**
+     * {@link ExternalTreeItemDataProvider} instance.
+     */
+    private ExternalTreeItemDataProvider<Serializable> treeDataProvider;
 
+    /**
+     * {@link TreeItemExpansionSet} instance.
+     */
+    private TreeItemExpansionSet treeExpansionSet;
+
+    /**
+     * Tree list view UI theme.
+     */
     private Behavior theme;
 
     private final AjaxButton expandAllButton;
     private final AjaxButton collapseAllButton;
 
+    /**
+     * Constructs external document(s) picker dialog.
+     * @param titleModel title model
+     * @param extDocServiceContext {@link ExternalDocumentServiceContext} instance
+     * @param exdocService {@link ExternalDocumentServiceFacade} instance
+     * @param model the model containing the currently selected external documents in the document node data
+     */
     public ExternalTreeItemFieldBrowserDialog(IModel<String> titleModel,
             final ExternalDocumentServiceContext extDocServiceContext,
             final ExternalDocumentServiceFacade<Serializable> exdocService,
@@ -86,7 +105,7 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         expandAllButton = new AjaxButton("expand-all-button") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                treeExpansion.expandAll();
+                treeExpansionSet.expandAll();
                 target.add(ExternalTreeItemFieldBrowserDialog.this);
             }
         };
@@ -95,13 +114,16 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         collapseAllButton = new AjaxButton("collapse-all-button") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                treeExpansion.collapseAll();
+                treeExpansionSet.collapseAll();
                 target.add(ExternalTreeItemFieldBrowserDialog.this);
             }
         };
         add(collapseAllButton);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
@@ -110,25 +132,32 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
                         ExternalTreeItemFieldBrowserDialog.class.getSimpleName() + ".css")));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected void doInitialSearchOnExternalDocuments() {
-        searchExternalTreeItems();
+    protected void initializeSearchedExternalDocuments() {
+        searchExternalTreeNodeItems();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected void initDataListViewUI() {
-        treeExpansion = new TreeItemExpansion();
+    protected void initializeDataListView() {
+        treeExpansionSet = new TreeItemExpansionSet();
 
-        for (Serializable item : selectedExtDocs) {
-            Serializable parent = exdocService.getParent(item);
+        for (Serializable item : getPickedExternalDocuments()) {
+            Serializable parent = getExternalDocumentServiceFacade().getParent(item);
             while (parent != null) {
-                treeExpansion.add(parent);
-                parent = exdocService.getParent(parent);
+                treeExpansionSet.add(parent);
+                parent = getExternalDocumentServiceFacade().getParent(parent);
             }
         }
 
-        treeDataProvider = new ExternalTreeItemDataProvider(searchedDocCollection, exdocService);
-        AbstractTree<Serializable> treeDataView = createTree(new Model(treeExpansion));
+        treeDataProvider = new ExternalTreeItemDataProvider<>(getSearchedExternalDocuments(),
+                getExternalDocumentServiceFacade());
+        AbstractTree<Serializable> treeDataView = createTree(new Model(treeExpansionSet));
         treeDataView.setOutputMarkupId(true);
 
         treeDataView.add(new Behavior() {
@@ -148,16 +177,19 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         add(treeDataView);
     }
 
-    protected void searchExternalTreeItems() {
+    /**
+     * Search tree node items.
+     */
+    protected void searchExternalTreeNodeItems() {
         try {
-            ExternalDocumentCollection<? extends Serializable> searchedDocs = exdocService
-                    .searchExternalDocuments(extDocServiceContext, "");
+            ExternalDocumentCollection<? extends Serializable> searchedDocs = getExternalDocumentServiceFacade()
+                    .searchExternalDocuments(getExternalDocumentServiceContext(), "");
 
-            searchedDocCollection.clear();
+            getSearchedExternalDocuments().clear();
 
             if (searchedDocs != null && searchedDocs.getSize() > 0) {
                 for (Iterator<? extends Serializable> it = searchedDocs.iterator(); it.hasNext();) {
-                    searchedDocCollection.add(it.next());
+                    getSearchedExternalDocuments().add(it.next());
                 }
             }
         } catch (Exception e) {
@@ -165,6 +197,11 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         }
     }
 
+    /**
+     * Create a tree list view UI component.
+     * @param state expansion state
+     * @return a tree list view UI component
+     */
     protected AbstractTree<Serializable> createTree(IModel<Set<Serializable>> state) {
         List<IColumn<Serializable, String>> columns = createColumns();
 
@@ -175,8 +212,8 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
             @Override
             protected Component newContentComponent(String id, IModel<Serializable> model) {
                 CheckableTreeNode treeNode = new CheckableTreeNode(id, this, model);
-                treeNode.add(new AttributeModifier("title", exdocService.getDocumentDescription(extDocServiceContext,
-                        model.getObject(), getRequest().getLocale())));
+                treeNode.add(new AttributeModifier("title", getExternalDocumentServiceFacade().getDocumentDescription(
+                        getExternalDocumentServiceContext(), model.getObject(), getRequest().getLocale())));
                 return treeNode;
             }
 
@@ -210,8 +247,8 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
 
         @Override
         protected IModel<?> newLabelModel(IModel<Serializable> model) {
-            return Model.of(
-                    exdocService.getDocumentTitle(extDocServiceContext, model.getObject(), getRequest().getLocale()));
+            return Model.of(getExternalDocumentServiceFacade().getDocumentTitle(getExternalDocumentServiceContext(),
+                    model.getObject(), getRequest().getLocale()));
         }
 
         @Override
@@ -221,19 +258,19 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
 
                 @Override
                 public Boolean getObject() {
-                    return selectedExtDocs.contains(model.getObject());
+                    return getPickedExternalDocuments().contains(model.getObject());
                 }
 
                 @Override
                 public void setObject(Boolean object) {
                     if (Boolean.TRUE.equals(object)) {
-                        selectedExtDocs.add(model.getObject());
+                        getPickedExternalDocuments().add(model.getObject());
 
                         if (isSingleSelectionMode()) {
                             ExternalTreeItemFieldBrowserDialog.this.handleSubmit();
                         }
                     } else {
-                        selectedExtDocs.remove(model.getObject());
+                        getPickedExternalDocuments().remove(model.getObject());
                     }
                 }
 
@@ -254,101 +291,6 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
             }
 
             tree.updateBranch(foo, target);
-        }
-    }
-
-    private class TreeItemExpansion implements Set<Serializable>, Serializable {
-
-        private static final long serialVersionUID = 1L;
-
-        private Set<Serializable> items = new HashSet<>();
-        private boolean inversed;
-
-        public void expandAll() {
-            items.clear();
-            inversed = true;
-        }
-
-        public void collapseAll() {
-            items.clear();
-            inversed = false;
-        }
-
-        @Override
-        public boolean add(Serializable item) {
-            if (inversed) {
-                return items.remove(item);
-            } else {
-                return items.add(item);
-            }
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            if (inversed) {
-                return items.add((Serializable) o);
-            } else {
-                return items.remove(o);
-            }
-        }
-
-        @Override
-        public boolean contains(Object o) {
-            if (inversed) {
-                return !items.contains(o);
-            } else {
-                return items.contains(o);
-            }
-        }
-
-        @Override
-        public void clear() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public int size() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public boolean isEmpty() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public <A> A[] toArray(A[] a) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Iterator<Serializable> iterator() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Object[] toArray() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public boolean containsAll(Collection<?> c) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public boolean addAll(Collection<? extends Serializable> c) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public boolean retainAll(Collection<?> c) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public boolean removeAll(Collection<?> c) {
-            throw new UnsupportedOperationException();
         }
     }
 }

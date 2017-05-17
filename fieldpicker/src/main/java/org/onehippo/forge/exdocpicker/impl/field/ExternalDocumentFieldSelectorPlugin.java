@@ -1,5 +1,5 @@
 /**
- * Copyright 2014 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2014-2017 Hippo B.V. (http://www.onehippo.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,6 +62,9 @@ import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentServiceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * External document(s) selector field plugin.
+ */
 public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> implements IObserver {
 
     private static final long serialVersionUID = 1L;
@@ -77,6 +80,11 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
     private ExternalDocumentCollection<Serializable> curDocCollection;
     private ExternalDocumentServiceContext extDocServiceContext;
 
+    /**
+     * Constructs external document(s) selector field plugin.
+     * @param context plugin context
+     * @param config plugin config
+     */
     public ExternalDocumentFieldSelectorPlugin(final IPluginContext context, IPluginConfig config) {
         super(context, config);
 
@@ -153,6 +161,9 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         add(actionButtonsContainer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
@@ -162,15 +173,29 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                                                            .getSimpleName() + ".css")));
     }
 
+    /**
+     * Returns true if it is currently in edit mode in the document editor.
+     * @return true if it is currently in edit mode in the document editor
+     */
     protected boolean isEditMode() {
         return IEditor.Mode.EDIT.equals(IEditor.Mode.fromString(getPluginConfig().getString("mode", "view")));
     }
 
+    /**
+     * Returns true if it is currently in compare mode in the document editor.
+     * @return true if it is currently in compare mode in the document editor
+     */
     protected boolean isCompareMode() {
         return IEditor.Mode.COMPARE.equals(IEditor.Mode.fromString(getPluginConfig()
             .getString("mode", "view")));
     }
 
+    /**
+     * Creates a new {@link ExternalDocumentServiceFacade} instance.
+     * By default, this method reads the plugin configuration by the name, {@link PluginConstants.PARAM_EXTERNAL_DOCUMENT_SERVICE_FACADE},
+     * and instantiated an object by the FQCN configuration parameter.
+     * @return a new {@link ExternalDocumentServiceFacade} instance
+     */
     protected ExternalDocumentServiceFacade<? extends Serializable> createExternalDocumentService() {
         ExternalDocumentServiceFacade<? extends Serializable> service = null;
         String serviceFacadeClassName = null;
@@ -189,6 +214,10 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         return service;
     }
 
+    /**
+     * Returns the field caption label.
+     * @return the field caption label
+     */
     protected IModel<String> getCaptionModel() {
         final String defaultCaption = new StringResourceModel("exdocfield.caption", this, null,
                                                               PluginConstants.DEFAULT_FIELD_CAPTION)
@@ -356,14 +385,26 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         };
     }
 
+    /**
+     * Returns the {@link ExternalDocumentServiceFacade} instance used by this plugin instance.
+     * @return the {@link ExternalDocumentServiceFacade} instance used by this plugin instance
+     */
     protected ExternalDocumentServiceFacade<Serializable> getExternalDocumentServiceFacade() {
         return exdocService;
     }
 
+    /**
+     * Sets the {@link ExternalDocumentServiceFacade} instance used by this plugin instance.
+     * @param exdocService the {@link ExternalDocumentServiceFacade} instance used by this plugin instance
+     */
     protected void setExternalDocumentServiceFacade(ExternalDocumentServiceFacade<Serializable> exdocService) {
         this.exdocService = exdocService;
     }
 
+    /**
+     * Returns the collection of the currently-selected external documents in the document.
+     * @return the collection of the currently-selected external documents in the document
+     */
     protected ExternalDocumentCollection<Serializable> getCurrentExternalDocumentCollection() {
         if (curDocCollection == null) {
             curDocCollection = getExternalDocumentServiceFacade()
@@ -373,27 +414,46 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         return curDocCollection;
     }
 
+    /**
+     * Sets the collection of the currently-selected external documents in the document.
+     * @param curDocCollection the collection of the currently-selected external documents in the document
+     */
     protected void setCurrentExternalDocumentCollection(ExternalDocumentCollection<Serializable> curDocCollection) {
         this.curDocCollection = curDocCollection;
     }
 
+    /**
+     * Returns the {@link ExternalDocumentServiceContext} instance.
+     * @return the {@link ExternalDocumentServiceContext} instance
+     */
     protected ExternalDocumentServiceContext getExternalDocumentServiceContext() {
         return extDocServiceContext;
     }
 
+    /**
+     * Sets the {@link ExternalDocumentServiceContext} instance.
+     * @param extDocServiceContext the {@link ExternalDocumentServiceContext} instance
+     */
     protected void setExternalDocumentServiceContext(ExternalDocumentServiceContext extDocServiceContext) {
         this.extDocServiceContext = extDocServiceContext;
     }
 
+    /**
+     * Creates a picker dialog with which user can select external documents.
+     * @return a picker dialog with which user can select external documents
+     */
     protected AbstractDialog<ExternalDocumentCollection<Serializable>> createDialogInstance() {
         return new TextSearchExternalDocumentFieldBrowserDialog(
-                                                                getCaptionModel(),
-                                                                getExternalDocumentServiceContext(),
-                                                                getExternalDocumentServiceFacade(),
-                                                                new Model(
-                                                                          getCurrentExternalDocumentCollection()));
+                getCaptionModel(),
+                getExternalDocumentServiceContext(),
+                getExternalDocumentServiceFacade(),
+                new Model<ExternalDocumentCollection<Serializable>>(getCurrentExternalDocumentCollection()));
     }
 
+    /**
+     * Creates a dialog factory to create a picker dialog.
+     * @return a dialog factory to create a picker dialog
+     */
     protected IDialogFactory createDialogFactory() {
         return new IDialogFactory() {
             private static final long serialVersionUID = 1L;

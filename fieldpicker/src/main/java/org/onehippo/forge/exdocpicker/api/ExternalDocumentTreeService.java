@@ -20,17 +20,38 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * The implementation of this interface is responsible for providing children and parent items to render a tree
+ * list view instead of a flat list view from the searched external data items by {@link ExternalDocumentSearchService}
+ * method implementations.
+ * @param <T> Domain specific external document POJO type which must be serializable.
+ */
 public interface ExternalDocumentTreeService<T extends Serializable> {
 
+    /**
+     * Returns true if the {@code doc} has children.
+     * @param doc document
+     * @return true if the {@code doc} has children
+     */
     default public boolean hasChildren(T doc) {
         return false;
     }
 
+    /**
+     * Returns an iterator of the children of the {@code doc}.
+     * @param doc document
+     * @return an iterator of the children of the {@code doc}
+     */
     default public Iterator<T> getChildren(T doc) {
         List<T> emptyList = Collections.emptyList();
         return emptyList.iterator();
     }
 
+    /**
+     * Returns the parent document of the {@code doc} if any, or null if there's no parent.
+     * @param doc document
+     * @return the parent document of the {@code doc} if any, or null if there's no parent
+     */
     default public T getParent(T doc) {
         return null;
     }
