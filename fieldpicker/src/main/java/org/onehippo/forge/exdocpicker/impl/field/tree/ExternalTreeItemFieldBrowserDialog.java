@@ -118,6 +118,15 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
     @Override
     protected void initDataListViewUI() {
         treeExpansion = new TreeItemExpansion();
+
+        for (Serializable item : selectedExtDocs) {
+            Serializable parent = exdocService.getParent(item);
+            while (parent != null) {
+                treeExpansion.add(parent);
+                parent = exdocService.getParent(parent);
+            }
+        }
+
         treeDataProvider = new ExternalTreeItemDataProvider(searchedDocCollection, exdocService);
         AbstractTree<Serializable> treeDataView = createTree(new Model(treeExpansion));
         treeDataView.setOutputMarkupId(true);
@@ -194,8 +203,6 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
 
         private AbstractTree<Serializable> tree;
 
-        private boolean checked;
-
         public CheckableTreeNode(String id, AbstractTree<Serializable> tree, IModel<Serializable> model) {
             super(id, tree, model);
             this.tree = tree;
@@ -251,21 +258,21 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         private static final long serialVersionUID = 1L;
 
         private Set<Serializable> items = new HashSet<>();
-        private boolean inverse;
+        private boolean inversed;
 
         public void expandAll() {
             items.clear();
-            inverse = true;
+            inversed = true;
         }
 
         public void collapseAll() {
             items.clear();
-            inverse = false;
+            inversed = false;
         }
 
         @Override
         public boolean add(Serializable item) {
-            if (inverse) {
+            if (inversed) {
                 return items.remove(item);
             } else {
                 return items.add(item);
@@ -274,7 +281,7 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
 
         @Override
         public boolean remove(Object o) {
-            if (inverse) {
+            if (inversed) {
                 return items.add((Serializable) o);
             } else {
                 return items.remove(o);
@@ -283,7 +290,7 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
 
         @Override
         public boolean contains(Object o) {
-            if (inverse) {
+            if (inversed) {
                 return !items.contains(o);
             } else {
                 return items.contains(o);
