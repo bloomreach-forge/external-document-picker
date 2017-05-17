@@ -27,6 +27,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.NoRecordsToolbar;
@@ -39,6 +40,7 @@ import org.apache.wicket.extensions.markup.html.repeater.tree.theme.WindowsTheme
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.OddEvenItem;
 import org.apache.wicket.model.IModel;
@@ -59,8 +61,12 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
     private static Logger log = LoggerFactory.getLogger(ExternalTreeItemFieldBrowserDialog.class);
 
     private ExternalTreeItemDataProvider treeDataProvider;
+    private TreeItemExpansion treeExpansion;
 
     private Behavior theme;
+
+    private final AjaxButton expandAllButton;
+    private final AjaxButton collapseAllButton;
 
     public ExternalTreeItemFieldBrowserDialog(IModel<String> titleModel,
             final ExternalDocumentServiceContext extDocServiceContext,
@@ -76,6 +82,24 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         } else {
             theme = new HumanTheme();
         }
+
+        expandAllButton = new AjaxButton("expand-all-button") {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                treeExpansion.expandAll();
+                target.add(ExternalTreeItemFieldBrowserDialog.this);
+            }
+        };
+        add(expandAllButton);
+
+        collapseAllButton = new AjaxButton("collapse-all-button") {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                treeExpansion.collapseAll();
+                target.add(ExternalTreeItemFieldBrowserDialog.this);
+            }
+        };
+        add(collapseAllButton);
     }
 
     @Override
@@ -93,11 +117,9 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
 
     @Override
     protected void initDataListViewUI() {
-        TreeItemExpansion expansion = new TreeItemExpansion();
-        expansion.expandAll();
-
+        treeExpansion = new TreeItemExpansion();
         treeDataProvider = new ExternalTreeItemDataProvider(searchedDocCollection, exdocService);
-        AbstractTree<Serializable> treeDataView = createTree(new Model(expansion));
+        AbstractTree<Serializable> treeDataView = createTree(new Model(treeExpansion));
         treeDataView.setOutputMarkupId(true);
 
         treeDataView.add(new Behavior() {
