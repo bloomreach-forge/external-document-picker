@@ -228,6 +228,10 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
                 public void setObject(Boolean object) {
                     if (Boolean.TRUE.equals(object)) {
                         selectedExtDocs.add(model.getObject());
+
+                        if (isSingleSelectionMode()) {
+                            ExternalTreeItemFieldBrowserDialog.this.handleSubmit();
+                        }
                     } else {
                         selectedExtDocs.remove(model.getObject());
                     }

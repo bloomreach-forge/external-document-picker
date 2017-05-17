@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-    Copyright 2015 Hippo
+    Copyright 2017 Hippo
 
     Licensed to the Apache Software Foundation (ASF) under one or more
     contributor license agreements.  See the NOTICE file distributed with
@@ -30,8 +30,12 @@
           <th>Hippo CMS Release version</th>
         </tr>
         <tr>
+          <td>4.x.x</td>
+          <td>11.x</td>
+        </tr>
+        <tr>
           <td>3.x.x</td>
-          <td>10.x, 11.x</td>
+          <td>10.x</td>
         </tr>
         <tr>
           <td>2.x.x</td>
@@ -43,13 +47,17 @@
         </tr>
       </table>
     </section>
-    <section name="Release Notes (3.x.x)">
-      <subsection name="3.1.2 - Coming soon">
+    <section name="Release Notes (4.x.x)">
+      <subsection name="4.0.0">
         <ul>
+          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-104'>HIPFORGE-104</a>] -         Tabular Tree View List option in the Picker Dialog for hierarchical external data
+          </li>
           <li>[<a href='https://issues.onehippo.com/browse/HIPPLUG-1300'>HIPPLUG-1300</a>] -         Improve External Doc Picker Style to match 10.x release
           </li>
         </ul>
       </subsection>
+    </section>
+    <section name="Release Notes (3.x.x)">
       <subsection name="3.1.1">
         <ul>
           <li>[<a href='https://issues.onehippo.com/browse/HIPPLUG-1288'>HIPPLUG-1288</a>] -         Please update documentation Hippo CMS External Document Picker 
