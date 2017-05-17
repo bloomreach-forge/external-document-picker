@@ -190,7 +190,7 @@ public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocu
     @Override
     public String getDocumentTitle(ExternalDocumentServiceContext context, SubjectCategory cat,
             Locale preferredLocale) {
-        return cat.getTitle();
+        return cat.getId() + ": " + cat.getTitle();
     }
 
     @Override

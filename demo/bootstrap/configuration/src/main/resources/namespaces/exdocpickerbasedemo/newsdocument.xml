@@ -597,6 +597,9 @@
         <sv:property sv:name="external.document.service.facade" sv:type="String">
           <sv:value>org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalSubjectCategoryServiceFacade</sv:value>
         </sv:property>
+        <sv:property sv:name="initial.tree.expand.depth" sv:type="String">
+          <sv:value>1</sv:value>
+        </sv:property>
         <sv:property sv:name="mode" sv:type="String">
           <sv:value>${mode}</sv:value>
         </sv:property>

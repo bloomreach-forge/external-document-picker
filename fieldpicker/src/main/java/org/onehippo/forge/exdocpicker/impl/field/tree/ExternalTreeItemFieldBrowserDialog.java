@@ -77,6 +77,7 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
      */
     private Behavior theme;
 
+    private final AjaxButton expandSelectedButton;
     private final AjaxButton expandAllButton;
     private final AjaxButton collapseAllButton;
 
@@ -101,6 +102,15 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         } else {
             theme = new HumanTheme();
         }
+
+        expandSelectedButton = new AjaxButton("expand-selected-button") {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                expandPickedExternalTreeItemNodes(getExternalDocumentServiceFacade());
+                target.add(ExternalTreeItemFieldBrowserDialog.this);
+            }
+        };
+        add(expandSelectedButton);
 
         expandAllButton = new AjaxButton("expand-all-button") {
             @Override
@@ -147,13 +157,19 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
     protected void initializeDataListView() {
         treeExpansionSet = new TreeItemExpansionSet();
 
-        for (Serializable item : getPickedExternalDocuments()) {
-            Serializable parent = getExternalDocumentServiceFacade().getParent(item);
-            while (parent != null) {
-                treeExpansionSet.add(parent);
-                parent = getExternalDocumentServiceFacade().getParent(parent);
+        final int initialExpandDepth = getExternalDocumentServiceContext().getPluginConfig()
+                .getAsInteger(PluginConstants.PARAM_INITIAL_TREE_EXPAND_DEPTH, 0);
+
+        // Expand tree nodes to the initial depth level if configured.
+        if (initialExpandDepth > 0) {
+            for (Iterator<? extends Serializable> itemIt = getSearchedExternalDocuments().iterator(); itemIt
+                    .hasNext();) {
+                expandExternalTreeItemNode(getExternalDocumentServiceFacade(), itemIt.next(), 0, initialExpandDepth);
             }
         }
+
+        // Expand parent tree nodes of currently selected items.
+        expandPickedExternalTreeItemNodes(getExternalDocumentServiceFacade());
 
         treeDataProvider = new ExternalTreeItemDataProvider<>(getSearchedExternalDocuments(),
                 getExternalDocumentServiceFacade());
@@ -232,6 +248,29 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         List<IColumn<Serializable, String>> columns = new ArrayList<>();
         columns.add(new TreeColumn<>(Model.of("Tree")));
         return columns;
+    }
+
+    private void expandExternalTreeItemNode(ExternalDocumentServiceFacade<Serializable> extDocService, Serializable item,
+            int curDepth, int maxDepth) {
+        if (curDepth < maxDepth) {
+            treeExpansionSet.add(item);
+
+            if (extDocService.hasChildren(item)) {
+                for (Iterator<Serializable> childIt = extDocService.getChildren(item); childIt.hasNext(); ) {
+                    expandExternalTreeItemNode(extDocService, childIt.next(), curDepth + 1, maxDepth);
+                }
+            }
+        }
+    }
+
+    private void expandPickedExternalTreeItemNodes(ExternalDocumentServiceFacade<Serializable> extDocService) {
+        for (Serializable item : getPickedExternalDocuments()) {
+            Serializable parent = extDocService.getParent(item);
+            while (parent != null) {
+                treeExpansionSet.add(parent);
+                parent = getExternalDocumentServiceFacade().getParent(parent);
+            }
+        }
     }
 
     private class CheckableTreeNode extends CheckedFolder<Serializable> {

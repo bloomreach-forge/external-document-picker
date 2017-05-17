@@ -110,6 +110,11 @@ public class PluginConstants {
      */
     public static final String DEFAULT_EXTERNAL_TREE_VIEW_THEME = "human";
 
+    /**
+     * Plugin parameter for the depth to expand the tree to that level initially.
+     */
+    public static final String PARAM_INITIAL_TREE_EXPAND_DEPTH = "initial.tree.expand.depth";
+
     private PluginConstants() {
     }
 
