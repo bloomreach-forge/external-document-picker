@@ -3,7 +3,7 @@
   "-//Apache Software Foundation//DTD XDOC 1.0//EN"
   "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <!--
-    Copyright 2014 Hippo
+    Copyright 2014-2017 Hippo
 
     Licensed under the Apache License, Version 2.0 (the  "License");
     you may not use this file except in compliance with the License.
@@ -33,15 +33,29 @@
       </p>
       <subsection name="External Document Field Picker">
         <p>
-          External Document Field Picker allows developers to define their own domain specific models to search/select external document(s)
-          for a field of a CMS document.
+          External Document Field Picker allows developers to define their own domain specific models to search/select
+          external document(s) for a field of a CMS document.
           Developers can simply use this forge module plugin class and configurations
           with injecting their own 
           <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
           implementation class.
         </p>
         <p>
-          For detail, please see <a href="field/architecture.html">Architecture</a> and <a href="field/dev-howto.html">Developers How-to</a> pages.
+          External Document Field Picker may show either <strong><i>Flat List View</i></strong> or
+          <strong><i>Tree List View</i></strong> for the backend data
+          in the picker dialog, depending on configurations and implementations.
+          If you want to show a <strong><i>Tree List View</i></strong> in the picker dialog instead of the default
+          <strong><i>Flat List View</i></strong>, you need to use slightly
+          different plugin configurations and your 
+          <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
+          implementation class must implement the three more operations defined in
+          <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentTreeService.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentTreeService</a>
+          additionally, in order to provide hierarchical information resolutions on the searched external backend data.
+        </p>
+        <p>
+          For detail, please see <a href="field/architecture.html">Architecture</a>,
+          <a href="field/dev-howto-listview.html">Developers How-to (Flat List View)</a>
+          and <a href="field/dev-howto-treeview.html">Developers How-to (Tree List View)</a> pages.
         </p>
       </subsection>
       <subsection name="External Link Picker Button in RichText Editor">
@@ -51,7 +65,8 @@
           Developers can simply add this forge module dependency and add extra CKEditor module configurations for RichText editor configuration(s).
         </p>
         <p>
-          For detail, please see <a href="richtext-ckeditor/architecture.html">Architecture</a> and <a href="richtext-ckeditor/dev-howto.html">Developers How-to</a> pages.
+          For detail, please see <a href="richtext-ckeditor/architecture.html">Architecture</a> and
+          <a href="richtext-ckeditor/dev-howto.html">Developers How-to</a> pages.
         </p>
       </subsection>
     </section>
@@ -83,6 +98,13 @@
         If you select external document(s) and click on the OK button, then the field will be set to those selected external documents.
       </p>
       <img src="images/exdocpickerbase-screenshot-02.png" alt="Search and Browse External Documents" />
+      <p>
+        If a field is configured to support <strong><i>Tree List View</i></strong> picker dialog mode, then
+        the plugin may show a tree list view like the following on 'Browse...' button clicked.
+        You can expand or collapse your domain specific external tree data there based on your service class implementation.
+        If you select external tree item(s) and click on the OK button, then the field will be set to those selected external documents.
+      </p>
+      <img src="images/exdocpickerbase-screenshot-03.png" alt="Navigate External Documents through Tree List View" />
     </section>
     <section name="Testing External Link Picker Button in the RichText Editor with Demo Application">
       <p>

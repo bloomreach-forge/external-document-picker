@@ -233,8 +233,8 @@ public abstract class AbstractExternalDocumentFieldBrowserDialog
     }
 
     /**
-     * Returns the flag whether the selection mode in UI is 'single' or 'multiple'. 'multiple' by default.
-     * @return
+     * Returns true if the selection mode in UI is 'single'.
+     * @return true if the selection mode in UI is 'single'
      */
     protected boolean isSingleSelectionMode() {
         return StringUtils.equalsIgnoreCase(PluginConstants.SELECTION_MODE_SINGLE, getPluginConfig()

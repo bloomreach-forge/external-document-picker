@@ -192,7 +192,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
     /**
      * Creates a new {@link ExternalDocumentServiceFacade} instance.
-     * By default, this method reads the plugin configuration by the name, {@link PluginConstants.PARAM_EXTERNAL_DOCUMENT_SERVICE_FACADE},
+     * By default, this method reads the plugin configuration by the name, {@link PluginConstants#PARAM_EXTERNAL_DOCUMENT_SERVICE_FACADE},
      * and instantiated an object by the FQCN configuration parameter.
      * @return a new {@link ExternalDocumentServiceFacade} instance
      */

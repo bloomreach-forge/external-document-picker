@@ -19,10 +19,10 @@
 -->
 <document>
   <properties>
-    <title>Developer's How-to (External Document Field Picker)</title>
+    <title>External Document Field Picker - Developer's How-to (Flat List View)</title>
   </properties>
   <body>
-    <section name="Developer's How-to (External Document Field Picker)">
+    <section name="Developer's How-to (Flat List View)">
 
       <subsection name="Configuring Field in Document Template (a.k.a 'namespace')">
         <p>
@@ -68,9 +68,6 @@
         <sv:property sv:name="mode" sv:type="String">
           <sv:value>${mode}</sv:value>
         </sv:property>
-        <sv:property sv:name="plugin.class" sv:type="String">
-          <sv:value>org.onehippo.forge.exdocpicker.impl.field.ExternalDocumentFieldSelectorPlugin</sv:value>
-        </sv:property>
         <sv:property sv:name="wicket.id" sv:type="String">
           <sv:value>${cluster.id}.field</sv:value>
         </sv:property>
@@ -78,14 +75,21 @@
           <sv:value>${wicket.model}</sv:value>
         </sv:property>
 
+        <!-- Plugin class configuration for Flat List View dialog option. -->
+        <sv:property sv:name="plugin.class" sv:type="String">
+          <sv:value>org.onehippo.forge.exdocpicker.impl.field.ExternalDocumentFieldSelectorPlugin</sv:value>
+        </sv:property>
+
         <!-- Item selection mode plugin parameter -->
         <sv:property sv:name="selection.mode" sv:type="String">
           <sv:value>multiple</sv:value>
         </sv:property>
+
         <!-- ExternalDocumentServiceFacade class FQN plugin parameter -->
         <sv:property sv:name="external.document.service.facade" sv:type="String">
           <sv:value>org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade</sv:value>
         </sv:property>
+
         <!-- Physical document node property name to store the external document IDs. This is used by the implementation (ExampleExternalDocumentServiceFacade) -->
         <sv:property sv:name="example.external.docs.field.name" sv:type="String">
           <sv:value>exdocpickerbasedemo:relatedexdocids</sv:value>
