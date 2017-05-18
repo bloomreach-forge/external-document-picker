@@ -1,0 +1,39 @@
+.exdocfield-browser-panel {
+    margin: 0 auto;
+    padding: 0px 15px;
+}
+
+.exdocfield-browser-results-summary {
+    padding: 5px 2px;
+    margin-bottom: 8px;
+}
+
+.exdocfield-browser-selectall {
+    margin: 10px 0 0;
+}
+
+.exdocfield-browser-results {
+    background-color: #f7f7f7;
+    border: 1px solid lightgrey;
+    height: 540px;
+    margin: 10px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 4px;
+}
+
+.exdocfield-browser-results table {
+    width: 100%;
+}
+
+.exdocfield-browser-results tr.even {
+    background-color: #ffffff;
+}
+
+.exdocfield-browser-results tr.even td {
+    padding: 4px
+}
+
+.exdocfield-browser-results tr.odd td {
+    padding: 4px
+}

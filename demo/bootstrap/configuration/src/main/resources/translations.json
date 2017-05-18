@@ -1,0 +1,25 @@
+{
+  "hippo:templates":   {
+    "en":     {
+      "new-news-document": "new news item",
+      "new-resource-bundle": "new resource bundle",
+      "new-news-folder": "new news item folder",
+      "new-untranslated-folder": "new untranslated folder"
+    }
+  },
+  "hippo:types":   {
+    "exdocpickerbasedemo:newsdocument":     {
+      "en":       {
+        "exdocpickerbasedemo:source": "Source",
+        "jcr:name": "News Item",
+        "exdocpickerbasedemo:location": "Location",
+        "exdocpickerbasedemo:author": "Author",
+        "exdocpickerbasedemo:image": "Image",
+        "exdocpickerbasedemo:title": "Title",
+        "exdocpickerbasedemo:content": "Content",
+        "exdocpickerbasedemo:date": "Date",
+        "exdocpickerbasedemo:introduction": "Introduction"
+      }
+    }
+  }
+}

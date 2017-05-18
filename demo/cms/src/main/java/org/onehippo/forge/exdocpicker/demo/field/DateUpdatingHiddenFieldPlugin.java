@@ -33,6 +33,8 @@ import org.slf4j.LoggerFactory;
  */
 public class DateUpdatingHiddenFieldPlugin extends AbstractHiddenExternalDocumentFieldPlugin {
 
+    private static final long serialVersionUID = 1L;
+
     private static Logger log = LoggerFactory.getLogger(DateUpdatingHiddenFieldPlugin.class);
 
     public DateUpdatingHiddenFieldPlugin(final IPluginContext context, IPluginConfig config) {

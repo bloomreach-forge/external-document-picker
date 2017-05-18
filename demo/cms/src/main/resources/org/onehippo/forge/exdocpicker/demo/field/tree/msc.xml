@@ -1,0 +1,225 @@
+<?xml version="1.0" ?>
+<!--
+ Excerpt from the Mathematics Subject Classification published by American Mathematical Society.
+ For full reference, see http://www.ams.org/mathscinet/msc/msc2010.html.
+-->
+<msc>
+  <subject id="00-xx" name="General">
+    <subject id="00-01" name="Instructional exposition (textbooks, tutorial papers, etc.)" />
+    <subject id="00-02" name="Research exposition (monographs, survey articles)" />
+    <subject id="00Axx" name="General and miscellaneous specific topics">
+      <subject id="00A05" name="General mathematics" />
+      <subject id="00A06" name="Mathematics for nonmathematicians (engineering, social sciences, etc.)" />
+      <subject id="00A07" name="Problem books" />
+      <subject id="00A08" name="Recreational mathematics" />
+      <subject id="00A15" name="Bibliographies" />
+      <subject id="00A17" name="External book reviews" />
+      <subject id="00A20" name="Dictionaries and other general reference works" />
+      <subject id="00A22" name="Formularies" />
+      <subject id="00A30" name="Philosophy of mathematics" />
+      <subject id="00A35" name="Methodology of mathematics, didactics" />
+      <subject id="00A69" name="General applied mathematics" />
+      <subject id="00A71" name="Theory of mathematical modeling" />
+      <subject id="00A72" name="General methods of simulation" />
+      <subject id="00A73" name="Dimensional analysis" />
+      <subject id="00A79" name="Physics (use more specific entries from Sections 70 through 86 when possible)" />
+      <subject id="00A99" name="Miscellaneous topics" />
+    </subject>
+    <subject id="00Bxx" name="Conference proceedings and collections of papers">
+      <subject id="00B05" name="Collections of abstracts of lectures" />
+      <subject id="00B10" name="Collections of articles of general interest" />
+      <subject id="00B15" name="Collections of articles of miscellaneous specific content" />
+      <subject id="00B20" name="Proceedings of conferences of general interest" />
+      <subject id="00B25" name="Proceedings of conferences of miscellaneous specific interest" />
+      <subject id="00B30" name="Festschriften" />
+      <subject id="00B50" name="Volumes of selected translations" />
+      <subject id="00B55" name="Miscellaneous volumes of translations" />
+      <subject id="00B60" name="Collections of reprinted articles" />
+    </subject>
+  </subject>
+  <subject id="01-xx" name="History and biography">
+    <subject id="01-00" name="General reference works (handbooks, dictionaries, bibliographies, etc.)" />
+    <subject id="01-01" name="Instructional exposition (textbooks, tutorial papers, etc.)" />
+    <subject id="01-02" name="Research exposition (monographs, survey articles)" />
+    <subject id="01-06" name="Proceedings, conferences, collections, etc." />
+    <subject id="01-08" name="Computational methods" />
+    <subject id="01Axx" name="History of mathematics and mathematicians">
+      <subject id="01A05" name="General histories, source books" />
+      <subject id="01A07" name="Ethnomathematics, general" />
+      <subject id="01A10" name="Paleolithic, Neolithic" />
+      <subject id="01A12" name="Indigenous cultures of the Americas" />
+      <subject id="01A13" name="Other indigenous cultures (non-European)" />
+      <subject id="01A15" name="Indigenous European cultures (pre-Greek, etc.)" />
+      <subject id="01A16" name="Egyptian" />
+      <subject id="01A17" name="Babylonian" />
+      <subject id="01A20" name="Greek, Roman" />
+      <subject id="01A25" name="China" />
+      <subject id="01A27" name="Japan" />
+      <subject id="01A29" name="Southeast Asia" />
+      <subject id="01A30" name="Islam (Medieval)" />
+      <subject id="01A32" name="India" />
+      <subject id="01A35" name="Medieval" />
+      <subject id="01A40" name="15th and 16th centuries, Renaissance" />
+      <subject id="01A45" name="17th century" />
+      <subject id="01A50" name="18th century" />
+      <subject id="01A55" name="19th century" />
+      <subject id="01A60" name="20th century" />
+      <subject id="01A61" name="Twenty-first century" />
+      <subject id="01A65" name="Contemporary" />
+      <subject id="01A67" name="Future prospectives" />
+      <subject id="01A70" name="Biographies, obituaries, personalia, bibliographies" />
+      <subject id="01A72" name="Schools of mathematics" />
+      <subject id="01A73" name="Universities" />
+      <subject id="01A74" name="Other institutions and academies" />
+      <subject id="01A75" name="Collected or selected works; reprintings or translations of classics" />
+      <subject id="01A80" name="Sociology (and profession) of mathematics" />
+      <subject id="01A85" name="Historiography" />
+      <subject id="01A90" name="Bibliographic studies" />
+      <subject id="01A99" name="Miscellaneous topics" />
+    </subject>
+  </subject>
+  <subject id="03-xx" name="Mathematical logic and foundations">
+    <subject id="03-00" name="General reference works (handbooks, dictionaries, bibliographies, etc.)" />
+    <subject id="03-01" name="Instructional exposition (textbooks, tutorial papers, etc.)" />
+    <subject id="03-02" name="Research exposition (monographs, survey articles)" />
+    <subject id="03-03" name="Historical (must also be assigned at least one classification number from Section 01)" />
+    <subject id="03-04" name="Explicit machine computation and programs (not the theory of computation or programming)" />
+    <subject id="03-06" name="Proceedings, conferences, collections, etc.">
+      <subject id="03A05" name="Philosophical and critical" />
+    </subject>
+    <subject id="03Bxx" name="General logic">
+      <subject id="03B05" name="Classical propositional logic" />
+      <subject id="03B10" name="Classical first-order logic" />
+      <subject id="03B15" name="Higher-order logic and type theory" />
+      <subject id="03B20" name="Subsystems of classical logic (including intuitionistic logic)" />
+      <subject id="03B22" name="Abstract deductive systems" />
+      <subject id="03B25" name="Decidability of theories and sets of sentences" />
+      <subject id="03B30" name="Foundations of classical theories (including reverse mathematics)" />
+      <subject id="03B35" name="Mechanization of proofs and logical operations" />
+      <subject id="03B40" name="Combinatory logic and lambda-calculus" />
+      <subject id="03B42" name="Logic of knowledge and belief" />
+      <subject id="03B44" name="Temporal logic" />
+      <subject id="03B45" name="Modal logic" />
+      <subject id="03B47" name="Substructural logics (including relevance, entailment, linear logic, Lambek calculus, BCK and BCI logics)" />
+      <subject id="03B48" name="Probability and inductive logic" />
+      <subject id="03B50" name="Many-valued logic" />
+      <subject id="03B52" name="Fuzzy logic; logic of vagueness" />
+      <subject id="03B53" name="Logics admitting inconsistency (paraconsistent logics, discussive logics, etc.)" />
+      <subject id="03B55" name="Intermediate logics" />
+      <subject id="03B60" name="Other nonclassical logic" />
+      <subject id="03B65" name="Logic of natural languages" />
+      <subject id="03B70" name="Logic in computer science" />
+      <subject id="03B80" name="Other applications of logic" />
+      <subject id="03B99" name="None of the above, but in this section" />
+    </subject>
+    <subject id="03Cxx" name="Model theory">
+      <subject id="03C05" name="Equational classes, universal algebra" />
+      <subject id="03C07" name="Basic properties of first-order languages and structures" />
+      <subject id="03C10" name="Quantifier elimination, model completeness and related topics" />
+      <subject id="03C13" name="Finite structures" />
+      <subject id="03C15" name="Denumerable structures" />
+      <subject id="03C20" name="Ultraproducts and related constructions" />
+      <subject id="03C25" name="Model-theoretic forcing" />
+      <subject id="03C30" name="Other model constructions" />
+      <subject id="03C35" name="Categoricity and completeness of theories" />
+      <subject id="03C40" name="Interpolation, preservation, definability" />
+      <subject id="03C45" name="Classification theory, stability and related concepts" />
+      <subject id="03C50" name="Models with special properties (saturated, rigid, etc.)" />
+      <subject id="03C52" name="Properties of classes of models" />
+      <subject id="03C55" name="Set-theoretic model theory" />
+      <subject id="03C57" name="Effective and recursion-theoretic model theory" />
+      <subject id="03C60" name="Model-theoretic algebra" />
+      <subject id="03C62" name="Models of arithmetic and set theory" />
+      <subject id="03C64" name="Model theory of ordered structures; o-minimality" />
+      <subject id="03C65" name="Models of other mathematical theories" />
+      <subject id="03C68" name="Other classical first-order model theory" />
+      <subject id="03C70" name="Logic on admissible sets" />
+      <subject id="03C75" name="Other infinitary logic" />
+      <subject id="03C80" name="Logic with extra quantifiers and operators" />
+      <subject id="03C85" name="Second- and higher-order model theory" />
+      <subject id="03C90" name="Nonclassical models (Boolean-valued, sheaf, etc.)" />
+      <subject id="03C95" name="Abstract model theory" />
+      <subject id="03C98" name="Applications of model theory" />
+      <subject id="03C99" name="None of the above, but in this section" />
+    </subject>
+    <subject id="03Dxx" name="Computability and recursion theory">
+      <subject id="03D03" name="Thue and Post systems, etc." />
+      <subject id="03D05" name="Automata and formal grammars in connection with logical questions" />
+      <subject id="03D10" name="Turing machines and related notions" />
+      <subject id="03D15" name="Complexity of computation" />
+      <subject id="03D20" name="Recursive functions and relations, subrecursive hierarchies" />
+      <subject id="03D25" name="Recursively (computably) enumerable sets and degrees" />
+      <subject id="03D28" name="Other Turing degree structures" />
+      <subject id="03D30" name="Other degrees and reducibilities" />
+      <subject id="03D35" name="Undecidability and degrees of sets of sentences" />
+      <subject id="03D40" name="Word problems, etc." />
+      <subject id="03D45" name="Theory of numerations, effectively presented structures" />
+      <subject id="03D50" name="Recursive equivalence types of sets and structures, isols" />
+      <subject id="03D55" name="Hierarchies" />
+      <subject id="03D60" name="Computability and recursion theory on ordinals, admissible sets, etc." />
+      <subject id="03D65" name="Higher-type and set recursion theory" />
+      <subject id="03D70" name="Inductive definability" />
+      <subject id="03D75" name="Abstract and axiomatic computability and recursion theory" />
+      <subject id="03D80" name="Applications of computability and recursion theory" />
+      <subject id="03D99" name="None of the above, but in this section" />
+    </subject>
+    <subject id="03Exx" name="Set theory">
+      <subject id="03E02" name="Partition relations" />
+      <subject id="03E04" name="Ordered sets and their cofinalities; pcf theory" />
+      <subject id="03E05" name="Other combinatorial set theory" />
+      <subject id="03E10" name="Ordinal and cardinal numbers" />
+      <subject id="03E15" name="Descriptive set theory" />
+      <subject id="03E17" name="Cardinal characteristics of the continuum" />
+      <subject id="03E20" name="Other classical set theory (including functions, relations, and set algebra)" />
+      <subject id="03E25" name="Axiom of choice and related propositions" />
+      <subject id="03E30" name="Axiomatics of classical set theory and its fragments" />
+      <subject id="03E35" name="Consistency and independence results" />
+      <subject id="03E40" name="Other aspects of forcing and Boolean-valued models" />
+      <subject id="03E45" name="Inner models, including constructibility, ordinal definability, and core models" />
+      <subject id="03E47" name="Other notions of set-theoretic definability" />
+      <subject id="03E50" name="Continuum hypothesis and Martin's axiom" />
+      <subject id="03E55" name="Large cardinals" />
+      <subject id="03E60" name="Determinacy principles" />
+      <subject id="03E65" name="Other hypotheses and axioms" />
+      <subject id="03E70" name="Nonclassical and second-order set theories" />
+      <subject id="03E72" name="Fuzzy set theory" />
+      <subject id="03E75" name="Applications of set theory" />
+      <subject id="03E99" name="None of the above, but in this section" />
+    </subject>
+    <subject id="03Fxx" name="Proof theory and constructive mathematics">
+      <subject id="03F03" name="Proof theory, general" />
+      <subject id="03F05" name="Cut-elimination and normal-form theorems" />
+      <subject id="03F07" name="Structure of proofs" />
+      <subject id="03F10" name="Functionals in proof theory" />
+      <subject id="03F15" name="Recursive ordinals and ordinal notations" />
+      <subject id="03F20" name="Complexity of proofs" />
+      <subject id="03F25" name="Relative consistency and interpretations" />
+      <subject id="03F30" name="First-order arithmetic and fragments" />
+      <subject id="03F35" name="Second- and higher-order arithmetic and fragments" />
+      <subject id="03F40" name="Gödel numberings in proof theory" />
+      <subject id="03F45" name="Provability logics and related algebras (e.g., diagonalizable algebras)" />
+      <subject id="03F50" name="Metamathematics of constructive systems" />
+      <subject id="03F52" name="Linear logic and other substructural logics" />
+      <subject id="03F55" name="Intuitionistic mathematics" />
+      <subject id="03F60" name="Constructive and recursive analysis" />
+      <subject id="03F65" name="Other constructive mathematics" />
+      <subject id="03F99" name="None of the above, but in this section" />
+    </subject>
+    <subject id="03Gxx" name="Algebraic logic">
+      <subject id="03G05" name="Boolean algebras" />
+      <subject id="03G10" name="Lattices and related structures" />
+      <subject id="03G12" name="Quantum logic" />
+      <subject id="03G15" name="Cylindric and polyadic algebras; relation algebras" />
+      <subject id="03G20" name="Lukasiewicz and Post algebras" />
+      <subject id="03G25" name="Other algebras related to logic" />
+      <subject id="03G30" name="Categorical logic, topoi" />
+      <subject id="03G99" name="None of the above, but in this section" />
+    </subject>
+    <subject id="03Hxx" name="Nonstandard models">
+      <subject id="03H05" name="Nonstandard models in mathematics" />
+      <subject id="03H10" name="Other applications of nonstandard models (economics, physics, etc.)" />
+      <subject id="03H15" name="Nonstandard models of arithmetic" />
+      <subject id="03H99" name="None of the above, but in this section" />
+    </subject>
+  </subject>
+</msc>
