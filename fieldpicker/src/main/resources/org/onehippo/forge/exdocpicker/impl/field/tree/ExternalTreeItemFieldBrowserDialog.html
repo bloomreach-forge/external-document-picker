@@ -1,0 +1,24 @@
+<html xmlns:wicket="http://wicket.apache.org/">
+<wicket:extend>
+
+    <div class="exdocfield-browser-panel">
+
+        <div class="exdocfield-browser-refresh-wrapper">
+
+            <div class="exdocfield-browser-selectall">
+                <input wicket:id="expand-selected-button" type="submit" wicket:message="value:picker.expand.selected" />
+                <input wicket:id="expand-all-button" type="submit" wicket:message="value:picker.expand.all" />
+                <input wicket:id="collapse-all-button" type="submit" wicket:message="value:picker.collapse.all" />
+            </div>
+
+            <div class="exdocfield-browser-results">
+                <div wicket:id="tree">[tree]</div>
+            </div>
+
+        </div>
+
+        <wicket:child />
+
+    </div>
+</wicket:extend>
+</html>

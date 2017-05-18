@@ -15,7 +15,7 @@
  */
 
 /**
- * All the field picker CMS plugin implementations are defined. 
+ * All the tree item field picker CMS plugin implementations are defined. 
  */
-package org.onehippo.forge.exdocpicker.impl.field;
+package org.onehippo.forge.exdocpicker.impl.field.tree;
 

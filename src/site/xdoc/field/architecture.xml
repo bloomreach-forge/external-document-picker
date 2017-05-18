@@ -49,13 +49,27 @@
           <li>
             When the plugin needs to display the linked external documents (e.g, title),
             it invokes the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> with the current document context.
-            The <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> should give a proper title string for your domain-specific document object to the plugin.
+            The <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> should give a proper title or description string values for your domain-specific document object to the plugin.
           </li>
           <li>
             The <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance is invoked from the External Document Field Browser Dialog in order to
             search domain-specific external documents and display document information such as title, description and icon in the dialog.
           </li>
+          <li>
+            The dialog iterates the searched external document items to show the result in either
+            the default <strong><i>Flat List View</i></strong> or <strong><i>Tree List View</i></strong> table
+            by reading title, description and optionally icon image link from each external document item.
+          </li>
+          <li>
+            When a user selects single or multiple items in the table view and clicks on the OK button,
+            the dialog saves the selections by invoking <code>ExternalDocumentServiceFacade#setFieldExternalDocuments()</code> method.
+          </li>
         </ul>
+        <p>
+          Here's an overal architectural view. As you can see, you can care of only your custom <code>ExternalDocumentServiceFacade</code>
+          implementation class with simple configurations for a specific document field without having to spend
+          much effort on CMS Document Editor UI customization by yourself.
+        </p>
         <img src="../images/exdocpickerbase-archview.png" alt="Architectural View" />
         <p>
           Here's a sequence diagram showing the interactions:

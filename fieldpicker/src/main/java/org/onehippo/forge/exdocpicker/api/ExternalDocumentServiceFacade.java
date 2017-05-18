@@ -29,6 +29,7 @@ import org.apache.wicket.util.io.IClusterable;
  * @param <T> Domain specific external document POJO type which must be serializable.
  */
 public interface ExternalDocumentServiceFacade<T extends Serializable>
-    extends ExternalDocumentSearchService<T>, ExternalDocumentFieldService<T>, ExternalDocumentDisplayService<T>, IClusterable {
+        extends ExternalDocumentSearchService<T>, ExternalDocumentFieldService<T>, ExternalDocumentDisplayService<T>,
+        ExternalDocumentTreeService<T>, IClusterable {
 
 }
