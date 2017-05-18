@@ -43,7 +43,7 @@
     <openjpa.version>2.4.0</openjpa.version>
     <hsqldb.version>2.3.2</hsqldb.version>
 
-    <essentials.version>2.1.0</essentials.version>
+    <essentials.version>3.1.1</essentials.version>
     <jsp-api.version>2.2</jsp-api.version>
     <taglibs.version>1.2.1</taglibs.version>
     <xalan.version>2.7.1</xalan.version>
@@ -89,12 +89,32 @@
         <artifactId>json-lib</artifactId>
         <version>${json-lib.version}</version>
         <classifier>jdk15</classifier>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
         <groupId>org.apache.openjpa</groupId>
         <artifactId>openjpa</artifactId>
         <version>${openjpa.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
