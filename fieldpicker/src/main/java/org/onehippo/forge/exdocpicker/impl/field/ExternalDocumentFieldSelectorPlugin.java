@@ -22,6 +22,8 @@ import java.util.NoSuchElementException;
 
 import javax.jcr.Node;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -261,7 +263,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
             protected void populateItem(Item item) {
                 final Serializable doc = (Serializable)item.getModelObject();
 
-                item.add(new Label("link-text", new Model<String>() {
+                final Label label = new Label("link-text", new Model<String>() {
                     private static final long serialVersionUID = 1L;
 
                     @Override
@@ -270,7 +272,13 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                             .getDocumentTitle(getExternalDocumentServiceContext(), doc,
                                               getRequest().getLocale());
                     }
-                }));
+                });
+                final String description = getExternalDocumentServiceFacade()
+                        .getDocumentDescription(getExternalDocumentServiceContext(), doc, getRequest().getLocale());
+                if (StringUtils.isNotBlank(description)) {
+                    label.add(new AttributeModifier("title", description));
+                }
+                item.add(label);
 
                 if (item.getIndex() == docCollection.getSize() - 1) {
                     item.add(new AttributeAppender("class", new Model("last"), " "));
@@ -351,7 +359,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                 Change<? extends Serializable> change = (Change<? extends Serializable>)item.getModelObject();
                 final Serializable searchDoc = change.getValue();
 
-                Label label = new Label("link-text", new Model<String>() {
+                final Label label = new Label("link-text", new Model<String>() {
                     private static final long serialVersionUID = 1L;
 
                     @Override
@@ -361,6 +369,12 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                                               getRequest().getLocale());
                     }
                 });
+
+                final String description = getExternalDocumentServiceFacade().getDocumentDescription(
+                        getExternalDocumentServiceContext(), searchDoc, getRequest().getLocale());
+                if (StringUtils.isNotBlank(description)) {
+                    label.add(new AttributeModifier("title", description));
+                }
 
                 if (change.getType() == ChangeType.ADDED) {
                     label.add(new AttributeAppender("class", new Model("hippo-diff-added"), " "));
