@@ -73,16 +73,16 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
      * @param model the model containing the currently selected external documents in the document node data
      */
     public ExternalDocumentFieldBrowserDialog(IModel<String> titleModel,
-                                              final ExternalDocumentServiceContext extDocServiceContext,
-                                              final ExternalDocumentServiceFacade<Serializable> exdocService,
-                                              IModel<ExternalDocumentCollection<Serializable>> model) {
+            final ExternalDocumentServiceContext extDocServiceContext,
+            final ExternalDocumentServiceFacade<Serializable> exdocService,
+            IModel<ExternalDocumentCollection<Serializable>> model) {
         super(titleModel, extDocServiceContext, exdocService, model);
 
         selectAllButton = new AjaxButton("select-all-button") {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 getPickedExternalDocuments().clear();
-                for (Iterator<? extends Serializable> it = getSearchedExternalDocuments().iterator(); it.hasNext(); ) {
+                for (Iterator<? extends Serializable> it = getSearchedExternalDocuments().iterator(); it.hasNext();) {
                     getPickedExternalDocuments().add(it.next());
                 }
                 target.add(ExternalDocumentFieldBrowserDialog.this);
@@ -162,14 +162,17 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
      */
     @Override
     protected void initializeDataListView() {
-        final IDataProvider<Serializable> provider =
-                new SimpleExternalDocumentCollectionDataProvider<Serializable>(getSearchedExternalDocuments());
+        final IDataProvider<Serializable> provider = new SimpleExternalDocumentCollectionDataProvider<Serializable>(
+                getSearchedExternalDocuments());
 
         final DataView<Serializable> resultsDataView = new DataView<Serializable>("item", provider, getPageSize()) {
             private static final long serialVersionUID = 1L;
 
             @Override
             protected void populateItem(final Item<Serializable> listItem) {
+                final ExternalDocumentServiceFacade<Serializable> exdocService = getExternalDocumentServiceFacade();
+                final ExternalDocumentServiceContext exdocContext = getExternalDocumentServiceContext();
+
                 final Serializable doc = listItem.getModelObject();
                 listItem.setOutputMarkupId(true);
 
@@ -191,16 +194,16 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
                 };
 
                 selectCheckbox.getModel().setObject(getPickedExternalDocuments().contains(doc));
+                selectCheckbox.setEnabled(exdocService.isDocumentSelectable(exdocContext, doc));
 
-                final String iconLink = getExternalDocumentServiceFacade().getDocumentIconLink(getExternalDocumentServiceContext(),
-                        doc, getRequest().getLocale());
+                final String iconLink = exdocService.getDocumentIconLink(exdocContext, doc, getRequest().getLocale());
                 final ExternalDocumentIconImage iconImage = new ExternalDocumentIconImage("image", iconLink);
                 listItem.add(iconImage);
                 listItem.add(selectCheckbox);
-                listItem.add(new Label("title-label", getExternalDocumentServiceFacade()
-                        .getDocumentTitle(getExternalDocumentServiceContext(), doc, getRequest().getLocale())));
-                final String description = getExternalDocumentServiceFacade()
-                        .getDocumentDescription(getExternalDocumentServiceContext(), doc, getRequest().getLocale());
+                listItem.add(new Label("title-label",
+                        exdocService.getDocumentTitle(exdocContext, doc, getRequest().getLocale())));
+                final String description = exdocService.getDocumentDescription(exdocContext, doc,
+                        getRequest().getLocale());
 
                 WebMarkupContainer frame = new WebMarkupContainer("paragraph-label") {
                     private static final long serialVersionUID = 1L;
@@ -240,12 +243,13 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
             getSearchedExternalDocuments().clear();
 
             if (searchedDocs != null && searchedDocs.getSize() > 0) {
-                for (Iterator<? extends Serializable> it = searchedDocs.iterator(); it.hasNext(); ) {
+                for (Iterator<? extends Serializable> it = searchedDocs.iterator(); it.hasNext();) {
                     getSearchedExternalDocuments().add(it.next());
                 }
             }
         } catch (Exception e) {
-            log.error("Failed to execute search external documents by the search query, '" + getSearchQuery() + "'.", e);
+            log.error("Failed to execute search external documents by the search query, '" + getSearchQuery() + "'.",
+                    e);
         }
     }
 
@@ -270,4 +274,3 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
         }
     }
 }
-
