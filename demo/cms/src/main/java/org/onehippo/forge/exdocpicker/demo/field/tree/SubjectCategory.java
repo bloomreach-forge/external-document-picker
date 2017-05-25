@@ -40,6 +40,8 @@ public class SubjectCategory implements Serializable {
     private SubjectCategory parent;
     private List<SubjectCategory> children;
 
+    private boolean selectable = true;
+
     public SubjectCategory() {
     }
 
@@ -57,6 +59,14 @@ public class SubjectCategory implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean isSelectable() {
+        return selectable;
+    }
+
+    public void setSelectable(boolean selectable) {
+        this.selectable = selectable;
     }
 
     public String getPath() {

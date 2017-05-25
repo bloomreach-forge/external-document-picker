@@ -188,6 +188,11 @@ public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocu
     }
 
     @Override
+    public boolean isDocumentSelectable(ExternalDocumentServiceContext context, SubjectCategory cat) {
+        return cat.isSelectable();
+    }
+
+    @Override
     public String getDocumentTitle(ExternalDocumentServiceContext context, SubjectCategory cat,
             Locale preferredLocale) {
         return cat.getId() + ": " + cat.getTitle();
@@ -224,6 +229,7 @@ public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocu
         SubjectCategory category = new SubjectCategory();
         category.setId(elem.getAttribute("id"));
         category.setTitle(elem.getAttribute("name"));
+        category.setSelectable(!"false".equals(elem.getAttribute("selectable")));
 
         subjectCategoriesMap.put(category.getId(), category);
 

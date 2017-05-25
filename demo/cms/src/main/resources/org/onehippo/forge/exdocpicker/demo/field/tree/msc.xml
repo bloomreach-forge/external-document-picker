@@ -4,7 +4,7 @@
  For full reference, see http://www.ams.org/mathscinet/msc/msc2010.html.
 -->
 <msc>
-  <subject id="00-xx" name="General">
+  <subject id="00-xx" name="General" selectable="false">
     <subject id="00-01" name="Instructional exposition (textbooks, tutorial papers, etc.)" />
     <subject id="00-02" name="Research exposition (monographs, survey articles)" />
     <subject id="00Axx" name="General and miscellaneous specific topics">
@@ -37,7 +37,7 @@
       <subject id="00B60" name="Collections of reprinted articles" />
     </subject>
   </subject>
-  <subject id="01-xx" name="History and biography">
+  <subject id="01-xx" name="History and biography" selectable="false">
     <subject id="01-00" name="General reference works (handbooks, dictionaries, bibliographies, etc.)" />
     <subject id="01-01" name="Instructional exposition (textbooks, tutorial papers, etc.)" />
     <subject id="01-02" name="Research exposition (monographs, survey articles)" />
@@ -78,7 +78,7 @@
       <subject id="01A99" name="Miscellaneous topics" />
     </subject>
   </subject>
-  <subject id="03-xx" name="Mathematical logic and foundations">
+  <subject id="03-xx" name="Mathematical logic and foundations" selectable="false">
     <subject id="03-00" name="General reference works (handbooks, dictionaries, bibliographies, etc.)" />
     <subject id="03-01" name="Instructional exposition (textbooks, tutorial papers, etc.)" />
     <subject id="03-02" name="Research exposition (monographs, survey articles)" />

@@ -26,6 +26,16 @@ import java.util.Locale;
 public interface ExternalDocumentDisplayService<T extends Serializable> {
 
     /**
+     * Returns true if the domain specific external document object is selectable for a field by end user.
+     * @param context ExternalDocumentServiceContext instance
+     * @param doc document
+     * @return true if the domain specific external document object is selectable for a field by end user
+     */
+    default public boolean isDocumentSelectable(ExternalDocumentServiceContext context, T doc) {
+        return true;
+    }
+
+    /**
      * Reads the title from the domain specific external document object by the <code>preferredLocale</code>.
      * 
      * @param context ExternalDocumentServiceContext instance

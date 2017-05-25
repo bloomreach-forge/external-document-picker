@@ -250,13 +250,13 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         return columns;
     }
 
-    private void expandExternalTreeItemNode(ExternalDocumentServiceFacade<Serializable> extDocService, Serializable item,
-            int curDepth, int maxDepth) {
+    private void expandExternalTreeItemNode(ExternalDocumentServiceFacade<Serializable> extDocService,
+            Serializable item, int curDepth, int maxDepth) {
         if (curDepth < maxDepth) {
             treeExpansionSet.add(item);
 
             if (extDocService.hasChildren(item)) {
-                for (Iterator<Serializable> childIt = extDocService.getChildren(item); childIt.hasNext(); ) {
+                for (Iterator<Serializable> childIt = extDocService.getChildren(item); childIt.hasNext();) {
                     expandExternalTreeItemNode(extDocService, childIt.next(), curDepth + 1, maxDepth);
                 }
             }
@@ -288,6 +288,14 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
         protected IModel<?> newLabelModel(IModel<Serializable> model) {
             return Model.of(getExternalDocumentServiceFacade().getDocumentTitle(getExternalDocumentServiceContext(),
                     model.getObject(), getRequest().getLocale()));
+        }
+
+        @Override
+        protected Component newCheckBox(String id, IModel<Serializable> model) {
+            Component checkbox = super.newCheckBox(id, model);
+            checkbox.setEnabled(getExternalDocumentServiceFacade()
+                    .isDocumentSelectable(getExternalDocumentServiceContext(), model.getObject()));
+            return checkbox;
         }
 
         @Override
