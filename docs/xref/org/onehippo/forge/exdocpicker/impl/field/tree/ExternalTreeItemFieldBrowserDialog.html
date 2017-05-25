@@ -260,13 +260,13 @@
 <a class="jxr_linenumber" name="250" href="#250">250</a>         <strong class="jxr_keyword">return</strong> columns;
 <a class="jxr_linenumber" name="251" href="#251">251</a>     }
 <a class="jxr_linenumber" name="252" href="#252">252</a> 
-<a class="jxr_linenumber" name="253" href="#253">253</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> expandExternalTreeItemNode(ExternalDocumentServiceFacade&lt;Serializable&gt; extDocService, Serializable item,
-<a class="jxr_linenumber" name="254" href="#254">254</a>             <strong class="jxr_keyword">int</strong> curDepth, <strong class="jxr_keyword">int</strong> maxDepth) {
+<a class="jxr_linenumber" name="253" href="#253">253</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> expandExternalTreeItemNode(ExternalDocumentServiceFacade&lt;Serializable&gt; extDocService,
+<a class="jxr_linenumber" name="254" href="#254">254</a>             Serializable item, <strong class="jxr_keyword">int</strong> curDepth, <strong class="jxr_keyword">int</strong> maxDepth) {
 <a class="jxr_linenumber" name="255" href="#255">255</a>         <strong class="jxr_keyword">if</strong> (curDepth &lt; maxDepth) {
 <a class="jxr_linenumber" name="256" href="#256">256</a>             treeExpansionSet.add(item);
 <a class="jxr_linenumber" name="257" href="#257">257</a> 
 <a class="jxr_linenumber" name="258" href="#258">258</a>             <strong class="jxr_keyword">if</strong> (extDocService.hasChildren(item)) {
-<a class="jxr_linenumber" name="259" href="#259">259</a>                 <strong class="jxr_keyword">for</strong> (Iterator&lt;Serializable&gt; childIt = extDocService.getChildren(item); childIt.hasNext(); ) {
+<a class="jxr_linenumber" name="259" href="#259">259</a>                 <strong class="jxr_keyword">for</strong> (Iterator&lt;Serializable&gt; childIt = extDocService.getChildren(item); childIt.hasNext();) {
 <a class="jxr_linenumber" name="260" href="#260">260</a>                     expandExternalTreeItemNode(extDocService, childIt.next(), curDepth + 1, maxDepth);
 <a class="jxr_linenumber" name="261" href="#261">261</a>                 }
 <a class="jxr_linenumber" name="262" href="#262">262</a>             }
@@ -301,48 +301,56 @@
 <a class="jxr_linenumber" name="291" href="#291">291</a>         }
 <a class="jxr_linenumber" name="292" href="#292">292</a> 
 <a class="jxr_linenumber" name="293" href="#293">293</a>         @Override
-<a class="jxr_linenumber" name="294" href="#294">294</a>         <strong class="jxr_keyword">protected</strong> IModel&lt;Boolean&gt; newCheckBoxModel(<strong class="jxr_keyword">final</strong> IModel&lt;Serializable&gt; model) {
-<a class="jxr_linenumber" name="295" href="#295">295</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> IModel&lt;Boolean&gt;() {
-<a class="jxr_linenumber" name="296" href="#296">296</a>                 <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 1L;
-<a class="jxr_linenumber" name="297" href="#297">297</a> 
-<a class="jxr_linenumber" name="298" href="#298">298</a>                 @Override
-<a class="jxr_linenumber" name="299" href="#299">299</a>                 <strong class="jxr_keyword">public</strong> Boolean getObject() {
-<a class="jxr_linenumber" name="300" href="#300">300</a>                     <strong class="jxr_keyword">return</strong> getPickedExternalDocuments().contains(model.getObject());
-<a class="jxr_linenumber" name="301" href="#301">301</a>                 }
-<a class="jxr_linenumber" name="302" href="#302">302</a> 
-<a class="jxr_linenumber" name="303" href="#303">303</a>                 @Override
-<a class="jxr_linenumber" name="304" href="#304">304</a>                 <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setObject(Boolean object) {
-<a class="jxr_linenumber" name="305" href="#305">305</a>                     <strong class="jxr_keyword">if</strong> (Boolean.TRUE.equals(object)) {
-<a class="jxr_linenumber" name="306" href="#306">306</a>                         getPickedExternalDocuments().add(model.getObject());
-<a class="jxr_linenumber" name="307" href="#307">307</a> 
-<a class="jxr_linenumber" name="308" href="#308">308</a>                         <strong class="jxr_keyword">if</strong> (isSingleSelectionMode()) {
-<a class="jxr_linenumber" name="309" href="#309">309</a>                             ExternalTreeItemFieldBrowserDialog.<strong class="jxr_keyword">this</strong>.handleSubmit();
-<a class="jxr_linenumber" name="310" href="#310">310</a>                         }
-<a class="jxr_linenumber" name="311" href="#311">311</a>                     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="312" href="#312">312</a>                         getPickedExternalDocuments().remove(model.getObject());
-<a class="jxr_linenumber" name="313" href="#313">313</a>                     }
-<a class="jxr_linenumber" name="314" href="#314">314</a>                 }
+<a class="jxr_linenumber" name="294" href="#294">294</a>         <strong class="jxr_keyword">protected</strong> Component newCheckBox(String id, IModel&lt;Serializable&gt; model) {
+<a class="jxr_linenumber" name="295" href="#295">295</a>             Component checkbox = <strong class="jxr_keyword">super</strong>.newCheckBox(id, model);
+<a class="jxr_linenumber" name="296" href="#296">296</a>             checkbox.setEnabled(getExternalDocumentServiceFacade()
+<a class="jxr_linenumber" name="297" href="#297">297</a>                     .isDocumentSelectable(getExternalDocumentServiceContext(), model.getObject()));
+<a class="jxr_linenumber" name="298" href="#298">298</a>             <strong class="jxr_keyword">return</strong> checkbox;
+<a class="jxr_linenumber" name="299" href="#299">299</a>         }
+<a class="jxr_linenumber" name="300" href="#300">300</a> 
+<a class="jxr_linenumber" name="301" href="#301">301</a>         @Override
+<a class="jxr_linenumber" name="302" href="#302">302</a>         <strong class="jxr_keyword">protected</strong> IModel&lt;Boolean&gt; newCheckBoxModel(<strong class="jxr_keyword">final</strong> IModel&lt;Serializable&gt; model) {
+<a class="jxr_linenumber" name="303" href="#303">303</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> IModel&lt;Boolean&gt;() {
+<a class="jxr_linenumber" name="304" href="#304">304</a>                 <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 1L;
+<a class="jxr_linenumber" name="305" href="#305">305</a> 
+<a class="jxr_linenumber" name="306" href="#306">306</a>                 @Override
+<a class="jxr_linenumber" name="307" href="#307">307</a>                 <strong class="jxr_keyword">public</strong> Boolean getObject() {
+<a class="jxr_linenumber" name="308" href="#308">308</a>                     <strong class="jxr_keyword">return</strong> getPickedExternalDocuments().contains(model.getObject());
+<a class="jxr_linenumber" name="309" href="#309">309</a>                 }
+<a class="jxr_linenumber" name="310" href="#310">310</a> 
+<a class="jxr_linenumber" name="311" href="#311">311</a>                 @Override
+<a class="jxr_linenumber" name="312" href="#312">312</a>                 <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setObject(Boolean object) {
+<a class="jxr_linenumber" name="313" href="#313">313</a>                     <strong class="jxr_keyword">if</strong> (Boolean.TRUE.equals(object)) {
+<a class="jxr_linenumber" name="314" href="#314">314</a>                         getPickedExternalDocuments().add(model.getObject());
 <a class="jxr_linenumber" name="315" href="#315">315</a> 
-<a class="jxr_linenumber" name="316" href="#316">316</a>                 @Override
-<a class="jxr_linenumber" name="317" href="#317">317</a>                 <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> detach() {
-<a class="jxr_linenumber" name="318" href="#318">318</a>                 }
-<a class="jxr_linenumber" name="319" href="#319">319</a>             };
-<a class="jxr_linenumber" name="320" href="#320">320</a>         }
-<a class="jxr_linenumber" name="321" href="#321">321</a> 
-<a class="jxr_linenumber" name="322" href="#322">322</a>         @Override
-<a class="jxr_linenumber" name="323" href="#323">323</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> onUpdate(AjaxRequestTarget target) {
-<a class="jxr_linenumber" name="324" href="#324">324</a>             Serializable foo = getModelObject();
-<a class="jxr_linenumber" name="325" href="#325">325</a>             Serializable parent = treeDataProvider.getParent(foo);
-<a class="jxr_linenumber" name="326" href="#326">326</a> 
-<a class="jxr_linenumber" name="327" href="#327">327</a>             <strong class="jxr_keyword">while</strong> (parent != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="328" href="#328">328</a>                 foo = parent;
-<a class="jxr_linenumber" name="329" href="#329">329</a>                 parent = treeDataProvider.getParent(parent);
-<a class="jxr_linenumber" name="330" href="#330">330</a>             }
-<a class="jxr_linenumber" name="331" href="#331">331</a> 
-<a class="jxr_linenumber" name="332" href="#332">332</a>             tree.updateBranch(foo, target);
-<a class="jxr_linenumber" name="333" href="#333">333</a>         }
-<a class="jxr_linenumber" name="334" href="#334">334</a>     }
-<a class="jxr_linenumber" name="335" href="#335">335</a> }
+<a class="jxr_linenumber" name="316" href="#316">316</a>                         <strong class="jxr_keyword">if</strong> (isSingleSelectionMode()) {
+<a class="jxr_linenumber" name="317" href="#317">317</a>                             ExternalTreeItemFieldBrowserDialog.<strong class="jxr_keyword">this</strong>.handleSubmit();
+<a class="jxr_linenumber" name="318" href="#318">318</a>                         }
+<a class="jxr_linenumber" name="319" href="#319">319</a>                     } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="320" href="#320">320</a>                         getPickedExternalDocuments().remove(model.getObject());
+<a class="jxr_linenumber" name="321" href="#321">321</a>                     }
+<a class="jxr_linenumber" name="322" href="#322">322</a>                 }
+<a class="jxr_linenumber" name="323" href="#323">323</a> 
+<a class="jxr_linenumber" name="324" href="#324">324</a>                 @Override
+<a class="jxr_linenumber" name="325" href="#325">325</a>                 <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> detach() {
+<a class="jxr_linenumber" name="326" href="#326">326</a>                 }
+<a class="jxr_linenumber" name="327" href="#327">327</a>             };
+<a class="jxr_linenumber" name="328" href="#328">328</a>         }
+<a class="jxr_linenumber" name="329" href="#329">329</a> 
+<a class="jxr_linenumber" name="330" href="#330">330</a>         @Override
+<a class="jxr_linenumber" name="331" href="#331">331</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> onUpdate(AjaxRequestTarget target) {
+<a class="jxr_linenumber" name="332" href="#332">332</a>             Serializable foo = getModelObject();
+<a class="jxr_linenumber" name="333" href="#333">333</a>             Serializable parent = treeDataProvider.getParent(foo);
+<a class="jxr_linenumber" name="334" href="#334">334</a> 
+<a class="jxr_linenumber" name="335" href="#335">335</a>             <strong class="jxr_keyword">while</strong> (parent != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="336" href="#336">336</a>                 foo = parent;
+<a class="jxr_linenumber" name="337" href="#337">337</a>                 parent = treeDataProvider.getParent(parent);
+<a class="jxr_linenumber" name="338" href="#338">338</a>             }
+<a class="jxr_linenumber" name="339" href="#339">339</a> 
+<a class="jxr_linenumber" name="340" href="#340">340</a>             tree.updateBranch(foo, target);
+<a class="jxr_linenumber" name="341" href="#341">341</a>         }
+<a class="jxr_linenumber" name="342" href="#342">342</a>     }
+<a class="jxr_linenumber" name="343" href="#343">343</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>
