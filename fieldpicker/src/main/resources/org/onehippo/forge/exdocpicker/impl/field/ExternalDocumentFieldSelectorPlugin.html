@@ -5,18 +5,25 @@
         <span wicket:id="exdocfield-relateddocs-caption">Related External Documents</span>
       </h3>
       <wicket:container wicket:id="exdocs-container">
-        <div class="hippo-editor-field-subfield">
-          <div class="hippo-editor-field-textarea">
-            <div class="hippo-editor-field-search-related-docs">
-              <ul class="exdocfield-docitems">
-                <li wicket:id="view">
-                  <span wicket:id="link-text">[ title of search doc ]</span>
-                  &nbsp;
-                  <a wicket:id="delete" class="delete">
-                    <img wicket:id="delete-image" src="" />
-                  </a>
-                </li>
-              </ul>
+        <div class="hippo-editor-field-subfield exdocfield">
+          <div class="hippo-editor-field-search-related-docs">
+            <div class="hippo-editor-field-subfield" wicket:id="view">
+              <div class="hippo-editor-field-item">
+                <div class="hippo-editor-field-value">
+                  <div class="hippo-editor-field-value-container non-breaking" wicket:id="link-text" />
+                </div>
+              </div>
+              <div class="hippo-editor-field-subfield-controls exdocs-plugin" wicket:id="controls">
+                <a class="up-link" wicket:id="up">
+                  <span wicket:id="up-icon"></span>
+                </a>
+                <a class="down-link" wicket:id="down">
+                  <span wicket:id="down-icon"></span>
+                </a>
+                <a class="remove-link" wicket:id="remove">
+                  <span wicket:id="remove-icon"></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

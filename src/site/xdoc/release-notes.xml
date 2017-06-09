@@ -48,6 +48,12 @@
       </table>
     </section>
     <section name="Release Notes (4.x.x)">
+      <subsection name="4.0.3">
+        <ul>
+          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-108'>HIPFORGE-108</a>] -         External Document Picker - Allow to move up/down selected items
+          </li>
+        </ul>
+      </subsection>
       <subsection name="4.0.2">
         <ul>
           <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-107'>HIPFORGE-107</a>] -         External Document Picker - Option to disable or hide checkbox for a parent item in tree view
