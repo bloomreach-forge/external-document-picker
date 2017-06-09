@@ -54,11 +54,27 @@ public interface ExternalDocumentCollection<T extends Serializable> extends Seri
     public boolean contains(T doc);
 
     /**
+     * Returns the index of {@code doc} in this collection if found.
+     * Otherwise returns -1.
+     * @param doc document
+     * @return the index of {@code doc} in this collection if found. Otherwise returns -1
+     */
+    public int indexOf(T doc);
+
+    /**
      * Adds the <code>doc</code> to this collection.
      * @param doc document
-     * @return the <code>doc</code> to this collection
+     * @return true if added
      */
     public boolean add(T doc);
+
+    /**
+     * Inserts the <code>doc</code> at the {@code index} position of this collection.
+     * @param index index at which the document should be inserted
+     * @param doc document
+     * @return true if inserted
+     */
+    public boolean add(int index, T doc);
 
     /**
      * Adds all the <code>docs</code> to this collection.

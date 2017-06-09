@@ -32,7 +32,7 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RefreshingView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -40,7 +40,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.PackageResourceReference;
-import org.apache.wicket.request.resource.ResourceReference;
 import org.hippoecm.frontend.dialog.AbstractDialog;
 import org.hippoecm.frontend.dialog.DialogLink;
 import org.hippoecm.frontend.dialog.IDialogFactory;
@@ -53,8 +52,10 @@ import org.hippoecm.frontend.plugin.config.IPluginConfig;
 import org.hippoecm.frontend.plugins.standards.diff.LCS;
 import org.hippoecm.frontend.plugins.standards.diff.LCS.Change;
 import org.hippoecm.frontend.plugins.standards.diff.LCS.ChangeType;
+import org.hippoecm.frontend.plugins.standards.icon.HippoIcon;
 import org.hippoecm.frontend.service.IEditor;
 import org.hippoecm.frontend.service.render.RenderPlugin;
+import org.hippoecm.frontend.skin.Icon;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceContext;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
@@ -72,9 +73,6 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
     private static final long serialVersionUID = 1L;
 
     private static final Logger log = LoggerFactory.getLogger(ExternalDocumentFieldSelectorPlugin.class);
-
-    private static final ResourceReference DELETE_ICON_REF =
-        new PackageResourceReference(ExternalDocumentFieldSelectorPlugin.class, "delete-small-16.png");
 
     private JcrNodeModel documentModel;
 
@@ -284,33 +282,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                     item.add(new AttributeAppender("class", new Model("last"), " "));
                 }
 
-                AjaxLink deleteLink = new AjaxLink("delete") {
-
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void onClick(AjaxRequestTarget target) {
-                        boolean removed = docCollection.remove(doc);
-
-                        if (removed) {
-                            getExternalDocumentServiceFacade()
-                                .setFieldExternalDocuments(getExternalDocumentServiceContext(), docCollection);
-                            target.add(ExternalDocumentFieldSelectorPlugin.this);
-                        }
-                    }
-                };
-
-                final Image deleteImage = new Image("delete-image") {
-                    private static final long serialVersionUID = 1L;
-                };
-                deleteImage.setImageResourceReference(DELETE_ICON_REF, null);
-                deleteLink.add(deleteImage);
-
-                if (!isEditMode()) {
-                    deleteLink.setVisible(false);
-                }
-
-                item.add(deleteLink);
+                addControlsToListItem(docCollection, item);
             }
         };
     }
@@ -384,17 +356,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
                 item.add(label);
 
-                AjaxLink deleteLink = new AjaxLink("delete") {
-
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void onClick(AjaxRequestTarget target) {
-                    }
-                };
-
-                deleteLink.setVisible(false);
-                item.add(deleteLink);
+                addControlsToListItem(docCollection, item);
             }
         };
     }
@@ -478,4 +440,66 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         };
     }
 
+    private void addControlsToListItem(final ExternalDocumentCollection<Serializable> docCollection, final ListItem<?> item) {
+        final Serializable doc = (Serializable)item.getModelObject();
+
+        final boolean isEditMode = isEditMode();
+        final int itemCount = docCollection.getSize();
+        final int itemIndex = item.getIndex();
+
+        final WebMarkupContainer controls = new WebMarkupContainer("controls");
+        controls.setVisible(isEditMode);
+
+        final MarkupContainer upLink = new AjaxLink("up") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                boolean removed = docCollection.remove(doc);
+                if (removed) {
+                    docCollection.add(itemIndex - 1, doc);
+                    exdocService.setFieldExternalDocuments(extDocServiceContext, docCollection);
+                    target.add(ExternalDocumentFieldSelectorPlugin.this);
+                }
+            }
+        };
+        upLink.setEnabled(isEditMode && itemIndex > 0);
+        upLink.setVisible(isEditMode);
+        final HippoIcon upIcon = HippoIcon.fromSprite("up-icon", Icon.ARROW_UP);
+        upLink.add(upIcon);
+        controls.add(upLink);
+
+        final MarkupContainer downLink = new AjaxLink("down") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                boolean removed = docCollection.remove(doc);
+                if (removed) {
+                    docCollection.add(itemIndex + 1, doc);
+                    exdocService.setFieldExternalDocuments(extDocServiceContext, docCollection);
+                    target.add(ExternalDocumentFieldSelectorPlugin.this);
+                }
+            }
+        };
+        downLink.setEnabled(isEditMode && itemIndex < itemCount - 1);
+        downLink.setVisible(isEditMode);
+        final HippoIcon downIcon = HippoIcon.fromSprite("down-icon", Icon.ARROW_DOWN);
+        downLink.add(downIcon);
+        controls.add(downLink);
+
+        final MarkupContainer removeLink = new AjaxLink("remove") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                boolean removed = docCollection.remove(doc);
+                if (removed) {
+                    exdocService.setFieldExternalDocuments(extDocServiceContext, docCollection);
+                    target.add(ExternalDocumentFieldSelectorPlugin.this);
+                }
+            }
+        };
+        removeLink.setEnabled(isEditMode);
+        removeLink.setVisible(isEditMode);
+        final HippoIcon removeIcon = HippoIcon.fromSprite("remove-icon", Icon.TIMES);
+        removeLink.add(removeIcon);
+        controls.add(removeLink);
+
+        item.add(controls);
+    }
 }

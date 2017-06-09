@@ -76,8 +76,19 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
     }
 
     @Override
+    public int indexOf(T doc) {
+        return list.indexOf(doc);
+    }
+
+    @Override
     public boolean add(T doc) {
         return list.add(doc);
+    }
+
+    @Override
+    public boolean add(int index, T doc) {
+        list.add(index, doc);
+        return true;
     }
 
     @Override
