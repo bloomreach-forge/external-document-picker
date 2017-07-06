@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.onehippo.forge.exdocpickerbase</groupId>
     <artifactId>exdocpickerbase-demo</artifactId>
-    <version>4.0.4-SNAPSHOT</version>
+    <version>5.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>exdocpickerbase-demo-cms</artifactId>
   <packaging>war</packaging>
