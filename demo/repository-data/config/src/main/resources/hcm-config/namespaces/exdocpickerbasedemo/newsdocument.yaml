@@ -147,6 +147,30 @@ definitions:
             wicket.id: ${cluster.id}.left.item
             /cluster.options:
               jcr:primaryType: frontend:pluginconfig
+          /informantextdocselector:
+            jcr:primaryType: frontend:plugin
+            caption: Informant
+            engine: ${engine}
+            external.document.service.facade: org.onehippo.forge.exdocpicker.demo.jpa.field.SimpleJPQLExternalDocumentServiceFacade
+            initial.search.enabled: true
+            jpql.external.docs.field.name: exdocpickerbasedemo:informantids
+            jpql.item.description.prop: description
+            jpql.item.iconlink.prop: photo
+            jpql.item.id.prop: id
+            jpql.item.id.type.prop: long
+            jpql.item.search.query: SELECT i FROM Informant i WHERE i.id = :id
+            jpql.item.search.query.param: id
+            jpql.item.title.prop: name
+            jpql.persistence.unit: newsPU
+            jpql.term.search.query: SELECT i FROM Informant i
+            jpql.term.search.query.param: ''
+            mode: ${mode}
+            plugin.class: org.onehippo.forge.exdocpicker.impl.field.ExternalDocumentFieldSelectorPlugin
+            selection.mode: multiple
+            wicket.id: ${cluster.id}.left.item
+            wicket.model: ${wicket.model}
+            /cluster.options:
+              jcr:primaryType: frontend:pluginconfig
           /content:
             jcr:primaryType: frontend:plugin
             field: content
@@ -154,11 +178,63 @@ definitions:
             wicket.id: ${cluster.id}.left.item
             /cluster.options:
               jcr:primaryType: frontend:pluginconfig
+          /introextdocselector:
+            jcr:primaryType: frontend:plugin
+            caption: Introductary External Document
+            engine: ${engine}
+            example.external.docs.field.name: exdocpickerbasedemo:introexdocid
+            external.document.service.facade: org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade
+            initial.search.enabled: true
+            mode: ${mode}
+            plugin.class: org.onehippo.forge.exdocpicker.impl.field.ExternalDocumentFieldSelectorPlugin
+            selection.mode: single
+            wicket.id: ${cluster.id}.left.item
+            wicket.model: ${wicket.model}
+            /cluster.options:
+              jcr:primaryType: frontend:pluginconfig
+          /relatedextdocselector:
+            jcr:primaryType: frontend:plugin
+            caption: Related External Documents
+            engine: ${engine}
+            example.external.docs.field.name: exdocpickerbasedemo:relatedexdocids
+            external.document.service.facade: org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade
+            mode: ${mode}
+            plugin.class: org.onehippo.forge.exdocpicker.impl.field.ExternalDocumentFieldSelectorPlugin
+            selection.mode: multiple
+            wicket.id: ${cluster.id}.left.item
+            wicket.model: ${wicket.model}
+            /cluster.options:
+              jcr:primaryType: frontend:pluginconfig
+          /externaltaxonomyselector:
+            jcr:primaryType: frontend:plugin
+            caption: External Taxonomy
+            engine: ${engine}
+            example.external.cats.field.name: exdocpickerbasedemo:excategories
+            external.document.service.facade: org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalSubjectCategoryServiceFacade
+            initial.tree.expand.depth: '1'
+            mode: ${mode}
+            plugin.class: org.onehippo.forge.exdocpicker.impl.field.tree.ExternalTreeItemFieldSelectorPlugin
+            selection.mode: multiple
+            wicket.id: ${cluster.id}.left.item
+            wicket.model: ${wicket.model}
+            /cluster.options:
+              jcr:primaryType: frontend:pluginconfig
           /date:
             jcr:primaryType: frontend:plugin
             field: date
             plugin.class: org.hippoecm.frontend.editor.plugins.field.PropertyFieldPlugin
             wicket.id: ${cluster.id}.right.item
+            /cluster.options:
+              jcr:primaryType: frontend:pluginconfig
+          /hiddendateupdater:
+            jcr:primaryType: frontend:plugin
+            caption: Hidden Date Updater
+            engine: ${engine}
+            external.document.service.facade: org.onehippo.forge.exdocpicker.demo.jpa.field.SimpleJPQLExternalDocumentServiceFacade
+            mode: ${mode}
+            plugin.class: org.onehippo.forge.exdocpicker.demo.field.DateUpdatingHiddenFieldPlugin
+            wicket.id: ${cluster.id}.right.item
+            wicket.model: ${wicket.model}
             /cluster.options:
               jcr:primaryType: frontend:pluginconfig
           /author:
