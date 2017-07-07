@@ -26,8 +26,9 @@
 
       <subsection name="Configuring Field in Document Template (a.k.a 'namespace')">
         <p>
-          In a namespace bootstrap XML file, you should add a custom field like the following example
-          (an example with ExampleExternalSubjectCategoryServiceFacade having embedded external XML data in a classpath resource):
+          You should add a custom field configuration like the following example (in System View XML format).
+          This is an example with <code>ExampleExternalSubjectCategoryServiceFacade</code> having embedded external
+          XML data in a classpath resource:
         </p>
         <div class="brush: xml">
           <source><![CDATA[
@@ -118,13 +119,7 @@
 </sv:node>
           ]]></source>
         </div>
-        <p>
-          See the following for a full example in the demo project:
-          <a href="https://github.com/onehippo-forge/external-document-picker/tree/master/demo/bootstrap/configuration/src/main/resources/namespaces/exdocpickerbase-demo/newsdocument.xml">
-            https://github.com/onehippo-forge/external-document-picker/tree/master/demo/bootstrap/configuration/src/main/resources/namespaces/exdocpickerbase-demo/newsdocument.xml
-          </a>
-        </p>
-        
+
       </subsection>
 
       <subsection name="Implementing your ExternalDocumentServiceFacade class">
