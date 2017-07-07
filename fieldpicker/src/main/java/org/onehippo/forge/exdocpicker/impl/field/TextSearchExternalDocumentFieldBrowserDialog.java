@@ -47,7 +47,7 @@ public class TextSearchExternalDocumentFieldBrowserDialog extends ExternalDocume
         add(setFocus(searchText));
 
         //Search button
-        AjaxButton searchButton = new AjaxButton("search-button", new StringResourceModel("search-label", this, null)) {
+        AjaxButton searchButton = new AjaxButton("search-button", new StringResourceModel("search.button", this, null)) {
             private static final long serialVersionUID = 1L;
 
             @Override
