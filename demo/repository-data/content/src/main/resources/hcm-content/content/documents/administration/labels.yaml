@@ -1,0 +1,95 @@
+/content/documents/administration/labels:
+  jcr:primaryType: hippostd:folder
+  jcr:mixinTypes: ['mix:referenceable']
+  jcr:uuid: 0e703a85-274a-47c1-b26a-0d0be008883b
+  hippostd:foldertype: [new-resource-bundle, new-untranslated-folder]
+  /global:
+    jcr:primaryType: hippo:handle
+    jcr:mixinTypes: ['hippo:named', 'mix:referenceable']
+    jcr:uuid: d82c1966-eae1-4235-93ef-95eb9fbad0c0
+    hippo:name: Global
+    /global:
+      jcr:primaryType: resourcebundle:resourcebundle
+      jcr:mixinTypes: ['mix:referenceable']
+      jcr:uuid: 5f5d41ae-7b26-42b6-a466-9b9415bb523d
+      hippo:availability: [live, preview]
+      hippostd:state: published
+      hippostdpubwf:createdBy: admin
+      hippostdpubwf:creationDate: 2014-08-21T22:10:13.443+02:00
+      hippostdpubwf:lastModificationDate: 2014-08-21T22:10:52.812+02:00
+      hippostdpubwf:lastModifiedBy: admin
+      hippostdpubwf:publicationDate: 2014-08-21T22:10:54.657+02:00
+      resourcebundle:descriptions: [Text shown in the global page footer.]
+      resourcebundle:id: essentials.global
+      resourcebundle:keys: [footer.text]
+      resourcebundle:messages: [©2017]
+  /homepage:
+    jcr:primaryType: hippo:handle
+    jcr:mixinTypes: ['hippo:named', 'mix:referenceable']
+    jcr:uuid: 3c720ac4-caa5-4bc3-9106-582289b80484
+    hippo:name: Homepage
+    /homepage:
+      jcr:primaryType: resourcebundle:resourcebundle
+      jcr:mixinTypes: ['mix:referenceable']
+      jcr:uuid: 93a5009f-4758-4c3a-93fa-56e6cb6bbd37
+      hippo:availability: [live, preview]
+      hippostd:state: published
+      hippostdpubwf:createdBy: admin
+      hippostdpubwf:creationDate: 2014-08-21T17:08:08.703+02:00
+      hippostdpubwf:lastModificationDate: 2014-08-21T17:11:53.242+02:00
+      hippostdpubwf:lastModifiedBy: admin
+      hippostdpubwf:publicationDate: 2014-08-21T17:11:55.239+02:00
+      resourcebundle:descriptions: [Title displayed on homepage., Text displayed on
+          homepage.]
+      resourcebundle:id: essentials.homepage
+      resourcebundle:keys: [homepage.title, homepage.text]
+      resourcebundle:messages: [Home Page, 'Every website comes with its own styling
+          requirements. Hippo''s setup application can therefore not address site
+          styling. Instead, the generated pages use minimal styling to render the
+          content. It is the task of the Hippo developer to adjust the front-end to
+          the site''s needs.']
+  /pagenotfound:
+    jcr:primaryType: hippo:handle
+    jcr:mixinTypes: ['hippo:named', 'mix:referenceable']
+    jcr:uuid: 0929a49e-0293-4415-a49f-2120d7ccce22
+    hippo:name: Page not found
+    /pagenotfound:
+      jcr:primaryType: resourcebundle:resourcebundle
+      jcr:mixinTypes: ['mix:referenceable']
+      jcr:uuid: e5574af8-dc01-488f-a453-81d1fabacc18
+      hippo:availability: [live, preview]
+      hippostd:state: published
+      hippostdpubwf:createdBy: admin
+      hippostdpubwf:creationDate: 2014-08-21T17:08:08.703+02:00
+      hippostdpubwf:lastModificationDate: 2014-08-21T17:11:53.242+02:00
+      hippostdpubwf:lastModifiedBy: admin
+      hippostdpubwf:publicationDate: 2014-08-21T17:11:55.239+02:00
+      resourcebundle:descriptions: [Title displayed when page is not found., Text
+          displayed when page is not found.]
+      resourcebundle:id: essentials.pagenotfound
+      resourcebundle:keys: [pagenotfound.title, pagenotfound.text]
+      resourcebundle:messages: [Page not found (404), 'The page you requested was
+          not found. - [This text can be edited <a href="http://localhost:8080/cms/?1&path=/content/documents/administration/labels/pagenotfound"
+          target="_blank">here</a>.]']
+  /pagination:
+    jcr:primaryType: hippo:handle
+    jcr:mixinTypes: ['hippo:named', 'mix:referenceable']
+    jcr:uuid: 2948b2fe-cda7-4a55-8ecf-3152c8d0f1ff
+    hippo:name: Pagination
+    /pagination:
+      jcr:primaryType: resourcebundle:resourcebundle
+      jcr:mixinTypes: ['mix:referenceable']
+      jcr:uuid: fea2a585-dc11-4beb-9663-b2307366d679
+      hippo:availability: [live, preview]
+      hippostd:state: published
+      hippostdpubwf:createdBy: admin
+      hippostdpubwf:creationDate: 2014-08-21T14:30:14.382+02:00
+      hippostdpubwf:lastModificationDate: 2014-08-21T17:03:32.811+02:00
+      hippostdpubwf:lastModifiedBy: admin
+      hippostdpubwf:publicationDate: 2014-08-21T17:06:47.420+02:00
+      resourcebundle:descriptions: ['Used in the indication, how many results were
+          found. The label is appended to the number of results.', Label used for
+          the link to the previous page., Label used for the link to the next page.]
+      resourcebundle:id: essentials.pagination
+      resourcebundle:keys: [results.indication, page.previous, page.next]
+      resourcebundle:messages: [document(s), previous, next]

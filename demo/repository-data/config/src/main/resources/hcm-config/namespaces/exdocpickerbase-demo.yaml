@@ -1,0 +1,6 @@
+definitions:
+  config:
+    /hippo:namespaces/exdocpickerbasedemo:
+      jcr:primaryType: hipposysedit:namespace
+      jcr:mixinTypes: ['mix:referenceable']
+      jcr:uuid: d4fd7f89-bcff-488e-b8f4-ec347d3459e1
