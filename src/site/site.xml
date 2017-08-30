@@ -43,6 +43,11 @@
         <item name="Example: JPA Picker" href="field/dev-example-jpql.html" />
         <item name="Javadoc (latest)" href="apidocs/index.html" />
       </item>
+      <item name="External Picker Folder Context Menu" href="folder/architecture.html">
+        <item name="Architecture" href="folder/architecture.html" />
+        <item name="Developer's How-to (Flat List View)" href="folder/dev-howto-listview.html" />
+        <item name="Developer's How-to (Tree List View)" href="folder/dev-howto-treeview.html" />
+      </item>
       <item name="External Link Picker in RichText Editor" href="richtext-ckeditor/architecture.html">
         <item name="Architecture" href="richtext-ckeditor/architecture.html" />
         <item name="Installation" href="richtext-ckeditor/install.html" />

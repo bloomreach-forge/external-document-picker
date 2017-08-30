@@ -27,10 +27,43 @@
         This project provides base external document picker plugins for Hippo CMS with simple example implementations for developer's references.
       </p>
       <p>
-        This project consists of two different external document pickers: 
-        one for <a href="field/architecture.html">External Document Field Picker</a> 
-        and the other for <a href="richtext-ckeditor/architecture.html">External Link Picker Button in the RichText Editor</a>.
+        This project contains various external document pickers for different use cases:
       </p>
+      <ol>
+        <li>
+          <a href="field/architecture.html">External Document Field Picker</a>
+          (for use cases to select metadata of external content for CMS document fields)
+          <ul>
+            <li>
+              (a) <a href="field/dev-howto-listview.html">Flat List View Picker Option</a>
+              (for use cases with general list views or search results to select from)
+            </li>
+            <li>
+              (b) <a href="field/dev-howto-treeview.html">Tree List View Picker Option</a>
+              (for use cases with hierarchically organized content such as external taxonomy data)
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="folder/architecture.html">External Picker Folder Context Menu</a>
+          (for use cases to implement a custom behavior on a folder context menu or
+           add metadata of external content for CMS folder)
+          <ul>
+            <li>
+              (a) <a href="folder/dev-howto-listview.html">Flat List View Picker Option</a>
+              (for use cases with general list views or search results to select from)
+            </li>
+            <li>
+              (b) <a href="folder/dev-howto-treeview.html">Tree List View Picker Option</a>
+              (for use cases with hierarchically organized content such as external taxonomy data)
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="richtext-ckeditor/architecture.html">External Link Picker Button in the RichText Editor</a>
+          (for use cases with genral list views or search results to select from in CKEditor fields)
+        </li>
+      </ol>
       <subsection name="External Document Field Picker">
         <p>
           External Document Field Picker allows developers to define their own domain specific models to search/select
@@ -105,6 +138,31 @@
         If you select external tree item(s) and click on the OK button, then the field will be set to those selected external documents.
       </p>
       <img src="images/exdocpickerbase-screenshot-03.png" alt="Navigate External Documents through Tree List View" />
+    </section>
+    <section name="Testing External Picker Folder Context Menu Item with Demo Application">
+      <p>
+        Select a document folder and pull down the folder context menu.
+      </p>
+      <img src="images/exdocpickerbase-folder-screenshot-01.png" alt="Edit News Article" />
+      <p>
+        When you select 'Add External Categories ...' context menu item, you will see the dialog like the following screenshot.
+        This is configured with the <strong><i>Tree List View</i></strong> picker dialog mode just as an example.
+      </p>
+      <img src="images/exdocpickerbase-folder-screenshot-02.png" alt="Search and Browse External Documents" />
+      <p>
+        If you select some items and click on 'OK' button in the dialog, it will save extra property in the selected
+        folder node with the metadata of the selected items.
+        However, please note that this example is only for demonstration purpose to show how easily you can
+        add a custom folder context menu item for a custom behavior in your use cases.
+      </p>
+      <p>
+        In practical use cases, you might want to create documents, images or assets based on the metadata from
+        the user's selection under the selected folder instead of writing properties directly on the selected folder,
+        for example.
+        It is totally up to your
+        <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
+        implementation class in the end anyway.
+      </p>
     </section>
     <section name="Testing External Link Picker Button in the RichText Editor with Demo Application">
       <p>

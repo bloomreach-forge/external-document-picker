@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC
+  "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<!--
+    Copyright 2017 Hippo
+
+    Licensed under the Apache License, Version 2.0 (the  "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS"
+    BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+  <properties>
+    <title>External Document Field Picker - Developer's How-to (Flat List View)</title>
+  </properties>
+  <body>
+    <section name="Developer's How-to (Flat List View)">
+
+      <subsection name="Configuring Custom Folder Context Menu Items">
+        <p>
+          You should add a custom folder context menu item configuration like the example (in System View XML format)
+          shown below, under each of the following configuration nodes:
+        </p>
+        <ul>
+          <li><code>/hippo:configuration/hippo:workflows/threepane/folder/frontend:renderer</code></li>
+          <li><code>/hippo:configuration/hippo:workflows/threepane/folder-extended/frontend:renderer</code></li>
+          <li><code>/hippo:configuration/hippo:workflows/threepane/folder-permissions/frontend:renderer</code></li>
+        </ul>
+        <p>
+          This is an example with <code>ExampleExternalDocumentServiceFacade</code> having embedded external
+          XML data in a classpath resource:
+        </p>
+        <div class="brush: xml">
+          <source><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="exdocDocs" xmlns:sv="http://www.jcp.org/jcr/sv/1.0">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>frontend:plugin</sv:value>
+  </sv:property>
+  <sv:property sv:name="plugin.class" sv:type="String">
+    <sv:value>org.onehippo.forge.exdocpicker.impl.folder.ExternalDocumentFolderActionWorkflowMenuItemPlugin</sv:value>
+  </sv:property>
+  <sv:property sv:name="wicket.id" sv:type="String">
+    <sv:value>${item}</sv:value>
+  </sv:property>
+  <sv:property sv:name="exdocfield.menu.icon" sv:type="String">
+    <sv:value>folder-configure.png</sv:value>
+  </sv:property>
+  <sv:property sv:name="exdocfield.menu.label" sv:type="String">
+    <sv:value>Add External Documents ...</sv:value>
+  </sv:property>
+  <sv:property sv:name="external.document.service.facade" sv:type="String">
+    <sv:value>org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade</sv:value>
+  </sv:property>
+  <sv:property sv:name="example.external.docs.field.name" sv:type="String">
+    <sv:value>exdocpickerbasedemo:exdocs</sv:value>
+  </sv:property>
+</sv:node>
+          ]]></source>
+        </div>
+
+      </subsection>
+
+      <subsection name="Implementing your ExternalDocumentServiceFacade class">
+        <p>
+          See an example <code>ExternalDocumentServiceFacade</code> implementation code here:
+          <a href="https://github.com/onehippo-forge/external-document-picker/tree/master/demo/cms/src/main/java/org/onehippo/forge/exdocpicker/demo/field/ExampleExternalDocumentServiceFacade.java">
+            https://github.com/onehippo-forge/external-document-picker/tree/master/demo/cms/src/main/java/org/onehippo/forge/exdocpicker/demo/field/ExampleExternalDocumentServiceFacade.java
+          </a>
+        </p>
+        <p>
+          Put your own implementation class in your CMS module project.
+        </p>
+        <p>
+          See <a href="../apidocs/index.html">Javadocs</a> for detail about the <code>ExternalSearchServiceFacade</code>.
+        </p>
+      </subsection>
+
+      <subsection name="Plugin Parameters">
+        <p>
+          You may configure the following plugin parameters in the folder workflow's <code>frontend:renderer</code> configuration node.
+          e.g, <code>/hippo:configuration/hippo:workflows/threepane/folder/frontend:renderer</code>.
+        </p>
+        <table>
+          <tr>
+            <th>Parameter name</th>
+            <th>Description</th>
+            <th>Example value(s)</th>
+            <th>Default value(s)</th>
+          </tr>
+          <tr>
+            <td>exdocfield.menu.icon</td>
+            <td>
+              Icon image name for the custom folder context menu item.
+              The icon image will be looked up from
+              the <code>classpath:org/onehippo/forge/exdocpicker/impl/folder/</code>.
+              So, if this parameter is set to "folder-configure.png", then you should put the image file into
+              the corresponding path in your CMS authoring web application.
+              e.g, <code>cms/src/main/resources/org/onehippo/forge/exdocpicker/impl/folder/folder-configure.png</code>
+            </td>
+            <td>"Add External Documents ..."</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>exdocfield.menu.label</td>
+            <td>Lable for the custom folder context menu item.</td>
+            <td>"Add External Documents ..."</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>external.document.service.facade</td>
+            <td><code>org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</code> implementation class FQN.</td>
+            <td>"org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade"</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>selection.mode</td>
+            <td>
+              External document selection mode. Either 'single' or 'multiple'.
+              If this is 'single', then users can select only one external document item in the UI.
+              Otherwise, users can select multiple external document items.
+            </td>
+            <td>
+              "single" or
+              <br/>
+              "multiple"
+            </td>
+            <td>"multiple"</td>
+          </tr>
+          <tr>
+            <td>dialog.size</td>
+            <td>The size of the picker popup dialog.</td>
+            <td>"width=600,height=400"</td>
+            <td>"width=835,height=650"</td>
+          </tr>
+          <tr>
+            <td>initial.search.enabled</td>
+            <td>Flag whether the popup dialog box will search external documents initially when opening up.</td>
+            <td>true</td>
+            <td>false</td>
+          </tr>
+          <tr>
+            <td>initial.search.query</td>
+            <td>
+              Search query string or search term when the initial search is made in the dialog box when opening up
+              if <code>initial.search.enabled</code> is set to true.
+              <br/><br/>
+              <em>Note: it's up to the <code>ExternalDocumentServiceFacade</code> implementation to determine how to deal with the search query argument.</em>
+            </td>
+            <td>"*"</td>
+            <td>""</td>
+          </tr>
+          <tr>
+            <td>page.size</td>
+            <td>The page size (item count per page) in the popup dialog.</td>
+            <td>10</td>
+            <td>5</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Plugin Specific Parameters of ExampleExternalDocumentServiceFacade">
+        <p>
+          The following parameters are set for the <code>ExampleExternalDocumentServiceFacade</code> implementation
+          additionally.
+        </p>
+        <table>
+          <tr>
+            <th>Parameter name</th>
+            <th>Description</th>
+            <th>Example value(s)</th>
+            <th>Default value(s)</th>
+          </tr>
+          <tr>
+            <td>example.external.docs.field.name</td>
+            <td>The physical node property name to read from or store to when selection an external document.</td>
+            <td>exdocpickerbasedemo:relatedexdocids</td>
+            <td></td>
+          </tr>
+        </table>
+      </subsection>
+
+    </section>
+  </body>
+</document>
