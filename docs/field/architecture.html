@@ -73,6 +73,13 @@
                         <li>  <a href="../apidocs/index.html" title="Javadoc (latest)">  <span class="none"></span>  Javadoc (latest)</a>  </li>
               </ul>
   </li>
+                                                      <li>  <a href="../folder/architecture.html" title="External Picker Folder Context Menu">  <span class="icon-chevron-down"></span>  External Picker Folder Context Menu</a>  
+    <ul class="nav nav-list">
+                  <li>  <a href="../folder/architecture.html" title="Architecture">  <span class="none"></span>  Architecture</a>  </li>
+                        <li>  <a href="../folder/dev-howto-listview.html" title="Developer's How-to (Flat List View)">  <span class="none"></span>  Developer's How-to (Flat List View)</a>  </li>
+                        <li>  <a href="../folder/dev-howto-treeview.html" title="Developer's How-to (Tree List View)">  <span class="none"></span>  Developer's How-to (Tree List View)</a>  </li>
+              </ul>
+  </li>
                                                       <li>  <a href="../richtext-ckeditor/architecture.html" title="External Link Picker in RichText Editor">  <span class="icon-chevron-down"></span>  External Link Picker in RichText Editor</a>  
     <ul class="nav nav-list">
                   <li>  <a href="../richtext-ckeditor/architecture.html" title="Architecture">  <span class="none"></span>  Architecture</a>  </li>
@@ -106,31 +113,39 @@
 <h3><a name="Overview"></a>Overview</h3>
         
 <p>
-          In Hippo CMS UI, the <b>External Document Picker Base for Field Picker</b> plugin is installed.
-          Then you can configure field(s) in document template bootstrap XML files (a.k.a Hippo CMS 'namespace').
-          So, when you are editing a document in CMS UI, you will see those configured fields displayed by this plugin.
+          In Hippo CMS authoring application, the <b>External Document Picker Base for Field Picker</b>
+          plugin and <b>External Picker Folder Context Menu</b> plugins are installed.
+          Then you can configure field(s) in document template bootstrap files (a.k.a Hippo CMS 'namespace'),
+          or you can configure folder workflow configurations for a custom folder context menu item.
+          So, when you are editing a document or working on a folder in CMS authoring application,
+          you will see those being displayed by this plugin.
         </p>
         
 <p>
-          Each field must be configured with a custom domain-specific <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> implementation class name.
+          Each document field or folder workflow must be configured with a custom domain-specific
+          <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> implementation class name.
         </p>
         
 <p>
-          This plugin component instantiates your <tt>ExternalSearchServiceFacade</tt> class and invokes it in the following cases:
+          This plugin component instantiates your <tt>ExternalSearchServiceFacade</tt> class and invokes it like the following:
         </p>
         
 <ul>
           
 <li>
             First of all, an <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance is in the same lifecycle of this plugin.
-            When a document is opened or edited, this plugin will be instantiated, and this plugin will instantiate an
-            <tt>ExternalSearchServiceFacade</tt> instance.
+            In case <b>External Document Picker Base for Field Picker</b> is used,
+            whenever a document (of the configured namespace) is opened or edited, the plugin will be instantiated.
+            In case <b>External Picker Folder Context Menu</b> is used,
+            whenever the folder context menu is pulled down on a folder (of the configured folder workflow type),
+            the plugin will be instantiated.
+            And the plugin will instantiate an <tt>ExternalSearchServiceFacade</tt> instance.
             When the document is closed, this plugin and the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance will be destroyed.
           </li>
           
 <li>
-            When this plugin is instantiated, the plugin invokes the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance to retrieve
-            the currently-selected domain-specific external documents from the currently-viewed/edited CMS document in the context.
+            When the plugin is instantiated, the plugin invokes the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance to retrieve
+            the currently-selected domain-specific external documents from the currently-viewed/edited CMS document or the selected folder node in the context.
           </li>
           
 <li>
