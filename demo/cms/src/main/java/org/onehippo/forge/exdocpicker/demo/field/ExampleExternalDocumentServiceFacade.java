@@ -27,6 +27,7 @@ import javax.jcr.Value;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.hippoecm.repository.HippoStdNodeType;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceContext;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
@@ -154,6 +155,10 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
             for (Iterator<? extends JSONObject> it = exdocs.iterator(); it.hasNext();) {
                 JSONObject doc = it.next();
                 docIds.add(doc.getString("id"));
+            }
+
+            if (!contextNode.isNodeType(HippoStdNodeType.NT_RELAXED)) {
+                contextNode.addMixin(HippoStdNodeType.NT_RELAXED);
             }
 
             contextNode.setProperty(fieldName, docIds.toArray(new String[docIds.size()]));

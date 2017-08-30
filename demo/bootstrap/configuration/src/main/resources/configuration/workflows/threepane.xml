@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><sv:node xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:esv="http://www.onehippo.org/jcr/xmlimport" sv:name="threepane" esv:merge="combine">
+  <sv:node sv:name="folder" esv:merge="combine">
+    <sv:node sv:name="frontend:renderer" esv:merge="combine">
+      <sv:node sv:name="exdocCategories">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>frontend:plugin</sv:value>
+        </sv:property>
+        <sv:property sv:name="example.external.cats.field.name" sv:type="String">
+          <sv:value>exdocpickerbasedemo:excategories</sv:value>
+        </sv:property>
+        <sv:property sv:name="exdocfield.menu.icon" sv:type="String">
+          <sv:value>folder-configure.png</sv:value>
+        </sv:property>
+        <sv:property sv:name="exdocfield.menu.label" sv:type="String">
+          <sv:value>Add External Categories ...</sv:value>
+        </sv:property>
+        <sv:property sv:name="external.document.service.facade" sv:type="String">
+          <sv:value>org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalSubjectCategoryServiceFacade</sv:value>
+        </sv:property>
+        <sv:property sv:name="plugin.class" sv:type="String">
+          <sv:value>org.onehippo.forge.exdocpicker.impl.folder.tree.ExternalTreeItemFolderActionWorkflowMenuItemPlugin</sv:value>
+        </sv:property>
+        <sv:property sv:name="wicket.id" sv:type="String">
+          <sv:value>${item}</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+  </sv:node>
+  <sv:node sv:name="folder-extended" esv:merge="combine">
+    <sv:node sv:name="frontend:renderer" esv:merge="combine">
+      <sv:node sv:name="exdocCategories">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>frontend:plugin</sv:value>
+        </sv:property>
+        <sv:property sv:name="example.external.cats.field.name" sv:type="String">
+          <sv:value>exdocpickerbasedemo:excategories</sv:value>
+        </sv:property>
+        <sv:property sv:name="exdocfield.menu.icon" sv:type="String">
+          <sv:value>folder-configure.png</sv:value>
+        </sv:property>
+        <sv:property sv:name="exdocfield.menu.label" sv:type="String">
+          <sv:value>Add External Categories ...</sv:value>
+        </sv:property>
+        <sv:property sv:name="external.document.service.facade" sv:type="String">
+          <sv:value>org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalSubjectCategoryServiceFacade</sv:value>
+        </sv:property>
+        <sv:property sv:name="plugin.class" sv:type="String">
+          <sv:value>org.onehippo.forge.exdocpicker.impl.folder.tree.ExternalTreeItemFolderActionWorkflowMenuItemPlugin</sv:value>
+        </sv:property>
+        <sv:property sv:name="wicket.id" sv:type="String">
+          <sv:value>${item}</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+  </sv:node>
+  <sv:node sv:name="folder-permissions" esv:merge="combine">
+    <sv:node sv:name="frontend:renderer" esv:merge="combine">
+      <sv:node sv:name="exdocCategories">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>frontend:plugin</sv:value>
+        </sv:property>
+        <sv:property sv:name="example.external.cats.field.name" sv:type="String">
+          <sv:value>exdocpickerbasedemo:excategories</sv:value>
+        </sv:property>
+        <sv:property sv:name="exdocfield.menu.icon" sv:type="String">
+          <sv:value>folder-configure.png</sv:value>
+        </sv:property>
+        <sv:property sv:name="exdocfield.menu.label" sv:type="String">
+          <sv:value>Add External Categories ...</sv:value>
+        </sv:property>
+        <sv:property sv:name="external.document.service.facade" sv:type="String">
+          <sv:value>org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalSubjectCategoryServiceFacade</sv:value>
+        </sv:property>
+        <sv:property sv:name="plugin.class" sv:type="String">
+          <sv:value>org.onehippo.forge.exdocpicker.impl.folder.tree.ExternalTreeItemFolderActionWorkflowMenuItemPlugin</sv:value>
+        </sv:property>
+        <sv:property sv:name="wicket.id" sv:type="String">
+          <sv:value>${item}</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+  </sv:node>
+</sv:node>
