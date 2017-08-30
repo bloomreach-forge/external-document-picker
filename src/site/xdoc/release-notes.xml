@@ -52,6 +52,12 @@
       </table>
     </section>
     <section name="Release Notes (5.x)">
+      <subsection name="5.0.1">
+        <ul>
+          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-114'>HIPFORGE-114</a>] -         External Document Picker - Support Generic Folder Context Menu to be able to implement integration with external data easily
+          </li>
+        </ul>
+      </subsection>
       <subsection name="5.0.0">
         <ul>
           <li>
@@ -61,6 +67,12 @@
       </subsection>
     </section>
     <section name="Release Notes (4.x)">
+      <subsection name="4.0.4">
+        <ul>
+          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-115'>HIPFORGE-115</a>] -         [Backport for v11] External Document Picker - Support Generic Folder Context Menu to be able to implement integration with external data easily
+          </li>
+        </ul>
+      </subsection>
       <subsection name="4.0.3">
         <ul>
           <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-108'>HIPFORGE-108</a>] -         External Document Picker - Allow to move up/down selected items
