@@ -103,8 +103,13 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
     }
 
     protected ResourceReference getMenuItemIconResourceReference() {
-        // TODO
-        return new PackageResourceReference(getClass(), "copy-folder-16.png");
+        String menuItemIcon = getPluginConfig().getString("exdocfield.menu.icon");
+
+        if (StringUtils.isBlank(menuItemIcon)) {
+            return null;
+        } else {
+            return new PackageResourceReference(ExternalDocumentFolderActionWorkflowMenuItemPlugin.class, menuItemIcon);
+        }
     }
 
     protected IModel<String> getDialogTitleModel() {

@@ -1,0 +1,26 @@
+definitions:
+  config:
+    /hippo:configuration/hippo:workflows/threepane/folder-extended/frontend:renderer/exdocCategories:
+      jcr:primaryType: frontend:plugin
+      example.external.cats.field.name: exdocpickerbasedemo:excategories
+      exdocfield.menu.icon: folder-configure.png
+      exdocfield.menu.label: Add External Categories ...
+      external.document.service.facade: org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalSubjectCategoryServiceFacade
+      plugin.class: org.onehippo.forge.exdocpicker.impl.folder.tree.ExternalTreeItemFolderActionWorkflowMenuItemPlugin
+      wicket.id: ${item}
+    /hippo:configuration/hippo:workflows/threepane/folder-permissions/frontend:renderer/exdocCategories:
+      jcr:primaryType: frontend:plugin
+      example.external.cats.field.name: exdocpickerbasedemo:excategories
+      exdocfield.menu.icon: folder-configure.png
+      exdocfield.menu.label: Add External Categories ...
+      external.document.service.facade: org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalSubjectCategoryServiceFacade
+      plugin.class: org.onehippo.forge.exdocpicker.impl.folder.tree.ExternalTreeItemFolderActionWorkflowMenuItemPlugin
+      wicket.id: ${item}
+    /hippo:configuration/hippo:workflows/threepane/folder/frontend:renderer/exdocCategories:
+      jcr:primaryType: frontend:plugin
+      example.external.cats.field.name: exdocpickerbasedemo:excategories
+      exdocfield.menu.icon: folder-configure.png
+      exdocfield.menu.label: Add External Categories ...
+      external.document.service.facade: org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalSubjectCategoryServiceFacade
+      plugin.class: org.onehippo.forge.exdocpicker.impl.folder.tree.ExternalTreeItemFolderActionWorkflowMenuItemPlugin
+      wicket.id: ${item}
