@@ -32,6 +32,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.hippoecm.repository.HippoStdNodeType;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceContext;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
@@ -179,6 +180,10 @@ public class ExampleExternalSubjectCategoryServiceFacade implements ExternalDocu
             for (Iterator<? extends SubjectCategory> it = excats.iterator(); it.hasNext();) {
                 SubjectCategory cat = it.next();
                 catIds.add(cat.getId());
+            }
+
+            if (!contextNode.isNodeType(HippoStdNodeType.NT_RELAXED)) {
+                contextNode.addMixin(HippoStdNodeType.NT_RELAXED);
             }
 
             contextNode.setProperty(fieldName, catIds.toArray(new String[catIds.size()]));
