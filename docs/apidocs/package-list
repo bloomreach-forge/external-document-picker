@@ -1,0 +1,6 @@
+org.onehippo.forge.exdocpicker.api
+org.onehippo.forge.exdocpicker.impl
+org.onehippo.forge.exdocpicker.impl.field
+org.onehippo.forge.exdocpicker.impl.field.tree
+org.onehippo.forge.exdocpicker.impl.folder
+org.onehippo.forge.exdocpicker.impl.folder.tree
