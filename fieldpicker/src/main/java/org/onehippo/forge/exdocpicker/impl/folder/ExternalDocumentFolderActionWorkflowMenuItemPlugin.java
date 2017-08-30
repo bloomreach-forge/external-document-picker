@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 import javax.jcr.RepositoryException;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
@@ -96,8 +97,9 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
     }
 
     protected IModel<String> getMenuItemLabelModel() {
-        // TODO
-        return Model.of("Example Picker ...");
+        String menuItemLabel = getPluginConfig().getString("exdocfield.menu.label", PluginConstants.DEFAULT_FIELD_CAPTION);
+        String menuItemLabelKey = menuItemLabel;
+        return new StringResourceModel(menuItemLabelKey, this, null, menuItemLabel);
     }
 
     protected ResourceReference getMenuItemIconResourceReference() {
@@ -106,8 +108,14 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
     }
 
     protected IModel<String> getDialogTitleModel() {
-        // TODO
-        return Model.of("Example Picker ...");
+        String dialogTitle = getPluginConfig().getString("exdocfield.dialog.title");
+
+        if (StringUtils.isBlank(dialogTitle)) {
+            return getMenuItemLabelModel();
+        } else {
+            String dialogTitleKey = dialogTitle;
+            return new StringResourceModel(dialogTitleKey, this, null, dialogTitle);
+        }
     }
 
     /**
@@ -129,7 +137,7 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
      * @return a picker dialog with which user can select external documents
      */
     protected AbstractDialog<ExternalDocumentCollection<Serializable>> createDialogInstance() {
-        return new TextSearchExternalDocumentFieldBrowserDialog(getCaptionModel(), getExternalDocumentServiceContext(),
+        return new TextSearchExternalDocumentFieldBrowserDialog(getDialogTitleModel(), getExternalDocumentServiceContext(),
                 getExternalDocumentServiceFacade(),
                 new Model<ExternalDocumentCollection<Serializable>>(getCurrentExternalDocumentCollection()));
     }
@@ -156,18 +164,6 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
         }
 
         return service;
-    }
-
-    /**
-     * Returns the field caption label.
-     * @return the field caption label
-     */
-    protected IModel<String> getCaptionModel() {
-        final String defaultCaption = new StringResourceModel("exdocfield.caption", this, null,
-                PluginConstants.DEFAULT_FIELD_CAPTION).getString();
-        String caption = getPluginConfig().getString("caption", defaultCaption);
-        String captionKey = caption;
-        return new StringResourceModel(captionKey, this, null, caption);
     }
 
     /**

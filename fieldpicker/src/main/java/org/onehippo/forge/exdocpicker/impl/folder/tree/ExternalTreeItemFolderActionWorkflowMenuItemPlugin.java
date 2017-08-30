@@ -31,13 +31,12 @@ public class ExternalTreeItemFolderActionWorkflowMenuItemPlugin extends External
 
     public ExternalTreeItemFolderActionWorkflowMenuItemPlugin(IPluginContext context, IPluginConfig config) {
         super(context, config);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     protected AbstractDialog<ExternalDocumentCollection<Serializable>> createDialogInstance() {
         return new ExternalTreeItemFieldBrowserDialog(
-                getCaptionModel(),
+                getDialogTitleModel(),
                 getExternalDocumentServiceContext(),
                 getExternalDocumentServiceFacade(),
                 new Model<ExternalDocumentCollection<Serializable>>(getCurrentExternalDocumentCollection()));
