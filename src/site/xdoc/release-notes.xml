@@ -52,6 +52,12 @@
       </table>
     </section>
     <section name="Release Notes (5.x)">
+      <subsection name="5.0.2">
+        <ul>
+          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-116'>HIPFORGE-116</a>] -         External Document Picker - Single selection mode needs to unselect any existing selections and wait for clicking OK button
+          </li>
+        </ul>
+      </subsection>
       <subsection name="5.0.1">
         <ul>
           <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-114'>HIPFORGE-114</a>] -         External Document Picker - Support Generic Folder Context Menu to be able to implement integration with external data easily

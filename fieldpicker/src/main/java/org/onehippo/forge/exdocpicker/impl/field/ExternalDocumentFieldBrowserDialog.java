@@ -180,12 +180,15 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
                     private static final long serialVersionUID = 1L;
 
                     @Override
-                    protected void onUpdate(AjaxRequestTarget ajaxRequestTarget) {
+                    protected void onUpdate(AjaxRequestTarget target) {
                         if (getModelObject()) {
+                            final boolean singleSelectionMode = isSingleSelectionMode();
+                            if (singleSelectionMode) {
+                                getPickedExternalDocuments().clear();
+                            }
                             getPickedExternalDocuments().add(doc);
-
-                            if (isSingleSelectionMode()) {
-                                ExternalDocumentFieldBrowserDialog.this.handleSubmit();
+                            if (singleSelectionMode) {
+                                target.add(ExternalDocumentFieldBrowserDialog.this);
                             }
                         } else {
                             getPickedExternalDocuments().remove(doc);
