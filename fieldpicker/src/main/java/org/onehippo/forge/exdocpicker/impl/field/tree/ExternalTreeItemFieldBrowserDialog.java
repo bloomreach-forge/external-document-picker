@@ -311,11 +311,11 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
                 @Override
                 public void setObject(Boolean object) {
                     if (Boolean.TRUE.equals(object)) {
-                        getPickedExternalDocuments().add(model.getObject());
-
-                        if (isSingleSelectionMode()) {
-                            ExternalTreeItemFieldBrowserDialog.this.handleSubmit();
+                        final boolean singleSelectionMode = isSingleSelectionMode();
+                        if (singleSelectionMode) {
+                            getPickedExternalDocuments().clear();
                         }
+                        getPickedExternalDocuments().add(model.getObject());
                     } else {
                         getPickedExternalDocuments().remove(model.getObject());
                     }
