@@ -190,100 +190,103 @@
 <a class="jxr_linenumber" name="180" href="#180">180</a>                     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 1L;
 <a class="jxr_linenumber" name="181" href="#181">181</a> 
 <a class="jxr_linenumber" name="182" href="#182">182</a>                     @Override
-<a class="jxr_linenumber" name="183" href="#183">183</a>                     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> onUpdate(AjaxRequestTarget ajaxRequestTarget) {
+<a class="jxr_linenumber" name="183" href="#183">183</a>                     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> onUpdate(AjaxRequestTarget target) {
 <a class="jxr_linenumber" name="184" href="#184">184</a>                         <strong class="jxr_keyword">if</strong> (getModelObject()) {
-<a class="jxr_linenumber" name="185" href="#185">185</a>                             getPickedExternalDocuments().add(doc);
-<a class="jxr_linenumber" name="186" href="#186">186</a> 
-<a class="jxr_linenumber" name="187" href="#187">187</a>                             <strong class="jxr_keyword">if</strong> (isSingleSelectionMode()) {
-<a class="jxr_linenumber" name="188" href="#188">188</a>                                 ExternalDocumentFieldBrowserDialog.<strong class="jxr_keyword">this</strong>.handleSubmit();
-<a class="jxr_linenumber" name="189" href="#189">189</a>                             }
-<a class="jxr_linenumber" name="190" href="#190">190</a>                         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="191" href="#191">191</a>                             getPickedExternalDocuments().remove(doc);
-<a class="jxr_linenumber" name="192" href="#192">192</a>                         }
-<a class="jxr_linenumber" name="193" href="#193">193</a>                     }
-<a class="jxr_linenumber" name="194" href="#194">194</a>                 };
-<a class="jxr_linenumber" name="195" href="#195">195</a> 
-<a class="jxr_linenumber" name="196" href="#196">196</a>                 selectCheckbox.getModel().setObject(getPickedExternalDocuments().contains(doc));
-<a class="jxr_linenumber" name="197" href="#197">197</a>                 selectCheckbox.setEnabled(exdocService.isDocumentSelectable(exdocContext, doc));
+<a class="jxr_linenumber" name="185" href="#185">185</a>                             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> singleSelectionMode = isSingleSelectionMode();
+<a class="jxr_linenumber" name="186" href="#186">186</a>                             <strong class="jxr_keyword">if</strong> (singleSelectionMode) {
+<a class="jxr_linenumber" name="187" href="#187">187</a>                                 getPickedExternalDocuments().clear();
+<a class="jxr_linenumber" name="188" href="#188">188</a>                             }
+<a class="jxr_linenumber" name="189" href="#189">189</a>                             getPickedExternalDocuments().add(doc);
+<a class="jxr_linenumber" name="190" href="#190">190</a>                             <strong class="jxr_keyword">if</strong> (singleSelectionMode) {
+<a class="jxr_linenumber" name="191" href="#191">191</a>                                 target.add(ExternalDocumentFieldBrowserDialog.<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="192" href="#192">192</a>                             }
+<a class="jxr_linenumber" name="193" href="#193">193</a>                         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="194" href="#194">194</a>                             getPickedExternalDocuments().remove(doc);
+<a class="jxr_linenumber" name="195" href="#195">195</a>                         }
+<a class="jxr_linenumber" name="196" href="#196">196</a>                     }
+<a class="jxr_linenumber" name="197" href="#197">197</a>                 };
 <a class="jxr_linenumber" name="198" href="#198">198</a> 
-<a class="jxr_linenumber" name="199" href="#199">199</a>                 <strong class="jxr_keyword">final</strong> String iconLink = exdocService.getDocumentIconLink(exdocContext, doc, getRequest().getLocale());
-<a class="jxr_linenumber" name="200" href="#200">200</a>                 <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.html">ExternalDocumentIconImage</a> iconImage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.html">ExternalDocumentIconImage</a>(<span class="jxr_string">"image"</span>, iconLink);
-<a class="jxr_linenumber" name="201" href="#201">201</a>                 listItem.add(iconImage);
-<a class="jxr_linenumber" name="202" href="#202">202</a>                 listItem.add(selectCheckbox);
-<a class="jxr_linenumber" name="203" href="#203">203</a>                 listItem.add(<strong class="jxr_keyword">new</strong> Label(<span class="jxr_string">"title-label"</span>,
-<a class="jxr_linenumber" name="204" href="#204">204</a>                         exdocService.getDocumentTitle(exdocContext, doc, getRequest().getLocale())));
-<a class="jxr_linenumber" name="205" href="#205">205</a>                 <strong class="jxr_keyword">final</strong> String description = exdocService.getDocumentDescription(exdocContext, doc,
-<a class="jxr_linenumber" name="206" href="#206">206</a>                         getRequest().getLocale());
-<a class="jxr_linenumber" name="207" href="#207">207</a> 
-<a class="jxr_linenumber" name="208" href="#208">208</a>                 WebMarkupContainer frame = <strong class="jxr_keyword">new</strong> WebMarkupContainer(<span class="jxr_string">"paragraph-label"</span>) {
-<a class="jxr_linenumber" name="209" href="#209">209</a>                     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 1L;
+<a class="jxr_linenumber" name="199" href="#199">199</a>                 selectCheckbox.getModel().setObject(getPickedExternalDocuments().contains(doc));
+<a class="jxr_linenumber" name="200" href="#200">200</a>                 selectCheckbox.setEnabled(exdocService.isDocumentSelectable(exdocContext, doc));
+<a class="jxr_linenumber" name="201" href="#201">201</a> 
+<a class="jxr_linenumber" name="202" href="#202">202</a>                 <strong class="jxr_keyword">final</strong> String iconLink = exdocService.getDocumentIconLink(exdocContext, doc, getRequest().getLocale());
+<a class="jxr_linenumber" name="203" href="#203">203</a>                 <strong class="jxr_keyword">final</strong> <a href="../../../../../../org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.html">ExternalDocumentIconImage</a> iconImage = <strong class="jxr_keyword">new</strong> <a href="../../../../../../org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.html">ExternalDocumentIconImage</a>(<span class="jxr_string">"image"</span>, iconLink);
+<a class="jxr_linenumber" name="204" href="#204">204</a>                 listItem.add(iconImage);
+<a class="jxr_linenumber" name="205" href="#205">205</a>                 listItem.add(selectCheckbox);
+<a class="jxr_linenumber" name="206" href="#206">206</a>                 listItem.add(<strong class="jxr_keyword">new</strong> Label(<span class="jxr_string">"title-label"</span>,
+<a class="jxr_linenumber" name="207" href="#207">207</a>                         exdocService.getDocumentTitle(exdocContext, doc, getRequest().getLocale())));
+<a class="jxr_linenumber" name="208" href="#208">208</a>                 <strong class="jxr_keyword">final</strong> String description = exdocService.getDocumentDescription(exdocContext, doc,
+<a class="jxr_linenumber" name="209" href="#209">209</a>                         getRequest().getLocale());
 <a class="jxr_linenumber" name="210" href="#210">210</a> 
-<a class="jxr_linenumber" name="211" href="#211">211</a>                     @Override
-<a class="jxr_linenumber" name="212" href="#212">212</a>                     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onComponentTagBody(<strong class="jxr_keyword">final</strong> MarkupStream markupStream, <strong class="jxr_keyword">final</strong> ComponentTag openTag) {
-<a class="jxr_linenumber" name="213" href="#213">213</a>                         replaceComponentTagBody(markupStream, openTag, StringUtils.defaultString(description));
-<a class="jxr_linenumber" name="214" href="#214">214</a>                     }
-<a class="jxr_linenumber" name="215" href="#215">215</a>                 };
-<a class="jxr_linenumber" name="216" href="#216">216</a> 
-<a class="jxr_linenumber" name="217" href="#217">217</a>                 listItem.add(frame);
-<a class="jxr_linenumber" name="218" href="#218">218</a> 
-<a class="jxr_linenumber" name="219" href="#219">219</a>                 listItem.add(<strong class="jxr_keyword">new</strong> AttributeAppender(<span class="jxr_string">"class"</span>, <strong class="jxr_keyword">new</strong> AbstractReadOnlyModel() {
-<a class="jxr_linenumber" name="220" href="#220">220</a>                     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 1L;
+<a class="jxr_linenumber" name="211" href="#211">211</a>                 WebMarkupContainer frame = <strong class="jxr_keyword">new</strong> WebMarkupContainer(<span class="jxr_string">"paragraph-label"</span>) {
+<a class="jxr_linenumber" name="212" href="#212">212</a>                     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 1L;
+<a class="jxr_linenumber" name="213" href="#213">213</a> 
+<a class="jxr_linenumber" name="214" href="#214">214</a>                     @Override
+<a class="jxr_linenumber" name="215" href="#215">215</a>                     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onComponentTagBody(<strong class="jxr_keyword">final</strong> MarkupStream markupStream, <strong class="jxr_keyword">final</strong> ComponentTag openTag) {
+<a class="jxr_linenumber" name="216" href="#216">216</a>                         replaceComponentTagBody(markupStream, openTag, StringUtils.defaultString(description));
+<a class="jxr_linenumber" name="217" href="#217">217</a>                     }
+<a class="jxr_linenumber" name="218" href="#218">218</a>                 };
+<a class="jxr_linenumber" name="219" href="#219">219</a> 
+<a class="jxr_linenumber" name="220" href="#220">220</a>                 listItem.add(frame);
 <a class="jxr_linenumber" name="221" href="#221">221</a> 
-<a class="jxr_linenumber" name="222" href="#222">222</a>                     <strong class="jxr_keyword">public</strong> Object getObject() {
-<a class="jxr_linenumber" name="223" href="#223">223</a>                         <strong class="jxr_keyword">return</strong> ((listItem.getIndex() &amp; 1) == 1) ? <span class="jxr_string">"even"</span> : <span class="jxr_string">"odd"</span>;
-<a class="jxr_linenumber" name="224" href="#224">224</a>                     }
-<a class="jxr_linenumber" name="225" href="#225">225</a>                 }, <span class="jxr_string">" "</span>));
-<a class="jxr_linenumber" name="226" href="#226">226</a>             }
-<a class="jxr_linenumber" name="227" href="#227">227</a>         };
-<a class="jxr_linenumber" name="228" href="#228">228</a> 
-<a class="jxr_linenumber" name="229" href="#229">229</a>         resultsDataView.setOutputMarkupId(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="230" href="#230">230</a> 
-<a class="jxr_linenumber" name="231" href="#231">231</a>         add(resultsDataView);
-<a class="jxr_linenumber" name="232" href="#232">232</a>         add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserPageNavigator.html">ExternalDocumentFieldBrowserPageNavigator</a>(<span class="jxr_string">"navigator"</span>, resultsDataView));
-<a class="jxr_linenumber" name="233" href="#233">233</a>     }
-<a class="jxr_linenumber" name="234" href="#234">234</a> 
-<a class="jxr_linenumber" name="235" href="#235">235</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="236" href="#236">236</a> <em class="jxr_javadoccomment">     * Search external documents by the search term.</em>
-<a class="jxr_linenumber" name="237" href="#237">237</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="238" href="#238">238</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> searchExternalDocumentsBySearchQuery() {
-<a class="jxr_linenumber" name="239" href="#239">239</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="240" href="#240">240</a>             ExternalDocumentCollection&lt;? <strong class="jxr_keyword">extends</strong> Serializable&gt; searchedDocs = getExternalDocumentServiceFacade()
-<a class="jxr_linenumber" name="241" href="#241">241</a>                     .searchExternalDocuments(getExternalDocumentServiceContext(), getSearchQuery());
-<a class="jxr_linenumber" name="242" href="#242">242</a> 
-<a class="jxr_linenumber" name="243" href="#243">243</a>             getSearchedExternalDocuments().clear();
-<a class="jxr_linenumber" name="244" href="#244">244</a> 
-<a class="jxr_linenumber" name="245" href="#245">245</a>             <strong class="jxr_keyword">if</strong> (searchedDocs != <strong class="jxr_keyword">null</strong> &amp;&amp; searchedDocs.getSize() &gt; 0) {
-<a class="jxr_linenumber" name="246" href="#246">246</a>                 <strong class="jxr_keyword">for</strong> (Iterator&lt;? <strong class="jxr_keyword">extends</strong> Serializable&gt; it = searchedDocs.iterator(); it.hasNext();) {
-<a class="jxr_linenumber" name="247" href="#247">247</a>                     getSearchedExternalDocuments().add(it.next());
-<a class="jxr_linenumber" name="248" href="#248">248</a>                 }
-<a class="jxr_linenumber" name="249" href="#249">249</a>             }
-<a class="jxr_linenumber" name="250" href="#250">250</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="251" href="#251">251</a>             log.error(<span class="jxr_string">"Failed to execute search external documents by the search query, '"</span> + getSearchQuery() + <span class="jxr_string">"'."</span>,
-<a class="jxr_linenumber" name="252" href="#252">252</a>                     e);
-<a class="jxr_linenumber" name="253" href="#253">253</a>         }
-<a class="jxr_linenumber" name="254" href="#254">254</a>     }
-<a class="jxr_linenumber" name="255" href="#255">255</a> 
-<a class="jxr_linenumber" name="256" href="#256">256</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="257" href="#257">257</a> <em class="jxr_javadoccomment">     * Icon image for an external document.</em>
-<a class="jxr_linenumber" name="258" href="#258">258</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="259" href="#259">259</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.html">ExternalDocumentIconImage</a> <strong class="jxr_keyword">extends</strong> Image {
-<a class="jxr_linenumber" name="260" href="#260">260</a> 
-<a class="jxr_linenumber" name="261" href="#261">261</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> ResourceReference NO_ICON = <strong class="jxr_keyword">new</strong> PackageResourceReference(
-<a class="jxr_linenumber" name="262" href="#262">262</a>                 ExternalDocumentFieldBrowserDialog.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"no-icon.jpg"</span>);
+<a class="jxr_linenumber" name="222" href="#222">222</a>                 listItem.add(<strong class="jxr_keyword">new</strong> AttributeAppender(<span class="jxr_string">"class"</span>, <strong class="jxr_keyword">new</strong> AbstractReadOnlyModel() {
+<a class="jxr_linenumber" name="223" href="#223">223</a>                     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 1L;
+<a class="jxr_linenumber" name="224" href="#224">224</a> 
+<a class="jxr_linenumber" name="225" href="#225">225</a>                     <strong class="jxr_keyword">public</strong> Object getObject() {
+<a class="jxr_linenumber" name="226" href="#226">226</a>                         <strong class="jxr_keyword">return</strong> ((listItem.getIndex() &amp; 1) == 1) ? <span class="jxr_string">"even"</span> : <span class="jxr_string">"odd"</span>;
+<a class="jxr_linenumber" name="227" href="#227">227</a>                     }
+<a class="jxr_linenumber" name="228" href="#228">228</a>                 }, <span class="jxr_string">" "</span>));
+<a class="jxr_linenumber" name="229" href="#229">229</a>             }
+<a class="jxr_linenumber" name="230" href="#230">230</a>         };
+<a class="jxr_linenumber" name="231" href="#231">231</a> 
+<a class="jxr_linenumber" name="232" href="#232">232</a>         resultsDataView.setOutputMarkupId(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="233" href="#233">233</a> 
+<a class="jxr_linenumber" name="234" href="#234">234</a>         add(resultsDataView);
+<a class="jxr_linenumber" name="235" href="#235">235</a>         add(<strong class="jxr_keyword">new</strong> <a href="../../../../../../org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserPageNavigator.html">ExternalDocumentFieldBrowserPageNavigator</a>(<span class="jxr_string">"navigator"</span>, resultsDataView));
+<a class="jxr_linenumber" name="236" href="#236">236</a>     }
+<a class="jxr_linenumber" name="237" href="#237">237</a> 
+<a class="jxr_linenumber" name="238" href="#238">238</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="239" href="#239">239</a> <em class="jxr_javadoccomment">     * Search external documents by the search term.</em>
+<a class="jxr_linenumber" name="240" href="#240">240</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="241" href="#241">241</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> searchExternalDocumentsBySearchQuery() {
+<a class="jxr_linenumber" name="242" href="#242">242</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="243" href="#243">243</a>             ExternalDocumentCollection&lt;? <strong class="jxr_keyword">extends</strong> Serializable&gt; searchedDocs = getExternalDocumentServiceFacade()
+<a class="jxr_linenumber" name="244" href="#244">244</a>                     .searchExternalDocuments(getExternalDocumentServiceContext(), getSearchQuery());
+<a class="jxr_linenumber" name="245" href="#245">245</a> 
+<a class="jxr_linenumber" name="246" href="#246">246</a>             getSearchedExternalDocuments().clear();
+<a class="jxr_linenumber" name="247" href="#247">247</a> 
+<a class="jxr_linenumber" name="248" href="#248">248</a>             <strong class="jxr_keyword">if</strong> (searchedDocs != <strong class="jxr_keyword">null</strong> &amp;&amp; searchedDocs.getSize() &gt; 0) {
+<a class="jxr_linenumber" name="249" href="#249">249</a>                 <strong class="jxr_keyword">for</strong> (Iterator&lt;? <strong class="jxr_keyword">extends</strong> Serializable&gt; it = searchedDocs.iterator(); it.hasNext();) {
+<a class="jxr_linenumber" name="250" href="#250">250</a>                     getSearchedExternalDocuments().add(it.next());
+<a class="jxr_linenumber" name="251" href="#251">251</a>                 }
+<a class="jxr_linenumber" name="252" href="#252">252</a>             }
+<a class="jxr_linenumber" name="253" href="#253">253</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="254" href="#254">254</a>             log.error(<span class="jxr_string">"Failed to execute search external documents by the search query, '"</span> + getSearchQuery() + <span class="jxr_string">"'."</span>,
+<a class="jxr_linenumber" name="255" href="#255">255</a>                     e);
+<a class="jxr_linenumber" name="256" href="#256">256</a>         }
+<a class="jxr_linenumber" name="257" href="#257">257</a>     }
+<a class="jxr_linenumber" name="258" href="#258">258</a> 
+<a class="jxr_linenumber" name="259" href="#259">259</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="260" href="#260">260</a> <em class="jxr_javadoccomment">     * Icon image for an external document.</em>
+<a class="jxr_linenumber" name="261" href="#261">261</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="262" href="#262">262</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.html">ExternalDocumentIconImage</a> <strong class="jxr_keyword">extends</strong> Image {
 <a class="jxr_linenumber" name="263" href="#263">263</a> 
-<a class="jxr_linenumber" name="264" href="#264">264</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 1L;
-<a class="jxr_linenumber" name="265" href="#265">265</a> 
-<a class="jxr_linenumber" name="266" href="#266">266</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.html">ExternalDocumentIconImage</a>(String id, String imageUrl) {
-<a class="jxr_linenumber" name="267" href="#267">267</a>             <strong class="jxr_keyword">super</strong>(id);
+<a class="jxr_linenumber" name="264" href="#264">264</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> ResourceReference NO_ICON = <strong class="jxr_keyword">new</strong> PackageResourceReference(
+<a class="jxr_linenumber" name="265" href="#265">265</a>                 ExternalDocumentFieldBrowserDialog.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"no-icon.jpg"</span>);
+<a class="jxr_linenumber" name="266" href="#266">266</a> 
+<a class="jxr_linenumber" name="267" href="#267">267</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 1L;
 <a class="jxr_linenumber" name="268" href="#268">268</a> 
-<a class="jxr_linenumber" name="269" href="#269">269</a>             <strong class="jxr_keyword">if</strong> (StringUtils.isBlank(imageUrl)) {
-<a class="jxr_linenumber" name="270" href="#270">270</a>                 <strong class="jxr_keyword">this</strong>.setImageResourceReference(NO_ICON, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="271" href="#271">271</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="272" href="#272">272</a>                 add(<strong class="jxr_keyword">new</strong> AttributeModifier(<span class="jxr_string">"src"</span>, <strong class="jxr_keyword">true</strong>, <strong class="jxr_keyword">new</strong> Model(imageUrl)));
-<a class="jxr_linenumber" name="273" href="#273">273</a>             }
-<a class="jxr_linenumber" name="274" href="#274">274</a>         }
-<a class="jxr_linenumber" name="275" href="#275">275</a>     }
-<a class="jxr_linenumber" name="276" href="#276">276</a> }
+<a class="jxr_linenumber" name="269" href="#269">269</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/onehippo/forge/exdocpicker/impl/field/ExternalDocumentFieldBrowserDialog.html">ExternalDocumentIconImage</a>(String id, String imageUrl) {
+<a class="jxr_linenumber" name="270" href="#270">270</a>             <strong class="jxr_keyword">super</strong>(id);
+<a class="jxr_linenumber" name="271" href="#271">271</a> 
+<a class="jxr_linenumber" name="272" href="#272">272</a>             <strong class="jxr_keyword">if</strong> (StringUtils.isBlank(imageUrl)) {
+<a class="jxr_linenumber" name="273" href="#273">273</a>                 <strong class="jxr_keyword">this</strong>.setImageResourceReference(NO_ICON, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="274" href="#274">274</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="275" href="#275">275</a>                 add(<strong class="jxr_keyword">new</strong> AttributeModifier(<span class="jxr_string">"src"</span>, <strong class="jxr_keyword">true</strong>, <strong class="jxr_keyword">new</strong> Model(imageUrl)));
+<a class="jxr_linenumber" name="276" href="#276">276</a>             }
+<a class="jxr_linenumber" name="277" href="#277">277</a>         }
+<a class="jxr_linenumber" name="278" href="#278">278</a>     }
+<a class="jxr_linenumber" name="279" href="#279">279</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>
