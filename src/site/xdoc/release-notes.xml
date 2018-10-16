@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-    Copyright 2017 Hippo
+    Copyright 2014-2018 Hippo
 
     Licensed to the Apache Software Foundation (ASF) under one or more
     contributor license agreements.  See the NOTICE file distributed with
@@ -52,6 +52,12 @@
       </table>
     </section>
     <section name="Release Notes (5.x)">
+      <subsection name="5.0.3">
+        <ul>
+          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-211'>HIPFORGE-211</a>] -         [External Document Picker] Introduce &quot;icon.style&quot; parameter in the external document picker plugin
+          </li>
+        </ul>
+      </subsection>
       <subsection name="5.0.2">
         <ul>
           <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-116'>HIPFORGE-116</a>] -         External Document Picker - Single selection mode needs to unselect any existing selections and wait for clicking OK button
