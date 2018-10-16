@@ -3,7 +3,7 @@
   "-//Apache Software Foundation//DTD XDOC 1.0//EN"
   "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <!--
-    Copyright 2014 Hippo
+    Copyright 2014-2018 Hippo
 
     Licensed under the Apache License, Version 2.0 (the  "License");
     you may not use this file except in compliance with the License.
@@ -204,6 +204,12 @@
             <td>The page size (item count per page) in the popup dialog.</td>
             <td>10</td>
             <td>5</td>
+          </tr>
+          <tr>
+            <td>icon.style</td>
+            <td>Optional style attribute for the icon image in the dialog.</td>
+            <td>"WIDTH: 40px; HEIGHT: 40px"</td>
+            <td></td>
           </tr>
         </table>
       </subsection>

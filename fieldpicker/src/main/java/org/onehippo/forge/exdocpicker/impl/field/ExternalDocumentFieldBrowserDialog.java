@@ -200,7 +200,14 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
                 selectCheckbox.setEnabled(exdocService.isDocumentSelectable(exdocContext, doc));
 
                 final String iconLink = exdocService.getDocumentIconLink(exdocContext, doc, getRequest().getLocale());
+                final String iconStyle = exdocContext.getPluginConfig().getString(PluginConstants.PARAM_ICON_STYLE, null);
+
                 final ExternalDocumentIconImage iconImage = new ExternalDocumentIconImage("image", iconLink);
+
+                if (StringUtils.isNotBlank(iconStyle)) {
+                    iconImage.add(new AttributeModifier("style", iconStyle));
+                }
+
                 listItem.add(iconImage);
                 listItem.add(selectCheckbox);
                 listItem.add(new Label("title-label",
