@@ -37,6 +37,11 @@ public class PluginConstants {
     public static final String PARAM_DIALOG_SIZE = "dialog.size";
 
     /**
+     * Plugin parameter for the icon style in the picker dialog.
+     */
+    public static final String PARAM_ICON_STYLE = "icon.style";
+
+    /**
      * Plugin parameter for whether or not the initial search should be done when the picker dialog opens up.
      */
     public static final String PARAM_INITIAL_SEARCH_ENABLED = "initial.search.enabled";
