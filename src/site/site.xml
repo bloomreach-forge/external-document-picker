@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright 2014 Hippo
+    Copyright 2014-2018 Hippo
 
     Licensed under the Apache License, Version 2.0 (the  "License");
     you may not use this file except in compliance with the License.
@@ -17,18 +17,18 @@
 <project name="Hippo CMS External Document Picker Base">
 
   <skin>
-    <groupId>org.onehippo.forge.mavenskin</groupId>
+    <groupId>org.bloomreach.forge.mavenskin</groupId>
     <artifactId>forge-maven-skin</artifactId>
-    <version>2.0.1</version>
+    <version>3.0.1</version>
   </skin>
 
   <custom>
-    <hippoSkin>
+    <bloomreach>
       <!-- Add a 'Fork me on GitHub' ribbon  -->
       <gitHub>
-        <projectId>onehippo-forge/external-document-picker</projectId>
+        <projectId>bloomreach-forge/external-document-picker</projectId>
       </gitHub>
-    </hippoSkin>
+    </bloomreach>
   </custom>
 
   <body>

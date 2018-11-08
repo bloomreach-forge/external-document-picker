@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/onehippo-forge/external-document-picker.svg?branch=develop)](https://travis-ci.org/onehippo-forge/external-document-picker)
+[![Build Status](https://travis-ci.org/bloomreach-forge/external-document-picker.svg?branch=develop)](https://travis-ci.org/bloomreach-forge/external-document-picker)
 
 # Hippo External Document Picker 
 
@@ -19,7 +19,7 @@ The output is in the ```target/site/``` directory by default. You can open ```ta
 
 # Documentation (GitHub Pages)
 
-Documentation is available at [onehippo-forge.github.io/external-document-picker](https://onehippo-forge.github.io/external-document-picker).
+Documentation is available at [bloomreach-forge.github.io/external-document-picker](https://bloomreach-forge.github.io/external-document-picker).
 
 You can generate the GitHub pages only from ```master``` branch by this command:
 
