@@ -125,8 +125,8 @@
       <subsection name="Implementing your ExternalDocumentServiceFacade class">
         <p>
           See an example <code>ExternalDocumentServiceFacade</code> implementation code here:
-          <a href="https://github.com/onehippo-forge/external-document-picker/tree/master/demo/cms/src/main/java/org/onehippo/forge/exdocpicker/demo/field/tree/ExampleExternalSubjectCategoryServiceFacade.java">
-            https://github.com/onehippo-forge/external-document-picker/tree/master/demo/cms/src/main/java/org/onehippo/forge/exdocpicker/demo/field/tree/ExampleExternalSubjectCategoryServiceFacade.java
+          <a href="https://github.com/bloomreach-forge/external-document-picker/tree/master/demo/cms/src/main/java/org/onehippo/forge/exdocpicker/demo/field/tree/ExampleExternalSubjectCategoryServiceFacade.java">
+            https://github.com/bloomreach-forge/external-document-picker/tree/master/demo/cms/src/main/java/org/onehippo/forge/exdocpicker/demo/field/tree/ExampleExternalSubjectCategoryServiceFacade.java
           </a>
         </p>
         <p>
