@@ -1,0 +1,5 @@
+group: 
+  name: exdocpickerbase-demo
+project: exdocpickerbase-demo
+module:
+  name: exdocpickerbase-demo-repository-data-webfiles

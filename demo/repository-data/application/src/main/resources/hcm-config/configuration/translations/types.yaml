@@ -1,0 +1,90 @@
+definitions:
+  config:
+    /hippo:configuration/hippo:translations/hippo:types/exdocpickerbasedemo:eventsdocument:
+      jcr:primaryType: hipposys:resourcebundles
+      /en:
+        jcr:primaryType: hipposys:resourcebundle
+        exdocpickerbasedemo:content: Content
+        exdocpickerbasedemo:date: Start date
+        exdocpickerbasedemo:enddate: End date
+        exdocpickerbasedemo:image: Image
+        exdocpickerbasedemo:introduction: Introduction
+        exdocpickerbasedemo:location: Location
+        exdocpickerbasedemo:title: Title
+        jcr:name: Event
+      /nl:
+        jcr:primaryType: hipposys:resourcebundle
+        exdocpickerbasedemo:content: Inhoud
+        exdocpickerbasedemo:date: Startdatum
+        exdocpickerbasedemo:enddate: Einddatum
+        exdocpickerbasedemo:image: Afbeelding
+        exdocpickerbasedemo:introduction: Introductie
+        exdocpickerbasedemo:location: Locatie
+        exdocpickerbasedemo:title: Titel
+        jcr:name: Evenement
+      /fr:
+        jcr:primaryType: hipposys:resourcebundle
+        exdocpickerbasedemo:content: Contenu
+        exdocpickerbasedemo:date: Date de début
+        exdocpickerbasedemo:enddate: Date de fin
+        exdocpickerbasedemo:image: Image
+        exdocpickerbasedemo:introduction: Introduction
+        exdocpickerbasedemo:location: Lieu
+        exdocpickerbasedemo:title: Titre
+        jcr:name: Événement
+      /de:
+        jcr:primaryType: hipposys:resourcebundle
+        exdocpickerbasedemo:content: Inhalt
+        exdocpickerbasedemo:date: Startdatum
+        exdocpickerbasedemo:enddate: Enddatum
+        exdocpickerbasedemo:image: Abbildung
+        exdocpickerbasedemo:introduction: Einführung
+        exdocpickerbasedemo:location: Standort
+        exdocpickerbasedemo:title: Titel
+        jcr:name: Event
+    /hippo:configuration/hippo:translations/hippo:types/exdocpickerbasedemo:newsdocument:
+      jcr:primaryType: hipposys:resourcebundles
+      /en:
+        jcr:primaryType: hipposys:resourcebundle
+        exdocpickerbasedemo:author: Author
+        exdocpickerbasedemo:content: Content
+        exdocpickerbasedemo:date: Date
+        exdocpickerbasedemo:image: Image
+        exdocpickerbasedemo:introduction: Introduction
+        exdocpickerbasedemo:location: Location
+        exdocpickerbasedemo:source: Source
+        exdocpickerbasedemo:title: Title
+        jcr:name: News Item
+      /nl:
+        jcr:primaryType: hipposys:resourcebundle
+        exdocpickerbasedemo:author: Auteur
+        exdocpickerbasedemo:content: Inhoud
+        exdocpickerbasedemo:date: Datum
+        exdocpickerbasedemo:image: Afbeelding
+        exdocpickerbasedemo:introduction: Introductie
+        exdocpickerbasedemo:location: Locatie
+        exdocpickerbasedemo:source: Bron
+        exdocpickerbasedemo:title: Titel
+        jcr:name: Nieuwsbericht
+      /de:
+        jcr:primaryType: hipposys:resourcebundle
+        exdocpickerbasedemo:author: Verfasser
+        exdocpickerbasedemo:content: Inhalt
+        exdocpickerbasedemo:date: Datum
+        exdocpickerbasedemo:image: Abbildung
+        exdocpickerbasedemo:introduction: Einführung
+        exdocpickerbasedemo:location: Standort
+        exdocpickerbasedemo:source: Quelle
+        exdocpickerbasedemo:title: Titel
+        jcr:name: News
+      /fr:
+        jcr:primaryType: hipposys:resourcebundle
+        exdocpickerbasedemo:author: Auteur
+        exdocpickerbasedemo:content: Contenu
+        exdocpickerbasedemo:date: Date
+        exdocpickerbasedemo:image: Image
+        exdocpickerbasedemo:introduction: Introduction
+        exdocpickerbasedemo:location: Lieu
+        exdocpickerbasedemo:source: Source
+        exdocpickerbasedemo:title: Titre
+        jcr:name: Message d'info

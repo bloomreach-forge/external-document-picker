@@ -1,0 +1,7 @@
+/content/gallery/exdocpickerbasedemo:
+  jcr:primaryType: hippogallery:stdImageGallery
+  jcr:mixinTypes: ['hippo:named', 'mix:referenceable']
+  jcr:uuid: 502bd633-5c34-4619-b2e6-45ae984f0122
+  hippo:name: Hippo CMS External Document Picker Base Demo
+  hippostd:foldertype: [new-image-folder]
+  hippostd:gallerytype: ['hippogallery:imageset']
