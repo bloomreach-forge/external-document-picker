@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2014-2017 Hippo
+  Copyright 2014-2019 BloomReach, Inc. (https://www.bloomreach.com)
 
   Licensed under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with the
@@ -17,9 +17,9 @@
   <description>Hippo CMS External Document Picker Base</description>
   <groupId>org.onehippo.forge.exdocpickerbase</groupId>
   <artifactId>exdocpickerbase</artifactId>
-  <version>5.0.3</version>
+  <version>6.0.0</version>
   <packaging>pom</packaging>
-  <url>https://github.com/onehippo-forge/external-document-picker/</url>
+  <url>https://github.com/bloomreach-forge/external-document-picker/</url>
 
   <properties>
 
@@ -27,8 +27,8 @@
     <project.build.javaVersion>1.8</project.build.javaVersion>
 
     <jcr.version>2.0</jcr.version>
-    <hippo.repository.version>5.0.0</hippo.repository.version>
-    <hippo.cms.version>5.0.0</hippo.cms.version>
+    <hippo.repository.version>13.0.0</hippo.repository.version>
+    <hippo.cms.version>13.0.0</hippo.cms.version>
 
     <commons-lang.version>2.6</commons-lang.version>
     <commons-collections.version>3.2.2</commons-collections.version>
@@ -82,9 +82,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git@github.com:onehippo-forge/external-document-picker.git</connection>
-    <developerConnection>scm:git:git@github.com:onehippo-forge/external-document-picker.git</developerConnection>
-    <url>https://github.com/onehippo-forge/external-document-picker.git</url>
+    <connection>scm:git:git@github.com:bloomreach-forge/external-document-picker.git</connection>
+    <developerConnection>scm:git:git@github.com:bloomreach-forge/external-document-picker.git</developerConnection>
+    <url>https://github.com/bloomreach-forge/external-document-picker.git</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -103,7 +103,7 @@
 
   <ciManagement>
     <system>Travic CI</system>
-    <url>https://travis-ci.org/onehippo-forge/external-document-picker</url>
+    <url>https://travis-ci.org/bloomreach-forge/external-document-picker</url>
   </ciManagement>
 
   <repositories>

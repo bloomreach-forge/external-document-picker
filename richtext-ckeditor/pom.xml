@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2014 Hippo
+  Copyright 2014-2019 BloomReach, Inc. (https://www.bloomreach.com)
 
   Licensed under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with the
@@ -16,7 +16,7 @@
   <parent>
     <groupId>org.onehippo.forge.exdocpickerbase</groupId>
     <artifactId>exdocpickerbase</artifactId>
-    <version>5.0.3</version>
+    <version>6.0.0</version>
   </parent>
 
   <name>Hippo CMS External Document Picker Base for RichText Field in CKEditor</name>

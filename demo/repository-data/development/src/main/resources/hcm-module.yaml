@@ -1,0 +1,7 @@
+group: 
+  name: exdocpickerbase-demo
+  after: hippo-cms
+project: exdocpickerbase-demo
+module: 
+  name: exdocpickerbase-demo-repository-data-development
+  after: exdocpickerbase-demo-repository-data-application
