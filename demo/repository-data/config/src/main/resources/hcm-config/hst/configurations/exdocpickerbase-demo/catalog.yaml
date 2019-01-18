@@ -1,6 +1,0 @@
-definitions:
-  config:
-    /hst:hst/hst:configurations/exdocpickerbasedemo/hst:catalog:
-      jcr:primaryType: hst:catalog
-      /exdocpickerbasedemo-catalog:
-        jcr:primaryType: hst:containeritempackage

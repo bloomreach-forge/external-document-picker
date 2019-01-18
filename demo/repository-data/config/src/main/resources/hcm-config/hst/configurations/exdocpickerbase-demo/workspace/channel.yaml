@@ -1,8 +1,0 @@
-definitions:
-  config:
-    /hst:hst/hst:configurations/exdocpickerbasedemo/hst:workspace/hst:channel:
-      jcr:primaryType: hst:channel
-      hst:name: Hippo CMS External Document Picker Base Demo
-      hst:type: website
-      /hst:channelinfo:
-        jcr:primaryType: hst:channelinfo
