@@ -65,6 +65,10 @@
 
     <forge.exdocpickerbase.version>${project.version}</forge.exdocpickerbase.version>
 
+    <json-lib.version>2.4</json-lib.version>
+    <openjpa.version>2.4.0</openjpa.version>
+    <hsqldb.version>2.3.2</hsqldb.version>
+
     <essentials.version>13.0.0</essentials.version>
     <jsp-api.version>2.2</jsp-api.version>
     <taglibs.version>1.2.5</taglibs.version>
