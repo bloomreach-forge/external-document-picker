@@ -1,0 +1,145 @@
+/content/documents/exdocpickerbasedemo/events:
+  jcr:primaryType: hippostd:folder
+  jcr:mixinTypes: ['hippotranslation:translated', 'mix:referenceable']
+  jcr:uuid: d4e473e7-868b-4cfa-a032-c6f6cad63e87
+  hippostd:foldertype: [new-events-document, new-events-folder]
+  hippotranslation:id: a1bab27f-f756-41da-b577-b4e9dc4a3423
+  hippotranslation:locale: en
+  /2019:
+    jcr:primaryType: hippostd:folder
+    jcr:mixinTypes: ['hippotranslation:translated', 'mix:referenceable']
+    jcr:uuid: 143ba8d4-a61c-42b1-8d41-2eaceafdadc3
+    hippostd:foldertype: [new-events-document, new-events-folder]
+    hippotranslation:id: 07f2e46d-c879-443d-bb63-63c4928ca370
+    hippotranslation:locale: en
+    /01:
+      jcr:primaryType: hippostd:folder
+      jcr:mixinTypes: ['hippotranslation:translated', 'mix:referenceable']
+      jcr:uuid: a353ec66-cdb8-4950-a1d7-d7770568a829
+      hippostd:foldertype: [new-events-document, new-events-folder]
+      hippotranslation:id: ff96278f-01fb-46bb-8be7-e18e17700c29
+      hippotranslation:locale: en
+      /breakfast:
+        jcr:primaryType: hippo:handle
+        jcr:mixinTypes: ['hippo:named', 'mix:referenceable']
+        jcr:uuid: b8f5eb45-7200-452a-b26e-3118a0dc60b8
+        hippo:name: Breakfast
+        /breakfast:
+          jcr:primaryType: exdocpickerbasedemo:eventsdocument
+          jcr:mixinTypes: ['mix:referenceable']
+          jcr:uuid: 02fad59d-f80a-4c9a-bab6-9bc2c596d59c
+          exdocpickerbasedemo:date: 2013-11-12T08:00:00+01:00
+          exdocpickerbasedemo:documenttype: event
+          exdocpickerbasedemo:enddate: 2020-01-18T11:44:00+09:00
+          exdocpickerbasedemo:introduction: Start the day with a nice breakfast.
+          exdocpickerbasedemo:location: Room 101
+          exdocpickerbasedemo:title: Breakfast
+          hippo:availability: [live, preview]
+          hippostd:holder: admin
+          hippostd:state: published
+          hippostdpubwf:createdBy: admin
+          hippostdpubwf:creationDate: 2013-11-12T11:00:00+01:00
+          hippostdpubwf:lastModificationDate: 2013-11-12T11:11:00+01:00
+          hippostdpubwf:lastModifiedBy: admin
+          hippostdpubwf:publicationDate: 2013-11-12T12:16:00+01:00
+          hippotranslation:id: 3ccfe4f2-7149-4683-82cc-e6372430aab3
+          hippotranslation:locale: en
+          /exdocpickerbasedemo:content:
+            jcr:primaryType: hippostd:html
+            hippostd:content: |-
+              <html>
+                        <body>
+
+                        <p>Breakfast is served starting from 8:00 until 9:30.</p>
+
+                        </body>
+                        </html>
+          /exdocpickerbasedemo:image:
+            jcr:primaryType: hippogallerypicker:imagelink
+            hippo:docbase: c8f03498-56eb-46c9-83b2-cf014f2e03d7
+            hippo:facets: []
+            hippo:modes: []
+            hippo:values: []
+      /introduction-speech:
+        jcr:primaryType: hippo:handle
+        jcr:mixinTypes: ['hippo:named', 'mix:referenceable']
+        jcr:uuid: 18e36c35-429d-4fee-b76e-eeabcbfc08bb
+        hippo:name: Introduction speech
+        /introduction-speech:
+          jcr:primaryType: exdocpickerbasedemo:eventsdocument
+          jcr:mixinTypes: ['mix:referenceable']
+          jcr:uuid: 6c244102-49bc-4fb2-9c9e-ae57563dacc9
+          exdocpickerbasedemo:date: 2013-11-12T10:00:00+01:00
+          exdocpickerbasedemo:documenttype: event
+          exdocpickerbasedemo:enddate: 2020-01-18T11:44:00+09:00
+          exdocpickerbasedemo:introduction: After breakfast there will be an introductory
+            speech.
+          exdocpickerbasedemo:location: Room 400
+          exdocpickerbasedemo:title: Introduction speech
+          hippo:availability: [live, preview]
+          hippostd:holder: admin
+          hippostd:state: published
+          hippostdpubwf:createdBy: admin
+          hippostdpubwf:creationDate: 2013-11-12T11:02:00+01:00
+          hippostdpubwf:lastModificationDate: 2013-11-12T11:16:00+01:00
+          hippostdpubwf:lastModifiedBy: admin
+          hippostdpubwf:publicationDate: 2013-11-12T12:16:00+01:00
+          hippotranslation:id: f77a05d8-aee7-4954-a089-7068673b1d6b
+          hippotranslation:locale: en
+          /exdocpickerbasedemo:content:
+            jcr:primaryType: hippostd:html
+            hippostd:content: |-
+              <html>
+                        <body>
+
+                        <p>Speech will be about the workshop.</p>
+
+                        </body>
+                        </html>
+          /exdocpickerbasedemo:image:
+            jcr:primaryType: hippogallerypicker:imagelink
+            hippo:docbase: 9f32434e-84e3-4150-a6f2-d89a67be2fb1
+            hippo:facets: []
+            hippo:modes: []
+            hippo:values: []
+      /workshop:
+        jcr:primaryType: hippo:handle
+        jcr:mixinTypes: ['mix:referenceable']
+        jcr:uuid: 7a29ec60-2689-48b2-aca2-49696c5c23eb
+        /workshop:
+          jcr:primaryType: exdocpickerbasedemo:eventsdocument
+          jcr:mixinTypes: ['mix:referenceable']
+          jcr:uuid: ba2a8211-0681-4ccc-89ae-da76c4800c37
+          exdocpickerbasedemo:date: 2013-11-12T13:00:00+01:00
+          exdocpickerbasedemo:documenttype: event
+          exdocpickerbasedemo:enddate: 2020-01-18T11:44:00+09:00
+          exdocpickerbasedemo:introduction: Workshop starts at 1:00
+          exdocpickerbasedemo:location: Room 600
+          exdocpickerbasedemo:title: Workshop
+          hippo:availability: [live, preview]
+          hippostd:holder: admin
+          hippostd:state: published
+          hippostdpubwf:createdBy: admin
+          hippostdpubwf:creationDate: 2013-11-12T11:16:00+01:00
+          hippostdpubwf:lastModificationDate: 2013-11-12T11:18:00+01:00
+          hippostdpubwf:lastModifiedBy: admin
+          hippostdpubwf:publicationDate: 2013-11-12T12:16:00+01:00
+          hippotranslation:id: 770eb267-ff78-428e-afaf-610da6ac9832
+          hippotranslation:locale: en
+          /exdocpickerbasedemo:content:
+            jcr:primaryType: hippostd:html
+            hippostd:content: |-
+              <html>
+                        <body>
+                        <strong>Everybody </strong>
+                        <p>can join the workshop and start practicing what they learned during the last
+                        week.</p>
+
+                        </body>
+                        </html>
+          /exdocpickerbasedemo:image:
+            jcr:primaryType: hippogallerypicker:imagelink
+            hippo:docbase: d035387b-f9ce-49f6-bcb0-9ab6915a2d5f
+            hippo:facets: []
+            hippo:modes: []
+            hippo:values: []

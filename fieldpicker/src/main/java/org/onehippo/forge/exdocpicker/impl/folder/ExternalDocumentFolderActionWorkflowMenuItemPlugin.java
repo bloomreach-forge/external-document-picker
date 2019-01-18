@@ -99,7 +99,7 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
     protected IModel<String> getMenuItemLabelModel() {
         String menuItemLabel = getPluginConfig().getString("exdocfield.menu.label", PluginConstants.DEFAULT_FIELD_CAPTION);
         String menuItemLabelKey = menuItemLabel;
-        return new StringResourceModel(menuItemLabelKey, this, null, menuItemLabel);
+        return new StringResourceModel(menuItemLabelKey, this, null).setDefaultValue(menuItemLabel);
     }
 
     protected ResourceReference getMenuItemIconResourceReference() {
@@ -119,7 +119,7 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
             return getMenuItemLabelModel();
         } else {
             String dialogTitleKey = dialogTitle;
-            return new StringResourceModel(dialogTitleKey, this, null, dialogTitle);
+            return new StringResourceModel(dialogTitleKey, this, null).setDefaultValue(dialogTitle);
         }
     }
 

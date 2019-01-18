@@ -279,7 +279,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
             if (StringUtils.isBlank(imageUrl)) {
                 this.setImageResourceReference(NO_ICON, null);
             } else {
-                add(new AttributeModifier("src", true, new Model(imageUrl)));
+                add(new AttributeModifier("src", new Model(imageUrl)));
             }
         }
     }

@@ -1,0 +1,15 @@
+definitions:
+  config:
+    /hippo:namespaces/exdocpickerbasedemo/basedocument:
+      jcr:primaryType: hipposysedit:templatetype
+      jcr:mixinTypes: ['mix:referenceable']
+      jcr:uuid: 4be6ee84-102d-48a8-b80d-2f962b8375f0
+      /hipposysedit:nodetype:
+        jcr:primaryType: hippo:handle
+        jcr:mixinTypes: ['mix:referenceable']
+        jcr:uuid: 996b58d6-45f9-42d0-932d-0f4f3aa8705f
+        /hipposysedit:nodetype:
+          jcr:primaryType: hipposysedit:nodetype
+          jcr:mixinTypes: ['hipposysedit:remodel']
+          hipposysedit:supertype: ['hippo:document', 'hippostdpubwf:document', 'hippostd:publishableSummary']
+          hipposysedit:uri: http://www.exdocpickerbasedemo.com/exdocpickerbasedemo/nt/1.0

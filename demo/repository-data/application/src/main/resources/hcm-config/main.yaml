@@ -1,0 +1,5 @@
+definitions:
+  namespace:
+    exdocpickerbasedemo:
+      uri: http://www.exdocpickerbasedemo.com/exdocpickerbasedemo/nt/1.0
+      cnd: namespaces/exdocpickerbase-demo.cnd

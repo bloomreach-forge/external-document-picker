@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <project>
-    <name>project-settings</name>
-    <beansFolder>site/src/main/java</beansFolder>
+    <applicationSubModule>application</applicationSubModule>
+    <cmsDependenciesModule>cms-dependencies</cmsDependenciesModule>
     <cmsModule>cms</cmsModule>
     <confirmParams>false</confirmParams>
+    <developmentSubModule>development</developmentSubModule>
     <enterprise>false</enterprise>
     <extraTemplates>true</extraTemplates>
+    <hstRoot>/hst:exdocpickerbasedemo</hstRoot>
     <projectNamespace>exdocpickerbasedemo</projectNamespace>
     <repositoryDataModule>repository-data</repositoryDataModule>
-    <selectedBeansPackage>org.onehippo.forge.exdocpicker.demo.beans</selectedBeansPackage>
-    <selectedComponentsPackage>org.onehippo.forge.exdocpicker.demo.components</selectedComponentsPackage>
-    <selectedProjectPackage>org.onehippo.forge.exdocpicker.demo</selectedProjectPackage>
-    <selectedRestPackage>org.onehippo.forge.exdocpicker.demo.rest</selectedRestPackage>
+    <selectedBeansPackage>org.onehippo.forge.exdocpicker.demo.beans.beans</selectedBeansPackage>
+    <selectedComponentsPackage>org.onehippo.forge.exdocpicker.demo.beans.components</selectedComponentsPackage>
+    <selectedProjectPackage>org.onehippo.forge.exdocpicker.demo.beans</selectedProjectPackage>
+    <selectedRestPackage>org.onehippo.forge.exdocpicker.demo.beans.rest</selectedRestPackage>
     <setupDone>true</setupDone>
+    <siteContextPath>/site</siteContextPath>
     <siteModule>site</siteModule>
-    <templateLanguage>freemarker</templateLanguage>
     <useSamples>true</useSamples>
+    <webfileBundleName>site</webfileBundleName>
     <webfilesSubModule>webfiles</webfilesSubModule>
 </project>

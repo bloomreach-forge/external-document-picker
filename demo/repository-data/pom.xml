@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.onehippo.forge.exdocpickerbase</groupId>
     <artifactId>exdocpickerbase-demo</artifactId>
-    <version>5.0.3</version>
+    <version>6.0.0</version>
   </parent>
 
   <name>Hippo CMS External Document Picker Base Demo Repository Data</name>
@@ -14,8 +14,9 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>config</module>
-    <module>content</module>
+    <module>application</module>
+    <module>development</module>
+    <module>site</module>
     <module>webfiles</module>
   </modules>
 

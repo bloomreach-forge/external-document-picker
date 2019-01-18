@@ -219,12 +219,11 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
      * @return the field caption label
      */
     protected IModel<String> getCaptionModel() {
-        final String defaultCaption = new StringResourceModel("exdocfield.caption", this, null,
-                                                              PluginConstants.DEFAULT_FIELD_CAPTION)
-            .getString();
+        final String defaultCaption = new StringResourceModel("exdocfield.caption", this, null)
+                .setDefaultValue(PluginConstants.DEFAULT_FIELD_CAPTION).getString();
         String caption = getPluginConfig().getString("caption", defaultCaption);
         String captionKey = caption;
-        return new StringResourceModel(captionKey, this, null, caption);
+        return new StringResourceModel(captionKey, this, null).setDefaultValue(caption);
     }
 
     private RefreshingView<? extends Serializable> createRefreshingView(final ExternalDocumentCollection<Serializable> docCollection) {
