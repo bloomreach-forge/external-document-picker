@@ -63,7 +63,7 @@
     <!--***START temporary override of versions*** -->
     <!-- ***END temporary override of versions*** -->
 
-    <forge.exdocpickerbase.version>${project.version}</forge.exdocpickerbase.version>
+    <forge.exdocpickerbase.version>6.0.0</forge.exdocpickerbase.version>
 
     <json-lib.version>2.4</json-lib.version>
     <openjpa.version>2.4.0</openjpa.version>

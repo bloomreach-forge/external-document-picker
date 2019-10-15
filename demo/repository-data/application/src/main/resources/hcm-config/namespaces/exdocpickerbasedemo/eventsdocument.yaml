@@ -11,7 +11,7 @@ definitions:
         /hipposysedit:nodetype:
           jcr:primaryType: hipposysedit:nodetype
           jcr:mixinTypes: ['hipposysedit:remodel', 'mix:referenceable']
-          jcr:uuid: 600991d6-28f3-4df9-af74-792fa327baee
+          jcr:uuid: e84b7e04-6978-4e73-a001-2fc8ff6f44a0
           hipposysedit:node: true
           hipposysedit:supertype: ['exdocpickerbasedemo:basedocument', 'hippostd:relaxed',
             'hippotranslation:translated']
@@ -32,14 +32,6 @@ definitions:
             hipposysedit:path: exdocpickerbasedemo:introduction
             hipposysedit:primary: false
             hipposysedit:type: Text
-          /content:
-            jcr:primaryType: hipposysedit:field
-            hipposysedit:mandatory: false
-            hipposysedit:multiple: false
-            hipposysedit:ordered: false
-            hipposysedit:path: exdocpickerbasedemo:content
-            hipposysedit:primary: false
-            hipposysedit:type: hippostd:html
           /date:
             jcr:primaryType: hipposysedit:field
             hipposysedit:mandatory: false
@@ -72,12 +64,20 @@ definitions:
             hipposysedit:path: exdocpickerbasedemo:location
             hipposysedit:primary: false
             hipposysedit:type: String
+          /compound:
+            jcr:primaryType: hipposysedit:field
+            hipposysedit:mandatory: false
+            hipposysedit:multiple: false
+            hipposysedit:ordered: false
+            hipposysedit:path: exdocpickerbasedemo:compound
+            hipposysedit:primary: false
+            hipposysedit:type: exdocpickerbasedemo:simplecompound
       /hipposysedit:prototypes:
         jcr:primaryType: hipposysedit:prototypeset
         /hipposysedit:prototype:
           jcr:primaryType: exdocpickerbasedemo:eventsdocument
           jcr:mixinTypes: ['mix:referenceable']
-          jcr:uuid: 1964af96-14b2-4748-bdb7-8ebbe4e70445
+          jcr:uuid: 89753544-0c12-489a-8bf0-24253dab168c
           exdocpickerbasedemo:date: 0001-01-01T13:00:00+01:00
           exdocpickerbasedemo:documenttype: event
           exdocpickerbasedemo:enddate: 0001-01-01T13:00:00+01:00
@@ -92,15 +92,16 @@ definitions:
           hippostdpubwf:lastModifiedBy: ''
           hippotranslation:id: document-type-locale-id
           hippotranslation:locale: document-type-locale
-          /exdocpickerbasedemo:content:
-            jcr:primaryType: hippostd:html
-            hippostd:content: <html><body></body></html>
+          exdocpickerbasedemo:location: ''
           /exdocpickerbasedemo:image:
             jcr:primaryType: hippogallerypicker:imagelink
             hippo:docbase: cafebabe-cafe-babe-cafe-babecafebabe
             hippo:facets: []
             hippo:modes: []
             hippo:values: []
+          /exdocpickerbasedemo:compound:
+            jcr:primaryType: exdocpickerbasedemo:simplecompound
+            exdocpickerbasedemo:name: ''
       /editor:templates:
         jcr:primaryType: editor:templateset
         /_default_:
@@ -139,13 +140,6 @@ definitions:
             wicket.id: ${cluster.id}.left.item
             /cluster.options:
               jcr:primaryType: frontend:pluginconfig
-          /content:
-            jcr:primaryType: frontend:plugin
-            field: content
-            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
-            wicket.id: ${cluster.id}.left.item
-            /cluster.options:
-              jcr:primaryType: frontend:pluginconfig
           /date:
             jcr:primaryType: frontend:plugin
             field: date
@@ -172,5 +166,14 @@ definitions:
             field: image
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.right.item
+            /cluster.options:
+              jcr:primaryType: frontend:pluginconfig
+          /compound:
+            jcr:primaryType: frontend:plugin
+            caption: Compound
+            field: compound
+            hint: ''
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.left.item
             /cluster.options:
               jcr:primaryType: frontend:pluginconfig
