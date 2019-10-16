@@ -19,10 +19,10 @@
 -->
 <document>
   <properties>
-    <title>External Document Field Picker - Developer's How-to (Tree List View)</title>
+    <title>External Document Field Picker - Developer's How-to: Folder Tree List Picker</title>
   </properties>
   <body>
-    <section name="Developer's How-to (Tree List View)">
+    <section name="Developer's How-to: Folder Tree List Picker">
 
       <subsection name="Configuring Custom Folder Context Menu Items">
         <p>
@@ -39,32 +39,18 @@
           XML data in a classpath resource:
         </p>
         <div class="brush: xml">
-          <source><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-<sv:node sv:name="exdocCategories" xmlns:sv="http://www.jcp.org/jcr/sv/1.0">
-  <sv:property sv:name="jcr:primaryType" sv:type="Name">
-    <sv:value>frontend:plugin</sv:value>
-  </sv:property>
-  <sv:property sv:name="plugin.class" sv:type="String">
-    <sv:value>org.onehippo.forge.exdocpicker.impl.folder.tree.ExternalTreeItemFolderActionWorkflowMenuItemPlugin</sv:value>
-  </sv:property>
-  <sv:property sv:name="wicket.id" sv:type="String">
-    <sv:value>${item}</sv:value>
-  </sv:property>
-  <sv:property sv:name="exdocfield.menu.icon" sv:type="String">
-    <sv:value>folder-configure.png</sv:value>
-  </sv:property>
-  <sv:property sv:name="exdocfield.menu.label" sv:type="String">
-    <sv:value>Add External Categories ...</sv:value>
-  </sv:property>
-  <sv:property sv:name="external.document.service.facade" sv:type="String">
-    <sv:value>org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalSubjectCategoryServiceFacade</sv:value>
-  </sv:property>
-  <sv:property sv:name="example.external.cats.field.name" sv:type="String">
-    <sv:value>exdocpickerbasedemo:excategories</sv:value>
-  </sv:property>
-</sv:node>
-          ]]></source>
+          <source><![CDATA[/exdocCategories:
+  jcr:primaryType: frontend:plugin
+  wicket.id: ${item}
+
+  // menu item plugin
+  plugin.class: org.onehippo.forge.exdocpicker.impl.folder.tree.ExternalTreeItemFolderActionWorkflowMenuItemPlugin
+  exdocfield.menu.icon: folder-configure.png
+  exdocfield.menu.label: Add External Categories ...
+
+  // facade implementation
+  external.document.service.facade: org.onehippo.forge.exdocpicker.demo.field.tree.ExampleExternalSubjectCategoryServiceFacade
+  example.external.cats.field.name: exdocpickerbasedemo:excategories]]></source>
         </div>
 
       </subsection>

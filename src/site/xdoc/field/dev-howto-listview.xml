@@ -3,7 +3,7 @@
   "-//Apache Software Foundation//DTD XDOC 1.0//EN"
   "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <!--
-    Copyright 2014-2018 Hippo
+    Copyright 2014-2019 Bloomreach, Inc.
 
     Licensed under the Apache License, Version 2.0 (the  "License");
     you may not use this file except in compliance with the License.
@@ -19,97 +19,57 @@
 -->
 <document>
   <properties>
-    <title>External Document Field Picker - Developer's How-to (Flat List View)</title>
+    <title>External Document Field Picker - Developer's How-to: Document Field Flat List Picker</title>
   </properties>
   <body>
-    <section name="Developer's How-to (Flat List View)">
+    <section name="Developer's How-to: Document Field Flat List Picker">
 
-      <subsection name="Configuring Field in Document Template (a.k.a 'namespace')">
+      <subsection name="Configuring Field in Document Type Definition">
         <p>
-          You should add a custom field configuration like the following example (in System View XML format).
+          You should add a custom field configuration like the following example in YAML format.
           This is an example with <code>ExampleExternalDocumentServiceFacade</code> having embedded external
           JSON data in a classpath resource:
         </p>
-        <div class="brush: xml">
           <source><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-<sv:node sv:name="newsdocument" xmlns:sv="http://www.jcp.org/jcr/sv/1.0">
-  <sv:property sv:name="jcr:primaryType" sv:type="Name">
-    <sv:value>hipposysedit:templatetype</sv:value>
-  </sv:property>
+/hippo:namespaces/mynamespace/mydocumenttype:
+  /hipposysedit:nodetype:
+    /hipposysedit:nodetype:
+      ...
+      /relatedextdocselector:
+        jcr:primaryType: hipposysedit:field
+        hipposysedit:mandatory: false
+        // flag indicating whether the data is saved by the facade implementation as single or multiple string
+        hipposysedit:multiple: true
+        hipposysedit:ordered: false
+        // property name to store the external document IDs. In this case, same as example.external.docs.field.name below.
+        hipposysedit:path: exdocpickerbasedemo:relatedexdocids
+        hipposysedit:primary: false
+        hipposysedit:type: String
+      ...
+  /editor:templates:
+    /_default_:
+      ...
+      /relatedextdocselector:
+        jcr:primaryType: frontend:plugin
+        caption: Related External Documents
+        engine: ${engine}
+        mode: ${mode}
+        wicket.id: ${cluster.id}.left.item
+        wicket.model: ${wicket.model}
 
-  <!-- SNIP -->
+        // Plugin class configuration for Flat List View dialog option.
+        plugin.class: org.onehippo.forge.exdocpicker.impl.field.ExternalDocumentFieldSelectorPlugin
+        // Item selection mode plugin parameter: single or multiple
+        selection.mode: multiple
+        // ExternalDocumentServiceFacade class FQN plugin parameter
+        external.document.service.facade: org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade
 
-  <sv:node sv:name="editor:templates">
-    <sv:property sv:name="jcr:primaryType" sv:type="Name">
-      <sv:value>editor:templateset</sv:value>
-    </sv:property>
-    <sv:node sv:name="_default_">
-      <sv:property sv:name="jcr:primaryType" sv:type="Name">
-        <sv:value>frontend:plugincluster</sv:value>
-      </sv:property>
+        // Facade configuration: physical document node property name to store the external document IDs.
+        example.external.docs.field.name: exdocpickerbasedemo:relatedexdocids
 
-      <!-- SNIP -->
-
-      <!--
-        You should add something like the following for each External Document Picker field.
-        Most part will be used without modification except of the plugin parameters.
-      -->
-
-      <sv:node sv:name="relatedextdocselector">
-        <sv:property sv:name="jcr:primaryType" sv:type="Name">
-          <sv:value>frontend:plugin</sv:value>
-        </sv:property>
-        <sv:property sv:name="caption" sv:type="String">
-          <sv:value>Related External Documents</sv:value>
-        </sv:property>
-        <sv:property sv:name="engine" sv:type="String">
-          <sv:value>${engine}</sv:value>
-        </sv:property>
-        <sv:property sv:name="mode" sv:type="String">
-          <sv:value>${mode}</sv:value>
-        </sv:property>
-        <sv:property sv:name="wicket.id" sv:type="String">
-          <sv:value>${cluster.id}.field</sv:value>
-        </sv:property>
-        <sv:property sv:name="wicket.model" sv:type="String">
-          <sv:value>${wicket.model}</sv:value>
-        </sv:property>
-
-        <!-- Plugin class configuration for Flat List View dialog option. -->
-        <sv:property sv:name="plugin.class" sv:type="String">
-          <sv:value>org.onehippo.forge.exdocpicker.impl.field.ExternalDocumentFieldSelectorPlugin</sv:value>
-        </sv:property>
-
-        <!-- Item selection mode plugin parameter -->
-        <sv:property sv:name="selection.mode" sv:type="String">
-          <sv:value>multiple</sv:value>
-        </sv:property>
-
-        <!-- ExternalDocumentServiceFacade class FQN plugin parameter -->
-        <sv:property sv:name="external.document.service.facade" sv:type="String">
-          <sv:value>org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade</sv:value>
-        </sv:property>
-
-        <!-- Physical document node property name to store the external document IDs. This is used by the implementation (ExampleExternalDocumentServiceFacade) -->
-        <sv:property sv:name="example.external.docs.field.name" sv:type="String">
-          <sv:value>exdocpickerbasedemo:relatedexdocids</sv:value>
-        </sv:property>
-
-        <sv:node sv:name="cluster.options">
-          <sv:property sv:name="jcr:primaryType" sv:type="Name">
-            <sv:value>frontend:pluginconfig</sv:value>
-          </sv:property>
-        </sv:node>
-      </sv:node>
-
-      <!-- SNIP -->
-
-    </sv:node>
-  </sv:node>
-</sv:node>
-          ]]></source>
-        </div>
+        /cluster.options:
+          jcr:primaryType: frontend:pluginconfig
+        ]]></source>
 
       </subsection>
 
