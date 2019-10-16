@@ -3,7 +3,7 @@
   "-//Apache Software Foundation//DTD XDOC 1.0//EN"
   "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <!--
-    Copyright 2017 Hippo
+    Copyright 2017-2019 Hippo
 
     Licensed under the Apache License, Version 2.0 (the  "License");
     you may not use this file except in compliance with the License.
@@ -19,14 +19,14 @@
 -->
 <document>
   <properties>
-    <title>External Document Field Picker - Developer's How-to (Flat List View)</title>
+    <title>External Document Field Picker - Developer's How-to: Folder Flat List Picker</title>
   </properties>
   <body>
-    <section name="Developer's How-to (Flat List View)">
+    <section name="Developer's How-to: Folder Flat List Picker">
 
       <subsection name="Configuring Custom Folder Context Menu Items">
         <p>
-          You should add a custom folder context menu item configuration like the example (in System View XML format)
+          You should add a custom folder context menu item configuration like the example in YAML format
           shown below, under each of the following configuration nodes:
         </p>
         <ul>
@@ -38,35 +38,20 @@
           This is an example with <code>ExampleExternalDocumentServiceFacade</code> having embedded external
           XML data in a classpath resource:
         </p>
-        <div class="brush: xml">
           <source><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-<sv:node sv:name="exdocDocs" xmlns:sv="http://www.jcp.org/jcr/sv/1.0">
-  <sv:property sv:name="jcr:primaryType" sv:type="Name">
-    <sv:value>frontend:plugin</sv:value>
-  </sv:property>
-  <sv:property sv:name="plugin.class" sv:type="String">
-    <sv:value>org.onehippo.forge.exdocpicker.impl.folder.ExternalDocumentFolderActionWorkflowMenuItemPlugin</sv:value>
-  </sv:property>
-  <sv:property sv:name="wicket.id" sv:type="String">
-    <sv:value>${item}</sv:value>
-  </sv:property>
-  <sv:property sv:name="exdocfield.menu.icon" sv:type="String">
-    <sv:value>folder-configure.png</sv:value>
-  </sv:property>
-  <sv:property sv:name="exdocfield.menu.label" sv:type="String">
-    <sv:value>Add External Documents ...</sv:value>
-  </sv:property>
-  <sv:property sv:name="external.document.service.facade" sv:type="String">
-    <sv:value>org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade</sv:value>
-  </sv:property>
-  <sv:property sv:name="example.external.docs.field.name" sv:type="String">
-    <sv:value>exdocpickerbasedemo:exdocs</sv:value>
-  </sv:property>
-</sv:node>
-          ]]></source>
-        </div>
+/exdocCategories:
+  jcr:primaryType: frontend:plugin
+  wicket.id: ${item}
 
+  // menu item plugin
+  plugin.class: org.onehippo.forge.exdocpicker.impl.folder.ExternalDocumentFolderActionWorkflowMenuItemPlugin
+  exdocfield.menu.icon: folder-configure.png
+  exdocfield.menu.label: Add External Documents...
+
+  // facade implementation
+  external.document.service.facade: org.onehippo.forge.exdocpicker.demo.field.ExampleExternalDocumentServiceFacade
+  example.external.docs.field.name: exdocpickerbasedemo:exdocs
+]]></source>
       </subsection>
 
       <subsection name="Implementing your ExternalDocumentServiceFacade class">
