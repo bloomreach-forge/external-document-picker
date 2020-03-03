@@ -168,11 +168,12 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
             }
         }
 
+        treeDataProvider = new ExternalTreeItemDataProvider<>(getSearchedExternalDocuments(),
+                getExternalDocumentServiceFacade());
+
         // Expand parent tree nodes of currently selected items.
         expandPickedExternalTreeItemNodes(getExternalDocumentServiceFacade());
 
-        treeDataProvider = new ExternalTreeItemDataProvider<>(getSearchedExternalDocuments(),
-                getExternalDocumentServiceFacade());
         AbstractTree<Serializable> treeDataView = createTree(new Model(treeExpansionSet));
         treeDataView.setOutputMarkupId(true);
 
@@ -265,10 +266,11 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
 
     private void expandPickedExternalTreeItemNodes(ExternalDocumentServiceFacade<Serializable> extDocService) {
         for (Serializable item : getPickedExternalDocuments()) {
-            Serializable parent = extDocService.getParent(item);
+            Serializable parent = treeDataProvider.getParent(item);
+
             while (parent != null) {
                 treeExpansionSet.add(parent);
-                parent = getExternalDocumentServiceFacade().getParent(parent);
+                parent = treeDataProvider.getParent(parent);
             }
         }
     }
