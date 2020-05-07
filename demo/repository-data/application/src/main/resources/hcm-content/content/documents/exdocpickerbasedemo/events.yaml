@@ -21,10 +21,11 @@
       hippotranslation:locale: en
       /breakfast:
         jcr:primaryType: hippo:handle
-        jcr:mixinTypes: ['hippo:named', 'mix:referenceable']
+        jcr:mixinTypes: ['hippo:named', 'hippo:versionInfo', 'mix:referenceable']
         jcr:uuid: b8f5eb45-7200-452a-b26e-3118a0dc60b8
         hippo:name: Breakfast
-        /breakfast:
+        hippo:versionHistory: de53d37e-d4e3-4c57-8dab-1ee2bf6be9bb
+        /breakfast[1]:
           jcr:primaryType: exdocpickerbasedemo:eventsdocument
           jcr:mixinTypes: ['mix:referenceable']
           jcr:uuid: 02fad59d-f80a-4c9a-bab6-9bc2c596d59c
@@ -34,14 +35,14 @@
           exdocpickerbasedemo:introduction: Start the day with a nice breakfast.
           exdocpickerbasedemo:location: Room 101
           exdocpickerbasedemo:title: Breakfast
-          hippo:availability: [live, preview]
+          hippo:availability: [live]
           hippostd:holder: admin
           hippostd:state: published
           hippostdpubwf:createdBy: admin
           hippostdpubwf:creationDate: 2013-11-12T11:00:00+01:00
-          hippostdpubwf:lastModificationDate: 2013-11-12T11:11:00+01:00
+          hippostdpubwf:lastModificationDate: 2019-10-15T11:19:42.279+02:00
           hippostdpubwf:lastModifiedBy: admin
-          hippostdpubwf:publicationDate: 2013-11-12T12:16:00+01:00
+          hippostdpubwf:publicationDate: 2019-10-15T11:19:44.945+02:00
           hippotranslation:id: 3ccfe4f2-7149-4683-82cc-e6372430aab3
           hippotranslation:locale: en
           /exdocpickerbasedemo:content:
@@ -60,6 +61,86 @@
             hippo:facets: []
             hippo:modes: []
             hippo:values: []
+          /exdocpickerbasedemo:compound:
+            jcr:primaryType: exdocpickerbasedemo:simplecompound
+            exdocpickerbasedemo:name: jjj
+            exdocpickerbasedemo:selectorids: ['26932']
+        /breakfast[2]:
+          jcr:primaryType: exdocpickerbasedemo:eventsdocument
+          jcr:mixinTypes: ['mix:referenceable', 'mix:versionable']
+          jcr:uuid: 38c3efe7-7778-484b-9006-28d30c368960
+          exdocpickerbasedemo:date: 2013-11-12T08:00:00+01:00
+          exdocpickerbasedemo:documenttype: event
+          exdocpickerbasedemo:enddate: 2020-01-18T11:44:00+09:00
+          exdocpickerbasedemo:introduction: Start the day with a nice breakfast.
+          exdocpickerbasedemo:location: Room 101
+          exdocpickerbasedemo:title: Breakfast
+          hippo:availability: [preview]
+          hippostd:state: unpublished
+          hippostdpubwf:createdBy: admin
+          hippostdpubwf:creationDate: 2013-11-12T11:00:00+01:00
+          hippostdpubwf:lastModificationDate: 2019-10-15T11:19:53.118+02:00
+          hippostdpubwf:lastModifiedBy: admin
+          hippotranslation:id: 3ccfe4f2-7149-4683-82cc-e6372430aab3
+          hippotranslation:locale: en
+          /exdocpickerbasedemo:content:
+            jcr:primaryType: hippostd:html
+            hippostd:content: |-
+              <html>
+                        <body>
+
+                        <p>Breakfast is served starting from 8:00 until 9:30.</p>
+
+                        </body>
+                        </html>
+          /exdocpickerbasedemo:image:
+            jcr:primaryType: hippogallerypicker:imagelink
+            hippo:docbase: c8f03498-56eb-46c9-83b2-cf014f2e03d7
+            hippo:facets: []
+            hippo:modes: []
+            hippo:values: []
+          /exdocpickerbasedemo:compound:
+            jcr:primaryType: exdocpickerbasedemo:simplecompound
+            exdocpickerbasedemo:name: jjj
+            exdocpickerbasedemo:selectorids: ['26932', '26935']
+        /breakfast[3]:
+          jcr:primaryType: exdocpickerbasedemo:eventsdocument
+          jcr:mixinTypes: ['mix:referenceable']
+          jcr:uuid: abecba2c-03ba-4442-a198-2d51268c59d4
+          exdocpickerbasedemo:date: 2013-11-12T08:00:00+01:00
+          exdocpickerbasedemo:documenttype: event
+          exdocpickerbasedemo:enddate: 2020-01-18T11:44:00+09:00
+          exdocpickerbasedemo:introduction: Start the day with a nice breakfast.
+          exdocpickerbasedemo:location: Room 101
+          exdocpickerbasedemo:title: Breakfast
+          hippo:availability: []
+          hippostd:state: draft
+          hippostdpubwf:createdBy: admin
+          hippostdpubwf:creationDate: 2013-11-12T11:00:00+01:00
+          hippostdpubwf:lastModificationDate: 2019-10-15T11:19:46.440+02:00
+          hippostdpubwf:lastModifiedBy: admin
+          hippotranslation:id: 3ccfe4f2-7149-4683-82cc-e6372430aab3
+          hippotranslation:locale: en
+          /exdocpickerbasedemo:content:
+            jcr:primaryType: hippostd:html
+            hippostd:content: |-
+              <html>
+                        <body>
+
+                        <p>Breakfast is served starting from 8:00 until 9:30.</p>
+
+                        </body>
+                        </html>
+          /exdocpickerbasedemo:image:
+            jcr:primaryType: hippogallerypicker:imagelink
+            hippo:docbase: c8f03498-56eb-46c9-83b2-cf014f2e03d7
+            hippo:facets: []
+            hippo:modes: []
+            hippo:values: []
+          /exdocpickerbasedemo:compound:
+            jcr:primaryType: exdocpickerbasedemo:simplecompound
+            exdocpickerbasedemo:name: jjj
+            exdocpickerbasedemo:selectorids: ['26932', '26935']
       /introduction-speech:
         jcr:primaryType: hippo:handle
         jcr:mixinTypes: ['hippo:named', 'mix:referenceable']

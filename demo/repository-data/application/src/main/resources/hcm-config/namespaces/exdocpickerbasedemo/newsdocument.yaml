@@ -32,6 +32,14 @@ definitions:
             hipposysedit:path: exdocpickerbasedemo:introduction
             hipposysedit:primary: false
             hipposysedit:type: Text
+          /informantextdocselector:
+            jcr:primaryType: hipposysedit:field
+            hipposysedit:mandatory: false
+            hipposysedit:multiple: true
+            hipposysedit:ordered: false
+            hipposysedit:path: exdocpickerbasedemo:informantids
+            hipposysedit:primary: false
+            hipposysedit:type: String
           /content:
             jcr:primaryType: hipposysedit:field
             hipposysedit:mandatory: false
@@ -40,6 +48,22 @@ definitions:
             hipposysedit:path: exdocpickerbasedemo:content
             hipposysedit:primary: false
             hipposysedit:type: hippostd:html
+          /introextdocselector:
+            jcr:primaryType: hipposysedit:field
+            hipposysedit:mandatory: false
+            hipposysedit:multiple: true
+            hipposysedit:ordered: false
+            hipposysedit:path: exdocpickerbasedemo:introexdocid
+            hipposysedit:primary: false
+            hipposysedit:type: String
+          /relatedextdocselector:
+            jcr:primaryType: hipposysedit:field
+            hipposysedit:mandatory: false
+            hipposysedit:multiple: true
+            hipposysedit:ordered: false
+            hipposysedit:path: exdocpickerbasedemo:relatedexdocids
+            hipposysedit:primary: false
+            hipposysedit:type: String
           /date:
             jcr:primaryType: hipposysedit:field
             hipposysedit:mandatory: false
@@ -79,6 +103,14 @@ definitions:
             hipposysedit:multiple: false
             hipposysedit:ordered: false
             hipposysedit:path: exdocpickerbasedemo:location
+            hipposysedit:primary: false
+            hipposysedit:type: String
+          /externaltaxonomyselector:
+            jcr:primaryType: hipposysedit:field
+            hipposysedit:mandatory: false
+            hipposysedit:multiple: true
+            hipposysedit:ordered: false
+            hipposysedit:path: exdocpickerbasedemo:excategories
             hipposysedit:primary: false
             hipposysedit:type: String
       /hipposysedit:prototypes:

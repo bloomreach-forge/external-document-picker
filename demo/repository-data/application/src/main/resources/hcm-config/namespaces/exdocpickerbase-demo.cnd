@@ -13,3 +13,6 @@
 [exdocpickerbasedemo:newsdocument] > exdocpickerbasedemo:basedocument, hippostd:relaxed, hippotranslation:translated
   orderable
 
+[exdocpickerbasedemo:simplecompound] > hippo:compound, hippostd:relaxed
+  orderable
+
