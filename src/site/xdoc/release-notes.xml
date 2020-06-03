@@ -96,6 +96,12 @@
           </li>
         </ul>
       </subsection>
+      <subsection name="4.0.5">
+        <ul>
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-117'>HIPFORGE-117</a> - Single selection mode needs to unselect any existing selections and wait for clicking OK button
+          </li>
+        </ul>
+      </subsection>
       <subsection name="4.0.4">
         <ul>
           <li><a href='https://issues.onehippo.com/browse/HIPFORGE-115'>HIPFORGE-115</a> -Support Generic Folder Context Menu to be able to implement integration with external data easily
