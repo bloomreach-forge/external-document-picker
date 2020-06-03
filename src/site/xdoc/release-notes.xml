@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-    Copyright 2014-2019 BloomReach, Inc. (https://www.bloomreach.com)
+    Copyright 2014-2020 BloomReach, Inc. (https://www.bloomreach.com)
 
     Licensed to the Apache Software Foundation (ASF) under one or more
     contributor license agreements.  See the NOTICE file distributed with
@@ -55,30 +55,37 @@
         </tr>
       </table>
     </section>
-    <section name="Release Notes (6.x)">
-      <subsection name="6.0.0">
+    <section name="Release Notes">
+      <subsection name="6.0.1">
+        <p class="smallinfo">Released: 7 May 2020</p>
         <ul>
-          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-243'>HIPFORGE-243</a>] -         [External Document Picker] Upgrade for v13 compliancy
+          <li>
+            In document picker browse dialog, fix image size CSS typo that caused UI to break for some clients.
           </li>
         </ul>
       </subsection>
-    </section>
-    <section name="Release Notes (5.x)">
+      <subsection name="6.0.0">
+        <p class="smallinfo">Released: 18 January 2019</p>
+        <ul>
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-243'>HIPFORGE-243</a> - Upgrade for v13 compliancy
+          </li>
+        </ul>
+      </subsection>
       <subsection name="5.0.3">
         <ul>
-          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-211'>HIPFORGE-211</a>] -         [External Document Picker] Introduce &quot;icon.style&quot; parameter in the external document picker plugin
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-211'>HIPFORGE-211</a> - Introduce &quot;icon.style&quot; parameter in the external document picker plugin
           </li>
         </ul>
       </subsection>
       <subsection name="5.0.2">
         <ul>
-          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-116'>HIPFORGE-116</a>] -         External Document Picker - Single selection mode needs to unselect any existing selections and wait for clicking OK button
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-116'>HIPFORGE-116</a> - Single selection mode needs to unselect any existing selections and wait for clicking OK button
           </li>
         </ul>
       </subsection>
       <subsection name="5.0.1">
         <ul>
-          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-114'>HIPFORGE-114</a>] -         External Document Picker - Support Generic Folder Context Menu to be able to implement integration with external data easily
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-114'>HIPFORGE-114</a> - Support Generic Folder Context Menu to be able to implement integration with external data easily
           </li>
         </ul>
       </subsection>
@@ -89,45 +96,41 @@
           </li>
         </ul>
       </subsection>
-    </section>
-    <section name="Release Notes (4.x)">
       <subsection name="4.0.4">
         <ul>
-          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-115'>HIPFORGE-115</a>] -         [Backport for v11] External Document Picker - Support Generic Folder Context Menu to be able to implement integration with external data easily
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-115'>HIPFORGE-115</a> -Support Generic Folder Context Menu to be able to implement integration with external data easily
           </li>
         </ul>
       </subsection>
       <subsection name="4.0.3">
         <ul>
-          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-108'>HIPFORGE-108</a>] -         External Document Picker - Allow to move up/down selected items
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-108'>HIPFORGE-108</a> - Allow to move up/down selected items
           </li>
         </ul>
       </subsection>
       <subsection name="4.0.2">
         <ul>
-          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-107'>HIPFORGE-107</a>] -         External Document Picker - Option to disable or hide checkbox for a parent item in tree view
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-107'>HIPFORGE-107</a> - Option to disable or hide checkbox for a parent item in tree view
           </li>
         </ul>
       </subsection>
       <subsection name="4.0.1">
         <ul>
-          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-106'>HIPFORGE-106</a>] -         External Document Picker - Show tooltip with description in the current selected docs view on each title
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-106'>HIPFORGE-106</a> - Show tooltip with description in the current selected docs view on each title
           </li>
         </ul>
       </subsection>
       <subsection name="4.0.0">
         <ul>
-          <li>[<a href='https://issues.onehippo.com/browse/HIPFORGE-104'>HIPFORGE-104</a>] -         Tabular Tree View List option in the Picker Dialog for hierarchical external data
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-104'>HIPFORGE-104</a> - Tabular Tree View List option in the Picker Dialog for hierarchical external data
           </li>
-          <li>[<a href='https://issues.onehippo.com/browse/HIPPLUG-1300'>HIPPLUG-1300</a>] -         Improve External Doc Picker Style to match 10.x release
+          <li><a href='https://issues.onehippo.com/browse/HIPPLUG-1300'>HIPPLUG-1300</a> - Improve External Doc Picker Style to match 10.x release
           </li>
         </ul>
       </subsection>
-    </section>
-    <section name="Release Notes (3.x)">
       <subsection name="3.1.1">
         <ul>
-          <li>[<a href='https://issues.onehippo.com/browse/HIPPLUG-1288'>HIPPLUG-1288</a>] -         Please update documentation Hippo CMS External Document Picker 
+          <li><a href='https://issues.onehippo.com/browse/HIPPLUG-1288'>HIPPLUG-1288</a> - Please update documentation Hippo CMS External Document Picker
           </li>
         </ul>
       </subsection>
@@ -138,8 +141,6 @@
           </li>
         </ul>
       </subsection>
-    </section>
-    <section name="Release Notes (2.x)">
       <subsection name="2.0.11">
         <ul>
           <li>
@@ -238,8 +239,6 @@
       <subsection name="2.0.0">
         <p>Initial Release for 7.9.x</p>
       </subsection>
-    </section>
-    <section name="Release Notes (1.x)">
       <subsection name="1.0.2">
         <ul>
           <li><a href="https://issues.onehippo.com/browse/HIPPLUG-869">HIPPLUG-869: ExDocPicker: Html of edit field exdocpicker seems wrong</a></li>
