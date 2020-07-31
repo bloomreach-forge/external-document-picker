@@ -1,6 +1,5 @@
-package org.onehippo.forge.exdocpicker.demo.beans.beans;
 /*
- * Copyright 2014-2018 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2014-2020 Hippo B.V. (http://www.onehippo.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +13,8 @@ package org.onehippo.forge.exdocpicker.demo.beans.beans;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.onehippo.forge.exdocpicker.demo.beans.beans;
+
 import java.util.Calendar;
 
 import org.hippoecm.hst.content.beans.Node;
@@ -47,7 +48,7 @@ public class NewsDocument extends HippoDocument {
      */
     @HippoEssentialsGenerated(internalName = "exdocpickerbasedemo:title")
     public String getTitle() {
-        return getProperty(TITLE);
+        return getSingleProperty(TITLE);
     }
 
     /**
@@ -57,7 +58,7 @@ public class NewsDocument extends HippoDocument {
      */
     @HippoEssentialsGenerated(internalName = "exdocpickerbasedemo:date")
     public Calendar getDate() {
-        return getProperty(DATE);
+        return getSingleProperty(DATE);
     }
 
     /**
@@ -67,7 +68,7 @@ public class NewsDocument extends HippoDocument {
      */
     @HippoEssentialsGenerated(internalName = "exdocpickerbasedemo:introduction")
     public String getIntroduction() {
-        return getProperty(INTRODUCTION);
+        return getSingleProperty(INTRODUCTION);
     }
 
     /**
@@ -97,7 +98,7 @@ public class NewsDocument extends HippoDocument {
      */
     @HippoEssentialsGenerated(internalName = "exdocpickerbasedemo:location")
     public String getLocation() {
-        return getProperty(LOCATION);
+        return getSingleProperty(LOCATION);
     }
 
     /**
@@ -107,7 +108,7 @@ public class NewsDocument extends HippoDocument {
      */
     @HippoEssentialsGenerated(internalName = "exdocpickerbasedemo:author")
     public String getAuthor() {
-        return getProperty(AUTHOR);
+        return getSingleProperty(AUTHOR);
     }
 
     /**
@@ -117,8 +118,7 @@ public class NewsDocument extends HippoDocument {
      */
     @HippoEssentialsGenerated(internalName = "exdocpickerbasedemo:source")
     public String getSource() {
-        return getProperty(SOURCE);
+        return getSingleProperty(SOURCE);
     }
 
 }
-
