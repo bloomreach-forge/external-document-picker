@@ -27,6 +27,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FieldViewComponent } from './field-view/field-view.component';
+import { FieldListDialogComponent } from './field-list-dialog/field-list-dialog.component';
+import { FieldTreeDialogComponent } from './field-tree-dialog/field-tree-dialog.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   const [, antiCache] = /[?&]antiCache=([^&#]*)/.exec(location.href) ?? [undefined, '' + new Date().getTime()];
@@ -63,7 +66,10 @@ export function appInitializerFactory(
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FieldViewComponent,
+    FieldListDialogComponent,
+    FieldTreeDialogComponent
   ],
   imports: [
     BrowserModule,
