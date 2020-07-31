@@ -1,8 +1,20 @@
-/*
+/**
  * Copyright 2020 BloomReach Inc. (https://www.bloomreach.com/)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import UiExtension, { UiScope } from '@bloomreach/ui-extension';
 
 @Injectable({
@@ -24,38 +36,20 @@ export class CmsContextService {
     return this.uiScope;
   }
 
-  async getConnectorIdFieldValue(): Promise<string> {
-    // CMS-12058: later you can uncomment and use the following instead.
-    //return this.getDocumentFieldValue('starterstore:connectorid');
-
-    if (!this.uiScope) {
-      this.uiScope = await this.registerUi();
-    }
-    const docProps = await this.uiScope.document.get();
-    const documentData = await this.getConnectorResourceDocument(docProps.id, docProps.mode);
-    const connectorId = documentData?.props['starterstore:connectorid']; 
-    return Promise.resolve(connectorId);
-  }
-
-  async getExternalResourceIdFieldValues(live: boolean = false): Promise<string[]> {
-    // CMS-12058: later you can uncomment and use the following instead.
-    //return this.getDocumentFieldValue('starterstoreboot:relatedexdocids');
-
-    if (!this.uiScope) {
-      this.uiScope = await this.registerUi();
-    }
-    const docProps = await this.uiScope.document.get();
-    const documentData = await this.getConnectorResourceDocument(docProps.id, docProps.mode, live);
-    const connectorId = documentData?.props['starterstoreboot:relatedexdocids']; 
-    return Promise.resolve(connectorId);
-  }
-
-  async getDocumentFieldValue(): Promise<any> {
+  async getFieldValue(): Promise<any> {
     if (!this.uiScope) {
       this.uiScope = await this.registerUi();
     }
 
     return await this.uiScope.document.field.getValue();
+  }
+
+  async getFieldCompareValue(): Promise<any> {
+    if (!this.uiScope) {
+      this.uiScope = await this.registerUi();
+    }
+
+    return await this.uiScope.document.field.getCompareValue();
   }
 
   private async registerUi(): Promise<UiScope> {
@@ -68,6 +62,16 @@ export class CmsContextService {
     }
   }
 
+  async getHttpResource(url: string, params?: HttpParams, headers?: HttpHeaders): Promise<any> {
+    return await this.http.get(
+      url,
+      {
+        headers,
+        params,
+      }
+    ).toPromise();
+  }
+
   private addCmsCssToDocument(uiScope: UiScope) {
     const head = document.getElementsByTagName('head')[0];
     const style = document.createElement('link');
@@ -75,37 +79,5 @@ export class CmsContextService {
     style.type = 'text/css';
     style.rel = 'stylesheet';
     head.append(style);
-  }
-
-  private async getConnectorResourceDocument(documentId: string, mode: string, live: boolean = false): Promise<any> {
-    try {
-      const data = await this.getRestResourceData(`ws/starterstore/connector-resource-document/${documentId}`);
-      const liveVariant = data['published'];
-      const previewVariant = data['unpublished'] ?? liveVariant;
-      const draftVariant = data['draft'];
-
-      if (live) {
-        return Promise.resolve(liveVariant);
-      }
-
-      return Promise.resolve(mode === 'edit' ? draftVariant : previewVariant);
-    } catch (e) {
-      const { error } = e;
-      console.log('Failed to get connector resource document: ' + JSON.stringify(error));
-    }
-    return Promise.resolve(undefined);
-  }
-
-  async getRestResourceData(relPath: string, params?: HttpParams): Promise<any> {
-    const url = `${this.uiScope.baseUrl}${relPath}`;
-    return await this.http.get(
-      url,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        params,
-      }
-    ).toPromise();
   }
 }
