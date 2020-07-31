@@ -9,4 +9,28 @@
   OR CONDITIONS OF ANY KIND, either express or implied. See the License for
   the specific language governing permissions and limitations under the License.
 -->
-<p>field-view works!</p>
+<div *ngIf="mode !== 'compare'">
+  <div class="hippo-editor-field-value-container"
+       title="{{ item?.title }} ({{ itemId }})">
+       {{ item ? item.title : itemId }}
+  </div>
+</div>
+
+<div *ngIf="mode === 'compare'">
+  <div class="hippo-editor-field-value-container non-breaking hippo-diff-removed"
+       title="{{ compareItem?.title }} ({{ compareItemId }})">
+       {{ compareItem ? compareItem.title : compareItemId }}
+  </div>
+  <div class="hippo-editor-field-value-container non-breaking hippo-diff-added"
+       title="{{ item?.title }} ({{ itemId }})">
+       {{ item ? item.title : itemId }}
+  </div>
+</div>
+
+<div>
+  <input type="button"
+         value="{{ 'BROWSE' | translate }}"
+         class="btn btn-br-default"
+         [disabled]="mode !== 'edit'"
+         (click)="onBrowse()" />
+</div>

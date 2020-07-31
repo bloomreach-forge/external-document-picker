@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { CmsContextService } from '../cms-context.service';
+import { DialogSize, DocumentEditorMode } from '@bloomreach/ui-extension';
+import { Item } from '../item';
 
 @Component({
   selector: 'app-field-view',
@@ -22,9 +26,72 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FieldViewComponent implements OnInit {
 
-  constructor() { }
+  mode: DocumentEditorMode;
 
-  ngOnInit(): void {
+  itemId: string;
+  item: Item;
+  compareItemId: string;
+  compareItem: Item;
+
+  constructor(
+    private cmsContextService: CmsContextService,
+    private translateService: TranslateService,
+  ) { }
+
+  async ngOnInit(): Promise<void> {
+    const ui = await this.cmsContextService.getUiScope();
+    if (ui) {
+      const docProps = await ui.document.get();
+      this.mode = docProps.mode;
+
+      this.itemId = await this.cmsContextService.getFieldValue();
+
+      if (this.itemId) {
+        this.item = await this.findItemById(this.itemId);
+      }
+
+      if (DocumentEditorMode.Compare === this.mode) {
+        this.compareItemId = await this.cmsContextService.getFieldCompareValue();
+        if (this.compareItemId) {
+          this.compareItem = await this.findItemById(this.compareItemId);
+        }
+      }
+    }
   }
 
+  async onBrowse(): Promise<void> {
+    try {
+      const ui = await this.cmsContextService.getUiScope();
+      const title = await this.translateService.get('ITEMS_DIALOG_TITLE').toPromise();
+      const dialogOptions = {
+        title,
+        url: './index.html?id=field-list-dialog',
+        size: DialogSize.Medium,
+        value: JSON.stringify({ itemId: this.itemId }),
+      };
+      const res: unknown = await ui.dialog.open(dialogOptions);
+      const newItemId = res as string;
+      if (newItemId && newItemId !== this.itemId) {
+        ui.document.field.setValue(newItemId);
+        this.itemId = newItemId;
+        this.item = await this.findItemById(newItemId);
+      }
+    } catch (error) {
+      if (error.code === 'DialogCanceled') {
+        return;
+      }
+      console.error('Error after open dialog: ', error.code, error.message);
+    }
+  }
+
+  private async findItemById(itemId: string): Promise<Item> {
+    try {
+      const ui = await this.cmsContextService.getUiScope();
+      return await this.cmsContextService.getHttpResource(`${ui.baseUrl}examples/hippoblogarticles.jsp?id=${itemId}`);
+    } catch (e) {
+      const { error } = e;
+      console.log('Failed to get http resource: ' + JSON.stringify(error));
+    }
+    return Promise.resolve(undefined);
+  }
 }
