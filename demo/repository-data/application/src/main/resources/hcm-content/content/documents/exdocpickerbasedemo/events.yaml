@@ -198,6 +198,7 @@
           exdocpickerbasedemo:location: Room 600
           exdocpickerbasedemo:title: Workshop
           exdocpickerbasedemo:relatedarticleid: '006'
+          exdocpickerbasedemo:relatedcategoryid: '00A05'
           hippo:availability: [live, preview]
           hippostd:holder: admin
           hippostd:state: published

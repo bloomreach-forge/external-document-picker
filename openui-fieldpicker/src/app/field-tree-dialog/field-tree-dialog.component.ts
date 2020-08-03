@@ -119,12 +119,18 @@ export class FieldTreeDialogComponent implements OnInit {
 
   hasChild = (_: number, _nodeData: TreeFlatNode) => _nodeData.expandable;
 
-  onNewCategorySelected(node: TreeFlatNode): void {
+  onNewItemSelected(node: TreeFlatNode): void {
     this.newItemId = node.id;
   }
 
   private async searchItems(): Promise<void> {
     this.items = [];
+    try {
+      const url = this.pickerConfig.findAllUrl;
+      this.items = await this.cmsContextService.getHttpResource(url);
+    } catch (e) {
+      console.log('Failed to get http resource: ' + e);
+    }
   }
 
   private buildTreeNodes(): TreeNode[] {
