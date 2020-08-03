@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export interface Item {
-  id: string;
-  title: string;
-  description?: string;
-  thumbnail?: string;
-  parentId?: string;
+export interface PickerConfig {
+  findOneUrl: string;
+  findAllUrl: string;
+  showSearchInput?: boolean;
+  searchOnInit?: boolean;
+  initSearchTerm?: string;
+  treeViewMode?: boolean;
 }

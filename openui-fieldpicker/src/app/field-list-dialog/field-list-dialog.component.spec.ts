@@ -14,8 +14,16 @@
  * limitations under the License.
  */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { FieldListDialogComponent } from './field-list-dialog.component';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './i18n/', `.json`);
+}
 
 describe('FieldListDialogComponent', () => {
   let component: FieldListDialogComponent;
@@ -23,6 +31,16 @@ describe('FieldListDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [ HttpClient ]
+          }
+        }),
+      ],
       declarations: [ FieldListDialogComponent ]
     })
     .compileComponents();

@@ -16,6 +16,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import UiExtension, { UiScope } from '@bloomreach/ui-extension';
+import { PickerConfig } from './picker-config';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,18 @@ export class CmsContextService {
     }
 
     return this.uiScope;
+  }
+
+  getPickerConfig(ui: UiScope): PickerConfig | undefined {
+    const config = ui.extension.config;
+    if (config) {
+      try {
+        return JSON.parse(config);
+      } catch (e) {
+        console.log('Error parsing UI Extension config: ' + e);
+      }
+    }
+    return { findOneUrl: undefined, findAllUrl: undefined };
   }
 
   async getFieldValue(): Promise<any> {

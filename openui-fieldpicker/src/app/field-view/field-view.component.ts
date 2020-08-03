@@ -15,8 +15,10 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import * as Handlebars from 'handlebars';
 import { CmsContextService } from '../cms-context.service';
 import { DialogSize, DocumentEditorMode } from '@bloomreach/ui-extension';
+import { PickerConfig } from '../picker-config';
 import { Item } from '../item';
 
 @Component({
@@ -26,6 +28,7 @@ import { Item } from '../item';
 })
 export class FieldViewComponent implements OnInit {
 
+  pickerConfig: PickerConfig;
   mode: DocumentEditorMode;
 
   itemId: string;
@@ -41,19 +44,20 @@ export class FieldViewComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const ui = await this.cmsContextService.getUiScope();
     if (ui) {
+      this.pickerConfig = this.cmsContextService.getPickerConfig(ui);
       const docProps = await ui.document.get();
       this.mode = docProps.mode;
 
       this.itemId = await this.cmsContextService.getFieldValue();
 
       if (this.itemId) {
-        this.item = await this.findItemById(this.itemId);
+        this.item = await this.findItemById(this.pickerConfig, this.itemId);
       }
 
       if (DocumentEditorMode.Compare === this.mode) {
         this.compareItemId = await this.cmsContextService.getFieldCompareValue();
         if (this.compareItemId) {
-          this.compareItem = await this.findItemById(this.compareItemId);
+          this.compareItem = await this.findItemById(this.pickerConfig, this.compareItemId);
         }
       }
     }
@@ -67,14 +71,14 @@ export class FieldViewComponent implements OnInit {
         title,
         url: './index.html?id=field-list-dialog',
         size: DialogSize.Medium,
-        value: JSON.stringify({ itemId: this.itemId }),
+        value: JSON.stringify({ pickerConfig: this.pickerConfig, id: this.itemId }),
       };
       const res: unknown = await ui.dialog.open(dialogOptions);
       const newItemId = res as string;
       if (newItemId && newItemId !== this.itemId) {
         ui.document.field.setValue(newItemId);
         this.itemId = newItemId;
-        this.item = await this.findItemById(newItemId);
+        this.item = await this.findItemById(this.pickerConfig, newItemId);
       }
     } catch (error) {
       if (error.code === 'DialogCanceled') {
@@ -84,13 +88,14 @@ export class FieldViewComponent implements OnInit {
     }
   }
 
-  private async findItemById(itemId: string): Promise<Item> {
+  private async findItemById(pickerConfig: PickerConfig, itemId: string): Promise<Item> {
     try {
       const ui = await this.cmsContextService.getUiScope();
-      return await this.cmsContextService.getHttpResource(`${ui.baseUrl}examples/hippoblogarticles.jsp?id=${itemId}`);
+      const template = Handlebars.compile(pickerConfig.findOneUrl);
+      const url = template({ id: itemId });
+      return await this.cmsContextService.getHttpResource(url);
     } catch (e) {
-      const { error } = e;
-      console.log('Failed to get http resource: ' + JSON.stringify(error));
+      console.log('Failed to get http resource: ' + e);
     }
     return Promise.resolve(undefined);
   }
