@@ -54,6 +54,15 @@
         <!-- SNIP -->
 
         <!-- NOTE: You should set a property named 'forge.exdocpickerbase.version' to a version of this plugin! -->
+
+        <!-- OpenUI based field picker plugin since v7 -->
+        <dependency>
+          <groupId>org.onehippo.forge.exdocpickerbase</groupId>
+          <artifactId>exdocpickerbase-openui-field</artifactId>
+          <version>${forge.exdocpickerbase.version}</version>
+        </dependency>
+
+        <!-- Traditional Wicket-based field picker plugin -->
         <dependency>
           <groupId>org.onehippo.forge.exdocpickerbase</groupId>
           <artifactId>exdocpickerbase-field</artifactId>
@@ -79,6 +88,13 @@
 
       <!-- SNIP -->
 
+      <!-- OpenUI based field picker plugin since v7 -->
+      <dependency>
+        <groupId>org.onehippo.forge.exdocpickerbase</groupId>
+        <artifactId>exdocpickerbase-openui-field</artifactId>
+      </dependency>
+
+      <!-- Traditional Wicket-based field picker plugin -->
       <dependency>
         <groupId>org.onehippo.forge.exdocpickerbase</groupId>
         <artifactId>exdocpickerbase-field</artifactId>

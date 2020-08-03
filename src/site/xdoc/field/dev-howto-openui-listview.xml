@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC
+  "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<!--
+    Copyright 2020 Bloomreach, Inc.
+
+    Licensed under the Apache License, Version 2.0 (the  "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS"
+    BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+  <properties>
+    <title>External Document Field Picker - Developer's How-to: OpenUI Document Field Flat List Picker</title>
+  </properties>
+  <body>
+    <section name="Developer's How-to: OpenUI Document Field Flat List Picker">
+
+      <subsection name="Configuring OpenUI Field Extension">
+        <p>
+          You should add a custom
+          <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/open-ui-document-field-extensions.html">OpenUI Field Extension</a>
+          configuration like the following example in YAML format.
+          This is an example called <code>exampleArticlePicker</code> with
+          <code>../../examples/hippoblogarticles.jsp</code>
+          (e.g, <code>http://localhost:8080/cms/examples/hippoblogarticles.jsp</code>)
+          page which responds with a list of items or single item in JSON:
+        </p>
+          <source><![CDATA[
+/hippo:configuration/hippo:frontend/cms/ui-extensions/exampleArticlePicker:
+  jcr:primaryType: frontend:uiExtension
+  frontend:config: "{\r\n  \"findOneUrl\": \"../../examples/hippoblogarticles.jsp?id={{id}}\"\
+    ,\r\n  \"findAllUrl\": \"../../examples/hippoblogarticles.jsp?q={{q}}\",\r\n \
+    \ \"showSearchInput\": true,\r\n  \"searchOnInit\": false,\r\n  \"initSearchTerm\"\
+    : \"\",\r\n  \"treeViewMode\": false\r\n}"
+  frontend:displayName: Example Article Picker
+  frontend:extensionPoint: document.field
+  frontend:initialHeightInPixels: 80
+  frontend:url: angular/exdocpickerbase-openui/index.html
+        ]]></source>
+
+      </subsection>
+
+      <subsection name="Configuration Parameters">
+
+        <table>
+          <tr>
+            <th>Parameter name</th>
+            <th>Description</th>
+            <th>Example value(s)</th>
+            <th>Default value(s)</th>
+          </tr>
+          <tr>
+            <td>findOneUrl</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>findAllUrl</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>showSearchInput</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>searchOnInit</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>initSearchTerm</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>treeViewMode</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+
+      </subsection>
+
+      <subsection name="Expected JSON Response Format">
+        <p>
+          TODO
+        </p>
+      </subsection>
+
+    </section>
+  </body>
+</document>

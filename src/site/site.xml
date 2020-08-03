@@ -38,6 +38,8 @@
       <item name="Document Field" href="field/architecture.html">
         <item name="Architecture" href="field/architecture.html" />
         <item name="Installation" href="field/install.html" />
+        <item name="OpenUI Flat List Picker" href="field/dev-howto-openui-listview.html" />
+        <item name="OpenUI Tree List Picker" href="field/dev-howto-openui-treeview.html" />
         <item name="Flat List Picker" href="field/dev-howto-listview.html" />
         <item name="Tree List Picker" href="field/dev-howto-treeview.html" />
         <item name="Example: JPA Picker" href="field/dev-example-jpql.html" />
