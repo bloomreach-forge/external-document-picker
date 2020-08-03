@@ -1,0 +1,12 @@
+definitions:
+  config:
+    /hippo:configuration/hippo:frontend/cms/ui-extensions/exampleCategoryPicker:
+      jcr:primaryType: frontend:uiExtension
+      frontend:extensionPoint: document.field
+      frontend:displayName: Example Category Picker
+      frontend:initialHeightInPixels: 80
+      frontend:url: angular/exdocpickerbase-openui/index.html
+      frontend:config: "{\r\n  \"findOneUrl\": \"../../examples/msc.jsp?id={{id}}\"\
+        ,\r\n  \"findAllUrl\": \"../../examples/msc.jsp\",\r\n \
+        \ \"treeViewMode\": false\r\n}"
+    

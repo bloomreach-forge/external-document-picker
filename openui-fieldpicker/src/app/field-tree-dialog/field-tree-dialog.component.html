@@ -9,4 +9,46 @@
   OR CONDITIONS OF ANY KIND, either express or implied. See the License for
   the specific language governing permissions and limitations under the License.
 -->
-<p>field-tree-dialog works!</p>
+<div class="exdocfield-browser-panel">
+
+  <div class="exdocfield-browser-results">
+
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+        <button mat-icon-button disabled></button>
+        <mat-radio-button name="itemId"
+          value="{{ node.id }}"
+          [checked]="node.id === curItemId"
+          [disabled]="!node.selectable"
+          (change)="onNewItemSelected(node)">
+          {{node.displayName}}
+        </mat-radio-button>
+      </mat-tree-node>
+
+      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+        <button mat-icon-button matTreeNodeToggle
+                [attr.aria-label]="'toggle ' + node.filename">
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </button>
+        <mat-radio-button name="itemId"
+          value="{{ node.id }}"
+          [checked]="node.id === curItemId"
+          [disabled]="!node.selectable"
+          (change)="onNewItemSelected(node)">
+          {{node.displayName}}
+        </mat-radio-button>
+      </mat-tree-node>
+
+    </mat-tree>
+
+  </div>
+
+  <div class="hippo-window-buttons">
+    <input type="button" value="{{ 'CANCEL' | translate }}" class="btn btn-default" (click)="onCancel()" />
+    <input type="button" value="{{ 'OK' | translate }}" class="btn btn-br-primary" (click)="onOK()" />
+  </div>
+
+</div>

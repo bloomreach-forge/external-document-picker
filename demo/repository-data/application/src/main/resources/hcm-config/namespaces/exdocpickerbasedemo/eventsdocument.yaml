@@ -80,6 +80,14 @@ definitions:
             hipposysedit:path: exdocpickerbasedemo:relatedarticleid
             hipposysedit:primary: false
             hipposysedit:type: OpenUiString
+          /relatedcategoryid:
+            jcr:primaryType: hipposysedit:field
+            hipposysedit:mandatory: false
+            hipposysedit:multiple: false
+            hipposysedit:ordered: false
+            hipposysedit:path: exdocpickerbasedemo:relatedcategoryid
+            hipposysedit:primary: false
+            hipposysedit:type: OpenUiString
       /hipposysedit:prototypes:
         jcr:primaryType: hipposysedit:prototypeset
         /hipposysedit:prototype:
@@ -194,3 +202,12 @@ definitions:
             /cluster.options:
               jcr:primaryType: frontend:pluginconfig
               ui.extension: exampleArticlePicker
+          /relatedcategoryid:
+            jcr:primaryType: frontend:plugin
+            caption: Related Category
+            field: relatedcategoryid
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.PropertyFieldPlugin
+            wicket.id: ${cluster.id}.right.item
+            /cluster.options:
+              jcr:primaryType: frontend:pluginconfig
+              ui.extension: exampleCategoryPicker

@@ -20,4 +20,5 @@ export interface PickerConfig {
   searchOnInit?: boolean;
   initSearchTerm?: string;
   treeViewMode?: boolean;
+  initTreeExpandLevel?: number;
 }

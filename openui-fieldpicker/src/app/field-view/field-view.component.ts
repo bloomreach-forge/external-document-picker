@@ -67,9 +67,10 @@ export class FieldViewComponent implements OnInit {
     try {
       const ui = await this.cmsContextService.getUiScope();
       const title = await this.translateService.get('ITEMS_DIALOG_TITLE').toPromise();
+      const url = this.pickerConfig.treeViewMode ? './index.html?id=field-tree-dialog' : './index.html?id=field-list-dialog';
       const dialogOptions = {
         title,
-        url: './index.html?id=field-list-dialog',
+        url,
         size: DialogSize.Medium,
         value: JSON.stringify({ pickerConfig: this.pickerConfig, id: this.itemId }),
       };
