@@ -8,5 +8,5 @@ definitions:
       frontend:url: angular/exdocpickerbase-openui/index.html
       frontend:config: "{\r\n  \"findOneUrl\": \"../../examples/msc.jsp?id={{id}}\"\
         ,\r\n  \"findAllUrl\": \"../../examples/msc.jsp\",\r\n \
-        \ \"treeViewMode\": false\r\n}"
+        \ \"treeViewMode\": true\r\n}"
     
