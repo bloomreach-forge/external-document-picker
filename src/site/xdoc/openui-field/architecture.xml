@@ -23,11 +23,47 @@
   </properties>
   <body>
     <section name="Architecture (OpenUI External Document Field Picker)">
+
+      <div class="alert alert-info">
+        This feature is available since v7.0.0. See <a href="../release-notes.html">Release Notes</a> for detail.
+      </div>
+
       <subsection name="Overview">
         <p>
-          TODO
+          In Hippo CMS authoring application, the <strong>OpenUI External Document Picker Base for Field Picker</strong>
+          plugin is installed.
+          Then you can configure field(s) in document template bootstrap files (a.k.a Hippo CMS 'namespace').
+          So, when you are editing a document in CMS authoring application,
+          you will see those being displayed by this plugin.
         </p>
-      </subsection>
-    </section>
+        <p>
+          The CMS built-in <code>OpenUiStringPlugin</code> loads the built-in
+          <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/introduction.html">OpenUI Extension</a>
+          located at <code>angular/exdocpickerbase-openui/index.html</code>
+          (e.g, <code>http://localhost:8080/cms/angular/exdocpickerbase-openui/index.html</code>)
+          in its embedded IFrame.
+        </p>
+        <p>
+          When a user selects an item and clicks on the OK button in the picker dialog,
+          the dialog returns the selection and the built-in OpenUI Extension stores the ID of the selected item
+          for the field through the OpenUI Extension API.
+          See <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/open-ui-dialogs.html">Use Open UI Dialogs</a> for further details.
+        </p>
+        <p>
+          Here's an architectural overview. As you can see, you can care of only your <code>Custom REST Services</code>
+          with simple configurations for a specific document field without having to spend
+          much effort on CMS Document Editor UI customization by yourself.
+        </p>
+        <p>
+          Your <code>Custom REST Services</code> implemention should follow
+          <a href="spec-of-rest-services.html">Specification of REST Services for OpenUI Document Field Picker</a>
+          as the build-in OpenUI Extension plugin expects the specific JSON format in responses.
+        </p>
+        <img src="../images/openui-exdocpickerbase-archview.png" alt="Architectural View" />
+        <p>
+          Here's a sequence diagram showing the interactions:
+        </p>
+        <img src="../images/openui-exdocpickerbase-field-sequence.png" alt="Sequence Diagram" />
+      </subsection>    </section>
   </body>
 </document>

@@ -19,10 +19,16 @@
 -->
 <document>
   <properties>
-    <title>Installing External Document Field Picker</title>
+    <title>Installing OpenUI External Document Field Picker</title>
   </properties>
   <body>
-    <section name="Installing External Document Field Picker">
+
+    <section name="Installing OpenUI External Document Field Picker">
+
+      <div class="alert alert-info">
+        This feature is available since v7.0.0. See <a href="../release-notes.html">Release Notes</a> for detail.
+      </div>
+
       <subsection name="Add Dependencies">
         <p>
           Make sure you have the forge Maven2 repository reference and dependency definition in the root pom.xml of your project.
