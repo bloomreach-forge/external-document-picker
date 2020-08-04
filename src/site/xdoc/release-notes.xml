@@ -62,6 +62,10 @@
     <section name="Release Notes">
       <subsection name="7.0.0">
         <p class="smallinfo">Released: TODO</p>
+        <ul>
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-360'>HIPFORGE-360</a> - [External Document Picker] Add openui-fieldpicker submodule</li>
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-359'>HIPFORGE-359</a> - [External Document Picker] Upgrade for v14 compatibility</li>
+        </ul>
       </subsection>
       <subsection name="6.0.1">
         <p class="smallinfo">Released: 7 May 2020</p>

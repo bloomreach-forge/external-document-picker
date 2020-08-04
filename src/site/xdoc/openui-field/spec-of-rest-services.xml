@@ -30,9 +30,120 @@
 
       <subsection name="Introduction">
         <p>
-          TODO
+          As depicted in <a href="architecture.html">Architecture (OpenUI External Document Field Picker)</a> page,
+          the built-in OpenUI Extension Field Picker makes an HTTP GET request on the URL configured by
+          the <code>fineOneUrl</code> Frontend configuration parameter,
+          after replacing the optional <code>id</code> variable in the URL template.
+        </p>
+        <p>
+          Also, the built-in OpenUI Extension Field Picker Dialog makes an HTTP GET request on the URL configured by
+          the <code>fineAllUrl</code> Frontend configuration parameter,
+          after replacing the optional <code>q</code> variable in the URL template.
         </p>
       </subsection>
+
+      <subsection name="JSON Schema of Expected JSON Responses">
+        <p>
+          The built-in OpenUI Extension Field Picker expects an <code>Item</code> JSON object in the response body
+          from the <code>fineOneUrl</code> REST Service.
+        </p>
+        <p>
+          And it expects an <code>Items</code> JSON array in the response body
+          from the <code>fineAllUrl</code> REST Service.
+        </p>
+        <p>
+          See the JSON Schema definition for detail below.
+        </p>
+        <div class="brush: javascript">
+        <source><![CDATA[
+{
+  "definitions": {
+    "Item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The identifier of a resource item",
+          "type": "string"
+        },
+        "title": {
+          "description": "The display name of a resource item",
+          "type": "string"
+        },
+        "description": {
+          "description": "The optional description of a resource item",
+          "type": "string"
+        },
+        "thumbnail": {
+          "description": "The optional thumbnail image URI",
+          "type": "string"
+        },
+        "parentId": {
+          "description": "The optional identifier of the parent of the resource item, used only in tree list view picker dialog",
+          "type": "string"
+        },
+      },
+      "required": [ "id", "title" ]
+    },
+    "Items": {
+      "type": "array",
+      "items": {
+        "type": "Item"
+      }
+    }
+  }
+}
+        ]]></source>
+        </div>
+      </subsection>
+
+      <subsection name="Example JSON Response from REST Service at findOneUrl">
+        <p>
+          The built-in OpenUI Extension Field Picker expects a JSON object like the following in the response:
+        </p>
+        <div class="brush: javascript">
+        <source><![CDATA[
+{
+  "id": "006",
+  "title": "Hippo Fridays @ Hippo",
+  "description": "Hippo Fridays are monthly Fridays on which all Hippo developers can share knowledge, try out new things, work on improvements or hack on their own pet project.",
+  "thumbnail" : "http://www.onehippo.com/en/resources/blogs/2013/02/Hippo+Fridays+@+Hippo.html"
+}
+        ]]></source>
+        </div>
+        <p>or</p>
+        <div class="brush: javascript">
+        <source><![CDATA[
+{
+  "id": "00A05",
+  "title": "General mathematics",
+  "parentId": "00Axx"
+}
+        ]]></source>
+        </div>
+      </subsection>
+
+      <subsection name="Example JSON Response from REST Service at findAllUrl">
+        <p>
+          The built-in OpenUI Extension Field Picker expects a JSON array like the following in the response:
+        </p>
+        <div class="brush: javascript">
+        <source><![CDATA[
+[
+  { "id": "00-xx", "parentId": "", "title": "General" },
+  { "id": "00-01", "parentId": "00-xx", "title": "Instructional exposition (textbooks, tutorial papers, etc.)" },
+  { "id": "00-02", "parentId": "00-xx", "title": "Research exposition (monographs, survey articles)" },
+  { "id": "00Axx", "parentId": "00-xx", "title": "General and miscellaneous specific topics" },
+  { "id": "00A05", "parentId": "00Axx", "title": "General mathematics" },
+  { "id": "00A06", "parentId": "00Axx", "title": "Mathematics for nonmathematicians (engineering, social sciences, etc.)" },
+  { "id": "00Bxx", "parentId": "00-xx", "title": "Conference proceedings and collections of papers" },
+  { "id": "00B05", "parentId": "00Bxx", "title": "Collections of abstracts of lectures" },
+  { "id": "00B10", "parentId": "00Bxx", "title": "Collections of articles of general interest" },
+  { "id": "00B15", "parentId": "00Bxx", "title": "Collections of articles of miscellaneous specific content" }
+]
+        ]]></source>
+        </div>
+      </subsection>
+
     </section>
   </body>
 </document>
