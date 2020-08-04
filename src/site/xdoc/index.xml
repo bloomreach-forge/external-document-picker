@@ -32,26 +32,32 @@
       </p>
       <ol>
         <li>
+          <a href="openui-field/architecture.html">OpenUI External Document Field Picker</a>
+          (for use cases to select metadata of external content for CMS document fields)
+          <ul>
+            <li>
+              (a) <a href="openui-field/dev-howto-openui-listview.html">OpenUI Flat List View Picker Option</a>
+              (for use cases with general list views or search results to select from,
+              using <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/open-ui-document-field-extensions.html">OpenUI Field Extension</a>)
+            </li>
+            <li>
+              (b) <a href="openui-field/dev-howto-openui-treeview.html">OpenUI Tree List View Picker Option</a>
+              (for use cases with hierarchically organized content such as external taxonomy data,
+              using <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/open-ui-document-field-extensions.html">OpenUI Field Extension</a>)
+            </li>
+          </ul>
+        </li>
+        <li>
           <a href="field/architecture.html">External Document Field Picker</a>
           (for use cases to select metadata of external content for CMS document fields)
           <ul>
             <li>
-              (a) <a href="field/dev-howto-openui-listview.html">OpenUI Flat List View Picker Option</a>
-              (for use cases with general list views or search results to select from,
-              using <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/open-ui-document-field-extensions.html">OpenUI Field Extension</a>)
-            </li>
-            <li>
-              (b) <a href="field/dev-howto-openui-treeview.html">OpenUI Tree List View Picker Option</a>
-              (for use cases with hierarchically organized content such as external taxonomy data,
-              using <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/open-ui-document-field-extensions.html">OpenUI Field Extension</a>)
-            </li>
-            <li>
-              (c) <a href="field/dev-howto-listview.html">Flat List View Picker Option</a>
+              (a) <a href="field/dev-howto-listview.html">Flat List View Picker Option</a>
               (for use cases with general list views or search results to select from,
               using traditional Wicket plugins)
             </li>
             <li>
-              (d) <a href="field/dev-howto-treeview.html">Tree List View Picker Option</a>
+              (b) <a href="field/dev-howto-treeview.html">Tree List View Picker Option</a>
               (for use cases with hierarchically organized content such as external taxonomy data,
               using traditional Wicket plugins)
             </li>

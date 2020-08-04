@@ -55,12 +55,72 @@
           <tr>
             <th>Parameter name</th>
             <th>Description</th>
-            <th>Example value(s)</th>
+            <th>Default value(s)</th>
+          </tr>
+          <tr>
+            <td>frontend:displayName</td>
+            <td>
+              The display name of this OpenUI Extension.
+              See <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/configure-a-document-field-extension.html">Configure a Document Field Extension</a> for detail.
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>frontend:extensionPoint</td>
+            <td>
+              The type of extension point. This should be set to <code>document.field</code>.
+              See <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/configure-a-document-field-extension.html">Configure a Document Field Extension</a> for detail.
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>frontend:url</td>
+            <td>
+              The OpenUI Extension page URL, provided by this plugin.
+              This should be set to <code>angular/exdocpickerbase-openui/index.html</code>.
+              See <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/configure-a-document-field-extension.html">Configure a Document Field Extension</a> for detail.
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>frontend:initialHeightInPixels</td>
+            <td>
+              The initial height of this plugin in the document editor in pixels.
+              See <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/configure-a-document-field-extension.html">Configure a Document Field Extension</a> for detail.
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>frontend:config</td>
+            <td>
+              The JSON string of the configuration for this plugin.
+              See below.
+              <br/>
+              <pre>{
+  "findOneUrl": "../../examples/hippoblogarticles.jsp?id={{id}}",
+  "findAllUrl": "../../examples/hippoblogarticles.jsp?q={{q}}",
+  "showSearchInput": true,
+  "searchOnInit": false,
+  "initSearchTerm": "",
+  "treeViewMode": false
+}</pre>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+
+      </subsection>
+
+      <subsection name="frontend:config Parameters">
+
+        <table>
+          <tr>
+            <th>Parameter name</th>
+            <th>Description</th>
             <th>Default value(s)</th>
           </tr>
           <tr>
             <td>findOneUrl</td>
-            <td></td>
             <td></td>
             <td></td>
           </tr>
@@ -68,11 +128,9 @@
             <td>findAllUrl</td>
             <td></td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>showSearchInput</td>
-            <td></td>
             <td></td>
             <td></td>
           </tr>
@@ -80,11 +138,9 @@
             <td>searchOnInit</td>
             <td></td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>initSearchTerm</td>
-            <td></td>
             <td></td>
             <td></td>
           </tr>
@@ -92,13 +148,18 @@
             <td>treeViewMode</td>
             <td></td>
             <td></td>
-            <td></td>
           </tr>
         </table>
 
       </subsection>
 
-      <subsection name="Expected JSON Response Format">
+      <subsection name="Specification of the REST API on findOneUrl">
+        <p>
+          TODO
+        </p>
+      </subsection>
+
+      <subsection name="Specification of the REST API on findAllUrl">
         <p>
           TODO
         </p>

@@ -3,7 +3,7 @@
   "-//Apache Software Foundation//DTD XDOC 1.0//EN"
   "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <!--
-    Copyright 2014-2019 BloomReach, Inc. (https://www.bloomreach.com)
+    Copyright 2020 BloomReach, Inc. (https://www.bloomreach.com)
 
     Licensed under the Apache License, Version 2.0 (the  "License");
     you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@
         <!-- NOTE: You should set a property named 'forge.exdocpickerbase.version' to a version of this plugin! -->
         <dependency>
           <groupId>org.onehippo.forge.exdocpickerbase</groupId>
-          <artifactId>exdocpickerbase-field</artifactId>
+          <artifactId>exdocpickerbase-openui-field</artifactId>
           <version>${forge.exdocpickerbase.version}</version>
         </dependency>
 
@@ -81,7 +81,7 @@
 
       <dependency>
         <groupId>org.onehippo.forge.exdocpickerbase</groupId>
-        <artifactId>exdocpickerbase-field</artifactId>
+        <artifactId>exdocpickerbase-openui-field</artifactId>
       </dependency>
 
       <!-- SNIP -->

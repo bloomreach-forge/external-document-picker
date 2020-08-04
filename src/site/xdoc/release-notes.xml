@@ -30,6 +30,10 @@
           <th>Hippo CMS Release version</th>
         </tr>
         <tr>
+          <td>7.x</td>
+          <td>14.x</td>
+        </tr>
+        <tr>
           <td>6.x</td>
           <td>13.x</td>
         </tr>
@@ -56,6 +60,9 @@
       </table>
     </section>
     <section name="Release Notes">
+      <subsection name="7.0.0">
+        <p class="smallinfo">Released: TODO</p>
+      </subsection>
       <subsection name="6.0.1">
         <p class="smallinfo">Released: 7 May 2020</p>
         <ul>
