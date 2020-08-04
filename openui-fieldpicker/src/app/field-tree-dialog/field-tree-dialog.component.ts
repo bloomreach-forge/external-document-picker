@@ -136,7 +136,6 @@ export class FieldTreeDialogComponent implements OnInit {
   private buildTreeNodes(): TreeNode[] {
     const treeNodes: TreeNode[] = [];
     const treeNodeMapById = new Map<string, TreeNode>();
-    const treeNodeMapByPath = new Map<string, TreeNode>();
 
     this.items.forEach((item) => {
       const treeNode = {
