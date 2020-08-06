@@ -1,0 +1,54 @@
+<!--
+  Copyright 2020 BloomReach, Inc. (https://www.bloomreach.com)
+
+  Licensed under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with the
+  License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software distributed
+  under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+  OR CONDITIONS OF ANY KIND, either express or implied. See the License for
+  the specific language governing permissions and limitations under the License.
+-->
+<!--
+  Copyright 2020 BloomReach Inc. (https://www.bloomreach.com/)
+-->
+
+<div class="exdocfield-browser-panel">
+
+  <div class="exdocfield-browser-search" *ngIf="showSearchInput">
+    <input class="exdocfield-browser-search-input" type="text"
+           [value]="searchTerm" (input)="searchTerm = $event.target.value"
+           (keyup.enter)="onSearch()" />
+    <input type="button" value="{{ 'SEARCH' | translate }}" class="btn btn-br-primary"
+           (click)="onSearch()" />
+  </div>
+
+  <div class="exdocfield-browser-refresh-wrapper">
+    <div class="exdocfield-browser-results">
+      <div class="exdocfield-browser-result" *ngFor="let item of items">
+        <label>
+          <div class="exdocfield-browser-result-select">
+            <mat-radio-button name="itemId"
+              value="{{ item.id }}"
+              [checked]="isCurrentSelectedItem(item)"
+              (change)="onNewItemSelected(item.id)">
+            </mat-radio-button>
+          </div>
+          <div class="exdocfield-browser-result-image">
+            <img src="{{ item.thumbnail }}" />
+          </div>
+          <div class="exdocfield-browser-result-content">
+            <span class="title">{{ item.title }}</span>
+            <div innerHTML="{{ item.description }}"></div>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="hippo-window-buttons">
+    <input type="button" value="{{ 'CANCEL' | translate }}" class="btn btn-default" (click)="onCancel()" />
+    <input type="button" value="{{ 'OK' | translate }}" class="btn btn-br-primary" (click)="onOK()" />
+  </div>
+
+</div>

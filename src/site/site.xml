@@ -35,6 +35,13 @@
 
     <menu name="Main">
       <item name="Welcome" href="index.html" />
+      <item name="OpenUI Document Field" href="openui-field/architecture.html">
+        <item name="Architecture" href="openui-field/architecture.html" />
+        <item name="Installation" href="openui-field/install.html" />
+        <item name="OpenUI Flat List Picker" href="openui-field/dev-howto-openui-listview.html" />
+        <item name="OpenUI Tree List Picker" href="openui-field/dev-howto-openui-treeview.html" />
+        <item name="Specification of REST Services" href="openui-field/spec-of-rest-services.html" />
+      </item>
       <item name="Document Field" href="field/architecture.html">
         <item name="Architecture" href="field/architecture.html" />
         <item name="Installation" href="field/install.html" />

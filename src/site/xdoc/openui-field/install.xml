@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC
+  "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<!--
+    Copyright 2020 BloomReach, Inc. (https://www.bloomreach.com)
+
+    Licensed under the Apache License, Version 2.0 (the  "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS"
+    BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+  <properties>
+    <title>Installing OpenUI External Document Field Picker</title>
+  </properties>
+  <body>
+
+    <section name="Installing OpenUI External Document Field Picker">
+
+      <div class="alert alert-info">
+        This feature is available since v7.0.0. See <a href="../release-notes.html">Release Notes</a> for detail.
+      </div>
+
+      <subsection name="Add Dependencies">
+        <p>
+          Make sure you have the forge Maven2 repository reference and dependency definition in the root pom.xml of your project.
+        </p>
+        <div class="brush: xml">
+          <source><![CDATA[
+    <repositories>
+
+      <!-- SNIP -->
+
+      <repository>
+        <id>hippo-maven2-forge</id>
+        <name>Hippo Maven 2 Forge Repository</name>
+        <url>http://maven.onehippo.com/maven2-forge/</url>
+      </repository>
+
+      <!-- SNIP -->
+
+    </repositories>
+
+    <!-- SNIP -->
+
+    <dependencyManagement>
+
+      <!-- SNIP -->
+
+      <dependencies>
+
+        <!-- SNIP -->
+
+        <!-- NOTE: You should set a property named 'forge.exdocpickerbase.version' to a version of this plugin! -->
+        <dependency>
+          <groupId>org.onehippo.forge.exdocpickerbase</groupId>
+          <artifactId>exdocpickerbase-openui-field</artifactId>
+          <version>${forge.exdocpickerbase.version}</version>
+        </dependency>
+
+        <!-- SNIP -->
+
+      </dependencies>
+
+      <!-- SNIP -->
+
+    </dependencyManagement>
+    ]]></source>
+        </div>
+        <p>
+          Add the following dependency in either <code>cms-dependencies/pom.xml</code> in Hippo CMS v13+ or
+          <code>cms/pom.xml</code> in the earlier versions.
+        </p>
+        <div class="brush: xml">
+          <source><![CDATA[
+    <dependencies>
+
+      <!-- SNIP -->
+
+      <dependency>
+        <groupId>org.onehippo.forge.exdocpickerbase</groupId>
+        <artifactId>exdocpickerbase-openui-field</artifactId>
+      </dependency>
+
+      <!-- SNIP -->
+
+    </dependencies>
+    ]]></source>
+        </div>
+        <p>
+          Now, you're ready to use the plugin!
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

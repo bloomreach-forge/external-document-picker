@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC
+  "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<!--
+    Copyright 2020 Bloomreach, Inc.
+
+    Licensed under the Apache License, Version 2.0 (the  "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS"
+    BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+  <properties>
+    <title>External Document Field Picker - Developer's How-to: OpenUI Document Field Tree List Picker</title>
+  </properties>
+  <body>
+    <section name="Developer's How-to: OpenUI Document Field Tree List Picker">
+
+      <div class="alert alert-info">
+        This feature is available since v7.0.0. See <a href="../release-notes.html">Release Notes</a> for detail.
+      </div>
+
+      <subsection name="Configuring OpenUI Field Extension">
+        <p>
+          You should add a custom
+          <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/open-ui-document-field-extensions.html">OpenUI Field Extension</a>
+          configuration like the following example in YAML format.
+          This is an example called <code>exampleCategoryPicker</code>,
+          as a <a href="spec-of-rest-services.html">custom REST Service for OpenUI Picker</a>,
+          with <code>../../examples/hippoblogarticles.jsp</code>
+          (e.g, <code>http://localhost:8080/cms/examples/msc.jsp</code>),
+          which responds with a list of items or single item in JSON.
+        </p>
+          <source><![CDATA[
+/hippo:configuration/hippo:frontend/cms/ui-extensions/exampleCategoryPicker:
+  jcr:primaryType: frontend:uiExtension
+  frontend:config: "{\r\n  \"findOneUrl\": \"../../examples/msc.jsp?id={{id}}\"\
+    ,\r\n  \"findAllUrl\": \"../../examples/msc.jsp\",\r\n \
+    \ \"treeViewMode\": true\r\n}"
+  frontend:displayName: Example Category Picker
+  frontend:extensionPoint: document.field
+  frontend:initialHeightInPixels: 80
+  frontend:url: angular/exdocpickerbase-openui/index.html
+        ]]></source>
+
+      </subsection>
+
+      <subsection name="Configuration Parameters">
+
+        <table>
+          <tr>
+            <th>Parameter name</th>
+            <th>Description</th>
+            <th>Default value(s)</th>
+          </tr>
+          <tr>
+            <td>frontend:displayName</td>
+            <td>
+              The display name of this OpenUI Extension.
+              See <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/configure-a-document-field-extension.html">Configure a Document Field Extension</a> for detail.
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>frontend:extensionPoint</td>
+            <td>
+              The type of extension point. This should be set to <code>document.field</code>.
+              See <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/configure-a-document-field-extension.html">Configure a Document Field Extension</a> for detail.
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>findOneUrl</td>
+            <td>
+              The REST API URL template, in <a href="https://handlebarsjs.com/">Handlebars</a> templating syntax,
+              to resolve a single resource item.
+              <br/>
+              Note that only <code>id</code> variable, which is the identifier of the specific item, is provided in templating for this URL.
+              <br/>
+              See <a href="spec-of-rest-services.html">Specification of REST Services for OpenUI Document Field Picker</a> for detail.
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>findAllUrl</td>
+            <td>
+              The REST API URL template, in <a href="https://handlebarsjs.com/">Handlebars</a> templating syntax,
+              to find multiple resource items.
+              <br/>
+              Note that only <code>q</code> variable, which is the user's input in the search textbox, is provided in templating for this URL.
+              <br/>
+              See <a href="spec-of-rest-services.html">Specification of REST Services for OpenUI Document Field Picker</a> for detail.
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>frontend:config</td>
+            <td>
+              The JSON string of the configuration for the frontend configuration of this plugin.
+              <br/>
+              <pre>{
+  "findOneUrl": "../../examples/msc.jsp?id={{id}}",
+  "findAllUrl": "../../examples/msc.jsp",
+  "treeViewMode": true
+}</pre>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+
+      </subsection>
+
+      <subsection name="Frontend Configuration (frontend:config) Parameters">
+
+        <table>
+          <tr>
+            <th>Parameter name</th>
+            <th>Description</th>
+            <th>Default value(s)</th>
+          </tr>
+          <tr>
+            <td>findOneUrl</td>
+            <td>
+              The REST API URL template, in <a href="https://handlebarsjs.com/">Handlebars</a> templating syntax,
+              to resolve a single resource item.
+              <br/>
+              Note that only <code>id</code> variable, which is the identifier of the specific item, is provided in templating for this URL.
+              <br/>
+              As this URL template configuration is interpolated, you can configure this in multiple ways.
+              e.g, <code>../../myresources/{{id}}</code>, <code>https://api.exmple.com/myresources/{{id}}</code>, etc.
+              <br/>
+              See <a href="spec-of-rest-services.html">Specification of REST Services for OpenUI Document Field Picker</a> for detail.
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>findAllUrl</td>
+            <td>
+              The REST API URL template, in <a href="https://handlebarsjs.com/">Handlebars</a> templating syntax,
+              to find multiple resource items.
+              <br/>
+              Note that only <code>q</code> variable, which is the user's input in the search textbox, is provided in templating for this URL.
+              <br/>
+              As this URL template configuration is interpolated, you can configure this in multiple ways.
+              e.g, <code>../../myresources/</code>, <code>https://api.exmple.com/myresources/?query={{q}}</code>, etc.
+              <br/>
+              See <a href="spec-of-rest-services.html">Specification of REST Services for OpenUI Document Field Picker</a> for detail.
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>treeViewMode</td>
+            <td>
+              Flag whether to open the flat list view picker dialog or tree list view picker dialog.
+              This should be set to <code>true</code> for this tree list view picker dialog option.
+            </td>
+            <td>
+              <code>false</code>
+            </td>
+          </tr>
+        </table>
+
+      </subsection>
+
+      <subsection name="Configuring an Open UI String field in a Document Type">
+        <p>
+          Once you defined a new OpenUI Extension for OpenUI External Document Field Picker followint the above instructions,
+          you can configure document field(s) with your custom OpenUI Field Extension
+          by setting the field type to <code>Open UI String</code> in any document types.
+          See <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/configure-a-document-field-extension.html">Configure a Document Field Extension</a> for detail.
+        </p>
+        <p>
+          An example field configuration with the OpenUI External Document Field Picker looks like the following:
+        </p>
+        <div class="brush: plain">
+        <source><![CDATA[
+/hippo:namespaces/exdocpickerbasedemo/eventsdocument:
+  jcr:primaryType: hipposysedit:templatetype
+  jcr:mixinTypes: ['editor:editable', 'mix:referenceable']
+  jcr:uuid: 08c73691-c539-4b63-81f6-81a3403c55c7
+  /hipposysedit:nodetype:
+    jcr:primaryType: hippo:handle
+    jcr:mixinTypes: ['mix:referenceable']
+    jcr:uuid: 003586bb-c610-48c9-9faa-64805e3b7179
+    /hipposysedit:nodetype:
+      jcr:primaryType: hipposysedit:nodetype
+      jcr:mixinTypes: ['hipposysedit:remodel', 'mix:referenceable']
+      jcr:uuid: e84b7e04-6978-4e73-a001-2fc8ff6f44a0
+      hipposysedit:node: true
+      hipposysedit:supertype: ['exdocpickerbasedemo:basedocument', 'hippostd:relaxed',
+        'hippotranslation:translated']
+      hipposysedit:uri: http://www.exdocpickerbasedemo.com/exdocpickerbasedemo/nt/1.0
+      # ...SNIP...
+      /relatedcategoryid:
+        jcr:primaryType: hipposysedit:field
+        hipposysedit:mandatory: false
+        hipposysedit:multiple: false
+        hipposysedit:ordered: false
+        hipposysedit:path: exdocpickerbasedemo:relatedcategoryid
+        hipposysedit:primary: false
+        hipposysedit:type: OpenUiString
+      # ...SNIP...
+  /editor:templates:
+    jcr:primaryType: editor:templateset
+    /_default_:
+      jcr:primaryType: frontend:plugincluster
+      frontend:properties: [mode]
+      frontend:references: [wicket.model, model.compareTo, engine, validator.id]
+      frontend:services: [wicket.id, validator.id]
+      type: exdocpickerbasedemo:eventsdocument
+      # ...SNIP...
+      /relatedcategoryid:
+        jcr:primaryType: frontend:plugin
+        caption: Related Category
+        field: relatedcategoryid
+        plugin.class: org.hippoecm.frontend.editor.plugins.field.PropertyFieldPlugin
+        wicket.id: ${cluster.id}.right.item
+        /cluster.options:
+          jcr:primaryType: frontend:pluginconfig
+          ui.extension: exampleCategoryPicker
+      # ...SNIP...
+        ]]></source>
+        </div>
+      </subsection>
+    </section>
+  </body>
+</document>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2014-2019 BloomReach, Inc. (https://www.bloomreach.com)
+  Copyright 2014-2020 BloomReach, Inc. (https://www.bloomreach.com)
 
   Licensed under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with the
@@ -17,7 +17,7 @@
   <description>Hippo CMS External Document Picker Base</description>
   <groupId>org.onehippo.forge.exdocpickerbase</groupId>
   <artifactId>exdocpickerbase</artifactId>
-  <version>6.0.1</version>
+  <version>7.0.0</version>
   <packaging>pom</packaging>
   <url>https://github.com/bloomreach-forge/external-document-picker/</url>
 
@@ -27,8 +27,8 @@
     <project.build.javaVersion>1.8</project.build.javaVersion>
 
     <jcr.version>2.0</jcr.version>
-    <hippo.repository.version>13.0.0</hippo.repository.version>
-    <hippo.cms.version>13.0.0</hippo.cms.version>
+    <hippo.repository.version>14.2.2</hippo.repository.version>
+    <hippo.cms.version>14.2.2</hippo.cms.version>
 
     <commons-lang.version>2.6</commons-lang.version>
     <commons-collections.version>3.2.2</commons-collections.version>
@@ -37,7 +37,10 @@
     <lib.junit.version>4.12</lib.junit.version>
     <lib.easymock.version>3.4</lib.easymock.version>
     <lib.slf4j.version>1.7.25</lib.slf4j.version>
-    <lib.log4j2.version>2.8.2</lib.log4j2.version>
+    <lib.log4j2.version>2.13.3</lib.log4j2.version>
+
+    <nodejs.version>v12.16.1</nodejs.version>
+    <npm.version>6.13.4</npm.version>
 
     <plugin.compiler.version>3.1</plugin.compiler.version>
     <plugin.clean.version>2.5</plugin.clean.version>
@@ -54,6 +57,7 @@
     <plugin.source.version>2.2.1</plugin.source.version>
     <plugin.surefire.version>2.20</plugin.surefire.version>
     <plugin.surefire-report.version>2.20</plugin.surefire-report.version>
+    <plugin.frontend-maven-plugin.version>1.10.0</plugin.frontend-maven-plugin.version>
 
     <extension.wagon-svn.version>1.9</extension.wagon-svn.version>
 
@@ -300,6 +304,7 @@
   <modules>
     <module>fieldpicker</module>
     <module>richtext-ckeditor</module>
+    <module>openui-fieldpicker</module>
   </modules>
 
   <build>

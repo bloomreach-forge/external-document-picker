@@ -70,7 +70,7 @@
     ]]></source>
         </div>
         <p>
-          Add the following dependency in either <code>cms-dependencies/pom.xml</code> in Hippo CMS v13 or
+          Add the following dependency in either <code>cms-dependencies/pom.xml</code> in Hippo CMS v13+ or
           <code>cms/pom.xml</code> in the earlier versions.
         </p>
         <div class="brush: xml">

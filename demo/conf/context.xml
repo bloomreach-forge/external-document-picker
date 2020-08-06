@@ -23,7 +23,7 @@
     <Resource name="jdbc/newsDS" auth="Container"
               type="javax.sql.DataSource" driverClassName="org.hsqldb.jdbc.JDBCDriver"
               url="jdbc:hsqldb:http://localhost:8080/hsqldb/"
-              username="SA" password="" maxActive="20" maxIdle="10"
-              maxWait="-1"/>
+              username="SA" password="" maxTotal="20" maxIdle="10"
+              maxWaitMillis="-1"/>
 
 </Context>

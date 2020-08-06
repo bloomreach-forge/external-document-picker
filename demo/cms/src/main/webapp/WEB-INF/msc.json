@@ -1,0 +1,12 @@
+[
+  { "id": "00-xx", "parentId": "", "title": "General" },
+  { "id": "00-01", "parentId": "00-xx", "title": "Instructional exposition (textbooks, tutorial papers, etc.)" },
+  { "id": "00-02", "parentId": "00-xx", "title": "Research exposition (monographs, survey articles)" },
+  { "id": "00Axx", "parentId": "00-xx", "title": "General and miscellaneous specific topics" },
+  { "id": "00A05", "parentId": "00Axx", "title": "General mathematics" },
+  { "id": "00A06", "parentId": "00Axx", "title": "Mathematics for nonmathematicians (engineering, social sciences, etc.)" },
+  { "id": "00Bxx", "parentId": "00-xx", "title": "Conference proceedings and collections of papers" },
+  { "id": "00B05", "parentId": "00Bxx", "title": "Collections of abstracts of lectures" },
+  { "id": "00B10", "parentId": "00Bxx", "title": "Collections of articles of general interest" },
+  { "id": "00B15", "parentId": "00Bxx", "title": "Collections of articles of miscellaneous specific content" }
+]

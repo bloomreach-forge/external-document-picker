@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC
+  "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<!--
+    Copyright 2020 Hippo
+
+    Licensed under the Apache License, Version 2.0 (the  "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS"
+    BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+  <properties>
+    <title>Architecture (OpenUI External Document Field Picker)</title>
+  </properties>
+  <body>
+    <section name="Architecture (OpenUI External Document Field Picker)">
+
+      <div class="alert alert-info">
+        This feature is available since v7.0.0. See <a href="../release-notes.html">Release Notes</a> for detail.
+      </div>
+
+      <subsection name="Overview">
+        <p>
+          In Hippo CMS authoring application, the <strong>OpenUI External Document Picker Base for Field Picker</strong>
+          plugin is installed.
+          Then you can configure field(s) in document template bootstrap files (a.k.a Hippo CMS 'namespace').
+          So, when you are editing a document in CMS authoring application,
+          you will see those being displayed by this plugin.
+        </p>
+        <p>
+          The CMS built-in <code>OpenUiStringPlugin</code> loads the built-in
+          <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/introduction.html">OpenUI Extension</a>
+          located at <code>angular/exdocpickerbase-openui/index.html</code>
+          (e.g, <code>http://localhost:8080/cms/angular/exdocpickerbase-openui/index.html</code>)
+          in its embedded IFrame.
+        </p>
+        <p>
+          When a user selects an item and clicks on the OK button in the picker dialog,
+          the dialog returns the selection and the built-in OpenUI Extension stores the ID of the selected item
+          for the field through the OpenUI Extension API.
+          See <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/open-ui-dialogs.html">Use Open UI Dialogs</a> for further details.
+        </p>
+        <p>
+          Here's an architectural overview. As you can see, you can care of only your <code>Custom REST Services</code>
+          with simple configurations for a specific document field without having to spend
+          much effort on CMS Document Editor UI customization by yourself.
+        </p>
+        <p>
+          Your <code>Custom REST Services</code> implemention should follow
+          <a href="spec-of-rest-services.html">Specification of REST Services for OpenUI Document Field Picker</a>
+          as the build-in OpenUI Extension plugin expects the specific JSON format in responses.
+        </p>
+        <img src="../images/openui-exdocpickerbase-archview.png" alt="Architectural View" />
+        <p>
+          Here's a sequence diagram showing the interactions:
+        </p>
+        <img src="../images/openui-exdocpickerbase-field-sequence.png" alt="Sequence Diagram" />
+      </subsection>    </section>
+  </body>
+</document>

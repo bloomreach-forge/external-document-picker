@@ -30,6 +30,10 @@
           <th>Hippo CMS Release version</th>
         </tr>
         <tr>
+          <td>7.x</td>
+          <td>14.x</td>
+        </tr>
+        <tr>
           <td>6.x</td>
           <td>13.x</td>
         </tr>
@@ -56,6 +60,14 @@
       </table>
     </section>
     <section name="Release Notes">
+      <subsection name="7.0.0">
+        <p class="smallinfo">Released: 6 August 2020</p>
+        <ul>
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-359'>HIPFORGE-359</a> - Upgrade for XM 14 compatibility.</li>
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-360'>HIPFORGE-360</a> - Add OpenUI field submodule to
+            reuse Open UI field by configuration. See <a href="openui-field/architecture.html">architecture</a> and sibling pages.</li>
+        </ul>
+      </subsection>
       <subsection name="6.0.1">
         <p class="smallinfo">Released: 7 May 2020</p>
         <ul>
@@ -67,7 +79,7 @@
       <subsection name="6.0.0">
         <p class="smallinfo">Released: 18 January 2019</p>
         <ul>
-          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-243'>HIPFORGE-243</a> - Upgrade for v13 compliancy
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-243'>HIPFORGE-243</a> - Upgrade for XM 13 compliancy.
           </li>
         </ul>
       </subsection>

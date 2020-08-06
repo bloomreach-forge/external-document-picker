@@ -5,13 +5,18 @@
   <parent>
     <groupId>org.onehippo.forge.exdocpickerbase</groupId>
     <artifactId>exdocpickerbase-demo</artifactId>
-    <version>6.0.1</version>
+    <version>7.0.0</version>
   </parent>
   <artifactId>exdocpickerbase-demo-cms-dependencies</artifactId>
   <packaging>pom</packaging>
   <name>Hippo CMS External Document Picker Base Demo CMS Dependencies</name>
   <description>Hippo CMS External Document Picker Base Demo CMS Dependencies</description>
   <dependencies>
+
+    <dependency>
+      <groupId>org.onehippo.forge.exdocpickerbase</groupId>
+      <artifactId>exdocpickerbase-openui-field</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.onehippo.forge.exdocpickerbase</groupId>
