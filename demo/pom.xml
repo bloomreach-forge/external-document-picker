@@ -98,6 +98,12 @@
 
       <dependency>
         <groupId>org.onehippo.forge.exdocpickerbase</groupId>
+        <artifactId>exdocpickerbase-openui-field</artifactId>
+        <version>${forge.exdocpickerbase.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.onehippo.forge.exdocpickerbase</groupId>
         <artifactId>exdocpickerbase-field</artifactId>
         <version>${forge.exdocpickerbase.version}</version>
       </dependency>

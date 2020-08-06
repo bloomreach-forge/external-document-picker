@@ -39,6 +39,9 @@
     <lib.slf4j.version>1.7.25</lib.slf4j.version>
     <lib.log4j2.version>2.13.3</lib.log4j2.version>
 
+    <nodejs.version>v12.16.1</nodejs.version>
+    <npm.version>6.13.4</npm.version>
+
     <plugin.compiler.version>3.1</plugin.compiler.version>
     <plugin.clean.version>2.5</plugin.clean.version>
     <plugin.deploy.version>2.8.1</plugin.deploy.version>
@@ -54,6 +57,7 @@
     <plugin.source.version>2.2.1</plugin.source.version>
     <plugin.surefire.version>2.20</plugin.surefire.version>
     <plugin.surefire-report.version>2.20</plugin.surefire-report.version>
+    <plugin.frontend-maven-plugin.version>1.10.0</plugin.frontend-maven-plugin.version>
 
     <extension.wagon-svn.version>1.9</extension.wagon-svn.version>
 
@@ -300,6 +304,7 @@
   <modules>
     <module>fieldpicker</module>
     <module>richtext-ckeditor</module>
+    <module>openui-fieldpicker</module>
   </modules>
 
   <build>

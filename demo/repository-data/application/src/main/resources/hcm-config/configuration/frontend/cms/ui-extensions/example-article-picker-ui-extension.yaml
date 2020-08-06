@@ -1,0 +1,13 @@
+definitions:
+  config:
+    /hippo:configuration/hippo:frontend/cms/ui-extensions/exampleArticlePicker:
+      jcr:primaryType: frontend:uiExtension
+      frontend:extensionPoint: document.field
+      frontend:displayName: Example Article Picker
+      frontend:initialHeightInPixels: 80
+      frontend:url: angular/exdocpickerbase-openui/index.html
+      frontend:config: "{\r\n  \"findOneUrl\": \"../../examples/hippoblogarticles.jsp?id={{id}}\"\
+        ,\r\n  \"findAllUrl\": \"../../examples/hippoblogarticles.jsp?q={{q}}\",\r\n \
+        \ \"showSearchInput\": true,\r\n  \"searchOnInit\": false,\r\n  \"initSearchTerm\"\
+        : \"\",\r\n  \"treeViewMode\": false\r\n}"
+    

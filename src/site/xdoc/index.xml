@@ -24,23 +24,42 @@
   <body>
     <section name="Hippo CMS External Document Picker Base">
       <p>
-        This project provides base external document picker plugins for Hippo CMS with simple example implementations for developer's references.
+        This project provides base external document picker Wicket plugins and OpenUI Extension based plugins
+        for Hippo CMS with simple example implementations for developer's references.
       </p>
       <p>
         This project contains various external document pickers for different use cases:
       </p>
       <ol>
         <li>
+          <a href="openui-field/architecture.html">OpenUI External Document Field Picker</a>
+          (for use cases to select metadata of external content for CMS document fields)
+          <ul>
+            <li>
+              (a) <a href="openui-field/dev-howto-openui-listview.html">OpenUI Flat List View Picker Option</a>
+              (for use cases with general list views or search results to select from,
+              using <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/open-ui-document-field-extensions.html">OpenUI Field Extension</a>)
+            </li>
+            <li>
+              (b) <a href="openui-field/dev-howto-openui-treeview.html">OpenUI Tree List View Picker Option</a>
+              (for use cases with hierarchically organized content such as external taxonomy data,
+              using <a href="https://documentation.bloomreach.com/14/library/concepts/open-ui/open-ui-document-field-extensions.html">OpenUI Field Extension</a>)
+            </li>
+          </ul>
+        </li>
+        <li>
           <a href="field/architecture.html">External Document Field Picker</a>
           (for use cases to select metadata of external content for CMS document fields)
           <ul>
             <li>
               (a) <a href="field/dev-howto-listview.html">Flat List View Picker Option</a>
-              (for use cases with general list views or search results to select from)
+              (for use cases with general list views or search results to select from,
+              using traditional Wicket plugins)
             </li>
             <li>
               (b) <a href="field/dev-howto-treeview.html">Tree List View Picker Option</a>
-              (for use cases with hierarchically organized content such as external taxonomy data)
+              (for use cases with hierarchically organized content such as external taxonomy data,
+              using traditional Wicket plugins)
             </li>
           </ul>
         </li>
@@ -104,8 +123,8 @@
       </subsection>
     </section>
     <section name="Demo Application">
-      <subsection name="Demo Application with Hippo CMS 10">
-        <p>You can check out, build and run demo application from the demo submodule. It contains all the examples explained in this site documentation.</p>
+      <subsection name="Build and run the demo project">
+        <p>You can check out, build and run demo application from the demo folder. It contains all the examples explained in this site documentation.</p>
         <p>Here are example commands to check out, build and run demo application:</p>
         <div class="brush: bash">
           <source><![CDATA[
@@ -118,6 +137,21 @@
           Visit http://localhost:8080/cms/.
         </p>
       </subsection>
+    </section>
+    <section name="Testing OpenUI External Document Field Picker with Demo Application">
+      <p>
+        Log on to the CMS application and open an events document.
+        You will see two fields referring to some external documents below. ('Related Article' field and 'Related Category' field)
+      </p>
+      <img src="images/exdocpickerbase-openui-screenshot01.png" alt="Edit Events document" />
+      <p>
+        TODO
+      </p>
+      <img src="images/exdocpickerbase-openui-screenshot02.png" alt="Select an item from the flat list view" />
+      <p>
+        TODO
+      </p>
+      <img src="images/exdocpickerbase-openui-screenshot03.png" alt="Select an item from the tree view" />
     </section>
     <section name="Testing External Document Field Picker with Demo Application">
       <p>

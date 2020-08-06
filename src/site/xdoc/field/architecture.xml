@@ -74,7 +74,7 @@
           </li>
         </ul>
         <p>
-          Here's an overal architectural view. As you can see, you can care of only your custom <code>ExternalDocumentServiceFacade</code>
+          Here's an architectural overview. As you can see, you can care of only your custom <code>ExternalDocumentServiceFacade</code>
           implementation class with simple configurations for a specific document field without having to spend
           much effort on CMS Document Editor UI customization by yourself.
         </p>
