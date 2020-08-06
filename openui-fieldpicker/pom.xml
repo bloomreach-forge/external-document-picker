@@ -16,7 +16,7 @@
   <parent>
     <groupId>org.onehippo.forge.exdocpickerbase</groupId>
     <artifactId>exdocpickerbase</artifactId>
-    <version>7.0.0</version>
+    <version>7.0.1-SNAPSHOT</version>
   </parent>
 
   <name>Hippo CMS External Document Picker Base for OpenUI Field Picker</name>
