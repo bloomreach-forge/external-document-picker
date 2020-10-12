@@ -34,7 +34,7 @@
     <commons-collections.version>3.2.2</commons-collections.version>
 
     <lib.json-lib.version>2.4</lib.json-lib.version>
-    <lib.junit.version>4.12</lib.junit.version>
+    <lib.junit.version>4.13.1</lib.junit.version>
     <lib.easymock.version>3.4</lib.easymock.version>
     <lib.slf4j.version>1.7.25</lib.slf4j.version>
     <lib.log4j2.version>2.13.3</lib.log4j2.version>
