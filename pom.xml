@@ -37,7 +37,7 @@
     <lib.junit.version>4.12</lib.junit.version>
     <lib.easymock.version>3.4</lib.easymock.version>
     <lib.slf4j.version>1.7.25</lib.slf4j.version>
-    <lib.log4j2.version>2.13.3</lib.log4j2.version>
+    <lib.log4j2.version>2.17.1</lib.log4j2.version>
 
     <nodejs.version>v12.16.1</nodejs.version>
     <npm.version>6.13.4</npm.version>
