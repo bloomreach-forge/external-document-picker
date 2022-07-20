@@ -1,5 +1,5 @@
 /**
- * Copyright 2020-2022 BloomReach Inc. (https://www.bloomreach.com/)
+ * Copyright 2022 BloomReach Inc. (https://www.bloomreach.com/)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ module.exports = function (config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
-      require('karma-firefox-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
@@ -41,15 +40,8 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['FirefoxHeadless', 'ChromeHeadless'],
-    customLaunchers: {
-      'FirefoxHeadless': {
-        base: 'Firefox',
-        flags: [
-          '-headless',
-        ],
-      }
-    },
+    browsers: ['Chrome'],
+    singleRun: false,
     restartOnFileChange: true
   });
 };
