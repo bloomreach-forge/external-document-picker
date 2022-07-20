@@ -13,7 +13,7 @@
   <description>Hippo CMS External Document Picker Base Demo</description>
   <groupId>org.onehippo.forge.exdocpickerbase</groupId>
   <artifactId>exdocpickerbase-demo</artifactId>
-  <version>8.0.0-SNAPSHOT</version>
+  <version>8.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <!-- 
