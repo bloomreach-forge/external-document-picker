@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.onehippo.forge.exdocpickerbase</groupId>
     <artifactId>exdocpickerbase-demo</artifactId>
     <version>7.0.1-SNAPSHOT</version>
   </parent>
+
   <artifactId>exdocpickerbase-demo-cms</artifactId>
   <packaging>war</packaging>
   <name>Hippo CMS External Document Picker Base Demo CMS</name>
   <description>Hippo CMS External Document Picker Base Demo CMS</description>
+
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -18,9 +21,27 @@
       <version>${project.version}</version>
       <type>pom</type>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.taglibs</groupId>
+      <artifactId>taglibs-standard-impl</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>javax.servlet.jsp-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
+
   <build>
     <finalName>cms</finalName>
+
     <plugins>
       <plugin>
         <groupId>org.apache.openjpa</groupId>
@@ -49,6 +70,7 @@
           </dependency>
         </dependencies>
       </plugin>
+
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <configuration>
@@ -61,6 +83,7 @@
           </archive>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.codehaus.cargo</groupId>
         <artifactId>cargo-maven2-plugin</artifactId>
@@ -73,6 +96,7 @@
           </container>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.onehippo.cms.l10n</groupId>
         <artifactId>hippo-cms-l10n-maven-plugin</artifactId>

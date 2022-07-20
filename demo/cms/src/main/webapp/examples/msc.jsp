@@ -1,5 +1,5 @@
 <%--
-  Copyright 2020 BloomReach, Inc. (https://www.bloomreach.com)
+  Copyright 2022 BloomReach, Inc. (https://www.bloomreach.com)
 
   Licensed under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with the
@@ -13,13 +13,12 @@
 Simple JSON REST Service implementation only for demo purpose, serializing example tree data (/WEB-INF/msc.json).
 --%>
 <%@ page contentType="application/json" %>
-<%@ page import="java.util.*" %>
 <%@ page import="org.apache.commons.lang3.*" %>
 <%@ page import="org.apache.commons.io.*" %>
-<%@ page import="net.sf.json.*" %>
+<%@ page import="net.sf.json.*" %><%@ page import="java.nio.charset.StandardCharsets"%>
 
 <%
-final String data = IOUtils.toString(application.getResource("/WEB-INF/msc.json"), "UTF-8");
+final String data = IOUtils.toString(application.getResource("/WEB-INF/msc.json"), StandardCharsets.UTF_8);
 final JSONArray jsonData = JSONArray.fromObject(data);
 final String id = request.getParameter("id");
 

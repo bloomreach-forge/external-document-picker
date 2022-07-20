@@ -1,11 +1,11 @@
 /**
- * Copyright 2014 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2017-2022 Bloomreach B.V. (<a href="https://www.bloomreach.com">https://www.bloomreach.com</a>)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *         <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,6 +16,7 @@
 package org.onehippo.forge.exdocpicker.demo.field;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -64,28 +65,23 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = LoggerFactory.getLogger(ExampleExternalDocumentServiceFacade.class);
+    private static final Logger log = LoggerFactory.getLogger(ExampleExternalDocumentServiceFacade.class);
 
     private JSONArray docArray;
 
     public ExampleExternalDocumentServiceFacade() {
-        InputStream input = null;
-
-        try {
-            input = ExampleExternalDocumentServiceFacade.class
-                    .getResourceAsStream(ExampleExternalDocumentServiceFacade.class.getSimpleName() + ".json");
-            docArray = (JSONArray) JSONSerializer.toJSON(IOUtils.toString(input));
+        try(InputStream input = ExampleExternalDocumentServiceFacade.class
+                .getResourceAsStream(ExampleExternalDocumentServiceFacade.class.getSimpleName() + ".json");) {
+            docArray = (JSONArray) JSONSerializer.toJSON(IOUtils.toString(input, StandardCharsets.UTF_8));
         } catch (Exception e) {
             log.error("Failed to load JSON data.", e);
-        } finally {
-            IOUtils.closeQuietly(input);
         }
     }
 
     @Override
     public ExternalDocumentCollection<JSONObject> searchExternalDocuments(ExternalDocumentServiceContext context,
             String queryString) {
-        ExternalDocumentCollection<JSONObject> docCollection = new SimpleExternalDocumentCollection<JSONObject>();
+        ExternalDocumentCollection<JSONObject> docCollection = new SimpleExternalDocumentCollection<>();
         int size = docArray.size();
 
         if (StringUtils.isBlank(queryString)) {
@@ -114,7 +110,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
                     + PARAM_EXTERNAL_DOCS_FIELD_NAME + "': " + fieldName);
         }
 
-        ExternalDocumentCollection<JSONObject> docCollection = new SimpleExternalDocumentCollection<JSONObject>();
+        ExternalDocumentCollection<JSONObject> docCollection = new SimpleExternalDocumentCollection<>();
 
         try {
             final Node contextNode = context.getContextModel().getNode();
@@ -125,10 +121,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
                 for (Value value : values) {
                     String id = value.getString();
                     JSONObject doc = findDocumentById(id);
-
-                    if (doc != null) {
-                        docCollection.add(doc);
-                    }
+                    docCollection.add(doc);
                 }
             }
         } catch (RepositoryException e) {
@@ -150,7 +143,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
 
         try {
             final Node contextNode = context.getContextModel().getNode();
-            final List<String> docIds = new ArrayList<String>();
+            final List<String> docIds = new ArrayList<>();
 
             for (Iterator<? extends JSONObject> it = exdocs.iterator(); it.hasNext();) {
                 JSONObject doc = it.next();
@@ -161,7 +154,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
                 contextNode.addMixin(HippoStdNodeType.NT_RELAXED);
             }
 
-            contextNode.setProperty(fieldName, docIds.toArray(new String[docIds.size()]));
+            contextNode.setProperty(fieldName, docIds.toArray(new String[0]));
         } catch (RepositoryException e) {
             log.error("Failed to set related exdoc array field.", e);
         }
@@ -204,7 +197,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
             }
         }
 
-        return null;
+        return new JSONObject();
     }
 
 }

@@ -1,12 +1,12 @@
 /**
- * Copyright 2017 Hippo B.V. (http://www.onehippo.com)
- * 
+ * Copyright 2014-2022 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *         http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *         <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -60,7 +60,7 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = LoggerFactory.getLogger(ExternalTreeItemFieldBrowserDialog.class);
+    private static final Logger log = LoggerFactory.getLogger(ExternalTreeItemFieldBrowserDialog.class);
 
     /**
      * {@link ExternalTreeItemDataProvider} instance.
@@ -75,11 +75,7 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
     /**
      * Tree list view UI theme.
      */
-    private Behavior theme;
-
-    private final AjaxButton expandSelectedButton;
-    private final AjaxButton expandAllButton;
-    private final AjaxButton collapseAllButton;
+    private final Behavior theme;
 
     /**
      * Constructs external document(s) picker dialog.
@@ -103,27 +99,27 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
             theme = new HumanTheme();
         }
 
-        expandSelectedButton = new AjaxButton("expand-selected-button") {
+        AjaxButton expandSelectedButton = new AjaxButton("expand-selected-button") {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 expandPickedExternalTreeItemNodes(getExternalDocumentServiceFacade());
                 target.add(ExternalTreeItemFieldBrowserDialog.this);
             }
         };
         add(expandSelectedButton);
 
-        expandAllButton = new AjaxButton("expand-all-button") {
+        AjaxButton expandAllButton = new AjaxButton("expand-all-button") {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 treeExpansionSet.expandAll();
                 target.add(ExternalTreeItemFieldBrowserDialog.this);
             }
         };
         add(expandAllButton);
 
-        collapseAllButton = new AjaxButton("collapse-all-button") {
+        AjaxButton collapseAllButton = new AjaxButton("collapse-all-button") {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 treeExpansionSet.collapseAll();
                 target.add(ExternalTreeItemFieldBrowserDialog.this);
             }
@@ -277,7 +273,7 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
 
         private static final long serialVersionUID = 1L;
 
-        private AbstractTree<Serializable> tree;
+        private final AbstractTree<Serializable> tree;
 
         public CheckableTreeNode(String id, AbstractTree<Serializable> tree, IModel<Serializable> model) {
             super(id, tree, model);

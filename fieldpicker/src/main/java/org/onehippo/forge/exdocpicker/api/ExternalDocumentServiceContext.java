@@ -1,11 +1,11 @@
 /**
- * Copyright 2014 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2014-2022 Bloomreach B.V. (<a href="https://www.bloomreach.com">https://www.bloomreach.com</a>)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *         <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,25 +33,25 @@ public interface ExternalDocumentServiceContext extends IClusterable {
      * Returns the plugin instance.
      * @return IPlugin instance
      */
-    public IPlugin getPlugin();
+    IPlugin getPlugin();
 
     /**
      * Returns the plugin config instance.
      * @return IPluginConfig instance
      */
-    public IPluginConfig getPluginConfig();
+    IPluginConfig getPluginConfig();
 
     /**
      * Returns the plugin context instance.
      * @return IPluginContext instance
      */
-    public IPluginContext getPluginContext();
+    IPluginContext getPluginContext();
 
     /**
      * Returns the context document object which is being used by the user when the invocation is made.
      * @return context model
      */
-    public JcrNodeModel getContextModel();
+    JcrNodeModel getContextModel();
 
     /**
      * Set an attribute.
