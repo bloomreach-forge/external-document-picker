@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/bloomreach-forge/external-document-picker.svg?branch=develop)](https://travis-ci.org/bloomreach-forge/external-document-picker)
-
 # Hippo External Document Picker 
 
 This project provides a base for external document pickers for Hippo CMS with simple example implementations for 

@@ -7,6 +7,7 @@
     <artifactId>exdocpickerbase-demo</artifactId>
     <version>7.0.1-SNAPSHOT</version>
   </parent>
+
   <artifactId>exdocpickerbase-demo-site</artifactId>
   <packaging>pom</packaging>
   <name>Hippo CMS External Document Picker Base Demo Site</name>
