@@ -18,7 +18,7 @@ public class InformantTest {
         // null, null
         first.setId(null);
         second.setId(null);
-        assertNotEquals(first, second);
+        assertEquals(first, second);
 
         // non null, null
         first.setId(10L);

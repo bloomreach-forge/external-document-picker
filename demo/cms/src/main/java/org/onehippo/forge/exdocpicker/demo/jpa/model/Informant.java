@@ -80,7 +80,8 @@ public class Informant implements Serializable {
         }
 
         Informant o = (Informant) otherObject;
-        return id != null && o.id != null && id.equals(o.id);
+        return  (id == null && o.id == null) ||
+                (id != null && o.id != null && id.equals(o.id));
     }
 
     @Override
