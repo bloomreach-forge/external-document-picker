@@ -30,6 +30,10 @@
           <th>Hippo CMS Release version</th>
         </tr>
         <tr>
+          <td>8.x</td>
+          <td>15.x</td>
+        </tr>
+        <tr>
           <td>7.x</td>
           <td>14.x</td>
         </tr>
@@ -60,6 +64,13 @@
       </table>
     </section>
     <section name="Release Notes">
+      <subsection name="8.0.0">
+        <p class="smallinfo">Released: 10 August 2022</p>
+        <ul>
+          <li><a href='https://issues.onehippo.com/browse/HIPFORGE-421'>HIPFORGE-421</a> - Upgrade for XM 15 compatibility.</li>
+          <li>upgrade OpenUI picker to Angular 11</li>
+        </ul>
+      </subsection>
       <subsection name="7.0.0">
         <p class="smallinfo">Released: 6 August 2020</p>
         <ul>
