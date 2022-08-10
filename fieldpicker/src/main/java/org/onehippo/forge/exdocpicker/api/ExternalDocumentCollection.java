@@ -1,11 +1,11 @@
 /**
- * Copyright 2014 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2014-2022 Bloomreach B.V. (<a href="https://www.bloomreach.com">https://www.bloomreach.com</a>)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *         <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,7 +36,7 @@ public interface ExternalDocumentCollection<T extends Serializable> extends Seri
      * Returns an iterator of all the items.
      * @return an iterator of all the items
      */
-    public Iterator<? extends T> iterator();
+    Iterator<T> iterator();
 
     /**
      * Returns an iterator of items starting from <code>first</code> index up to <code>count</code> items.
@@ -44,14 +44,14 @@ public interface ExternalDocumentCollection<T extends Serializable> extends Seri
      * @param count iterating count
      * @return an iterator of items starting from <code>first</code> index up to <code>count</code> items
      */
-    public Iterator<? extends T> iterator(long first, final long count);
+    Iterator<T> iterator(long first, final long count);
 
     /**
      * Returns true if this collection contains the <code>doc</code>.
      * @param doc document
      * @return true if this collection contains the <code>doc</code>
      */
-    public boolean contains(T doc);
+    boolean contains(T doc);
 
     /**
      * Returns the index of {@code doc} in this collection if found.
@@ -59,14 +59,14 @@ public interface ExternalDocumentCollection<T extends Serializable> extends Seri
      * @param doc document
      * @return the index of {@code doc} in this collection if found. Otherwise returns -1
      */
-    public int indexOf(T doc);
+    int indexOf(T doc);
 
     /**
      * Adds the <code>doc</code> to this collection.
      * @param doc document
      * @return true if added
      */
-    public boolean add(T doc);
+    boolean add(T doc);
 
     /**
      * Inserts the <code>doc</code> at the {@code index} position of this collection.
@@ -74,44 +74,44 @@ public interface ExternalDocumentCollection<T extends Serializable> extends Seri
      * @param doc document
      * @return true if inserted
      */
-    public boolean add(int index, T doc);
+    boolean add(int index, T doc);
 
     /**
      * Adds all the <code>docs</code> to this collection.
      * @param docs documents
      * @return all the <code>docs</code> to this collection
      */
-    public boolean addAll(Collection<T> docs);
+    boolean addAll(Collection<T> docs);
 
     /**
      * Removes the <code>doc</code> from this collection.
      * @param doc document
      * @return the <code>doc</code> from this collection
      */
-    public boolean remove(T doc);
+    boolean remove(T doc);
 
     /**
      * Removes all the document items from this collection.
      */
-    public void clear();
+    void clear();
 
     /**
      * Returns the size of this collection.
      * @return the size of this collection
      */
-    public int getSize();
+    int getSize();
 
     /**
      * Copy all the items into an array and returns the array.
      * @param a array
      * @return all the items into an array and returns the array
      */
-    public T[] toArray(T[] a);
+    T[] toArray(T[] a);
 
     /**
      * Creates and returns a copy of this object.
      * @return a copy of this object
      */
-    public Object clone();
+    Object clone();
 
 }

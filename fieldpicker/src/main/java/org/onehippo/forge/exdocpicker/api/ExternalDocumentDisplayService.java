@@ -1,11 +1,11 @@
 /**
- * Copyright 2014 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2014-2022 Bloomreach B.V. (<a href="https://www.bloomreach.com">https://www.bloomreach.com</a>)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *         <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,7 +31,7 @@ public interface ExternalDocumentDisplayService<T extends Serializable> {
      * @param doc document
      * @return true if the domain specific external document object is selectable for a field by end user
      */
-    default public boolean isDocumentSelectable(ExternalDocumentServiceContext context, T doc) {
+    default boolean isDocumentSelectable(ExternalDocumentServiceContext context, T doc) {
         return true;
     }
 
@@ -43,7 +43,7 @@ public interface ExternalDocumentDisplayService<T extends Serializable> {
      * @param preferredLocale preferrered locale
      * @return document title
      */
-    public String getDocumentTitle(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
+    String getDocumentTitle(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
 
     /**
      * Reads the description from the domain specific external document object by the <code>preferredLocale</code>.
@@ -53,7 +53,7 @@ public interface ExternalDocumentDisplayService<T extends Serializable> {
      * @param preferredLocale preferred locale
      * @return document description
      */
-    public String getDocumentDescription(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
+    String getDocumentDescription(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
 
     /**
      * Reads the icon link URL from the domain specific external document object by the <code>preferredLocale</code>.
@@ -63,6 +63,6 @@ public interface ExternalDocumentDisplayService<T extends Serializable> {
      * @param preferredLocale preferred locale
      * @return document icon link URL
      */
-    public String getDocumentIconLink(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
+    String getDocumentIconLink(ExternalDocumentServiceContext context, T doc, final Locale preferredLocale);
 
 }

@@ -36,7 +36,7 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
                     var query = dialog.getValueOf( 'tab-searchdocs', 'searchText' );
                     var searchURL = pickerConfig.getSearchURL( { 'query': query } );
                     $.get( searchURL, function( data ) {
-                      searchedDocs = JSON.parse( data );
+                      searchedDocs =  data;
                       var docList = dialog.getContentElement( 'tab-searchdocs', 'docsList' );
                       var listView = dialog.getElement().findOne( '.listView' );
                       while( listView.getChildCount() !== 0 ) {

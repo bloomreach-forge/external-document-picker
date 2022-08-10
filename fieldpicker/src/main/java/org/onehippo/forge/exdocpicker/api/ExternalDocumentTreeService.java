@@ -1,11 +1,11 @@
 /**
- * Copyright 2017 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2022 Bloomreach B.V. (<a href="https://www.bloomreach.com">https://www.bloomreach.com</a>)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *         <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ public interface ExternalDocumentTreeService<T extends Serializable> {
      * @param doc document
      * @return true if the {@code doc} has children
      */
-    default public boolean hasChildren(T doc) {
+    default boolean hasChildren(T doc) {
         return false;
     }
 
@@ -42,7 +42,7 @@ public interface ExternalDocumentTreeService<T extends Serializable> {
      * @param doc document
      * @return an iterator of the children of the {@code doc}
      */
-    default public Iterator<T> getChildren(T doc) {
+    default Iterator<T> getChildren(T doc) {
         List<T> emptyList = Collections.emptyList();
         return emptyList.iterator();
     }
@@ -52,7 +52,7 @@ public interface ExternalDocumentTreeService<T extends Serializable> {
      * @param doc document
      * @return the parent document of the {@code doc} if any, or null if there's no parent
      */
-    default public T getParent(T doc) {
+    default T getParent(T doc) {
         return null;
     }
 

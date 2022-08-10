@@ -1,12 +1,12 @@
 /**
- * Copyright 2014 Hippo B.V. (http://www.onehippo.com)
- * 
+ * Copyright 2014-2022 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *         http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *         <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
 
     private static final long serialVersionUID = 1L;
 
-    private List<T> list = new LinkedList<T>();
+    private final List<T> list = new LinkedList<>();
 
     public SimpleExternalDocumentCollection() {
         this(null);
@@ -45,7 +45,7 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
 
     @SuppressWarnings("unchecked")
     @Override
-    public Iterator<? extends T> iterator(long first, final long count) {
+    public Iterator<T> iterator(long first, final long count) {
         return new AbstractIteratorDecorator(list.listIterator((int) first)) {
             private int iterationCount;
  
@@ -66,7 +66,7 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
     }
 
     @Override
-    public Iterator<? extends T> iterator() {
+    public Iterator<T> iterator() {
         return list.iterator();
     }
 

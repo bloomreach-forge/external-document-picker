@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2015 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2014-2022 Bloomreach B.V. (https://www.bloomreach.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ public class SimpleJPQLExternalDocumentServiceFacade implements ExternalDocument
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = LoggerFactory.getLogger(SimpleJPQLExternalDocumentServiceFacade.class);
+    private static final Logger log = LoggerFactory.getLogger(SimpleJPQLExternalDocumentServiceFacade.class);
 
     /**
      * Plugin parameter name for physical document field name (JCR property name).
@@ -122,7 +122,7 @@ public class SimpleJPQLExternalDocumentServiceFacade implements ExternalDocument
 
     @Override
     public ExternalDocumentCollection<Serializable> searchExternalDocuments(ExternalDocumentServiceContext context, String queryString) {
-        ExternalDocumentCollection<Serializable> docCollection = new SimpleExternalDocumentCollection<Serializable>();
+        ExternalDocumentCollection<Serializable> docCollection = new SimpleExternalDocumentCollection<>();
 
         EntityManager em = null;
 

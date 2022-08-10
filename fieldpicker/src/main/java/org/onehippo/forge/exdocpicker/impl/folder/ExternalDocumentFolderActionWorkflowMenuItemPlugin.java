@@ -1,12 +1,12 @@
 /**
- * Copyright 2017 Hippo B.V. (http://www.onehippo.com)
- * 
+ * Copyright 2014-2022 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *         http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *         <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,10 +49,9 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = LoggerFactory.getLogger(ExternalDocumentFolderActionWorkflowMenuItemPlugin.class);
+    private static final Logger log = LoggerFactory.getLogger(ExternalDocumentFolderActionWorkflowMenuItemPlugin.class);
 
-    private WorkflowDescriptorModel folderWorkflowModel;
-    private JcrNodeModel folderNodeModel;
+    private final WorkflowDescriptorModel folderWorkflowModel;
 
     private ExternalDocumentServiceFacade<Serializable> exdocService;
     private ExternalDocumentCollection<Serializable> curDocCollection;
@@ -63,6 +62,7 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
 
         folderWorkflowModel = (WorkflowDescriptorModel) getModel();
 
+        JcrNodeModel folderNodeModel;
         try {
             folderNodeModel = new JcrNodeModel(folderWorkflowModel.getNode());
         } catch (RepositoryException e) {
@@ -98,8 +98,7 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
 
     protected IModel<String> getMenuItemLabelModel() {
         String menuItemLabel = getPluginConfig().getString("exdocfield.menu.label", PluginConstants.DEFAULT_FIELD_CAPTION);
-        String menuItemLabelKey = menuItemLabel;
-        return new StringResourceModel(menuItemLabelKey, this, null).setDefaultValue(menuItemLabel);
+        return new StringResourceModel(menuItemLabel, this, null).setDefaultValue(menuItemLabel);
     }
 
     protected ResourceReference getMenuItemIconResourceReference() {
@@ -118,8 +117,7 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
         if (StringUtils.isBlank(dialogTitle)) {
             return getMenuItemLabelModel();
         } else {
-            String dialogTitleKey = dialogTitle;
-            return new StringResourceModel(dialogTitleKey, this, null).setDefaultValue(dialogTitle);
+            return new StringResourceModel(dialogTitle, this, null).setDefaultValue(dialogTitle);
         }
     }
 
@@ -144,7 +142,7 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
     protected AbstractDialog<ExternalDocumentCollection<Serializable>> createDialogInstance() {
         return new TextSearchExternalDocumentFieldBrowserDialog(getDialogTitleModel(), getExternalDocumentServiceContext(),
                 getExternalDocumentServiceFacade(),
-                new Model<ExternalDocumentCollection<Serializable>>(getCurrentExternalDocumentCollection()));
+                new Model<>(getCurrentExternalDocumentCollection()));
     }
 
     /**
@@ -162,7 +160,7 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
                     .getString(PluginConstants.PARAM_EXTERNAL_DOCUMENT_SERVICE_FACADE);
             Class<? extends ExternalDocumentServiceFacade> serviceClass = (Class<? extends ExternalDocumentServiceFacade>) Class
                     .forName(serviceFacadeClassName);
-            service = serviceClass.newInstance();
+            service = serviceClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             log.error("Failed to create external document service facade from class name, '{}'.",
                     serviceFacadeClassName, e);

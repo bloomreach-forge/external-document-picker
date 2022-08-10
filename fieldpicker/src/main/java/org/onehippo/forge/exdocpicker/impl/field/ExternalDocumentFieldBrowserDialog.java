@@ -1,11 +1,11 @@
 /**
- * Copyright 2014-2017 Hippo B.V. (http://www.onehippo.com)
+ * Copyright 2014-2022 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *         <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,12 +30,10 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
-import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.PackageResourceReference;
@@ -55,15 +53,9 @@ import org.slf4j.LoggerFactory;
 public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocumentFieldBrowserDialog {
 
     private static final long serialVersionUID = 1L;
-
-    private static Logger log = LoggerFactory.getLogger(ExternalDocumentFieldBrowserDialog.class);
+    private static final Logger log = LoggerFactory.getLogger(ExternalDocumentFieldBrowserDialog.class);
 
     private String searchQuery;
-
-    private boolean initialSearchEnabled;
-
-    private final AjaxButton selectAllButton;
-    private final AjaxButton clearAllButton;
 
     /**
      * Constructs external document(s) picker dialog.
@@ -78,11 +70,12 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
             IModel<ExternalDocumentCollection<Serializable>> model) {
         super(titleModel, extDocServiceContext, exdocService, model);
 
-        selectAllButton = new AjaxButton("select-all-button") {
+        AjaxButton selectAllButton = new AjaxButton("select-all-button") {
+
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 getPickedExternalDocuments().clear();
-                for (Iterator<? extends Serializable> it = getSearchedExternalDocuments().iterator(); it.hasNext();) {
+                for (Iterator<? extends Serializable> it = getSearchedExternalDocuments().iterator(); it.hasNext(); ) {
                     getPickedExternalDocuments().add(it.next());
                 }
                 target.add(ExternalDocumentFieldBrowserDialog.this);
@@ -91,9 +84,9 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
         selectAllButton.setEnabled(false);
         add(selectAllButton);
 
-        clearAllButton = new AjaxButton("clear-all-button") {
+        AjaxButton clearAllButton = new AjaxButton("clear-all-button") {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 getPickedExternalDocuments().clear();
                 target.add(ExternalDocumentFieldBrowserDialog.this);
             }
@@ -147,7 +140,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
      */
     @Override
     protected void initializeSearchedExternalDocuments() {
-        initialSearchEnabled = getPluginConfig().getAsBoolean(PluginConstants.PARAM_INITIAL_SEARCH_ENABLED,
+        boolean initialSearchEnabled = getPluginConfig().getAsBoolean(PluginConstants.PARAM_INITIAL_SEARCH_ENABLED,
                 PluginConstants.DEFAULT_INITIAL_SEARCH_ENABLED);
         searchQuery = getPluginConfig().getString(PluginConstants.PARAM_INITIAL_SEARCH_QUERY, "");
 
@@ -162,7 +155,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
      */
     @Override
     protected void initializeDataListView() {
-        final IDataProvider<Serializable> provider = new SimpleExternalDocumentCollectionDataProvider<Serializable>(
+        final IDataProvider<Serializable> provider = new SimpleExternalDocumentCollectionDataProvider<>(
                 getSearchedExternalDocuments());
 
         final DataView<Serializable> resultsDataView = new DataView<Serializable>("item", provider, getPageSize()) {
@@ -176,7 +169,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
                 final Serializable doc = listItem.getModelObject();
                 listItem.setOutputMarkupId(true);
 
-                AjaxCheckBox selectCheckbox = new AjaxCheckBox("select-button", new Model<Boolean>()) {
+                AjaxCheckBox selectCheckbox = new AjaxCheckBox("select-button", new Model<>()) {
                     private static final long serialVersionUID = 1L;
 
                     @Override
@@ -225,14 +218,10 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
                 };
 
                 listItem.add(frame);
-
-                listItem.add(new AttributeAppender("class", new AbstractReadOnlyModel() {
-                    private static final long serialVersionUID = 1L;
-
-                    public Object getObject() {
-                        return ((listItem.getIndex() & 1) == 1) ? "even" : "odd";
-                    }
-                }, " "));
+                listItem.add(new AttributeAppender(
+                        "class",
+                        (IModel<String>) () -> ((listItem.getIndex() & 1) == 1) ? "even" : "odd", " ")
+                );
             }
         };
 
@@ -279,7 +268,7 @@ public class ExternalDocumentFieldBrowserDialog extends AbstractExternalDocument
             if (StringUtils.isBlank(imageUrl)) {
                 this.setImageResourceReference(NO_ICON, null);
             } else {
-                add(new AttributeModifier("src", new Model(imageUrl)));
+                add(new AttributeModifier("src", new Model<>(imageUrl)));
             }
         }
     }

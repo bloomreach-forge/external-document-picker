@@ -1,12 +1,12 @@
 /**
- * Copyright 2014-2017 Hippo B.V. (http://www.onehippo.com)
- * 
+ * Copyright 2014-2022 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *         http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *         <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -74,7 +74,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
     private static final Logger log = LoggerFactory.getLogger(ExternalDocumentFieldSelectorPlugin.class);
 
-    private JcrNodeModel documentModel;
+    private final JcrNodeModel documentModel;
 
     private ExternalDocumentServiceFacade<Serializable> exdocService;
     private ExternalDocumentCollection<Serializable> curDocCollection;
@@ -131,9 +131,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                     if (compareBaseRef == null) {
                         log.warn("no base model service available");
                     } else {
-                        compareBaseDocumentModel = new JcrNodeModel(new StringBuilder()
-                            .append(((JcrNodeModel)compareBaseRef.getModel()).getItemModel().getPath())
-                            .toString());
+                        compareBaseDocumentModel = new JcrNodeModel(((JcrNodeModel) compareBaseRef.getModel()).getItemModel().getPath());
                         ExternalDocumentServiceContext comparingContext =
                             new SimpleExternalDocumentServiceContext(this,
                                                                      getPluginConfig(),
@@ -152,9 +150,10 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
         WebMarkupContainer actionButtonsContainer = new WebMarkupContainer("action-buttons");
         // Browse button
-        DialogLink browseButton = new DialogLink("browse-button", new StringResourceModel("picker.browse",
-                                                                                          this, null),
-                                                 createDialogFactory(), getDialogService());
+        DialogLink browseButton = new DialogLink("browse-button",
+                new StringResourceModel("picker.browse", this, null),
+                createDialogFactory(),
+                getDialogService());
         actionButtonsContainer.add(browseButton);
 
         actionButtonsContainer.setVisible(isEditMode());
@@ -205,7 +204,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                 .getString(PluginConstants.PARAM_EXTERNAL_DOCUMENT_SERVICE_FACADE);
             Class<? extends ExternalDocumentServiceFacade> serviceClass = (Class<? extends ExternalDocumentServiceFacade>)Class
                 .forName(serviceFacadeClassName);
-            service = serviceClass.newInstance();
+            service = serviceClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             log.error("Failed to create external document service facade from class name, '{}'.",
                       serviceFacadeClassName, e);
@@ -222,8 +221,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         final String defaultCaption = new StringResourceModel("exdocfield.caption", this, null)
                 .setDefaultValue(PluginConstants.DEFAULT_FIELD_CAPTION).getString();
         String caption = getPluginConfig().getString("caption", defaultCaption);
-        String captionKey = caption;
-        return new StringResourceModel(captionKey, this, null).setDefaultValue(caption);
+        return new StringResourceModel(caption, this, null).setDefaultValue(caption);
     }
 
     private RefreshingView<? extends Serializable> createRefreshingView(final ExternalDocumentCollection<Serializable> docCollection) {
@@ -232,8 +230,8 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
             private static final long serialVersionUID = 1L;
 
-            private IDataProvider<Serializable> dataProvider =
-                new SimpleExternalDocumentCollectionDataProvider(docCollection);
+            private final IDataProvider<Serializable> dataProvider =
+                new SimpleExternalDocumentCollectionDataProvider<>(docCollection);
 
             @Override
             protected Iterator getItemModels() {
@@ -278,7 +276,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                 item.add(label);
 
                 if (item.getIndex() == docCollection.getSize() - 1) {
-                    item.add(new AttributeAppender("class", new Model("last"), " "));
+                    item.add(new AttributeAppender("class", new Model<>("last"), " "));
                 }
 
                 addControlsToListItem(docCollection, item);
@@ -316,7 +314,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
                         final Change<? extends Serializable> change = changes[changeSetIndex++];
 
-                        return new Model<Change<? extends Serializable>>(change);
+                        return new Model<>(change);
                     }
 
                     public void remove() {
@@ -348,9 +346,9 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                 }
 
                 if (change.getType() == ChangeType.ADDED) {
-                    label.add(new AttributeAppender("class", new Model("hippo-diff-added"), " "));
+                    label.add(new AttributeAppender("class", new Model<>("hippo-diff-added"), " "));
                 } else if (change.getType() == ChangeType.REMOVED) {
-                    label.add(new AttributeAppender("class", new Model("hippo-diff-removed"), " "));
+                    label.add(new AttributeAppender("class", new Model<>("hippo-diff-removed"), " "));
                 }
 
                 item.add(label);
@@ -449,7 +447,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         final WebMarkupContainer controls = new WebMarkupContainer("controls");
         controls.setVisible(isEditMode);
 
-        final MarkupContainer upLink = new AjaxLink("up") {
+        final MarkupContainer upLink = new AjaxLink<Void>("up") {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 boolean removed = docCollection.remove(doc);
@@ -466,7 +464,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         upLink.add(upIcon);
         controls.add(upLink);
 
-        final MarkupContainer downLink = new AjaxLink("down") {
+        final MarkupContainer downLink = new AjaxLink<Void>("down") {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 boolean removed = docCollection.remove(doc);
@@ -483,7 +481,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         downLink.add(downIcon);
         controls.add(downLink);
 
-        final MarkupContainer removeLink = new AjaxLink("remove") {
+        final MarkupContainer removeLink = new AjaxLink<Void>("remove") {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 boolean removed = docCollection.remove(doc);
