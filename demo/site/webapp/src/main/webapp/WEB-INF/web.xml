@@ -231,7 +231,7 @@
   </login-config>
 
   <security-role>
-    <description>Default role of BloomReach Repository</description>
+    <description>Default role of Bloomreach Repository</description>
     <role-name>everybody</role-name>
   </security-role>
 
@@ -272,4 +272,3 @@
   </env-entry>
 
 </web-app>
-

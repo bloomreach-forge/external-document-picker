@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.onehippo.forge.exdocpickerbase</groupId>
     <artifactId>exdocpickerbase-demo</artifactId>
-    <version>8.0.1-SNAPSHOT</version>
+    <version>9.0.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>exdocpickerbase-demo-cms</artifactId>
@@ -23,16 +23,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.taglibs</groupId>
-      <artifactId>taglibs-standard-impl</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>javax.servlet.jsp-api</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
@@ -41,7 +31,6 @@
 
   <build>
     <finalName>cms</finalName>
-
     <plugins>
       <plugin>
         <groupId>org.apache.openjpa</groupId>
@@ -70,7 +59,6 @@
           </dependency>
         </dependencies>
       </plugin>
-
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <configuration>
@@ -83,10 +71,9 @@
           </archive>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.codehaus.cargo</groupId>
-        <artifactId>cargo-maven2-plugin</artifactId>
+        <artifactId>cargo-maven3-plugin</artifactId>
         <configuration>
           <configuration>
             <type>runtime</type>
@@ -96,7 +83,6 @@
           </container>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.onehippo.cms.l10n</groupId>
         <artifactId>hippo-cms-l10n-maven-plugin</artifactId>

@@ -1,5 +1,5 @@
 /**
- * Copyright 2014-2022 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
+ * Copyright 2014-2024 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,6 @@ import org.apache.wicket.extensions.markup.html.repeater.tree.theme.WindowsTheme
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.OddEvenItem;
 import org.apache.wicket.model.IModel;
@@ -149,6 +148,7 @@ public class ExternalTreeItemFieldBrowserDialog extends AbstractExternalDocument
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     protected void initializeDataListView() {
         treeExpansionSet = new TreeItemExpansionSet();

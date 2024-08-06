@@ -1,5 +1,5 @@
 /**
- * Copyright 2014-2022 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
+ * Copyright 2014-2024 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,6 +57,7 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
     private ExternalDocumentCollection<Serializable> curDocCollection;
     private ExternalDocumentServiceContext extDocServiceContext;
 
+    @SuppressWarnings("unchecked")
     public ExternalDocumentFolderActionWorkflowMenuItemPlugin(IPluginContext context, IPluginConfig config) {
         super(context, config);
 
@@ -151,6 +152,7 @@ public class ExternalDocumentFolderActionWorkflowMenuItemPlugin extends RenderPl
      * and instantiated an object by the FQCN configuration parameter.
      * @return a new {@link ExternalDocumentServiceFacade} instance
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     protected ExternalDocumentServiceFacade<? extends Serializable> createExternalDocumentService() {
         ExternalDocumentServiceFacade<? extends Serializable> service = null;
         String serviceFacadeClassName = null;

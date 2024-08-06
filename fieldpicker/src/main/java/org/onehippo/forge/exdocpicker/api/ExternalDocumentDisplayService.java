@@ -1,12 +1,12 @@
 /**
- * Copyright 2014-2022 Bloomreach B.V. (<a href="https://www.bloomreach.com">https://www.bloomreach.com</a>)
- * 
+ * Copyright 2014-2024 Bloomreach B.V. (<a href="https://www.bloomreach.com">https://www.bloomreach.com</a>)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *         <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ import java.util.Locale;
 
 /**
  * The implementation of this interface is responsible for reading title, description and icon link from the domain specific external document object.
- * 
+ *
  * @param <T> Domain specific external document POJO type which must be serializable.
  */
 public interface ExternalDocumentDisplayService<T extends Serializable> {
@@ -37,7 +37,7 @@ public interface ExternalDocumentDisplayService<T extends Serializable> {
 
     /**
      * Reads the title from the domain specific external document object by the <code>preferredLocale</code>.
-     * 
+     *
      * @param context ExternalDocumentServiceContext instance
      * @param doc document
      * @param preferredLocale preferrered locale
@@ -47,7 +47,7 @@ public interface ExternalDocumentDisplayService<T extends Serializable> {
 
     /**
      * Reads the description from the domain specific external document object by the <code>preferredLocale</code>.
-     * 
+     *
      * @param context ExternalDocumentServiceContext instance
      * @param doc document
      * @param preferredLocale preferred locale
@@ -57,7 +57,7 @@ public interface ExternalDocumentDisplayService<T extends Serializable> {
 
     /**
      * Reads the icon link URL from the domain specific external document object by the <code>preferredLocale</code>.
-     * 
+     *
      * @param context ExternalDocumentServiceContext instance
      * @param doc document
      * @param preferredLocale preferred locale

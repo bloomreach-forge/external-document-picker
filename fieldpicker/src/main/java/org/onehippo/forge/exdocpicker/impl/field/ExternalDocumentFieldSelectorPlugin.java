@@ -1,5 +1,5 @@
 /**
- * Copyright 2014-2022 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
+ * Copyright 2014-2024 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,6 +68,7 @@ import org.slf4j.LoggerFactory;
 /**
  * External document(s) selector field plugin.
  */
+@SuppressWarnings({ "unused", "rawtypes" })
 public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> implements IObserver {
 
     private static final long serialVersionUID = 1L;
@@ -85,6 +86,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
      * @param context plugin context
      * @param config plugin config
      */
+    @SuppressWarnings({ "unchecked" })
     public ExternalDocumentFieldSelectorPlugin(final IPluginContext context, IPluginConfig config) {
         super(context, config);
 
@@ -195,6 +197,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
      * and instantiated an object by the FQCN configuration parameter.
      * @return a new {@link ExternalDocumentServiceFacade} instance
      */
+    @SuppressWarnings({ "unchecked" })
     protected ExternalDocumentServiceFacade<? extends Serializable> createExternalDocumentService() {
         ExternalDocumentServiceFacade<? extends Serializable> service = null;
         String serviceFacadeClassName = null;
@@ -224,14 +227,15 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
         return new StringResourceModel(caption, this, null).setDefaultValue(caption);
     }
 
+    @SuppressWarnings("unchecked")
     private RefreshingView<? extends Serializable> createRefreshingView(final ExternalDocumentCollection<Serializable> docCollection) {
-
         return new RefreshingView<Serializable>("view") {
 
             private static final long serialVersionUID = 1L;
 
             private final IDataProvider<Serializable> dataProvider =
                 new SimpleExternalDocumentCollectionDataProvider<>(docCollection);
+
 
             @Override
             protected Iterator getItemModels() {
@@ -289,6 +293,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
 
         return new RefreshingView("view") {
 
+            @SuppressWarnings("unchecked")
             @Override
             protected Iterator getItemModels() {
                 Serializable[] baseDocs = baseDocCollection.toArray(new Serializable[baseDocCollection
@@ -323,6 +328,7 @@ public class ExternalDocumentFieldSelectorPlugin extends RenderPlugin<Node> impl
                 };
             }
 
+            @SuppressWarnings("unchecked")
             @Override
             protected void populateItem(Item item) {
                 Change<? extends Serializable> change = (Change<? extends Serializable>)item.getModelObject();

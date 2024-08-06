@@ -1,5 +1,5 @@
 /**
- * Copyright 2014-2022 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
+ * Copyright 2014-2024 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import org.apache.commons.collections.iterators.AbstractIteratorDecorator;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 
 /**
- * 
+ *
  */
 public class SimpleExternalDocumentCollection<T extends Serializable> implements ExternalDocumentCollection<T> {
 
@@ -48,7 +48,7 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
     public Iterator<T> iterator(long first, final long count) {
         return new AbstractIteratorDecorator(list.listIterator((int) first)) {
             private int iterationCount;
- 
+
             @Override
             public boolean hasNext() {
                 return super.hasNext() && (iterationCount < (int) count);
@@ -116,6 +116,7 @@ public class SimpleExternalDocumentCollection<T extends Serializable> implements
         return list.toArray(a);
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public Object clone() {
         return new SimpleExternalDocumentCollection(list);
