@@ -88,7 +88,7 @@
           External Document Field Picker allows developers to define their own domain specific models to search/select
           external document(s) for a field of a CMS document.
           Developers can simply use this forge module plugin class and configurations
-          with injecting their own 
+          with injecting their own
           <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
           implementation class.
         </p>
@@ -98,7 +98,7 @@
           in the picker dialog, depending on configurations and implementations.
           If you want to show a <strong><i>Tree List View</i></strong> in the picker dialog instead of the default
           <strong><i>Flat List View</i></strong>, you need to use slightly
-          different plugin configurations and your 
+          different plugin configurations and your
           <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
           implementation class must implement the three more operations defined in
           <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentTreeService.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentTreeService</a>
@@ -144,13 +144,9 @@
         You will see two fields referring to some external documents below. ('Related Article' field and 'Related Category' field)
       </p>
       <img src="images/exdocpickerbase-openui-screenshot01.png" alt="Edit Events document" />
-      <p>
-        TODO
-      </p>
+      <p>&nbsp;</p>
       <img src="images/exdocpickerbase-openui-screenshot02.png" alt="Select an item from the flat list view" />
-      <p>
-        TODO
-      </p>
+      <p>&nbsp;</p>
       <img src="images/exdocpickerbase-openui-screenshot03.png" alt="Select an item from the tree view" />
     </section>
     <section name="Testing External Document Field Picker with Demo Application">
