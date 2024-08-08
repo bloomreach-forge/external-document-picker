@@ -22,7 +22,7 @@ import { CmsContextService } from './cms-context.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'exdocpickerbase-openui-field';
 
   constructor(

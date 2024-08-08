@@ -23,6 +23,7 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
               {
                 type : 'text',
                 id : 'searchText',
+                labelStyle : 'display: none',
               },
               {
                 type : 'button',
@@ -96,7 +97,7 @@ CKEDITOR.dialog.add('exdocBrowserDialog', function(editor) {
             type: 'select',
             id: 'target',
             label: 'Target',
-            items : [ 
+            items : [
               [ '<not set>', '' ],
               [ 'New Window (_blank)', '_blank' ],
               [ 'Topmost Window (_top)', '_top' ],

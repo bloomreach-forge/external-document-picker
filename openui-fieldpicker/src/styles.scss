@@ -1,36 +1,71 @@
-/**
+// Custom Theming for Angular Material
+@use '~@angular/material' as mat;
+// For more information: https://material.angular.io/guide/theming
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$commerce-pickers-primary: mat.define-palette(mat.$blue-palette);
+$commerce-pickers-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$commerce-pickers-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$commerce-pickers-theme: mat.define-light-theme((
+  color: (
+    primary: $commerce-pickers-primary,
+    accent: $commerce-pickers-accent,
+    warn: $commerce-pickers-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($commerce-pickers-theme);
+
+/*
  * Copyright 2020-2024 BloomReach Inc. (https://www.bloomreach.com/)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.container {
+  height: 100%;
+  width: 100%;
+}
 
 .exdocfield-browser-panel {
   margin: 0 auto;
-  padding: 0px 15px;
+  padding: 0px;
 }
 
 .exdocfield-browser-search {
-  padding-top: 10px;
-  padding-bottom: 5px;
+  height: 68px;
+  padding: 0px 16px;
+  margin-bottom: 5px;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 }
 
 .exdocfield-browser-search-input {
   width: 550px;
-  height:30px;
+  height: 36px;
+}
+
+.exdocfield-browser-search-results-count {
+  font-weight: bold;
+}
+
+.exdocfield-browser-search-toolbar-pane button:first-child {
+  margin-right: 8px;
 }
 
 .exdocfield-browser-results-summary {
@@ -47,56 +82,114 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-weight: bold;
 }
 
-.exdocfield-browser-results {
-  background-color: #f7f7f7;
-  padding: 0;
-  height: 500px;
+.exdocfield-browser-refresh-wrapper {
   overflow-x: hidden;
   overflow-y: auto;
-  margin: 10px 0;
+}
+
+.exdocfield-browser-results {
+  padding: 0;
+  height: 450px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .exdocfield-browser-result {
-  margin: 10px;
+  margin: 5px 10px;
   padding: 5px 8px;
   clear: left;
-  overflow: auto;
-  width: 768px;
-  max-height: 145px;
+  max-height: 60px;
   overflow: hidden;
+  width: 100%;
 }
 
 .exdocfield-browser-result odd {
   background: #fbffe3;
 }
 
-.exdocfield-browser-result.selected-result, .exdocfield-browser-result:hover {
-  background: #ffffcc;
-  -moz-box-shadow: 0 0 5px #888;
-  -webkit-box-shadow: 0 0 5px #888;
-  box-shadow: 0 0 5px #888;
+.exdocfield-browser-result:hover {
+  background: #f5f5f5;
 }
 
-.exdocfield-browser-result-content {
+.exdocfield-browser-result.selected {
+  background: #e7f1f9;
+}
+
+.exdocfield-field-item-image {
+  width: 60px;
+  height: 60px;
   float: left;
-  margin-left:20px;
-  width: 520px;
+  margin-right:8px;
+}
+
+.exdocfield-field-variant-image {
+  width: 60px;
+  height: 60px;
+  float: left;
+  margin-right:8px;
+  padding-left: 30px;
+}
+
+.exdocfield-field-item-image,.exdocfield-field-variant-image {
+  img {
+    width:100%!important;
+    height:100%;
+  }
+}
+
+.exdocfield-field-item-content {
+  float: left;
+  width: 200px;
+}
+
+.exdocfield-field-variant-content {
+  float: left;
+  width: 200px;
+  padding-left: 30px;
+}
+
+.exdocfield-field-item-content,.exdocfield-field-variant-content {
+  .title {
+    color: #147ac8 !important;
+    display: block;
+    margin-bottom: 2px;
+    font-size:14px;
+  }
+  .code {
+    display: block;
+    margin-bottom: 2px;
+    font-size:14px;
+  }
+  .summary {
+    display: block;
+    clear: left;
+    /*TODO Will summary have <p> or not?*/
+    color: #656565;
+    margin-bottom: 2px;
+  }
 }
 
 .exdocfield-browser-result-image {
-  width: 150px;
+  width: 60px;
+  height: 60px;
   float: left;
+  margin-right: 20px;
 }
 
-.exdocfield-browser-result-image img{
+.exdocfield-browser-result-image img {
   width:100%!important;
   height:100%;
 }
 
-.exdocfield-browser-result-content .title {
+.exdocfield-browser-result-content .title-section {
   display: block;
   margin-bottom: 2px;
   font-size:14px;
+  white-space: nowrap;
+}
+
+.exdocfield-browser-result-content .title {
+  color: #147ac8 !important;
 }
 
 .exdocfield-browser-result-content .summary {
@@ -114,11 +207,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .exdocfield-browser-result-select {
   float: left;
-  width: 45px;
+  width: 32px;
+  padding-top: 20px;
 }
 
 .exdocfield-browser-result-select input[type='checkbox'] {
   margin-top: 8px;
+}
+
+.hippo-dialog-bottom {
+  background-color: #F5F5F5;
+  border-top: 1px solid #E0E0E0;
+}
+
+.mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.4em 0px !important;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0px !important;
 }
 
 html, body { height: 100%; }

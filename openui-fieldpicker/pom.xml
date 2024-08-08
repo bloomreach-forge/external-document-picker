@@ -23,6 +23,11 @@
   <description>Hippo CMS External Document Picker Base for OpenUI Field Picker</description>
   <artifactId>exdocpickerbase-openui-field</artifactId>
 
+  <properties>
+    <nodejs.version>v16.19.0</nodejs.version>
+    <npm.version>8.19.3</npm.version>
+  </properties>
+
   <build>
     <defaultGoal>validate</defaultGoal>
     <plugins>

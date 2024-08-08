@@ -34,6 +34,8 @@ export class FieldListDialogComponent implements OnInit {
   showSearchInput = true;
   searchOnInit = false;
 
+  displayedColumns: string[] = ['id', 'image', 'title', 'description'];
+
   constructor(
     private cmsContextService: CmsContextService,
   ) { }
@@ -53,6 +55,13 @@ export class FieldListDialogComponent implements OnInit {
         await this.onSearch();
       }
     }
+
+    return this.onSearch();
+  }
+
+  onClear(): Promise<void> {
+    this.searchTerm = '';
+    return this.onSearch();
   }
 
   async onSearch(): Promise<void> {
@@ -88,7 +97,9 @@ export class FieldListDialogComponent implements OnInit {
   }
 
   isCurrentSelectedItem(item: Item) {
-    if (this.curItemId) {
+    if (this.newItemId) {
+      return this.newItemId === item.id;
+    } else if (this.curItemId) {
       return this.curItemId === item.id;
     }
     return false;

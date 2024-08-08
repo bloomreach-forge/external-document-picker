@@ -15,6 +15,7 @@
  */
 export interface Item {
   id: string;
+  path?: string;
   title: string;
   description?: string;
   thumbnail?: string;
