@@ -1,5 +1,5 @@
 /**
- * Copyright 2020-2022 BloomReach Inc. (https://www.bloomreach.com/)
+ * Copyright 2020-2024 BloomReach Inc. (https://www.bloomreach.com/)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatRadioModule } from '@angular/material/radio';
+import { MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule } from '@angular/material/radio';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -30,8 +35,9 @@ import { AppComponent } from './app.component';
 import { FieldViewComponent } from './field-view/field-view.component';
 import { FieldListDialogComponent } from './field-list-dialog/field-list-dialog.component';
 import { FieldTreeDialogComponent } from './field-tree-dialog/field-tree-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-export function HttpLoaderFactory(http: HttpClient) {
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   const [, antiCache] = /[?&]antiCache=([^&#]*)/.exec(location.href) ?? [undefined, '' + new Date().getTime()];
   return new TranslateHttpLoader(http, './i18n/', `.json?antiCache=${antiCache}`);
 }
@@ -87,6 +93,13 @@ export function appInitializerFactory(
     MatButtonModule,
     MatRadioModule,
     MatTreeModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
   ],
   providers: [
     {
@@ -99,6 +112,10 @@ export function appInitializerFactory(
       deps: [ TranslateService, Injector ],
       multi: true
     },
+    {
+      provide: MAT_RADIO_DEFAULT_OPTIONS,
+      useValue: { color: 'primary' },
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 /**
- * Copyright 2014-2022 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
+ * Copyright 2014-2024 Bloomreach B.V. (<a href="http://www.bloomreach.com">http://www.bloomreach.com</a>)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import org.apache.wicket.model.Model;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 
 /**
- * 
+ *
  */
 public class SimpleExternalDocumentCollectionDataProvider<T extends Serializable> implements IDataProvider<T> {
 

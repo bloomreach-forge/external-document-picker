@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2014-2022 Bloomreach B.V. (https://www.bloomreach.com)
+  Copyright 2014-2024 Bloomreach B.V. (https://www.bloomreach.com)
 
   Licensed under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with the
@@ -16,19 +16,19 @@
   <parent>
     <groupId>org.onehippo.cms7</groupId>
     <artifactId>hippo-cms7-project</artifactId>
-    <version>15.1.0</version>
+    <version>16.0.0</version>
   </parent>
 
   <name>Hippo CMS External Document Picker Base</name>
   <description>Hippo CMS External Document Picker Base</description>
   <groupId>org.onehippo.forge.exdocpickerbase</groupId>
   <artifactId>exdocpickerbase</artifactId>
-  <version>8.0.1-SNAPSHOT</version>
+  <version>9.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>https://github.com/bloomreach-forge/external-document-picker/</url>
 
   <properties>
-    <project.build.javaVersion>11</project.build.javaVersion>
+    <project.build.javaVersion>17</project.build.javaVersion>
 
     <extension.wagon-svn.version>1.9</extension.wagon-svn.version>
 
@@ -78,9 +78,9 @@
 
   <distributionManagement>
     <repository>
-      <name>Hippo Maven 2 Forge Repository</name>
-      <id>hippo-maven2-forge</id>
-      <url>https://maven.onehippo.com/content/repositories/forge-releases/</url>
+      <name>Bloomreach Maven 2 Forge Repository</name>
+      <id>bloomreach-maven2-forge</id>
+      <url>https://maven.bloomreach.com/content/repositories/forge-releases/</url>
       <uniqueVersion>false</uniqueVersion>
     </repository>
   </distributionManagement>
@@ -91,14 +91,14 @@
 
   <repositories>
     <repository>
-      <id>hippo</id>
-      <name>Hippo maven 2 repository.</name>
-      <url>https://maven.onehippo.com/maven2/</url>
+      <id>bloomreach-maven2</id>
+      <name>Bloomreach Maven 2</name>
+      <url>https://maven.bloomreach.com/maven2/</url>
     </repository>
     <repository>
-      <id>hippo-maven2-forge</id>
-      <name>Hippo Maven 2 Forge repository</name>
-      <url>https://maven.onehippo.com/maven2-forge/</url>
+      <id>bloomreach-maven2-forge</id>
+      <name>Bloomreach Maven 2 Forge</name>
+      <url>https://maven.bloomreach.com/maven2-forge/</url>
       <snapshots />
     </repository>
   </repositories>
@@ -157,9 +157,9 @@
       </dependency>
 
       <dependency>
-        <groupId>commons-collections</groupId>
-        <artifactId>commons-collections</artifactId>
-        <version>${commons-collections.version}</version>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>${commons-collections4.version}</version>
         <scope>provided</scope>
       </dependency>
 
@@ -228,7 +228,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>${maven.plugin.project-info-reports.version}</version>
+        <version>${maven.plugin.project-info.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -339,20 +339,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
         <version>${maven.plugin.release.version}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>${maven.plugin.source.version}</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
 

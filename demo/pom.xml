@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.onehippo.cms7</groupId>
     <artifactId>hippo-cms7-release</artifactId>
-    <version>15.1.0</version>
+    <version>16.0.0</version>
     <relativePath></relativePath>
   </parent>
 
@@ -13,14 +13,14 @@
   <description>Hippo CMS External Document Picker Base Demo</description>
   <groupId>org.onehippo.forge.exdocpickerbase</groupId>
   <artifactId>exdocpickerbase-demo</artifactId>
-  <version>8.0.1-SNAPSHOT</version>
+  <version>9.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <!-- 
+  <!--
     The below project elements are emptied/overridden as otherwise their metadata would be
     inherited or merged from the parent hippo-cms7-release pom (or its hippo-cms7-project pom).
 
-    DO NOT remove these tags but instead fill them in appropriately as needed, 
+    DO NOT remove these tags but instead fill them in appropriately as needed,
     UNLESS the inherited values are valid for your project.
   -->
   <url/>
@@ -59,36 +59,72 @@
 
     <forge.exdocpickerbase.version>${project.version}</forge.exdocpickerbase.version>
 
-    <json-lib.version>2.4</json-lib.version>
-    <openjpa.version>3.2.2</openjpa.version>
-    <hsqldb.version>2.3.2</hsqldb.version>
-
-    <essentials.version>15.1.0</essentials.version>
-    <jsp-api.version>2.3.3</jsp-api.version>
-    <taglibs.version>1.2.5</taglibs.version>
-    <lib.junit.version>4.12</lib.junit.version>
+    <essentials.version>${hippo.release.version}</essentials.version>
 
     <development-module-deploy-dir>shared/lib</development-module-deploy-dir>
 
+    <docker.postgres.bind.1>${project.basedir}/target/postgres-data:/var/lib/postgresql/data</docker.postgres.bind.1>
+
     <hippo.cms.locales>nl,de,fr,es,zh</hippo.cms.locales>
     <buildNumber>${maven.build.timestamp}</buildNumber>
+
+    <!-- Project specific versions -->
+    <hsqldb.version>2.7.3</hsqldb.version>
+    <jakarta.persistence-api.version>3.2.0</jakarta.persistence-api.version>
+    <openjpa.version>3.2.2</openjpa.version>
   </properties>
 
   <repositories>
     <repository>
-      <id>hippo</id>
-      <name>Hippo maven 2 repository.</name>
-      <url>https://maven.onehippo.com/maven2/</url>
+      <id>bloomreach-maven2</id>
+      <name>Bloomreach Maven 2</name>
+      <url>https://maven.bloomreach.com/repository/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+      </releases>
     </repository>
     <repository>
-      <id>hippo-maven2-forge</id>
-      <name>Hippo Maven 2 Forge Repository</name>
-      <url>https://maven.onehippo.com/maven2-forge/</url>
+      <id>bloomreach-maven2-forge</id>
+      <name>Bloomreach Maven 2 Forge</name>
+      <url>https://maven.bloomreach.com/maven2-forge/</url>
     </repository>
   </repositories>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>jakarta.servlet.jsp</groupId>
+        <artifactId>jakarta.servlet.jsp-api</artifactId>
+        <version>${jsp-api.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <!-- other predefined runtime scope versioned dependencies -->
+      <dependency>
+        <groupId>com.bloomreach.xm</groupId>
+        <artifactId>taglibs-standard-spec-jakarta</artifactId>
+        <version>${taglibs.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.bloomreach.xm</groupId>
+        <artifactId>taglibs-standard-impl-jakarta</artifactId>
+        <version>${taglibs.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+
+      <!-- other predefined compile scope versioned dependencies -->
+      <dependency>
+        <groupId>org.freemarker</groupId>
+        <artifactId>freemarker</artifactId>
+        <version>${freemarker.version}</version>
+      </dependency>
+
       <dependency>
         <groupId>org.onehippo.forge.exdocpickerbase</groupId>
         <artifactId>exdocpickerbase-openui-field</artifactId>
@@ -118,8 +154,8 @@
             <artifactId>commons-lang</artifactId>
           </exclusion>
           <exclusion>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -134,10 +170,16 @@
             <artifactId>commons-lang</artifactId>
           </exclusion>
           <exclusion>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>jakarta.persistence</groupId>
+        <artifactId>jakarta.persistence-api</artifactId>
+        <version>${jakarta.persistence-api.version}</version>
       </dependency>
 
       <dependency>
@@ -146,40 +188,11 @@
         <version>${hsqldb.version}</version>
       </dependency>
 
-      <dependency>
-        <groupId>javax.servlet.jsp</groupId>
-        <artifactId>javax.servlet.jsp-api</artifactId>
-        <version>${jsp-api.version}</version>
-        <scope>provided</scope>
-      </dependency>
-
-      <!-- other predefined runtime scope versioned dependencies -->
-      <dependency>
-        <groupId>org.apache.taglibs</groupId>
-        <artifactId>taglibs-standard-spec</artifactId>
-        <version>${taglibs.version}</version>
-        <scope>runtime</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.taglibs</groupId>
-        <artifactId>taglibs-standard-impl</artifactId>
-        <version>${taglibs.version}</version>
-        <scope>runtime</scope>
-      </dependency>
-
-      <!-- other predefined compile scope versioned dependencies -->
-      <dependency>
-        <groupId>org.freemarker</groupId>
-        <artifactId>freemarker</artifactId>
-        <version>${freemarker.version}</version>
-      </dependency>
-
       <!-- test dependencies -->
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>${lib.junit.version}</version>
+        <version>${junit.version}</version>
         <scope>test</scope>
       </dependency>
 
@@ -258,23 +271,128 @@
     </profile>
 
     <profile>
-      <id>cargo.run</id>
+      <id>docker.build</id>
       <dependencies>
+        <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>${project.artifactId}-cms</artifactId>
+          <version>${project.version}</version>
+          <type>war</type>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>${project.artifactId}-webapp</artifactId>
+          <version>${project.version}</version>
+          <type>war</type>
+          <scope>provided</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>docker.run</id>
+      <dependencies>
+        <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>${project.artifactId}-essentials</artifactId>
+          <version>${project.version}</version>
+          <type>war</type>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>${project.artifactId}-repository-data-development</artifactId>
+          <version>${project.version}</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>${project.artifactId}-repository-data-site-development</artifactId>
+          <version>${project.version}</version>
+          <scope>provided</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>mysql</id>
+    </profile>
+
+    <profile>
+      <id>docker.mysql</id>
+      <properties>
+        <docker.db.bind.1>${project.basedir}/target/mysql-data:/var/lib/mysql</docker.db.bind.1>
+        <docker.db.bind.2>${project.basedir}/db-bootstrap:/docker-entrypoint-initdb.d</docker.db.bind.2>
+
+        <docker.brxm.envRun.MYSQL_DB_HOST>${docker.container.db.net.myproject-network.ip}</docker.brxm.envRun.MYSQL_DB_HOST>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>postgres</id>
+    </profile>
+
+    <profile>
+      <id>docker.postgres</id>
+      <properties>
+        <docker.db.bind.1>${docker.postgres.bind.1}</docker.db.bind.1>
+        <docker.db.bind.2>${project.basedir}/db-bootstrap:/docker-entrypoint-initdb.d</docker.db.bind.2>
+
+        <docker.brxm.envRun.POSTGRES_DB_HOST>${docker.container.db.net.myproject-network.ip}</docker.brxm.envRun.POSTGRES_DB_HOST>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>docker.windows</id>
+      <properties>
+        <docker.postgres.bind.1>myproject-postgres-data:/var/lib/postgresql/data</docker.postgres.bind.1>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>cargo.run</id>
+      <properties>
+        <!-- Already defined in the cms project POM. Override here for your project, if necessary -->
+        <!-- <repo.bootstrap>true</repo.bootstrap> -->
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>jakarta.xml.bind</groupId>
+          <artifactId>jakarta.xml.bind-api</artifactId>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>jakarta.xml.ws</groupId>
+          <artifactId>jakarta.xml.ws-api</artifactId>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>jakarta.annotation</groupId>
+          <artifactId>jakarta.annotation-api</artifactId>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>jakarta.activation</groupId>
+          <artifactId>jakarta.activation-api</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.glassfish.jaxb</groupId>
+          <artifactId>jaxb-runtime</artifactId>
+          <scope>runtime</scope>
+        </dependency>
         <dependency>
           <groupId>org.hsqldb</groupId>
           <artifactId>hsqldb</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
-      <properties>
-        <!-- Already defined in the cms project POM. Override here for your project, if necessary -->
-        <!-- <repo.bootstrap>true</repo.bootstrap> -->
-      </properties>
       <build>
         <plugins>
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
-            <artifactId>cargo-maven2-plugin</artifactId>
+            <artifactId>cargo-maven3-plugin</artifactId>
             <configuration>
               <configuration>
                 <configfiles>
@@ -287,6 +405,16 @@
                     <file>${project.basedir}/conf/catalina-logging.properties</file>
                     <todir>conf/</todir>
                     <tofile>logging.properties</tofile>
+                  </configfile>
+                  <configfile>
+                    <file>${project.basedir}/conf/hst-dev.properties</file>
+                    <todir>conf/</todir>
+                    <tofile>hst.properties</tofile>
+                  </configfile>
+                  <configfile>
+                    <file>${project.basedir}/conf/platform-dev.properties</file>
+                    <todir>conf/</todir>
+                    <tofile>platform.properties</tofile>
                   </configfile>
                 </configfiles>
                 <files>
@@ -309,17 +437,17 @@
                   <properties>
                     <context>/cms</context>
                   </properties>
-                  <location>${project.basedir}/cms/target/cms.war</location>
+                  <location>${project.basedir}/cms/target/cms</location>
                 </deployable>
                 <deployable>
-                  <location>${project.basedir}/site/webapp/target/site.war</location>
+                  <location>${project.basedir}/site/webapp/target/site</location>
                   <type>war</type>
                   <properties>
                     <context>/site</context>
                   </properties>
                 </deployable>
                 <deployable>
-                  <location>${project.basedir}/essentials/target/essentials.war</location>
+                  <location>${project.basedir}/essentials/target/essentials</location>
                   <type>war</type>
                   <properties>
                     <context>/essentials</context>
@@ -348,11 +476,14 @@
     </profile>
 
     <profile>
-      <!-- additional profile to combine with cargo:run to *not* bootstrap the development module:
+      <!-- additional profile to combine with cargo:run to *not* bootstrap the development modules:
            $ mvn -P cargo.run,without-development-data -->
       <id>without-development-data</id>
       <properties>
         <development-module-deploy-dir>temp</development-module-deploy-dir>
+
+        <!-- Comment out Dockerfile instruction that copies development modules to an image -->
+        <docker.brxm.copy.dev.libs.cmd>#</docker.brxm.copy.dev.libs.cmd>
       </properties>
     </profile>
 
@@ -451,7 +582,6 @@
         </plugins>
       </build>
     </profile>
-
   </profiles>
 
 </project>

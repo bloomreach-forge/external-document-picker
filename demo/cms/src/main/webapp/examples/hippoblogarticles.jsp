@@ -1,5 +1,5 @@
 <%--
-  Copyright 2020 BloomReach, Inc. (https://www.bloomreach.com)
+  Copyright 2024 BloomReach, Inc. (https://www.bloomreach.com)
 
   Licensed under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with the
@@ -16,7 +16,8 @@ Simple JSON REST Service implementation only for demo purpose, supporting "?q=<s
 <%@ page import="java.util.*" %>
 <%@ page import="org.apache.commons.lang3.*" %>
 <%@ page import="org.apache.commons.io.*" %>
-<%@ page import="net.sf.json.*" %><%@ page import="java.nio.charset.StandardCharsets"%>
+<%@ page import="net.sf.json.*" %>
+<%@ page import="java.nio.charset.StandardCharsets"%>
 
 <%!
 private JSONObject transform(final JSONObject source) {
@@ -24,7 +25,7 @@ private JSONObject transform(final JSONObject source) {
     target.put("id", source.getString("data-custom1"));
     target.put("title", source.getString("title"));
     target.put("description", source.getString("description"));
-    target.put("thumbnail", "/cms/images/onehippo-default.png");
+    target.put("thumbnail", source.optString("icon", "/cms/images/onehippo-default.png"));
     target.put("href", source.getString("href"));
     return target;
 }

@@ -1,5 +1,5 @@
 <!--
-  Copyright 2020 BloomReach, Inc. (https://www.bloomreach.com)
+  Copyright 2020-2024 BloomReach, Inc. (https://www.bloomreach.com)
 
   Licensed under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with the
@@ -9,24 +9,43 @@
   OR CONDITIONS OF ANY KIND, either express or implied. See the License for
   the specific language governing permissions and limitations under the License.
 -->
-<div class="exdocfield-browser-panel">
+<div class="exdocfield-browser-panel container" fxLayout="column">
 
-  <div class="exdocfield-browser-results">
+  <div class="exdocfield-browser-search" fxFlex="73px" fxLayout="row" fxLayoutAlign="space-between center">
+    <!-- TODO: Add search functionality -->
+    <!-- <mat-form-field appearance="outline">
+      <input matInput
+             [(ngModel)]="searchTerm"
+             placeholder="{{ 'SEARCH' | translate }}"
+             (keyup.enter)="onSearch()">
+      <button mat-icon-button matSuffix (click)="searchTerm ? onClear() : onSearch()">
+        <mat-icon>{{ searchTerm ? 'clear' : 'search' }}</mat-icon>
+      </button>
+    </mat-form-field> -->
+    <div class="exdocfield-browser-search-toolbar-pane">
+      <button type="button" class="btn btn-default" (click)="onExpandAll()">{{ 'EXPAND_ALL' | translate }}</button>
+      <button type="button" class="btn btn-default" (click)="onCollapseAll()">{{ 'COLLAPSE_ALL' | translate }}</button>
+    </div>
+  </div>
 
+  <div class="exdocfield-browser-refresh-wrapper" fxFlex="1 1 100%">
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+      <mat-tree-node *matTreeNodeDef="let node" [class.selected]="node.selected" matTreeNodeToggle matTreeNodePadding matTreeNodePaddingIndent="30">
         <button mat-icon-button disabled></button>
         <mat-radio-button name="itemId"
           value="{{ node.id }}"
-          [checked]="node.id === curItemId"
+          [checked]="node.selected"
           [disabled]="!node.selectable"
-          (change)="onNewItemSelected(node)">
-          {{node.displayName}}
+          (change)="onNewItemSelected(node)"
+          [class.unrelated]="node.unrelated">
+          <span class="category">
+            <span class="categoryName">{{node.displayName}}</span>
+            <span class="categoryId">{{node.id}}</span>
+          </span>
         </mat-radio-button>
       </mat-tree-node>
 
-      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" [class.selected]="node.selected" matTreeNodeToggle matTreeNodePadding matTreeNodePaddingIndent="30">
         <button mat-icon-button matTreeNodeToggle>
           <mat-icon class="mat-icon-rtl-mirror">
             {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
@@ -34,20 +53,24 @@
         </button>
         <mat-radio-button name="itemId"
           value="{{ node.id }}"
-          [checked]="node.id === curItemId"
+          [checked]="node.selected"
           [disabled]="!node.selectable"
-          (change)="onNewItemSelected(node)">
-          {{node.displayName}}
+          (change)="onNewItemSelected(node)"
+          [class.unrelated]="node.unrelated">
+          <span class="category">
+            <span class="categoryName">{{node.displayName}}</span>
+            <span class="categoryId">{{node.id}}</span>
+          </span>
         </mat-radio-button>
       </mat-tree-node>
-
     </mat-tree>
-
   </div>
 
-  <div class="hippo-window-buttons">
-    <input type="button" value="{{ 'CANCEL' | translate }}" class="btn btn-default" (click)="onCancel()" />
-    <input type="button" value="{{ 'OK' | translate }}" class="btn btn-br-primary" (click)="onOK()" />
+  <div class="hippo-dialog-bottom" fxFlex="auto">
+    <div class="hippo-dialog-bottom-left"></div>
+    <div class="hippo-dialog-bottom-right hippo-window-buttons">
+      <input type="button" value="{{ 'CANCEL' | translate }}" class="btn btn-default" (click)="onCancel()" />
+      <input type="button" value="{{ 'OK' | translate }}" class="btn btn-br-primary" (click)="onOK()" />
+    </div>
   </div>
-
 </div>

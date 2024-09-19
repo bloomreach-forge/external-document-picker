@@ -1,5 +1,5 @@
 /**
- * Copyright 2020-2022 BloomReach Inc. (https://www.bloomreach.com/)
+ * Copyright 2020-2024 BloomReach Inc. (https://www.bloomreach.com/)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import { CmsContextService } from './cms-context.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'exdocpickerbase-openui-field';
 
   constructor(

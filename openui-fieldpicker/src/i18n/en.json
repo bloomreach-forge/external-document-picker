@@ -3,5 +3,10 @@
   "ITEMS_DIALOG_TITLE": "Select an item",
   "SEARCH": "Search",
   "OK": "OK",
-  "CANCEL": "Cancel"
+  "CANCEL": "Cancel",
+  "EXPAND_ALL": "Expand all",
+  "COLLAPSE_ALL": "Collapse all",
+  "THUMBNAIL": "Thumbnail",
+  "TITLE": "Title",
+  "DESCRIPTION": "Description"
 }

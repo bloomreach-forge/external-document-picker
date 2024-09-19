@@ -1,12 +1,12 @@
 /**
- * Copyright 2022 Bloomreach B.V. (https://www.bloomreach.com)
- * 
+ * Copyright 2024 Bloomreach B.V. (https://www.bloomreach.com)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *         http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,7 +49,7 @@ import org.xml.sax.InputSource;
 /**
  * Another example trivial implementation of <code>ExternalDocumentServiceFacade</code> to show how to implement
  * a service for tree list view picker dialog UI for developer's reference.
- * 
+ *
  * <P>
  * This example simply reads all the document data in an XML resource file containing multiple hierarhical subject
  * category infos from <code>classpath:org/onehippo/forge/exdocpicker/demo/field/tree/msc.xml</code>.

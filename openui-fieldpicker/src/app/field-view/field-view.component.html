@@ -27,10 +27,9 @@
   </div>
 </div>
 
-<div>
+<div *ngIf="mode === 'edit'">
   <input type="button"
-         value="{{ 'BROWSE' | translate }}"
-         class="btn btn-br-default"
-         [disabled]="mode !== 'edit'"
-         (click)="onBrowse()" />
+    value="{{ 'BROWSE' | translate }}"
+    class="btn btn-br-default"
+    (click)="onBrowse()" />
 </div>

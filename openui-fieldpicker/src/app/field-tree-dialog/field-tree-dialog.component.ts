@@ -1,5 +1,5 @@
 /**
- * Copyright 2020-2022 BloomReach Inc. (https://www.bloomreach.com/)
+ * Copyright 2020-2024 BloomReach Inc. (https://www.bloomreach.com/)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,17 @@ import { CmsContextService } from '../cms-context.service';
 import { PickerConfig } from '../picker-config';
 import { Item } from '../item';
 
+interface NodeProps {
+  parentId: string;
+  path?: string;
+  filtered?: boolean;
+  anyFiltered?: boolean;
+}
+
 class TreeNode {
   id: string;
   displayName: string;
-  props?: object;
+  props: NodeProps;
   selectable?: boolean;
   children?: TreeNode[];
 }
@@ -32,9 +39,11 @@ class TreeFlatNode {
   constructor(
     public readonly id: string,
     public readonly displayName: string,
+    public readonly props: NodeProps,
     public readonly selectable: boolean,
     public readonly level: number,
     public readonly expandable: boolean,
+    public readonly selected: boolean,
   ) {}
 }
 
@@ -50,6 +59,7 @@ export class FieldTreeDialogComponent implements OnInit {
   curParentItemId: string;
   curParentTreeFlatNode: TreeFlatNode;
   newItemId: string;
+  searchTerm = '';
 
   items: Item[];
 
@@ -64,7 +74,7 @@ export class FieldTreeDialogComponent implements OnInit {
   ) {
     this.treeFlattener = new MatTreeFlattener(
       (node: TreeNode, level: number) => {
-        const flatNode = new TreeFlatNode(node.id, node.displayName, node.selectable ?? true, level, !!node.children);
+        const flatNode = new TreeFlatNode(node.id, node.displayName, node.props, node.selectable ?? true, level, !!node.children, this.curItemId === node.id);
         if (this.curParentItemId === node.id) {
           this.curParentTreeFlatNode = flatNode;
         }
@@ -121,6 +131,8 @@ export class FieldTreeDialogComponent implements OnInit {
 
   onNewItemSelected(node: TreeFlatNode): void {
     this.newItemId = node.id;
+    this.curItemId = node.id;
+    this.refreshTree();
   }
 
   private async searchItems(): Promise<void> {
@@ -133,9 +145,46 @@ export class FieldTreeDialogComponent implements OnInit {
     }
   }
 
+  onClear(): Promise<void> {
+    this.searchTerm = '';
+    return this.onSearch();
+  }
+
+  async onSearch(): Promise<void> {
+    console.log('searchTerm', this.searchTerm);
+    this.refreshTree();
+  }
+
+  onExpandAll(): void {
+    this.treeControl.expandAll();
+  }
+
+  onCollapseAll(): void {
+    this.treeControl.collapseAll();
+  }
+
+  private refreshTree(): void {
+    this.curParentTreeFlatNode = null;
+    this.dataSource.data = this.buildTreeNodes();
+
+    const searchText = this.searchTerm.trim();
+
+    if (!searchText) {
+      this.expandInitialTree();
+    } else {
+      this.treeControl.expandAll();
+    }
+
+    if (this.curParentTreeFlatNode) {
+      this.treeControl.expand(this.curParentTreeFlatNode);
+    }
+  }
+
   private buildTreeNodes(): TreeNode[] {
     const treeNodes: TreeNode[] = [];
     const treeNodeMapById = new Map<string, TreeNode>();
+
+    const searchText = this.searchTerm.trim().toUpperCase();
 
     this.items.forEach((item) => {
       const treeNode = {
