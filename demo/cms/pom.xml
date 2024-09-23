@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.onehippo.forge.exdocpickerbase</groupId>
     <artifactId>exdocpickerbase-demo</artifactId>
-    <version>9.0.0</version>
+    <version>9.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>exdocpickerbase-demo-cms</artifactId>
