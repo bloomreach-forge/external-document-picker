@@ -34,33 +34,33 @@
         </p>
         <p>
           Each document field or folder workflow must be configured with a custom domain-specific
-          <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> implementation class name.
+          <a href="../xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> implementation class name.
         </p>
         <p>
           This plugin component instantiates your <code>ExternalSearchServiceFacade</code> class and invokes it like the following:
         </p>
         <ul>
           <li>
-            First of all, an <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance is in the same lifecycle of this plugin.
+            First of all, an <a href="../xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance is in the same lifecycle of this plugin.
             In case <strong>External Document Picker Base for Field Picker</strong> is used,
             whenever a document (of the configured namespace) is opened or edited, the plugin will be instantiated.
             In case <strong>External Picker Folder Context Menu</strong> is used,
             whenever the folder context menu is pulled down on a folder (of the configured folder workflow type),
             the plugin will be instantiated.
             And the plugin will instantiate an <code>ExternalSearchServiceFacade</code> instance.
-            When the document is closed, this plugin and the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance will be destroyed.
+            When the document is closed, this plugin and the <a href="../xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance will be destroyed.
           </li>
           <li>
-            When the plugin is instantiated, the plugin invokes the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance to retrieve
+            When the plugin is instantiated, the plugin invokes the <a href="../xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance to retrieve
             the currently-selected domain-specific external documents from the currently-viewed/edited CMS document or the selected folder node in the context.
           </li>
           <li>
             When the plugin needs to display the linked external documents (e.g, title),
-            it invokes the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> with the current document context.
-            The <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> should give a proper title or description string values for your domain-specific document object to the plugin.
+            it invokes the <a href="../xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> with the current document context.
+            The <a href="../xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> should give a proper title or description string values for your domain-specific document object to the plugin.
           </li>
           <li>
-            The <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance is invoked from the External Document Field Browser Dialog in order to
+            The <a href="../xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a> instance is invoked from the External Document Field Browser Dialog in order to
             search domain-specific external documents and display document information such as title, description and icon in the dialog.
           </li>
           <li>
@@ -84,7 +84,7 @@
         </p>
         <img src="../images/exdocpickerbase-field-sequence.png" alt="Sequence Diagram" />
         <p>
-          See <a href="../apidocs/index.html">Javadocs</a> for detail about the <a href="../apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a>.
+          See <a href="../xref/index.html">Javadocs</a> for detail about the <a href="../xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">ExternalSearchServiceFacade</a>.
         </p>
       </subsection>
     </section>

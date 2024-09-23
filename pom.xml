@@ -38,13 +38,11 @@
     <lib.easymock.version>3.4</lib.easymock.version>
 
     <!-- no version in parent  -->
-    <plugin.jxr.version>2.3</plugin.jxr.version>
+    <plugin.jxr.version>3.5.0</plugin.jxr.version>
     <plugin.pmd.version>3.1</plugin.pmd.version>
 
     <!-- parent version is lower currently, change if it gets higher   -->
     <plugin.frontend-maven-plugin.version>1.12.1</plugin.frontend-maven-plugin.version>
-
-
   </properties>
 
   <licenses>
@@ -234,6 +232,10 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
         <version>${plugin.jxr.version}</version>
+        <configuration>
+          <linkJavadoc>true</linkJavadoc>
+          <javadocDir>/xref</javadocDir>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -255,6 +257,7 @@
           <skip>false</skip>
           <aggregate>true</aggregate>
           <sourcepath>${basedir}/fieldpicker/src/main/java</sourcepath>
+          <outputDirectory>apidocs</outputDirectory>
         </configuration>
         <reportSets>
           <reportSet>

@@ -89,7 +89,7 @@
           external document(s) for a field of a CMS document.
           Developers can simply use this forge module plugin class and configurations
           with injecting their own
-          <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
+          <a href="xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
           implementation class.
         </p>
         <p>
@@ -99,9 +99,9 @@
           If you want to show a <strong><i>Tree List View</i></strong> in the picker dialog instead of the default
           <strong><i>Flat List View</i></strong>, you need to use slightly
           different plugin configurations and your
-          <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
+          <a href="xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
           implementation class must implement the three more operations defined in
-          <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentTreeService.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentTreeService</a>
+          <a href="xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentTreeService.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentTreeService</a>
           additionally, in order to provide hierarchical information resolutions on the searched external backend data.
         </p>
         <p>
@@ -190,7 +190,7 @@
         the user's selection under the selected folder instead of writing properties directly on the selected folder,
         for example.
         It is totally up to your
-        <a href="apidocs/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
+        <a href="xref/org/onehippo/forge/exdocpicker/api/ExternalDocumentServiceFacade.html" target="_blank">org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade</a>
         implementation class in the end anyway.
       </p>
     </section>
