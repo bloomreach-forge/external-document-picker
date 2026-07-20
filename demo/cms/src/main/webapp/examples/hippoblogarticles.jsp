@@ -16,7 +16,7 @@ Simple JSON REST Service implementation only for demo purpose, supporting "?q=<s
 <%@ page import="java.util.*" %>
 <%@ page import="org.apache.commons.lang3.*" %>
 <%@ page import="org.apache.commons.io.*" %>
-<%@ page import="net.sf.json.*" %>
+<%@ page import="org.json.*" %>
 <%@ page import="java.nio.charset.StandardCharsets"%>
 
 <%!
@@ -33,7 +33,7 @@ private JSONObject transform(final JSONObject source) {
 
 <%
 final String data = IOUtils.toString(application.getResource("/WEB-INF/hippoblogarticles.json"), StandardCharsets.UTF_8);
-final JSONArray jsonData = JSONArray.fromObject(data);
+final JSONArray jsonData = new JSONArray(data.toString());
 final String id = request.getParameter("id");
 final String query = request.getParameter("q");
 
@@ -56,7 +56,7 @@ if (StringUtils.isNotBlank(id)) {
         }
     }
 
-    final int size = jsonData.size();
+    final int size = jsonData.length();
     out.println("[");
 
     for (int i = 0; i < size; i++) {
