@@ -15,11 +15,12 @@ Simple JSON REST Service implementation only for demo purpose, serializing examp
 <%@ page contentType="application/json" %>
 <%@ page import="org.apache.commons.lang3.*" %>
 <%@ page import="org.apache.commons.io.*" %>
-<%@ page import="net.sf.json.*" %><%@ page import="java.nio.charset.StandardCharsets"%>
+<%@ page import="org.json.*" %>
+<%@ page import="java.nio.charset.StandardCharsets"%>
 
 <%
 final String data = IOUtils.toString(application.getResource("/WEB-INF/msc.json"), StandardCharsets.UTF_8);
-final JSONArray jsonData = JSONArray.fromObject(data);
+final JSONArray jsonData = new JSONArray(data.toString());
 final String id = request.getParameter("id");
 
 if (StringUtils.isNotBlank(id)) {
