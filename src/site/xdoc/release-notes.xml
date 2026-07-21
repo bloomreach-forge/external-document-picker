@@ -30,8 +30,12 @@
           <th>Hippo CMS Release version</th>
         </tr>
         <tr>
-          <td>9.x</td>
-          <td>16.x</td>
+          <td>9.1.x</td>
+          <td>16.7.x+</td>
+        </tr>
+        <tr>
+          <td>9.0.x</td>
+          <td>16.0.x</td>
         </tr>
         <tr>
           <td>8.x</td>
@@ -68,6 +72,18 @@
       </table>
     </section>
     <section name="Release Notes">
+      <subsection name="9.1.0">
+        <p class="smallinfo">Released: 21 July 2026</p>
+        <ul>
+          <li>FORGE-671 - Upgrade for XM 16.7+ compatibility. This includes:</li>
+          <ol>
+            <li>org.apache.commons.lang -> org.apache.commons.lang3</li>
+            <li>log4j-slf4j-impl -> log4j-slf4j2-impl</li>
+            <li>net.sf.json-lib was removed from brXM in favour of org.json (see <a href="https://xmdocumentation.bloomreach.com/library/upgrade-minor-versions/upgrade-16.1-to-16.2.html">16.2 upgrade steps</a>).
+              Updates were made to tests and the demo to use org.json since net.sf.json-lib is unmaintained. The plugin itself is unchanged.</li>
+          </ol>
+        </ul>
+      </subsection>
       <subsection name="9.0.0">
         <p class="smallinfo">Released: 22 September 2024</p>
         <ul>
