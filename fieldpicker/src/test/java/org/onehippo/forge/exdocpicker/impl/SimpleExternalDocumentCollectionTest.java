@@ -22,8 +22,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import net.sf.json.JSONObject;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,11 +30,11 @@ import org.junit.Test;
  */
 public class SimpleExternalDocumentCollectionTest {
 
-    private SimpleExternalDocumentCollection<JSONObject> docCollection;
+    private SimpleExternalDocumentCollection<DocumentObject> docCollection;
 
     @Before
     public void before() throws Exception {
-        docCollection = new SimpleExternalDocumentCollection<JSONObject>();
+        docCollection = new SimpleExternalDocumentCollection<DocumentObject>();
 
         for (int i = 1; i <= 10; i++) {
             docCollection.add(createDoc(i, "Document " + i));
@@ -65,11 +63,11 @@ public class SimpleExternalDocumentCollectionTest {
 
     @Test
     public void testIteration() throws Exception {
-        Iterator<? extends JSONObject> it = docCollection.iterator();
+        Iterator<? extends DocumentObject> it = docCollection.iterator();
 
         for (int i = 1; i <= 10; i++) {
             assertTrue(it.hasNext());
-            JSONObject item = it.next();
+            DocumentObject item = it.next();
             assertEquals(i, item.getInt("id"));
             assertEquals("Document " + i, item.getString("title"));
         }
@@ -80,25 +78,25 @@ public class SimpleExternalDocumentCollectionTest {
 
         for (int i = 6; i <= 9; i++) {
             assertTrue(it.hasNext());
-            JSONObject item = it.next();
+            DocumentObject item = it.next();
             assertEquals(i, item.getInt("id"));
             assertEquals("Document " + i, item.getString("title"));
         }
 
         assertFalse(it.hasNext());
 
-        JSONObject [] array = docCollection.toArray(new JSONObject[docCollection.getSize()]);
+        DocumentObject [] array = docCollection.toArray(new DocumentObject[docCollection.getSize()]);
         assertEquals(10, array.length);
 
         for (int i = 1; i <= 10; i++) {
-            JSONObject item = array[i - 1];
+            DocumentObject item = array[i - 1];
             assertEquals(i, item.getInt("id"));
             assertEquals("Document " + i, item.getString("title"));
         }
     }
 
-    private JSONObject createDoc(int id, String title) {
-        JSONObject doc = new JSONObject();
+    private DocumentObject createDoc(int id, String title) {
+        DocumentObject doc = new DocumentObject();
         doc.put("id", id);
         doc.put("title", title);
         return doc;

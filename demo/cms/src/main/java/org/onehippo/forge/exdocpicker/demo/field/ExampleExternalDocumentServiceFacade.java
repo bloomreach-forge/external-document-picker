@@ -27,8 +27,10 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Value;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hippoecm.repository.HippoStdNodeType;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentCollection;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceContext;
 import org.onehippo.forge.exdocpicker.api.ExternalDocumentServiceFacade;
@@ -36,15 +38,11 @@ import org.onehippo.forge.exdocpicker.impl.SimpleExternalDocumentCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
-
 /**
  * Example trivial implementation of <code>ExternalDocumentServiceFacade</code> for developer's reference.
  *
  * <P>
- * This example simply reads all the document data as <code>JSONArray</code> containing multiple <code>JSONObject</code> instances.
+ * This example simply reads all the document data as <code>JSONArray</code> containing multiple <code>DocumentObject</code> instances.
  * from <code>classpath:org/onehippo/forge/exdocpicker/demo/field/ExampleExternalDocumentServiceFacade.json</code>.
  * </p>
  * <p>
@@ -56,7 +54,7 @@ import net.sf.json.JSONSerializer;
  * to get the physical field name of the document node.
  * </p>
  */
-public class ExampleExternalDocumentServiceFacade implements ExternalDocumentServiceFacade<JSONObject> {
+public class ExampleExternalDocumentServiceFacade implements ExternalDocumentServiceFacade<DocumentObject> {
 
     /**
      * Plugin parameter name for physical document field name (JCR property name).
@@ -72,25 +70,39 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
     public ExampleExternalDocumentServiceFacade() {
         try(InputStream input = ExampleExternalDocumentServiceFacade.class
                 .getResourceAsStream(ExampleExternalDocumentServiceFacade.class.getSimpleName() + ".json");) {
-            docArray = (JSONArray) JSONSerializer.toJSON(IOUtils.toString(input, StandardCharsets.UTF_8));
+            String json = new String(input.readAllBytes(), StandardCharsets.UTF_8);
+            JSONArray parsedArray = new JSONArray(json);
+            docArray = new JSONArray();
+
+            for (int i = 0; i < parsedArray.length(); i++) {
+                JSONObject jsonObject = parsedArray.getJSONObject(i);
+
+                DocumentObject documentObject = new DocumentObject();
+                for (String key : jsonObject.keySet()) {
+                    documentObject.put(key, jsonObject.get(key));
+                }
+
+                docArray.put(documentObject);
+            }
+
         } catch (Exception e) {
             log.error("Failed to load JSON data.", e);
         }
     }
 
     @Override
-    public ExternalDocumentCollection<JSONObject> searchExternalDocuments(ExternalDocumentServiceContext context,
+    public ExternalDocumentCollection<DocumentObject> searchExternalDocuments(ExternalDocumentServiceContext context,
             String queryString) {
-        ExternalDocumentCollection<JSONObject> docCollection = new SimpleExternalDocumentCollection<>();
-        int size = docArray.size();
+        ExternalDocumentCollection<DocumentObject> docCollection = new SimpleExternalDocumentCollection<>();
+        int size = docArray.length();
 
         if (StringUtils.isBlank(queryString)) {
             for (int i = 0; i < size; i++) {
-                docCollection.add(docArray.getJSONObject(i));
+                docCollection.add((DocumentObject) docArray.get(i));
             }
         } else {
             for (int i = 0; i < size; i++) {
-                JSONObject doc = docArray.getJSONObject(i);
+                DocumentObject doc = (DocumentObject) docArray.get(i);
 
                 if (StringUtils.contains(doc.toString(), queryString)) {
                     docCollection.add(doc);
@@ -102,7 +114,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
     }
 
     @Override
-    public ExternalDocumentCollection<JSONObject> getFieldExternalDocuments(ExternalDocumentServiceContext context) {
+    public ExternalDocumentCollection<DocumentObject> getFieldExternalDocuments(ExternalDocumentServiceContext context) {
         final String fieldName = context.getPluginConfig().getString(PARAM_EXTERNAL_DOCS_FIELD_NAME);
 
         if (StringUtils.isBlank(fieldName)) {
@@ -110,7 +122,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
                     + PARAM_EXTERNAL_DOCS_FIELD_NAME + "': " + fieldName);
         }
 
-        ExternalDocumentCollection<JSONObject> docCollection = new SimpleExternalDocumentCollection<>();
+        ExternalDocumentCollection<DocumentObject> docCollection = new SimpleExternalDocumentCollection<>();
 
         try {
             final Node contextNode = context.getContextModel().getNode();
@@ -120,7 +132,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
 
                 for (Value value : values) {
                     String id = value.getString();
-                    JSONObject doc = findDocumentById(id);
+                    DocumentObject doc = findDocumentById(id);
                     docCollection.add(doc);
                 }
             }
@@ -133,7 +145,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
 
     @Override
     public void setFieldExternalDocuments(ExternalDocumentServiceContext context,
-            ExternalDocumentCollection<JSONObject> exdocs) {
+            ExternalDocumentCollection<DocumentObject> exdocs) {
         final String fieldName = context.getPluginConfig().getString(PARAM_EXTERNAL_DOCS_FIELD_NAME);
 
         if (StringUtils.isBlank(fieldName)) {
@@ -145,8 +157,8 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
             final Node contextNode = context.getContextModel().getNode();
             final List<String> docIds = new ArrayList<>();
 
-            for (Iterator<? extends JSONObject> it = exdocs.iterator(); it.hasNext();) {
-                JSONObject doc = it.next();
+            for (Iterator<? extends DocumentObject> it = exdocs.iterator(); it.hasNext();) {
+                DocumentObject doc = it.next();
                 docIds.add(doc.getString("id"));
             }
 
@@ -161,7 +173,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
     }
 
     @Override
-    public String getDocumentTitle(ExternalDocumentServiceContext context, JSONObject doc, Locale preferredLocale) {
+    public String getDocumentTitle(ExternalDocumentServiceContext context, DocumentObject doc, Locale preferredLocale) {
         if (doc != null && doc.has("title")) {
             return doc.getString("title");
         }
@@ -170,7 +182,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
     }
 
     @Override
-    public String getDocumentDescription(ExternalDocumentServiceContext context, JSONObject doc,
+    public String getDocumentDescription(ExternalDocumentServiceContext context, DocumentObject doc,
             Locale preferredLocale) {
         if (doc != null && doc.has("description")) {
             return doc.getString("description");
@@ -180,7 +192,7 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
     }
 
     @Override
-    public String getDocumentIconLink(ExternalDocumentServiceContext context, JSONObject doc, Locale preferredLocale) {
+    public String getDocumentIconLink(ExternalDocumentServiceContext context, DocumentObject doc, Locale preferredLocale) {
         if (doc != null && doc.has("icon")) {
             return doc.getString("icon");
         }
@@ -188,16 +200,16 @@ public class ExampleExternalDocumentServiceFacade implements ExternalDocumentSer
         return "";
     }
 
-    private JSONObject findDocumentById(final String id) {
-        for (int i = 0; i < docArray.size(); i++) {
-            JSONObject doc = docArray.getJSONObject(i);
+    private DocumentObject findDocumentById(final String id) {
+        for (int i = 0; i < docArray.length(); i++) {
+            DocumentObject doc = (DocumentObject) docArray.get(i);
 
             if (StringUtils.equals(id, doc.getString("id"))) {
                 return doc;
             }
         }
 
-        return new JSONObject();
+        return new DocumentObject();
     }
 
 }

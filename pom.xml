@@ -16,14 +16,14 @@
   <parent>
     <groupId>org.onehippo.cms7</groupId>
     <artifactId>hippo-cms7-project</artifactId>
-    <version>16.0.0</version>
+    <version>16.7.0</version>
   </parent>
 
   <name>Hippo CMS External Document Picker Base</name>
   <description>Hippo CMS External Document Picker Base</description>
   <groupId>org.onehippo.forge.exdocpickerbase</groupId>
   <artifactId>exdocpickerbase</artifactId>
-  <version>9.0.0</version>
+  <version>9.1.0</version>
   <packaging>pom</packaging>
   <url>https://github.com/bloomreach-forge/external-document-picker/</url>
 
@@ -33,7 +33,6 @@
     <extension.wagon-svn.version>1.9</extension.wagon-svn.version>
 
     <!-- test dependencies -->
-    <lib.json-lib.version>2.4</lib.json-lib.version>
     <lib.junit.version>4.13.1</lib.junit.version>
     <lib.easymock.version>3.4</lib.easymock.version>
 
@@ -143,14 +142,13 @@
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>${slf4j.version}</version>
+        <version>${slf4j2.version}</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>${commons-lang.version}</version>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
         <scope>provided</scope>
       </dependency>
 
@@ -162,24 +160,15 @@
       </dependency>
 
       <!-- TEST DEPENDENCIES -->
-
-      <dependency>
-        <groupId>net.sf.json-lib</groupId>
-        <artifactId>json-lib</artifactId>
-        <version>${lib.json-lib.version}</version>
-        <classifier>jdk15</classifier>
-        <scope>test</scope>
-      </dependency>
-
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>jcl-over-slf4j</artifactId>
-        <version>${slf4j.version}</version>
+        <version>${slf4j2.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-slf4j-impl</artifactId>
+        <artifactId>log4j-slf4j2-impl</artifactId>
         <version>${log4j2.version}</version>
         <scope>test</scope>
       </dependency>
