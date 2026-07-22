@@ -24,10 +24,10 @@ import java.util.Locale;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Value;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
