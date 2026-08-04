@@ -30,6 +30,10 @@
           <th>Hippo CMS Release version</th>
         </tr>
         <tr>
+          <td>10.x</td>
+          <td>17.x+</td>
+        </tr>
+        <tr>
           <td>9.1.x</td>
           <td>16.7.x+</td>
         </tr>
@@ -72,6 +76,11 @@
       </table>
     </section>
     <section name="Release Notes">
+      <subsection name="10.0.0">
+        <ul>
+          <li>FORGE-589 - Upgrade for XM 17.0.0 compatibility.</li>
+        </ul>
+      </subsection>
       <subsection name="9.1.0">
         <p class="smallinfo">Released: 21 July 2026</p>
         <ul>
