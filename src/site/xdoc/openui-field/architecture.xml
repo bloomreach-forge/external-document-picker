@@ -30,9 +30,9 @@
 
       <subsection name="Overview">
         <p>
-          In Hippo CMS authoring application, the <strong>OpenUI External Document Picker Base for Field Picker</strong>
+          In the brXM authoring application, the <strong>OpenUI External Document Picker Base for Field Picker</strong>
           plugin is installed.
-          Then you can configure field(s) in document template bootstrap files (a.k.a Hippo CMS 'namespace').
+          Then you can configure field(s) in document template bootstrap files (a.k.a brXM 'namespace').
           So, when you are editing a document in CMS authoring application,
           you will see those being displayed by this plugin.
         </p>

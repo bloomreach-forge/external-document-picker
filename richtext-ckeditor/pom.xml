@@ -16,7 +16,7 @@
   <parent>
     <groupId>org.onehippo.forge.exdocpickerbase</groupId>
     <artifactId>exdocpickerbase</artifactId>
-    <version>9.1.0</version>
+    <version>10.0.0</version>
   </parent>
 
   <name>Hippo CMS External Document Picker Base for RichText Field in CKEditor</name>

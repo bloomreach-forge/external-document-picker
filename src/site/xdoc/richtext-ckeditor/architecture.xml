@@ -25,8 +25,8 @@
     <section name="Architecture (External Link Picker Button in the RichText Editor)">
       <subsection name="Overview">
         <p>
-          In Hippo CMS UI, the <strong>External Document Picker Base for RichText Field in CKEditor</strong> plugin is installed.
-          Then you can configure a RichText (HTML) field(s) in bootstrap XML files (a.k.a Hippo CMS 'namespace').
+          In the brXM UI, the <strong>External Document Picker Base for RichText Field in CKEditor</strong> plugin is installed.
+          Then you can configure a RichText (HTML) field(s) in bootstrap XML files (a.k.a brXM 'namespace').
           So, when you are editing a document in CMS UI, you will see a button handled by this CKEditor plugin
           to select an external document in the RichText (HTML) editor field.
         </p>

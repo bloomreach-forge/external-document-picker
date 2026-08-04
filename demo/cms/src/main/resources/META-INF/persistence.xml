@@ -10,8 +10,8 @@
   OR CONDITIONS OF ANY KIND, either express or implied. See the License for
   the specific language governing permissions and limitations under the License.
 -->
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
-             version="1.0">
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             version="2.2">
 
   <persistence-unit name="newsPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
