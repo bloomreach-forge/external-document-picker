@@ -19,13 +19,13 @@
 -->
 <document>
   <properties>
-    <title>Hippo CMS External Document Picker Base</title>
+    <title>brXM External Document Picker Base</title>
   </properties>
   <body>
-    <section name="Hippo CMS External Document Picker Base">
+    <section name="brXM External Document Picker Base">
       <p>
         This project provides base external document picker Wicket plugins and OpenUI Extension based plugins
-        for Hippo CMS with simple example implementations for developer's references.
+        for brXM with simple example implementations for developer's references.
       </p>
       <p>
         This project contains various external document pickers for different use cases:

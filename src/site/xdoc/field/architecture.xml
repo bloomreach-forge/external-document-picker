@@ -25,9 +25,9 @@
     <section name="Architecture (External Document Field Picker)">
       <subsection name="Overview">
         <p>
-          In Hippo CMS authoring application, the <strong>External Document Picker Base for Field Picker</strong>
+          In the brXM authoring application, the <strong>External Document Picker Base for Field Picker</strong>
           plugin and <strong>External Picker Folder Context Menu</strong> plugins are installed.
-          Then you can configure field(s) in document template bootstrap files (a.k.a Hippo CMS 'namespace'),
+          Then you can configure field(s) in document template bootstrap files (a.k.a brXM 'namespace'),
           or you can configure folder workflow configurations for a custom folder context menu item.
           So, when you are editing a document or working on a folder in CMS authoring application,
           you will see those being displayed by this plugin.

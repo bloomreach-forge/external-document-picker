@@ -16,32 +16,28 @@
   <parent>
     <groupId>org.onehippo.cms7</groupId>
     <artifactId>hippo-cms7-project</artifactId>
-    <version>16.7.0</version>
+    <version>17.0.0</version>
   </parent>
 
   <name>Hippo CMS External Document Picker Base</name>
   <description>Hippo CMS External Document Picker Base</description>
   <groupId>org.onehippo.forge.exdocpickerbase</groupId>
   <artifactId>exdocpickerbase</artifactId>
-  <version>9.1.1-SNAPSHOT</version>
+  <version>10.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>https://github.com/bloomreach-forge/external-document-picker/</url>
 
   <properties>
-    <project.build.javaVersion>17</project.build.javaVersion>
+    <project.build.javaVersion>21</project.build.javaVersion>
 
     <extension.wagon-svn.version>1.9</extension.wagon-svn.version>
 
-    <!-- test dependencies -->
-    <lib.junit.version>4.13.1</lib.junit.version>
-    <lib.easymock.version>3.4</lib.easymock.version>
-
     <!-- no version in parent  -->
-    <plugin.jxr.version>3.5.0</plugin.jxr.version>
-    <plugin.pmd.version>3.1</plugin.pmd.version>
+    <plugin.jxr.version>3.6.0</plugin.jxr.version>
+    <plugin.pmd.version>3.28.0</plugin.pmd.version>
 
     <!-- parent version is lower currently, change if it gets higher   -->
-    <plugin.frontend-maven-plugin.version>1.12.1</plugin.frontend-maven-plugin.version>
+    <plugin.frontend-maven-plugin.version>2.0.1</plugin.frontend-maven-plugin.version>
   </properties>
 
   <licenses>
@@ -83,7 +79,7 @@
   </distributionManagement>
 
   <issueManagement>
-    <url>https://issues.onehippo.com/projects/HIPFORGE</url>
+    <url>https://bloomreach.atlassian.net/browse/FORGE</url>
   </issueManagement>
 
   <repositories>
